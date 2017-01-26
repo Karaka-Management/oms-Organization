@@ -8,37 +8,31 @@
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
- * @copyright  Dennis Eichhorn
+ * @copyright  2013 Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-namespace Modules\Organization\Admin;
+namespace Modules\Organization\Models;
 
-
-use phpOMS\DataStorage\Database\DatabasePool;
-use phpOMS\Module\DeactivateAbstract;
-use phpOMS\Module\InfoManager;
+use phpOMS\Datatypes\Enum;
 
 /**
- * Navigation class.
+ * Accept status enum.
  *
- * @category   Modules
- * @package    Modules\Admin
+ * @category   Calendar
+ * @package    Modules
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Deactivate extends DeactivateAbstract
+abstract class Status extends Enum
 {
+    /* public */ const ACTIVE = 1;
 
-    /**
-     * {@inheritdoc}
-     */
-    public static function deactivate(DatabasePool $dbPool, InfoManager $info)
-    {
-        parent::deactivate($dbPool, $info);
-    }
+    /* public */ const INACTIVE = 2;
+
+    /* public */ const HIDDEN = 4;
 }
