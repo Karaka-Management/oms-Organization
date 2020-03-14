@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-namespace Modules\tests\Organization\Models;
+namespace Modules\Organization\tests\Models;
 
 use Modules\Organization\Models\NullDepartment;
 use Modules\Organization\Models\NullPosition;
