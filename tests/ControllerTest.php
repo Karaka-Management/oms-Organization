@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace Modules\Organization\tests;
 
-require_once __DIR__ . '/../../tests/Autoloader.php';
-
 use Model\CoreSettings;
 use Modules\Admin\Models\AccountPermission;
 use Modules\Organization\Models\Status;
