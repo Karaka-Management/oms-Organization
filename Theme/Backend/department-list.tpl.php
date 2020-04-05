@@ -12,11 +12,16 @@
  */
 declare(strict_types=1);
 
+use phpOMS\Uri\UriFactory;
+
 /**
  * @var \phpOMS\Views\View                        $this
  * @var \Modules\Organization\Models\Department[] $departments
  */
-$departments = $this->getData('list:elements') ?? [];
+$departments = $this->getData('departments') ?? [];
+
+$previous = empty($departments) ? '{/prefix}organization/department/list' : '{/prefix}organization/department/list?{?}&id=' . \reset($departments)->getId() . '&ptype=-';
+$next     = empty($departments) ? '{/prefix}organization/department/list' : '{/prefix}organization/department/list?{?}&id=' . \end($departments)->getId() . '&ptype=+';
 
 echo $this->getData('nav')->render(); ?>
 
@@ -45,7 +50,10 @@ echo $this->getData('nav')->render(); ?>
                     <td colspan="4" class="empty"><?= $this->getHtml('Empty', '0', '0'); ?>
                 <?php endif; ?>
             </table>
-            <div class="portlet-foot"></div>
+            <div class="portlet-foot">
+                <a class="button" href="<?= UriFactory::build($previous); ?>"><?= $this->getHtml('Previous', '0', '0'); ?></a>
+                <a class="button" href="<?= UriFactory::build($next); ?>"><?= $this->getHtml('Next', '0', '0'); ?></a>
+            </div>
         </div>
     </div>
 </div>

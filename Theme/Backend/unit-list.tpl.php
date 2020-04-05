@@ -12,11 +12,16 @@
  */
 declare(strict_types=1);
 
+use phpOMS\Uri\UriFactory;
+
 /**
  * @var \phpOMS\Views\View                  $this
  * @var \Modules\Organization\Models\Unit[] $units
  */
-$units = $this->getData('list:elements') ?? [];
+$units = $this->getData('units') ?? [];
+
+$previous = empty($units) ? '{/prefix}organization/unit/list' : '{/prefix}organization/unit/list?{?}&id=' . \reset($units)->getId() . '&ptype=-';
+$next     = empty($units) ? '{/prefix}organization/unit/list' : '{/prefix}organization/unit/list?{?}&id=' . \end($units)->getId() . '&ptype=+';
 
 echo $this->getData('nav')->render(); ?>
 
@@ -39,7 +44,10 @@ echo $this->getData('nav')->render(); ?>
                     <td data-label="<?= $this->getHtml('Parent') ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->getParent()->getName()); ?></a>
                         <?php endforeach; ?>
             </table>
-            <div class="portlet-foot"></div>
+            <div class="portlet-foot">
+                <a class="button" href="<?= UriFactory::build($previous); ?>"><?= $this->getHtml('Previous', '0', '0'); ?></a>
+                <a class="button" href="<?= UriFactory::build($next); ?>"><?= $this->getHtml('Next', '0', '0'); ?></a>
+            </div>
         </div>
     </div>
 </div>
