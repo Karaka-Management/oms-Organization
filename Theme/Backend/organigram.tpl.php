@@ -49,51 +49,31 @@ $unitRoot = $unitTree[null][0]['children'];
                                         <div style="margin: 0 auto; background: #ff0; padding: 1rem;"><?= $depEle['obj']->getName(); ?></div>
 
                                         <!-- positions -->
+                                        <div style="margin: 0 auto; background: #fff; padding: 1rem;">
                                         <ul>
                                             <?php
                                                 $depId   = $depEle['obj']->getId();
                                                 $posRoot = !isset($posTree[$depId]) ? [] : $posTree[$depId];
 
                                                 foreach ($posRoot as $posEle) : ?>
-                                                <li><ul>
                                                 <?php while (!empty($posEle) && $posEle['obj'] !== null) {
                                                     if (isset($posTree[$depId][$posEle['obj']->getParent()->getId()])) {
                                                         // here is a bug or somewhere else... the index is not moved correctly $c is always 0
                                                         $posTree[$depId][$posEle['obj']->getParent()->getId()]['index'] = $posTree[$depId][$posEle['obj']->getParent()->getId()]['index'] + $c + 1;
                                                     }
 
-                                                    ?>
-                                                    <?php $c = 0; $toClosePos = 0; while (!empty($posEle)) {  ?>
-                                                        <li><ul>
+                                                    $c = 0; while (!empty($posEle)) {  ?>
                                                             <li><?= $posEle['obj']->getName(); ?>
-                                                            <li><ul>
                                                     <?php
-                                                        // find the closest parent who has un-rendered children
-                                                        if (empty($posEle['children'])) {
-                                                            $parentPos = $posEle['obj'];
-
-                                                            do {
-
-                                                                $parentPos   = $parentPos->getParent();
-                                                                $parentPosId = $parentPos->getId();
-                                                            } while ($parentPosId !== \array_keys($posTree[$depId])[0]
-                                                                && $parentPosId !== $depId
-                                                                && $parentPosId !== 0
-                                                                && !isset($posTree[$depId][$parentPosId]['children'][($posTree[$depId][$parentPosId]['index'] ?? 0) + $c + 1])
-                                                            );
-                                                        }
-
                                                         $posEle = [];
-                                                    } // if no more children go back to parrent?>
-                                                    <?= \str_repeat('</ul>', $toClosePos*2); ?>
-                                                <?php
+                                                    } // if no more children go back to parrent
                                                     if (isset($posTree[$depId][$parentPosId ?? 0])) {
                                                     $posEle = $posTree[$depId][$parentPosId]['children'][$posTree[$depId][$parentPosId]['index'] + $c + 1] ?? [];
                                                     }
                                                 } ?>
-                                            </ul>
                                             <?php endforeach; ?>
                                         </ul>
+                                            </div>
 
                                         <div class="row" class="childdepartment">
                                 <?php
