@@ -19,7 +19,7 @@ use Modules\Organization\Models\DepartmentMapper;
 use Modules\Organization\Models\Position;
 use Modules\Organization\Models\PositionMapper;
 use Modules\Organization\Models\UnitMapper;
-
+use phpOMS\Asset\AssetType;
 use phpOMS\Contract\RenderableInterface;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
@@ -106,6 +106,10 @@ final class BackendController extends Controller
      */
     public function viewOrganigram(RequestAbstract $request, ResponseAbstract $response, $data = null) : RenderableInterface
     {
+        $response->get('Content')
+            ->getData('head')
+            ->addAsset(AssetType::CSS, 'Modules/Organization/Theme/Backend/css/styles.css');
+
         $view = new View($this->app->l11nManager, $request, $response);
 
         $view->setTemplate('/Modules/Organization/Theme/Backend/organigram');

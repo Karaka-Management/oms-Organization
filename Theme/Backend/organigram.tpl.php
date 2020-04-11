@@ -24,16 +24,16 @@ $unitRoot = $unitTree[null][0]['children'];
 //      departments
 //          positions
 ?>
-<div class="row">
+<div class="row organigram">
     <?php foreach ($unitRoot as $unitEle) : ?>
-        <div class="row" style="margin: 0 auto;">
+        <div class="row">
         <?php while (!empty($unitEle) && $unitEle['obj'] !== null) {
             $unitTree[null][$unitEle['obj']->getParent()->getId()]['index'] = $unitTree[null][$unitEle['obj']->getParent()->getId()]['index'] + 1;
             ?>
             <?php while (!empty($unitEle)) {
                 $unitId  = $unitEle['obj']->getId(); ?>
-                <div class="col" style="margin: 0 auto; background: #00f; padding: 1rem;">
-                    <div style="margin: 0 auto; background: #f00; padding: 1rem;"><?= $unitEle['obj']->getName(); ?></div>
+                <div class="col">
+                    <div class="portlet unit"><div class="portlet-body"><?= $unitEle['obj']->getName(); ?></div></div>
 
                     <?php if (isset($depTree[$unitId]) && !empty($depTree[$unitId])) : ?>
                     <!-- departments -->
@@ -45,11 +45,12 @@ $unitRoot = $unitTree[null][0]['children'];
                                 $depTree[$unitId][$depEle['obj']->getParent()->getId()]['index'] = $depTree[$unitId][$depEle['obj']->getParent()->getId()]['index'] + 1;
                                 ?>
                                 <?php while (!empty($depEle)) { ?>
-                                    <div class="col" style="margin: 0 auto; background: #0f0; padding: 1rem;">
-                                        <div style="margin: 0 auto; background: #ff0; padding: 1rem;"><?= $depEle['obj']->getName(); ?></div>
+                                    <div class="departments">
+                                        <div class="portlet">
+                                        <div class="portlet-head"><?= $depEle['obj']->getName(); ?></div>
 
                                         <!-- positions -->
-                                        <div style="margin: 0 auto; background: #fff; padding: 1rem;">
+                                        <div class="portlet-body">
                                         <ul>
                                             <?php
                                                 $depId   = $depEle['obj']->getId();
@@ -74,8 +75,9 @@ $unitRoot = $unitTree[null][0]['children'];
                                             <?php endforeach; ?>
                                         </ul>
                                             </div>
+                                            </div>
 
-                                        <div class="row" class="childdepartment">
+                                        <div class="row">
                                 <?php
                                     // find the closest parent who has un-rendered children
                                     $toCloseDep = 0;

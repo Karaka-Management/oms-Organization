@@ -1,0 +1,15 @@
+.organigram .portlet {
+  margin: 0 auto; }
+.organigram .unit {
+  margin: 1rem auto; }
+.organigram .departments {
+  margin: .5rem;
+  box-sizing: border-box;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  flex-wrap: wrap;
+  border: 1px solid #ebedf2; }
+.organigram .position {
+  margin: 0 auto;
+  padding: 1rem; }
