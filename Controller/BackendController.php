@@ -18,6 +18,7 @@ use Modules\Organization\Models\Department;
 use Modules\Organization\Models\DepartmentMapper;
 use Modules\Organization\Models\Position;
 use Modules\Organization\Models\PositionMapper;
+use Modules\Organization\Models\Unit;
 use Modules\Organization\Models\UnitMapper;
 use phpOMS\Asset\AssetType;
 use phpOMS\Contract\RenderableInterface;
@@ -132,7 +133,7 @@ final class BackendController extends Controller
     /**
      * Create organization tree
      *
-     * @param array $components Componants to form tree for
+     * @param array<int, Unit|Department|Position> $components Componants to form tree for
      *
      * @return array
      *
@@ -149,6 +150,10 @@ final class BackendController extends Controller
                 $ref = $component->getDepartment()->getId();
             }
 
+            if (!isset($tree[$ref])) {
+                $tree[$ref] = [];
+            }
+
             if (!isset($tree[$ref][$component->getId()])) {
                 $tree[$ref][$component->getId()] = ['obj' => null, 'children' => [], 'index' => 0];
             }
@@ -163,6 +168,7 @@ final class BackendController extends Controller
                     $tree[$ref][$parent] = ['obj' => null, 'children' => [], 'index' => 0];
                 }
 
+                /** @phpstan-ignore-next-line */
                 $tree[$ref][$parent]['children'][] = &$tree[$ref][$component->getId()];
             }
         }
