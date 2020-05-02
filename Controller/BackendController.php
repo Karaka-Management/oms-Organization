@@ -57,8 +57,10 @@ final class BackendController extends Controller
 
         if ($request->getData('ptype') === '-') {
             $view->setData('units', UnitMapper::getBeforePivot((int) ($request->getData('id') ?? 0), null, 25));
-        } else {
+        } elseif ($request->getData('ptype') === '+') {
             $view->setData('units', UnitMapper::getAfterPivot((int) ($request->getData('id') ?? 0), null, 25));
+        } else {
+            $view->setData('units', UnitMapper::getAfterPivot(0, null, 25));
         }
 
         return $view;
@@ -115,14 +117,17 @@ final class BackendController extends Controller
 
         $view->setTemplate('/Modules/Organization/Theme/Backend/organigram');
 
+        /** @var Unit[] $units */
         $units    = UnitMapper::getAll();
         $unitTree = $this->createOrgTree($units);
         $view->setData('unitTree', $unitTree);
 
+        /** @var Department[] $departments */
         $departments = DepartmentMapper::getAll();
         $depTree     = $this->createOrgTree($departments);
         $view->setData('departmentTree', $depTree);
 
+        /** @var Position[] $positions */
         $positions = PositionMapper::getAll();
         $posTree   = $this->createOrgTree($positions);
         $view->setData('positionTree', $posTree);
@@ -168,6 +173,7 @@ final class BackendController extends Controller
                     $tree[$ref][$parent] = ['obj' => null, 'children' => [], 'index' => 0];
                 }
 
+                // For some stupid reason the next line is too complicated for phpstan and the error it creates is insane/wrong!
                 /** @phpstan-ignore-next-line */
                 $tree[$ref][$parent]['children'][] = &$tree[$ref][$component->getId()];
             }
@@ -228,8 +234,10 @@ final class BackendController extends Controller
 
         if ($request->getData('ptype') === '-') {
             $view->setData('departments', DepartmentMapper::getBeforePivot((int) ($request->getData('id') ?? 0), null, 25));
-        } else {
+        } elseif ($request->getData('ptype') === '+') {
             $view->setData('departments', DepartmentMapper::getAfterPivot((int) ($request->getData('id') ?? 0), null, 25));
+        } else {
+            $view->setData('departments', DepartmentMapper::getAfterPivot(0, null, 25));
         }
 
         return $view;
@@ -320,8 +328,10 @@ final class BackendController extends Controller
 
         if ($request->getData('ptype') === '-') {
             $view->setData('positions', PositionMapper::getBeforePivot((int) ($request->getData('id') ?? 0), null, 25));
-        } else {
+        } elseif ($request->getData('ptype') === '+') {
             $view->setData('positions', PositionMapper::getAfterPivot((int) ($request->getData('id') ?? 0), null, 25));
+        } else {
+            $view->setData('positions', PositionMapper::getAfterPivot(0, null, 25));
         }
 
         return $view;
