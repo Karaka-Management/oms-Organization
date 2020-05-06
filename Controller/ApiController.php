@@ -136,7 +136,7 @@ final class ApiController extends Controller
         $unit->setDescription(Markdown::parse((string) ($request->getData('description') ?? $unit->getDescriptionRaw())));
 
         $parent = (int) $request->getData('parent');
-        $unit->setParent(!empty($parent) ? $parent : $unit->getParent());
+        $unit->setParent(!empty($parent) ? new NullUnit($parent) : $unit->getParent());
         $unit->setStatus((int) ($request->getData('status') ?? $unit->getStatus()));
 
         return $unit;
@@ -329,10 +329,10 @@ final class ApiController extends Controller
         $position->setDescription(Markdown::parse((string) ($request->getData('description') ?? $position->getDescriptionRaw())));
 
         $parent = (int) $request->getData('parent');
-        $position->setParent(!empty($parent) ? $parent : $position->getParent());
+        $position->setParent(!empty($parent) ? new NullPosition($parent) : $position->getParent());
 
         $department = (int) $request->getData('department');
-        $position->setDepartment(!empty($department) ? $department : $position->getDepartment());
+        $position->setDepartment(!empty($department) ? new NullDepartment($department) : $position->getDepartment());
         $position->setStatus((int) ($request->getData('status') ?? $position->getStatus()));
 
         return $position;
@@ -485,11 +485,11 @@ final class ApiController extends Controller
         $department->setDescription(Markdown::parse((string) ($request->getData('description') ?? $department->getDescriptionRaw())));
 
         $parent = (int) $request->getData('parent');
-        $department->setParent(!empty($parent) ? $parent : $department->getParent());
+        $department->setParent(!empty($parent) ? new NullDepartment($parent) : $department->getParent());
         $department->setStatus((int) ($request->getData('status') ?? $department->getStatus()));
 
         $unit = (int) $request->getData('unit');
-        $department->setUnit(!empty($unit) ? $unit : $department->getUnit());
+        $department->setUnit(!empty($unit) ? new NullUnit($unit) : $department->getUnit());
 
         return $department;
     }
