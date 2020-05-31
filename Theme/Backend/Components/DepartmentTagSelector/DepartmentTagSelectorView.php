@@ -39,6 +39,14 @@ class DepartmentTagSelectorView extends View
     private string $id = '';
 
     /**
+     * Dom name
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    private string $name = '';
+
+    /**
      * Is required
      *
      * @var bool
@@ -71,6 +79,18 @@ class DepartmentTagSelectorView extends View
     }
 
     /**
+     * Get name
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function getName() : string
+    {
+        return $this->name;
+    }
+
+    /**
      * Is required?
      *
      * @return bool
@@ -88,7 +108,8 @@ class DepartmentTagSelectorView extends View
     public function render(...$data) : string
     {
         $this->id         = $data[0];
-        $this->isRequired = $data[1] ?? false;
+        $this->name       = $data[1];
+        $this->isRequired = $data[2] ?? false;
         $this->getData('department-selector-popup')->setId($this->id);
 
         return parent::render();

@@ -32,9 +32,9 @@ echo $this->getData('nav')->render(); ?>
                         <tr><td><label for="iName"><?= $this->getHtml('Name') ?></label>
                         <tr><td><input type="text" name="name" id="iName" value="<?= $this->printHtml($department->getName()); ?>">
                         <tr><td><label for="iParent"><?= $this->getHtml('Parent') ?></label>
-                        <tr><td><?= $this->getData('department-selector')->render('iParent', false); ?>
+                        <tr><td><?= $this->getData('department-selector')->render('iParent', 'parent', false); ?>
                         <tr><td><label for="iUnit"><?= $this->getHtml('Unit') ?></label>
-                        <tr><td><?= $this->getData('unit-selector')->render('iUnit', false); ?>
+                        <tr><td><?= $this->getData('unit-selector')->render('iUnit', 'unit', false); ?>
                         <tr><td><label for="iStatus"><?= $this->getHtml('Status') ?></label>
                         <tr><td><select name="status" id="iStatus">
                                     <option><?= $this->getHtml('Active') ?>

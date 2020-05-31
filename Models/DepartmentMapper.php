@@ -34,7 +34,7 @@ final class DepartmentMapper extends DataMapperAbstract
      */
     protected static array $columns = [
         'organization_department_id'             => ['name' => 'organization_department_id',             'type' => 'int',    'internal' => 'id'],
-        'organization_department_name'           => ['name' => 'organization_department_name',           'type' => 'string', 'internal' => 'name'],
+        'organization_department_name'           => ['name' => 'organization_department_name',           'type' => 'string', 'internal' => 'name', 'autocomplete' => true],
         'organization_department_description'    => ['name' => 'organization_department_description',    'type' => 'string', 'internal' => 'description'],
         'organization_department_descriptionraw' => ['name' => 'organization_department_descriptionraw', 'type' => 'string', 'internal' => 'descriptionRaw'],
         'organization_department_parent'         => ['name' => 'organization_department_parent',         'type' => 'int',    'internal' => 'parent'],

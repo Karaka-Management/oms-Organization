@@ -32,7 +32,7 @@ echo $this->getData('nav')->render(); ?>
                         <tr><td><img id="preview-logo" class="preview" src="#" accept="image/*" alt="<?= $this->getHtml('UnitLogo') ?>">
                         <tr><td><?= $this->getData('media-preview-upload')->render('fUnitCreate', 'logo', '/Modules/Organization'); ?>
                         <tr><td><label for="iParent"><?= $this->getHtml('Parent') ?></label>
-                        <tr><td><?= $this->getData('unit-selector')->render('iParent', false); ?>
+                        <tr><td><?= $this->getData('unit-selector')->render('iParent', 'parent', false); ?>
                         <tr><td><label for="iStatus"><?= $this->getHtml('Status') ?></label>
                         <tr><td><select name="status" id="iStatus">
                                     <option value="<?= $this->printHtml(\Modules\Organization\Models\Status::ACTIVE); ?>"><?= $this->getHtml('Active') ?>
