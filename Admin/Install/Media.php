@@ -17,17 +17,17 @@ namespace Modules\Organization\Admin\Install;
 use phpOMS\DataStorage\Database\DatabasePool;
 
 /**
- * Navigation class.
+ * Media class.
  *
  * @package Modules\Organization\Admin\Install
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class Navigation
+class Media
 {
     /**
-     * Install navigation providing
+     * Install media providing
      *
      * @param string       $path   Module path
      * @param DatabasePool $dbPool Database pool for database interaction
@@ -38,6 +38,6 @@ class Navigation
      */
     public static function install(string $path, DatabasePool $dbPool) : void
     {
-        \Modules\Navigation\Admin\Installer::installExternal($dbPool, ['path' => __DIR__ . '/Navigation.install.json']);
+        \Modules\Media\Admin\Installer::installExternal($dbPool, ['path' => __DIR__ . '/Media.install.json']);
     }
 }

@@ -18,6 +18,7 @@ return ['Organization' => [
     'Departments' => 'Departments',
     'Description' => 'Description',
     'Inactive'    => 'Inactive',
+    'Logo'        => 'Logo',
     'Name'        => 'Name',
     'Parent'      => 'Parent',
     'Position'    => 'Position',

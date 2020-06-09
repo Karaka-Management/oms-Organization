@@ -82,7 +82,7 @@ return [
             ],
         ],
     ],
-    '^.*/organization/unit.*$' => [
+    '^.*/organization/unit(\?.*|$)' => [
         [
             'dest' => '\Modules\Organization\Controller\ApiController:apiUnitCreate',
             'verb' => RouteVerb::PUT,
@@ -116,6 +116,18 @@ return [
             'permission' => [
                 'module' => ApiController::MODULE_NAME,
                 'type'  => PermissionType::CREATE,
+                'state' => PermissionState::UNIT,
+            ],
+        ],
+    ],
+
+    '^.*/organization/unit/image(\?.*|$)' => [
+        [
+            'dest' => '\Modules\Organization\Controller\ApiController:apiUnitImageSet',
+            'verb' => RouteVerb::SET,
+            'permission' => [
+                'module' => ApiController::MODULE_NAME,
+                'type'  => PermissionType::MODIFY,
                 'state' => PermissionState::UNIT,
             ],
         ],

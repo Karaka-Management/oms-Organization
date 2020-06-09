@@ -15,6 +15,14 @@
                 "default": null,
                 "null": true
             },
+            "organization_unit_image": {
+                "name": "organization_unit_image",
+                "type": "INT",
+                "default": null,
+                "null": true,
+                "foreignTable": "media",
+                "foreignKey": "media_id"
+            },
             "organization_unit_description": {
                 "name": "organization_unit_description",
                 "type": "TEXT",

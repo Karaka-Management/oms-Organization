@@ -13,6 +13,7 @@
 declare(strict_types=1);
 
 use phpOMS\Uri\UriFactory;
+use Modules\Media\Models\NullMedia;
 
 /**
  * @var \phpOMS\Views\View                  $this
@@ -33,6 +34,7 @@ echo $this->getData('nav')->render(); ?>
                 <thead>
                 <tr>
                     <td><?= $this->getHtml('ID', '0', '0'); ?><i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
+                    <td><?= $this->getHtml('Logo') ?>
                     <td class="wf-100"><?= $this->getHtml('Name') ?><i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
                     <td><?= $this->getHtml('Parent') ?><i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
                         <tbody>
@@ -40,6 +42,9 @@ echo $this->getData('nav')->render(); ?>
                         $url = \phpOMS\Uri\UriFactory::build('{/prefix}organization/unit/profile?{?}&id=' . $value->getId()); ?>
                 <tr tabindex="0" data-href="<?= $url; ?>">
                     <td data-label="<?= $this->getHtml('ID', '0', '0'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->getId()); ?></a>
+                    <td><a href="<?= $url; ?>"><img class="profile-image" src="<?= $value->getImage() instanceof NullMedia ?
+                                    UriFactory::build('Web/Backend/img/user_default_' . \mt_rand(1, 6) .'.png') :
+                                    UriFactory::build('{/prefix}' . $value->getImage()->getPath()); ?>"></a>
                     <td data-label="<?= $this->getHtml('Name') ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->getName()); ?></a>
                     <td data-label="<?= $this->getHtml('Parent') ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->getParent()->getName()); ?></a>
                         <?php endforeach; ?>

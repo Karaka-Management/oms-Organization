@@ -13,6 +13,7 @@
 declare(strict_types=1);
 
 use phpOMS\Uri\UriFactory;
+use Modules\Media\Models\NullMedia;
 
 /**
  * @var \phpOMS\Views\View                $this
@@ -22,11 +23,27 @@ $unit = $this->getData('unit');
 
 echo $this->getData('nav')->render(); ?>
 
+<form id="iUnitUploadForm" action="<?= UriFactory::build('{/api}organization/unit/image?id={?id}'); ?>" method="post"><input data-action='[{"listener": "change", "key": 1, "action": [{"key": 1, "type": "form.submit", "selector": "#iUnitUploadForm"}]}]' id="iUnitUpload" name="unitImage" type="file" accept="image/png,image/gif,image/jpeg" style="display: none;"></form>
+
 <div class="row">
     <div class="col-xs-12 col-md-6">
         <div class="portlet">
             <form id="iUnit" action="<?= UriFactory::build('{/api}organization/unit') ?>" method="post">
-                <div class="portlet-head"><?= $this->getHtml('Unit') ?></div>
+                <div class="portlet-head row middle-xs">
+                    <div class="col-xs-0">
+                        <a id="iUnitUploadButton" href="#upload" data-action='[{"listener": "click", "key": 1, "action": [{"key": 1, "type": "event.prevent"}, {"key": 2, "type": "dom.click", "selector": "#iUnitUpload"}]}]'>
+                            <img class="profile-image"
+                                alt="<?= $this->getHtml('Logo'); ?>"
+                                itemprop="logo"
+                                data-lazyload="<?=
+                                $unit->getImage() instanceof NullMedia ?
+                                    UriFactory::build('Web/Backend/img/user_default_' . \mt_rand(1, 6) .'.png') :
+                                    UriFactory::build('{/prefix}' . $unit->getImage()->getPath()); ?>"
+                            width="40x">
+                        </a>
+                    </div>
+                    <div><?= $this->getHtml('Unit') ?></div>
+                </div>
                 <div class="portlet-body">
                     <table class="layout wf-100" style="table-layout: fixed">
                         <tr><td><label for="iName"><?= $this->getHtml('Name') ?></label>

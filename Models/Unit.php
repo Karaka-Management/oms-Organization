@@ -15,6 +15,8 @@ declare(strict_types=1);
 namespace Modules\Organization\Models;
 
 use phpOMS\Contract\ArrayableInterface;
+use Modules\Media\Models\Media;
+use Modules\Media\Models\NullMedia;
 
 /**
  * Organization unit class.
@@ -41,6 +43,14 @@ class Unit implements ArrayableInterface, \JsonSerializable
      * @since 1.0.0
      */
     private string $name = '';
+
+    /**
+     * Unit image.
+     *
+     * @var Media
+     * @since 1.0.0
+     */
+    protected Media $image;
 
     /**
      * Parent
@@ -73,6 +83,16 @@ class Unit implements ArrayableInterface, \JsonSerializable
      * @since 1.0.0
      */
     protected int $status = Status::INACTIVE;
+
+    /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     */
+    public function __construct()
+    {
+        $this->image = new NullMedia();
+    }
 
     /**
      * Get id
@@ -110,6 +130,32 @@ class Unit implements ArrayableInterface, \JsonSerializable
     public function setName(string $name) : void
     {
         $this->name = $name;
+    }
+
+    /**
+     * Get unit image.
+     *
+     * @return Media
+     *
+     * @since 1.0.0
+     */
+    public function getImage() : Media
+    {
+        return $this->image ?? new NullMedia();
+    }
+
+    /**
+     * Set unit image.
+     *
+     * @param Media $image Profile image
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function setImage(Media $image) : void
+    {
+        $this->image = $image;
     }
 
     /**

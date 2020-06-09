@@ -221,6 +221,45 @@ final class ApiController extends Controller
     }
 
     /**
+     * Routing end-point for application behaviour.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiUnitImageSet(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    {
+        $uploadedFiles = $request->getFiles() ?? [];
+
+        if (empty($uploadedFiles)) {
+            return;
+        }
+
+        /** @var Unit $unit */
+        $unit = UnitMapper::get((int) ($request->getData('id') ?? 0));
+        $old  = clone $unit;
+
+        $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
+            $request->getData('name') ?? '',
+            $uploadedFiles,
+            $request->getHeader()->getAccount(),
+            __DIR__ . '/../../../Modules/Media/Files',
+            '/Modules/Organization'
+        );
+
+        $unit->setImage(\reset($uploaded));
+
+        $this->updateModel($request->getHeader()->getAccount(), $old, $unit, UnitMapper::class, 'unit', $request->getOrigin());
+        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Unit', 'Unit successfully updated', $unit);
+    }
+
+    /**
      * Validate position create request
      *
      * @param RequestAbstract $request Request
