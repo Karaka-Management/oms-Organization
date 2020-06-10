@@ -12,6 +12,7 @@
  */
 declare(strict_types=1);
 
+use Modules\Organization\Models\Status;
 use phpOMS\Uri\UriFactory;
 
 /** @var \phpOMS\Views\View $this */
@@ -33,8 +34,8 @@ echo $this->getData('nav')->render(); ?>
                         <tr><td><?= $this->getData('unit-selector')->render('iParent', 'parent', false); ?>
                         <tr><td><label for="iStatus"><?= $this->getHtml('Status') ?></label>
                         <tr><td><select name="status" id="iStatus">
-                                    <option value="<?= $this->printHtml(\Modules\Organization\Models\Status::ACTIVE); ?>"><?= $this->getHtml('Active') ?>
-                                    <option value="<?= $this->printHtml(\Modules\Organization\Models\Status::INACTIVE); ?>"><?= $this->getHtml('Inactive') ?>
+                                    <option value="<?= $this->printHtml(Status::ACTIVE); ?>"><?= $this->getHtml('Active') ?>
+                                    <option value="<?= $this->printHtml(Status::INACTIVE); ?>"><?= $this->getHtml('Inactive') ?>
                                     </select>
                         <tr><td><?= $this->getData('editor')->render('unit-editor'); ?>
                         <tr><td><?= $this->getData('editor')->getData('text')->render('unit-editor', 'description', 'fUnitCreate'); ?>
