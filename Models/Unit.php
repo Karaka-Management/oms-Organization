@@ -14,9 +14,9 @@ declare(strict_types=1);
 
 namespace Modules\Organization\Models;
 
-use phpOMS\Contract\ArrayableInterface;
 use Modules\Media\Models\Media;
 use Modules\Media\Models\NullMedia;
+use phpOMS\Contract\ArrayableInterface;
 
 /**
  * Organization unit class.

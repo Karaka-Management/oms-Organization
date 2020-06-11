@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace Modules\Organization\Models;
 
-use phpOMS\DataStorage\Database\DataMapperAbstract;
 use Modules\Media\Models\MediaMapper;
+use phpOMS\DataStorage\Database\DataMapperAbstract;
 
 /**
  * Organization unit mapper class.
