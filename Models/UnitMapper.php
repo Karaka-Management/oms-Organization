@@ -36,7 +36,7 @@ final class UnitMapper extends DataMapperAbstract
     protected static array $columns = [
         'organization_unit_id'             => ['name' => 'organization_unit_id',             'type' => 'int',    'internal' => 'id'],
         'organization_unit_name'           => ['name' => 'organization_unit_name',           'type' => 'string', 'internal' => 'name', 'autocomplete' => true],
-        'organization_unit_image'          => ['name' => 'organization_unit_image',          'type' => 'string', 'internal' => 'image'],
+        'organization_unit_image'          => ['name' => 'organization_unit_image',          'type' => 'int',    'internal' => 'image'],
         'organization_unit_description'    => ['name' => 'organization_unit_description',    'type' => 'string', 'internal' => 'description'],
         'organization_unit_descriptionraw' => ['name' => 'organization_unit_descriptionraw', 'type' => 'string', 'internal' => 'descriptionRaw'],
         'organization_unit_parent'         => ['name' => 'organization_unit_parent',         'type' => 'int',    'internal' => 'parent'],
