@@ -39,7 +39,7 @@ echo $this->getData('nav')->render(); ?>
                     <td><?= $this->getHtml('Parent') ?><i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
                         <tbody>
                         <?php foreach ($units as $key => $value) :
-                        $url = \phpOMS\Uri\UriFactory::build('{/prefix}organization/unit/profile?{?}&id=' . $value->getId()); ?>
+                        $url = UriFactory::build('{/prefix}organization/unit/profile?{?}&id=' . $value->getId()); ?>
                 <tr tabindex="0" data-href="<?= $url; ?>">
                     <td data-label="<?= $this->getHtml('ID', '0', '0'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->getId()); ?></a>
                     <td><a href="<?= $url; ?>"><img class="profile-image" src="<?= $value->getImage() instanceof NullMedia ?
