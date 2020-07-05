@@ -15,7 +15,7 @@
             <div class="advancedInput wf-100" id="<?= $this->printHtml($this->getId()); ?>">
                 <input autocomplete="off" class="input" type="text" id="i<?= $this->printHtml($this->getId()); ?>" placeholder="&#xf007; Guest"
                     data-emptyAfter="true"
-                    data-autocomplete="false"
+                    data-autocomplete="off"
                     data-src="api/organization/find/department?search={#i<?= $this->printHtml($this->getId()); ?>}">
                 <div id="<?= $this->printHtml($this->getId()); ?>-dropdown" class="dropdown" data-active="true">
                     <table class="default">
