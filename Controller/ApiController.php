@@ -249,7 +249,7 @@ final class ApiController extends Controller
             $request->getData('name') ?? '',
             $uploadedFiles,
             $request->getHeader()->getAccount(),
-            __DIR__ . '/../../../Modules/Media/Files',
+            'Modules/Media/Files',
             '/Modules/Organization'
         );
 

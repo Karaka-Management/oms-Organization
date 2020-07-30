@@ -21,8 +21,8 @@ use phpOMS\Uri\UriFactory;
  */
 $units = $this->getData('units') ?? [];
 
-$previous = empty($units) ? '{/prefix}organization/unit/list' : '{/prefix}organization/unit/list?{?}&id=' . \reset($units)->getId() . '&ptype=-';
-$next     = empty($units) ? '{/prefix}organization/unit/list' : '{/prefix}organization/unit/list?{?}&id=' . \end($units)->getId() . '&ptype=+';
+$previous = empty($units) ? '{/prefix}organization/unit/list' : '{/prefix}organization/unit/list?{?}&id=' . \reset($units)->getId() . '&ptype=p';
+$next     = empty($units) ? '{/prefix}organization/unit/list' : '{/prefix}organization/unit/list?{?}&id=' . \end($units)->getId() . '&ptype=n';
 
 echo $this->getData('nav')->render(); ?>
 

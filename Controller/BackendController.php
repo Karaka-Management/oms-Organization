@@ -55,9 +55,9 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/Organization/Theme/Backend/unit-list');
         $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1004703001, $request, $response));
 
-        if ($request->getData('ptype') === '-') {
+        if ($request->getData('ptype') === 'p') {
             $view->setData('units', UnitMapper::getBeforePivot((int) ($request->getData('id') ?? 0), null, 25));
-        } elseif ($request->getData('ptype') === '+') {
+        } elseif ($request->getData('ptype') === 'n') {
             $view->setData('units', UnitMapper::getAfterPivot((int) ($request->getData('id') ?? 0), null, 25));
         } else {
             $view->setData('units', UnitMapper::getAfterPivot(0, null, 25));
@@ -232,9 +232,9 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/Organization/Theme/Backend/department-list');
         $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1004704001, $request, $response));
 
-        if ($request->getData('ptype') === '-') {
+        if ($request->getData('ptype') === 'p') {
             $view->setData('departments', DepartmentMapper::getBeforePivot((int) ($request->getData('id') ?? 0), null, 25));
-        } elseif ($request->getData('ptype') === '+') {
+        } elseif ($request->getData('ptype') === 'n') {
             $view->setData('departments', DepartmentMapper::getAfterPivot((int) ($request->getData('id') ?? 0), null, 25));
         } else {
             $view->setData('departments', DepartmentMapper::getAfterPivot(0, null, 25));
@@ -326,9 +326,9 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/Organization/Theme/Backend/position-list');
         $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1004705001, $request, $response));
 
-        if ($request->getData('ptype') === '-') {
+        if ($request->getData('ptype') === 'p') {
             $view->setData('positions', PositionMapper::getBeforePivot((int) ($request->getData('id') ?? 0), null, 25));
-        } elseif ($request->getData('ptype') === '+') {
+        } elseif ($request->getData('ptype') === 'n') {
             $view->setData('positions', PositionMapper::getAfterPivot((int) ($request->getData('id') ?? 0), null, 25));
         } else {
             $view->setData('positions', PositionMapper::getAfterPivot(0, null, 25));
