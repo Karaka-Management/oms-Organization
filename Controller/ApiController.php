@@ -370,7 +370,7 @@ final class ApiController extends Controller
         $parent = (int) $request->getData('parent');
         $position->setParent(!empty($parent) ? new NullPosition($parent) : $position->getParent());
 
-        $department = (int) $request->getData('department', $request->getOrigin());
+        $department = (int) $request->getData('department');
         $position->setDepartment(!empty($department) ? new NullDepartment($department) : $position->getDepartment());
         $position->setStatus((int) ($request->getData('status') ?? $position->getStatus()));
 
@@ -431,7 +431,7 @@ final class ApiController extends Controller
         $parent = (int) $request->getData('parent');
         $position->setParent(!empty($parent) ? new NullPosition($parent) : null);
 
-        $department = (int) $request->getData('department', $request->getOrigin());
+        $department = (int) $request->getData('department');
         $position->setDepartment(!empty($department) ? new NullDepartment($department) : null);
 
         return $position;
@@ -527,7 +527,7 @@ final class ApiController extends Controller
         $department->setParent(!empty($parent) ? new NullDepartment($parent) : $department->getParent());
         $department->setStatus((int) ($request->getData('status') ?? $department->getStatus()));
 
-        $unit = (int) $request->getData('unit', $request->getOrigin());
+        $unit = (int) $request->getData('unit');
         $department->setUnit(!empty($unit) ? new NullUnit($unit) : $department->getUnit());
 
         return $department;
