@@ -42,9 +42,6 @@ use phpOMS\Utils\Parser\Markdown\Markdown;
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
- *
- * @todo Orange-Management/oms-Organization
- *  [Unit] Add unit image
  */
 final class ApiController extends Controller
 {
