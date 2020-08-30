@@ -27,6 +27,8 @@ use phpOMS\Stdlib\Base\Enum;
 abstract class SettingsEnum extends Enum
 {
     public const GROUP_GENERATE_AUTOMATICALLY_UNIT       = '1004700001';
+
     public const GROUP_GENERATE_AUTOMATICALLY_DEPARTMENT = '1004700002';
+
     public const GROUP_GENERATE_AUTOMATICALLY_POSITION   = '1004700003';
 }

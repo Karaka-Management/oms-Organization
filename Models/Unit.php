@@ -26,7 +26,7 @@ use phpOMS\Contract\ArrayableInterface;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class Unit implements ArrayableInterface, \JsonSerializable
+class Unit implements \JsonSerializable, ArrayableInterface
 {
     /**
      * Article ID.

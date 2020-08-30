@@ -1,6 +1,6 @@
 <template id="org-unit-selector-tpl">
     <section id="org-unit-selector" class="box w-50" style="z-index: 9; position: absolute; margin: 0 auto; left: 50%; top: 50%; transform: translate(-50%, -50%);">
-        <header><h1><?= $this->getHtml('Unit', 'Organization') ?></h1></header>
+        <header><h1><?= $this->getHtml('Unit', 'Organization'); ?></h1></header>
 
         <div class="inner">
             <label for="iSearchOrgUnit">Search</label>
@@ -42,7 +42,7 @@
                             {"key": 1, "type": "dom.remove", "selector": "#org-unit-selector", "aniOut": "fadeOut"}
                         ]
                     }
-                ]'><?= $this->getHtml('Close', 'Admin') ?></button>
+                ]'><?= $this->getHtml('Close', 'Admin'); ?></button>
         </div>
     </section>
 </template>

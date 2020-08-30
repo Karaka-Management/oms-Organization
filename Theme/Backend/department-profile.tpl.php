@@ -25,20 +25,20 @@ echo $this->getData('nav')->render(); ?>
 <div class="row">
     <div class="col-xs-12 col-md-6">
         <div class="portlet">
-            <form id="iDepartment" action="<?= UriFactory::build('{/api}organization/department?{?}') ?>" method="POST">
-                <div class="portlet-head"><?= $this->getHtml('Department') ?></div>
+            <form id="iDepartment" action="<?= UriFactory::build('{/api}organization/department?{?}'); ?>" method="POST">
+                <div class="portlet-head"><?= $this->getHtml('Department'); ?></div>
                 <div class="portlet-body">
                     <table class="layout wf-100" style="table-layout: fixed">
-                        <tr><td><label for="iName"><?= $this->getHtml('Name') ?></label>
+                        <tr><td><label for="iName"><?= $this->getHtml('Name'); ?></label>
                         <tr><td><input type="text" name="name" id="iName" value="<?= $this->printHtml($department->getName()); ?>">
-                        <tr><td><label for="iParent"><?= $this->getHtml('Parent') ?></label>
+                        <tr><td><label for="iParent"><?= $this->getHtml('Parent'); ?></label>
                         <tr><td><?= $this->getData('department-selector')->render('iParent', 'parent', false); ?>
-                        <tr><td><label for="iUnit"><?= $this->getHtml('Unit') ?></label>
+                        <tr><td><label for="iUnit"><?= $this->getHtml('Unit'); ?></label>
                         <tr><td><?= $this->getData('unit-selector')->render('iUnit', 'unit', false); ?>
-                        <tr><td><label for="iStatus"><?= $this->getHtml('Status') ?></label>
+                        <tr><td><label for="iStatus"><?= $this->getHtml('Status'); ?></label>
                         <tr><td><select name="status" id="iStatus">
-                                    <option><?= $this->getHtml('Active') ?>
-                                    <option><?= $this->getHtml('Inactive') ?>
+                                    <option><?= $this->getHtml('Active'); ?>
+                                    <option><?= $this->getHtml('Inactive'); ?>
                                 </select>
                         <tr><td><?= $this->getData('editor')->render('department-editor'); ?>
                         <tr><td><?= $this->getData('editor')->getData('text')->render(

@@ -1,6 +1,6 @@
 <template id="org-position-selector-tpl">
     <section id="org-position-selector" class="box w-50" style="z-index: 9; position: absolute; margin: 0 auto; left: 50%; top: 50%; transform: translate(-50%, -50%);">
-        <header><h1><?= $this->getHtml('Position', 'Organization') ?></h1></header>
+        <header><h1><?= $this->getHtml('Position', 'Organization'); ?></h1></header>
 
         <div class="inner">
             <label for="iSearchOrgPosition">Search</label>
@@ -42,7 +42,7 @@
                             {"key": 1, "type": "dom.remove", "selector": "#org-position-selector", "aniOut": "fadeOut"}
                         ]
                     }
-                ]'><?= $this->getHtml('Close', 'Admin') ?></button>
+                ]'><?= $this->getHtml('Close', 'Admin'); ?></button>
         </div>
     </section>
 </template>

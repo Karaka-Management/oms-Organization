@@ -22,20 +22,20 @@ echo $this->getData('nav')->render(); ?>
     <div class="col-xs-12 col-md-6">
         <div class="portlet">
             <form id="fUnitCreate" method="put" action="<?= UriFactory::build('{/api}organization/unit'); ?>">
-                <div class="portlet-head"><?= $this->getHtml('Unit') ?></div>
+                <div class="portlet-head"><?= $this->getHtml('Unit'); ?></div>
                 <div class="portlet-body">
                     <table class="layout wf-100" style="table-layout: fixed">
-                        <tr><td><label for="iName"><?= $this->getHtml('Name') ?></label>
+                        <tr><td><label for="iName"><?= $this->getHtml('Name'); ?></label>
                         <tr><td><input type="text" name="name" id="iName" placeholder="&#xf040; Orange Management" required>
-                        <tr><td><label for="iParent"><?= $this->getHtml('UnitLogo') ?></label>
-                        <tr><td><img id="preview-logo" class="preview" src="#" accept="image/*" alt="<?= $this->getHtml('UnitLogo') ?>">
+                        <tr><td><label for="iParent"><?= $this->getHtml('UnitLogo'); ?></label>
+                        <tr><td><img id="preview-logo" class="preview" src="#" accept="image/*" alt="<?= $this->getHtml('UnitLogo'); ?>">
                         <tr><td><?= $this->getData('media-preview-upload')->render('fUnitCreate', 'logo', '/Modules/Organization'); ?>
-                        <tr><td><label for="iParent"><?= $this->getHtml('Parent') ?></label>
+                        <tr><td><label for="iParent"><?= $this->getHtml('Parent'); ?></label>
                         <tr><td><?= $this->getData('unit-selector')->render('iParent', 'parent', false); ?>
-                        <tr><td><label for="iStatus"><?= $this->getHtml('Status') ?></label>
+                        <tr><td><label for="iStatus"><?= $this->getHtml('Status'); ?></label>
                         <tr><td><select name="status" id="iStatus">
-                                    <option value="<?= $this->printHtml(Status::ACTIVE); ?>"><?= $this->getHtml('Active') ?>
-                                    <option value="<?= $this->printHtml(Status::INACTIVE); ?>"><?= $this->getHtml('Inactive') ?>
+                                    <option value="<?= $this->printHtml(Status::ACTIVE); ?>"><?= $this->getHtml('Active'); ?>
+                                    <option value="<?= $this->printHtml(Status::INACTIVE); ?>"><?= $this->getHtml('Inactive'); ?>
                                     </select>
                         <tr><td><?= $this->getData('editor')->render('unit-editor'); ?>
                         <tr><td><?= $this->getData('editor')->getData('text')->render('unit-editor', 'description', 'fUnitCreate'); ?>
