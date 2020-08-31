@@ -39,7 +39,6 @@ class DepartmentMapperTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($department->getDescription(), $departmentR->getDescription());
         self::assertInstanceOf('Modules\Organization\Models\NullDepartment', $departmentR->getParent());
         self::assertEquals($department->getUnit()->getId(), $departmentR->getUnit()->getId());
-
     }
 
     /**

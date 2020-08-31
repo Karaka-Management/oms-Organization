@@ -23,7 +23,6 @@ use Modules\Organization\Models\Position;
 use Modules\Organization\Models\PositionMapper;
 use Modules\Organization\Models\SettingsEnum;
 use Modules\Organization\Models\Status;
-
 use Modules\Organization\Models\Unit;
 use Modules\Organization\Models\UnitMapper;
 use phpOMS\Account\GroupStatus;

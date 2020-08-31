@@ -16,7 +16,6 @@ namespace Modules\Organization\Admin;
 
 use Modules\Organization\Models\Unit;
 use Modules\Organization\Models\UnitMapper;
-
 use phpOMS\Config\SettingsInterface;
 use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\Module\InstallerAbstract;
