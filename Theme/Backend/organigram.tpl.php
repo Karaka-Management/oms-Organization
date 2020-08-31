@@ -96,7 +96,7 @@ $unitRoot = $unitTree[null][0]['children'];
 
                                     $depEle = $depEle['children'][0] ?? [];
                                 } // if no more children go back to parrent?>
-                                <?= \str_repeat('</div>', $toCloseDep*2); ?>
+                                <?= \str_repeat('</div>', $toCloseDep * 2); ?>
                             <?php
                                 $depEle = $depTree[$unitId][$parentDepId]['children'][$depTree[$unitId][$parentDepId]['index'] + 1] ?? [];
                             } ?>
@@ -124,7 +124,7 @@ $unitRoot = $unitTree[null][0]['children'];
 
                 $unitEle = $unitEle['children'][0] ?? [];
             } // if no more children go back to parrent?>
-            <?= \str_repeat('</div>', $toCloseUnit*2); ?>
+            <?= \str_repeat('</div>', $toCloseUnit * 2); ?>
         <?php
             $unitEle = $unitTree[null][$parentUnitId]['children'][$unitTree[null][$parentUnitId]['index'] + 1] ?? [];
         } ?>

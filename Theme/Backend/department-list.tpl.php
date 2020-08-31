@@ -38,7 +38,7 @@ echo $this->getData('nav')->render(); ?>
                     <td><?= $this->getHtml('Unit'); ?><i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
                         <tbody>
                         <?php $c = 0; foreach ($departments as $key => $value) : ++$c;
-                        $url = \phpOMS\Uri\UriFactory::build('{/prefix}organization/department/profile?{?}&id=' . $value->getId()); ?>
+                        $url     = \phpOMS\Uri\UriFactory::build('{/prefix}organization/department/profile?{?}&id=' . $value->getId()); ?>
                 <tr tabindex="0" data-href="<?= $url; ?>">
                     <td data-label="<?= $this->getHtml('ID', '0', '0'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->getId()); ?></a>
                     <td data-label="<?= $this->getHtml('Name'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->getName()); ?></a>

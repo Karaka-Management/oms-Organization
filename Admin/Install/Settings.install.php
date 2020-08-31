@@ -17,18 +17,18 @@ use Modules\Organization\Models\SettingsEnum;
 
 return [
     [
-        'name' => SettingsEnum::GROUP_GENERATE_AUTOMATICALLY_UNIT,
+        'name'    => SettingsEnum::GROUP_GENERATE_AUTOMATICALLY_UNIT,
         'content' => '1',
-        'module' => ApiController::MODULE_NAME,
+        'module'  => ApiController::MODULE_NAME,
     ],
     [
-        'name' => SettingsEnum::GROUP_GENERATE_AUTOMATICALLY_DEPARTMENT,
+        'name'    => SettingsEnum::GROUP_GENERATE_AUTOMATICALLY_DEPARTMENT,
         'content' => '1',
-        'module' => ApiController::MODULE_NAME,
+        'module'  => ApiController::MODULE_NAME,
     ],
     [
-        'name' => SettingsEnum::GROUP_GENERATE_AUTOMATICALLY_POSITION,
+        'name'    => SettingsEnum::GROUP_GENERATE_AUTOMATICALLY_POSITION,
         'content' => '1',
-        'module' => ApiController::MODULE_NAME,
+        'module'  => ApiController::MODULE_NAME,
     ],
 ];
