@@ -34,8 +34,8 @@ echo $this->getData('nav')->render(); ?>
                         <a id="iUnitUploadButton" href="#upload" data-action='[{"listener": "click", "key": 1, "action": [{"key": 1, "type": "event.prevent"}, {"key": 2, "type": "dom.click", "selector": "#iUnitUpload"}]}]'>
                             <img id="preview-unitImage" class="profile-image preview"
                                 alt="<?= $this->getHtml('Logo'); ?>"
-                                itemprop="logo"
-                                data-lazyload="<?=
+                                itemprop="logo" loading="lazy"
+                                src="<?=
                                 $unit->getImage() instanceof NullMedia ?
                                     UriFactory::build('Web/Backend/img/user_default_' . \mt_rand(1, 6) .'.png') :
                                     UriFactory::build('{/prefix}' . $unit->getImage()->getPath()); ?>"
