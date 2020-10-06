@@ -33,6 +33,7 @@ use phpOMS\Message\ResponseAbstract;
 use phpOMS\Model\Message\FormValidation;
 use phpOMS\System\MimeType;
 use phpOMS\Utils\Parser\Markdown\Markdown;
+use phpOMS\Message\Http\RequestStatusCode;
 
 /**
  * Organization Controller class.
@@ -176,6 +177,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateUnitCreate($request))) {
             $response->set('unit_create', new FormValidation($val));
+            $response->getHeader()->setStatusCode(RequestStatusCode::R_400);
 
             return;
         }
@@ -390,6 +392,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validatePositionCreate($request))) {
             $response->set('position_create', new FormValidation($val));
+            $response->getHeader()->setStatusCode(RequestStatusCode::R_400);
 
             return;
         }
@@ -567,6 +570,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateDepartmentCreate($request))) {
             $response->set('department_create', new FormValidation($val));
+            $response->getHeader()->setStatusCode(RequestStatusCode::R_400);
 
             return;
         }
