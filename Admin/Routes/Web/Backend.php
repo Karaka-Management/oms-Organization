@@ -41,7 +41,7 @@ return [
     ],
     '^.*/organization/unit/create.*$' => [
         [
-            'dest'       => '\Modules\Media\Controller\BackendController::setUpFileUploader',
+            'dest'       => '\Modules\Media\Controller\BackendController::setUpFileUploaderTrait',
             'verb'       => RouteVerb::GET,
             'permission' => [
                 'module' => BackendController::MODULE_NAME,

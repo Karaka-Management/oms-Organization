@@ -23,6 +23,10 @@ use Modules\Organization\Models\PositionMapper;
  */
 class PositionMapperTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers Modules\Organization\Models\PositionMapper
+     * @group module
+     */
     public function testCRUD() : void
     {
         $position = new Position();
@@ -42,6 +46,7 @@ class PositionMapperTest extends \PHPUnit\Framework\TestCase
      * @group         volume
      * @slowThreshold 15000
      * @group module
+     * @coversNothing
      */
     public function testVolume() : void
     {

@@ -24,6 +24,10 @@ use Modules\Organization\Models\NullUnit;
  */
 class DepartmentMapperTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers Modules\Organization\Models\DepartmentMapper
+     * @group module
+     */
     public function testCRUD() : void
     {
         $department = new Department();
@@ -45,6 +49,7 @@ class DepartmentMapperTest extends \PHPUnit\Framework\TestCase
      * @group         volume
      * @slowThreshold 15000
      * @group module
+     * @coversNothing
      */
     public function testVolume() : void
     {

@@ -23,6 +23,10 @@ use Modules\Organization\Models\UnitMapper;
  */
 class UnitMapperTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers Modules\Organization\Models\UnitMapper
+     * @group module
+     */
     public function testCRUD() : void
     {
         $unit = new Unit();
