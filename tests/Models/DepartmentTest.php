@@ -24,6 +24,10 @@ use Modules\Organization\Models\Status;
  */
 class DepartmentTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers Modules\Organization\Models\Department
+     * @group module
+     */
     public function testDefault() : void
     {
         $department = new Department();
@@ -36,6 +40,10 @@ class DepartmentTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(Status::INACTIVE, $department->getStatus());
     }
 
+    /**
+     * @covers Modules\Organization\Models\Department
+     * @group module
+     */
     public function testSetGet() : void
     {
         $department = new Department();

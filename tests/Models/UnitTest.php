@@ -23,6 +23,10 @@ use Modules\Organization\Models\Unit;
  */
 class UnitTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers Modules\Organization\Models\Unit
+     * @group module
+     */
     public function testDefault() : void
     {
         $unit = new Unit();
@@ -34,6 +38,10 @@ class UnitTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(Status::INACTIVE, $unit->getStatus());
     }
 
+    /**
+     * @covers Modules\Organization\Models\Unit
+     * @group module
+     */
     public function testSetGet() : void
     {
         $unit = new Unit();
