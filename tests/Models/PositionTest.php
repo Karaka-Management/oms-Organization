@@ -14,10 +14,9 @@ declare(strict_types=1);
 
 namespace Modules\Organization\tests\Models;
 
-use Modules\Organization\Models\Position;
 use Modules\Organization\Models\NullDepartment;
 use Modules\Organization\Models\NullPosition;
-use Modules\Organization\Models\NullUnit;
+use Modules\Organization\Models\Position;
 use Modules\Organization\Models\Status;
 
 /**
@@ -27,7 +26,7 @@ class PositionTest extends \PHPUnit\Framework\TestCase
 {
     private Position $position;
 
-    public function setUp() : void
+    protected function setUp() : void
     {
         $this->position = new Position();
     }

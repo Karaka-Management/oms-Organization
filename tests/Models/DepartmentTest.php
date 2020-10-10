@@ -26,7 +26,7 @@ class DepartmentTest extends \PHPUnit\Framework\TestCase
 {
     private Department $department;
 
-    public function setUp() : void
+    protected function setUp() : void
     {
         $this->department = new Department();
     }
