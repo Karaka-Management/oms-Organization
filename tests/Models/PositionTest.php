@@ -14,9 +14,10 @@ declare(strict_types=1);
 
 namespace Modules\Organization\tests\Models;
 
+use Modules\Organization\Models\Position;
 use Modules\Organization\Models\NullDepartment;
 use Modules\Organization\Models\NullPosition;
-use Modules\Organization\Models\Position;
+use Modules\Organization\Models\NullUnit;
 use Modules\Organization\Models\Status;
 
 /**
@@ -24,43 +25,113 @@ use Modules\Organization\Models\Status;
  */
 class PositionTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers Modules\Organization\Models\Position
-     * @group module
-     */
-    public function testDefault() : void
-    {
-        $position = new Position();
+    private Position $position;
 
-        self::assertEquals(0, $position->getId());
-        self::assertEquals('', $position->getName());
-        self::assertEquals('', $position->getDescription());
-        self::assertInstanceOf('Modules\Organization\Models\NullPosition', $position->getParent());
-        self::assertEquals(Status::INACTIVE, $position->getStatus());
-        self::assertInstanceOf('\Modules\Organization\Models\NullDepartment', $position->getDepartment());
+    public function setUp() : void
+    {
+        $this->position = new Position();
     }
 
     /**
      * @covers Modules\Organization\Models\Position
      * @group module
      */
-    public function testSetGet() : void
+    public function testDefault() : void
     {
-        $position = new Position();
+        self::assertEquals(0, $this->position->getId());
+        self::assertEquals('', $this->position->getName());
+        self::assertEquals('', $this->position->getDescription());
+        self::assertEquals('', $this->position->getDescriptionRaw());
+        self::assertInstanceOf(NullPosition::class, $this->position->getParent());
+        self::assertEquals(0, $this->position->getDepartment()->getId());
+        self::assertEquals(Status::INACTIVE, $this->position->getStatus());
+    }
 
-        $position->setName('Name');
-        self::assertEquals('Name', $position->getName());
+    /**
+     * @covers Modules\Organization\Models\Position
+     * @group module
+     */
+    public function testNameInputOutput() : void
+    {
+        $this->position->setName('Name');
+        self::assertEquals('Name', $this->position->getName());
+    }
 
-        $position->setStatus(Status::ACTIVE);
-        self::assertEquals(Status::ACTIVE, $position->getStatus());
+    /**
+     * @covers Modules\Organization\Models\Position
+     * @group module
+     */
+    public function testDescriptionInputOutput() : void
+    {
+        $this->position->setDescription('Description');
+        self::assertEquals('Description', $this->position->getDescription());
+    }
 
-        $position->setDepartment(new NullDepartment(2));
-        self::assertEquals(2, $position->getDepartment()->getId());
+    /**
+     * @covers Modules\Organization\Models\Position
+     * @group module
+     */
+    public function testDescriptionRawInputOutput() : void
+    {
+        $this->position->setDescriptionRaw('DescriptionRaw');
+        self::assertEquals('DescriptionRaw', $this->position->getDescriptionRaw());
+    }
 
-        $position->setDescription('Description');
-        self::assertEquals('Description', $position->getDescription());
+    /**
+     * @covers Modules\Organization\Models\Position
+     * @group module
+     */
+    public function testStatusInputOutput() : void
+    {
+        $this->position->setStatus(Status::ACTIVE);
+        self::assertEquals(Status::ACTIVE, $this->position->getStatus());
+    }
 
-        $position->setParent(new NullPosition(2));
-        self::assertEquals(2, $position->getParent()->getId());
+    /**
+     * @covers Modules\Organization\Models\Position
+     * @group module
+     */
+    public function testParentInputOutput() : void
+    {
+        $this->position->setParent(new NullPosition(1));
+        self::assertEquals(1, $this->position->getParent()->getId());
+    }
+
+    /**
+     * @covers Modules\Organization\Models\Position
+     * @group module
+     */
+    public function testDepartmentInputOutput() : void
+    {
+        $this->position->setDepartment(new NullDepartment(1));
+        self::assertEquals(1, $this->position->getDepartment()->getId());
+    }
+
+    /**
+     * @covers Modules\Organization\Models\Position
+     * @group module
+     */
+    public function testSerialize() : void
+    {
+        $this->position->setName('Name');
+        $this->position->setDescription('Description');
+        $this->position->setDescriptionRaw('DescriptionRaw');
+        $this->position->setStatus(Status::ACTIVE);
+        $this->position->setParent($p = new NullPosition(1));
+        $this->position->setDepartment($d = new NullDepartment(1));
+
+        self::assertEquals($this->position->toArray(), $this->position->jsonSerialize());
+        self::assertEquals(
+            [
+                'id'             => 0,
+                'name'           => 'Name',
+                'status'         => Status::ACTIVE,
+                'description'    => 'Description',
+                'descriptionRaw' => 'DescriptionRaw',
+                'parent'         => $p,
+                'department'     => $d,
+            ],
+            $this->position->toArray()
+        );
     }
 }

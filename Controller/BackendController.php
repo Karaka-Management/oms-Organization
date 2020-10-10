@@ -143,6 +143,7 @@ final class BackendController extends Controller
      * @return array
      *
      * @since 1.0.0
+     * @codeCoverageIgnore
      */
     private function createOrgTree(array $components) : array
     {

@@ -234,8 +234,10 @@ final class ApiController extends Controller
     public function apiUnitImageSet(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
         $uploadedFiles = $request->getFiles() ?? [];
-
         if (empty($uploadedFiles)) {
+            $this->fillJsonResponse($request, $response, NotificationLevel::ERROR, 'Unit', 'Invalid unit image', $uploadedFiles);
+            $response->getHeader()->setStatusCode(RequestStatusCode::R_400);
+
             return;
         }
 
@@ -254,7 +256,7 @@ final class ApiController extends Controller
         $unit->setImage(\reset($uploaded));
 
         $this->updateModel($request->getHeader()->getAccount(), $old, $unit, UnitMapper::class, 'unit', $request->getOrigin());
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Unit', 'Unit successfully updated', $unit);
+        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Unit', 'Unit image successfully updated', $unit);
     }
 
     /**

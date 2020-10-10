@@ -256,11 +256,13 @@ class Position implements \JsonSerializable, ArrayableInterface
     public function toArray() : array
     {
         return [
-            'id'          => $this->id,
-            'name'        => $this->name,
-            'description' => $this->description,
-            'department'  => $this->department ?? new NullDepartment(),
-            'parent'      => $this->parent,
+            'id'             => $this->id,
+            'name'           => $this->name,
+            'status'         => $this->status,
+            'description'    => $this->description,
+            'descriptionRaw' => $this->descriptionRaw,
+            'department'     => $this->department ?? new NullDepartment(),
+            'parent'         => $this->parent ?? new NullPosition(),
         ];
     }
 

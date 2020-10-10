@@ -24,43 +24,113 @@ use Modules\Organization\Models\Status;
  */
 class DepartmentTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers Modules\Organization\Models\Department
-     * @group module
-     */
-    public function testDefault() : void
-    {
-        $department = new Department();
+    private Department $department;
 
-        self::assertEquals(0, $department->getId());
-        self::assertEquals('', $department->getName());
-        self::assertEquals('', $department->getDescription());
-        self::assertInstanceOf('Modules\Organization\Models\NullDepartment', $department->getParent());
-        self::assertEquals(0, $department->getUnit()->getId());
-        self::assertEquals(Status::INACTIVE, $department->getStatus());
+    public function setUp() : void
+    {
+        $this->department = new Department();
     }
 
     /**
      * @covers Modules\Organization\Models\Department
      * @group module
      */
-    public function testSetGet() : void
+    public function testDefault() : void
     {
-        $department = new Department();
+        self::assertEquals(0, $this->department->getId());
+        self::assertEquals('', $this->department->getName());
+        self::assertEquals('', $this->department->getDescription());
+        self::assertEquals('', $this->department->getDescriptionRaw());
+        self::assertInstanceOf(NullDepartment::class, $this->department->getParent());
+        self::assertEquals(0, $this->department->getUnit()->getId());
+        self::assertEquals(Status::INACTIVE, $this->department->getStatus());
+    }
 
-        $department->setName('Name');
-        self::assertEquals('Name', $department->getName());
+    /**
+     * @covers Modules\Organization\Models\Department
+     * @group module
+     */
+    public function testNameInputOutput() : void
+    {
+        $this->department->setName('Name');
+        self::assertEquals('Name', $this->department->getName());
+    }
 
-        $department->setStatus(Status::ACTIVE);
-        self::assertEquals(Status::ACTIVE, $department->getStatus());
+    /**
+     * @covers Modules\Organization\Models\Department
+     * @group module
+     */
+    public function testDescriptionInputOutput() : void
+    {
+        $this->department->setDescription('Description');
+        self::assertEquals('Description', $this->department->getDescription());
+    }
 
-        $department->setDescription('Description');
-        self::assertEquals('Description', $department->getDescription());
+    /**
+     * @covers Modules\Organization\Models\Department
+     * @group module
+     */
+    public function testDescriptionRawInputOutput() : void
+    {
+        $this->department->setDescriptionRaw('DescriptionRaw');
+        self::assertEquals('DescriptionRaw', $this->department->getDescriptionRaw());
+    }
 
-        $department->setParent(new NullDepartment(1));
-        self::assertEquals(1, $department->getParent()->getId());
+    /**
+     * @covers Modules\Organization\Models\Department
+     * @group module
+     */
+    public function testStatusInputOutput() : void
+    {
+        $this->department->setStatus(Status::ACTIVE);
+        self::assertEquals(Status::ACTIVE, $this->department->getStatus());
+    }
 
-        $department->setUnit(new NullUnit(1));
-        self::assertEquals(1, $department->getUnit()->getId());
+    /**
+     * @covers Modules\Organization\Models\Department
+     * @group module
+     */
+    public function testParentInputOutput() : void
+    {
+        $this->department->setParent(new NullDepartment(1));
+        self::assertEquals(1, $this->department->getParent()->getId());
+    }
+
+    /**
+     * @covers Modules\Organization\Models\Department
+     * @group module
+     */
+    public function testUnitInputOutput() : void
+    {
+        $this->department->setUnit(new NullUnit(1));
+        self::assertEquals(1, $this->department->getUnit()->getId());
+    }
+
+    /**
+     * @covers Modules\Organization\Models\Department
+     * @group module
+     */
+    public function testSerialize() : void
+    {
+        $this->department->setName('Name');
+        $this->department->setDescription('Description');
+        $this->department->setDescriptionRaw('DescriptionRaw');
+        $this->department->setStatus(Status::ACTIVE);
+        $this->department->setParent($p = new NullDepartment(1));
+        $this->department->setUnit($u = new NullUnit(1));
+
+        self::assertEquals($this->department->toArray(), $this->department->jsonSerialize());
+        self::assertEquals(
+            [
+                'id'             => 0,
+                'name'           => 'Name',
+                'status'         => Status::ACTIVE,
+                'description'    => 'Description',
+                'descriptionRaw' => 'DescriptionRaw',
+                'parent'         => $p,
+                'unit'           => $u,
+            ],
+            $this->department->toArray()
+        );
     }
 }

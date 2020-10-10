@@ -268,23 +268,14 @@ class Department implements \JsonSerializable, ArrayableInterface
     public function toArray() : array
     {
         return [
-            'id'          => $this->id,
-            'name'        => $this->name,
-            'description' => $this->description,
-            'unit'        => $this->unit ?? new NullUnit(),
+            'id'             => $this->id,
+            'name'           => $this->name,
+            'status'         => $this->status,
+            'description'    => $this->description,
+            'descriptionRaw' => $this->descriptionRaw,
+            'unit'           => $this->unit ?? new NullUnit(),
+            'parent'         => $this->parent ?? new NullDepartment(),
         ];
-    }
-
-    /**
-     * Get string representation.
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function __toString()
-    {
-        return (string) \json_encode($this->toArray());
     }
 
     /**

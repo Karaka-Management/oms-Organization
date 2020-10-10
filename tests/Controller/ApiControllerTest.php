@@ -12,11 +12,12 @@
  */
 declare(strict_types=1);
 
-namespace Modules\Organization\tests;
+namespace Modules\Organization\tests\Controller;
 
 use Model\CoreSettings;
 use Modules\Admin\Models\AccountPermission;
 use Modules\Organization\Models\Status;
+use Modules\Organization\Models\UnitMapper;
 use phpOMS\Account\Account;
 use phpOMS\Account\AccountManager;
 use phpOMS\Account\PermissionType;
@@ -29,11 +30,13 @@ use phpOMS\Module\ModuleManager;
 use phpOMS\Router\WebRouter;
 use phpOMS\Uri\HttpUri;
 use phpOMS\Utils\TestUtils;
+use phpOMS\Message\Http\RequestStatusCode;
+use phpOMS\System\MimeType;
 
 /**
  * @internal
  */
-class ControllerTest extends \PHPUnit\Framework\TestCase
+class ApiControllerTest extends \PHPUnit\Framework\TestCase
 {
     protected $app    = null;
 
@@ -48,7 +51,6 @@ class ControllerTest extends \PHPUnit\Framework\TestCase
 
         $this->app->dbPool         = $GLOBALS['dbpool'];
         $this->app->orgId          = 1;
-        $this->app->appName        = 'Backend';
         $this->app->accountManager = new AccountManager($GLOBALS['session']);
         $this->app->appSettings    = new CoreSettings($this->app->dbPool->get());
         $this->app->moduleManager  = new ModuleManager($this->app, __DIR__ . '/../../../Modules');
@@ -121,6 +123,24 @@ class ControllerTest extends \PHPUnit\Framework\TestCase
      * @covers Modules\Organization\Controller\ApiController
      * @group module
      */
+    public function testApiUnitFind() : void
+    {
+        $response = new HttpResponse();
+        $request  = new HttpRequest(new HttpUri(''));
+
+        $request->getHeader()->setAccount(1);
+        $request->setData('search', 'OMS');
+
+        $this->module->apiUnitFind($request, $response);
+
+        self::assertEquals('OMS', $response->get('')[0]->getName());
+        self::assertGreaterThan(0, $response->get('')[0]->getId());
+    }
+
+    /**
+     * @covers Modules\Organization\Controller\ApiController
+     * @group module
+     */
     public function testApiUnitCreateDelete() : void
     {
         $response = new HttpResponse();
@@ -141,6 +161,22 @@ class ControllerTest extends \PHPUnit\Framework\TestCase
         $this->module->apiUnitDelete($request, $response);
 
         self::assertGreaterThan(0, $response->get('')['response']->getId());
+    }
+
+    /**
+     * @covers Modules\Organization\Controller\ApiController
+     * @group module
+     */
+    public function testApiUnitCreateInvalid() : void
+    {
+        $response = new HttpResponse();
+        $request  = new HttpRequest(new HttpUri(''));
+
+        $request->getHeader()->setAccount(1);
+
+        $this->module->apiUnitCreate($request, $response);
+
+        self::assertEquals(RequestStatusCode::R_400, $response->getHeader()->getStatusCode());
     }
 
     protected static $departmentId = 0;
@@ -166,6 +202,40 @@ class ControllerTest extends \PHPUnit\Framework\TestCase
         self::assertGreaterThan(0, $response->get('')['response']->getId());
 
         self::$departmentId = $response->get('')['response']->getId();
+    }
+
+    /**
+     * @covers Modules\Organization\Controller\ApiController
+     * @group module
+     */
+    public function testApiDepartmentFind() : void
+    {
+        $response = new HttpResponse();
+        $request  = new HttpRequest(new HttpUri(''));
+
+        $request->getHeader()->setAccount(1);
+        $request->setData('search', 'test');
+
+        $this->module->apiDepartmentFind($request, $response);
+
+        self::assertEquals('test', $response->get('')[0]->getName());
+        self::assertGreaterThan(0, $response->get('')[0]->getId());
+    }
+
+    /**
+     * @covers Modules\Organization\Controller\ApiController
+     * @group module
+     */
+    public function testApiDepartmentCreateInvalid() : void
+    {
+        $response = new HttpResponse();
+        $request  = new HttpRequest(new HttpUri(''));
+
+        $request->getHeader()->setAccount(1);
+
+        $this->module->apiDepartmentCreate($request, $response);
+
+        self::assertEquals(RequestStatusCode::R_400, $response->getHeader()->getStatusCode());
     }
 
     /**
@@ -248,6 +318,40 @@ class ControllerTest extends \PHPUnit\Framework\TestCase
      * @covers Modules\Organization\Controller\ApiController
      * @group module
      */
+    public function testApiPositionFind() : void
+    {
+        $response = new HttpResponse();
+        $request  = new HttpRequest(new HttpUri(''));
+
+        $request->getHeader()->setAccount(1);
+        $request->setData('search', 'test');
+
+        $this->module->apiPositionFind($request, $response);
+
+        self::assertEquals('test', $response->get('')[0]->getName());
+        self::assertGreaterThan(0, $response->get('')[0]->getId());
+    }
+
+    /**
+     * @covers Modules\Organization\Controller\ApiController
+     * @group module
+     */
+    public function testApiPositionCreateInvalid() : void
+    {
+        $response = new HttpResponse();
+        $request  = new HttpRequest(new HttpUri(''));
+
+        $request->getHeader()->setAccount(1);
+
+        $this->module->apiPositionCreate($request, $response);
+
+        self::assertEquals(RequestStatusCode::R_400, $response->getHeader()->getStatusCode());
+    }
+
+    /**
+     * @covers Modules\Organization\Controller\ApiController
+     * @group module
+     */
     public function testApiPositionGet() : void
     {
         $response = new HttpResponse();
@@ -295,5 +399,49 @@ class ControllerTest extends \PHPUnit\Framework\TestCase
         $this->module->apiPositionDelete($request, $response);
 
         self::assertGreaterThan(0, $response->get('')['response']->getId());
+    }
+
+    /**
+     * @covers Modules\Organization\Controller\ApiController
+     * @group module
+     */
+    public function testApiUnitImageSet() : void
+    {
+        \copy(__DIR__ . '/icon.png', __DIR__ . '/temp_icon.png');
+
+        $response = new HttpResponse();
+        $request  = new HttpRequest(new HttpUri(''));
+
+        $request->getHeader()->setAccount(1);
+        $request->setData('name', 'Organization Logo');
+        $request->setData('id', 1);
+
+        TestUtils::setMember($request, 'files', [
+            'file1' => [
+                'name'     => 'icon.png',
+                'type'     => MimeType::M_PNG,
+                'tmp_name' => __DIR__ . '/temp_icon.png',
+                'error'    => \UPLOAD_ERR_OK,
+                'size'     => \filesize(__DIR__ . '/icon.png'),
+            ],
+        ]);
+        $this->module->apiUnitImageSet($request, $response);
+
+        $image = UnitMapper::get(1)->getImage();
+        self::assertEquals('Organization Logo', $image->getName());
+    }
+
+    /**
+     * @covers Modules\Organization\Controller\ApiController
+     * @group module
+     */
+    public function testApiUnitImageSetInvalid() : void
+    {
+        $response = new HttpResponse();
+        $request  = new HttpRequest(new HttpUri(''));
+
+        $this->module->apiUnitImageSet($request, $response);
+
+        self::assertEquals(RequestStatusCode::R_400, $response->getHeader()->getStatusCode());
     }
 }

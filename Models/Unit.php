@@ -268,10 +268,13 @@ class Unit implements \JsonSerializable, ArrayableInterface
     public function toArray() : array
     {
         return [
-            'id'          => $this->id,
-            'name'        => $this->name,
-            'description' => $this->description,
-            'parent'      => $this->parent,
+            'id'             => $this->id,
+            'name'           => $this->name,
+            'status'         => $this->status,
+            'description'    => $this->description,
+            'descriptionRaw' => $this->descriptionRaw,
+            'parent'         => $this->parent ?? new NullUnit(),
+            'image'          => $this->image,
         ];
     }
 
