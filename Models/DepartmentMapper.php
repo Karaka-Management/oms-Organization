@@ -51,11 +51,11 @@ final class DepartmentMapper extends DataMapperAbstract
     protected static array $belongsTo = [
         'unit'   => [
             'mapper' => UnitMapper::class,
-            'self'   => 'organization_department_unit',
+            'external'   => 'organization_department_unit',
         ],
         'parent' => [
             'mapper' => self::class,
-            'self'   => 'organization_department_parent',
+            'external'   => 'organization_department_parent',
         ],
     ];
 
