@@ -50,11 +50,11 @@ final class PositionMapper extends DataMapperAbstract
      */
     protected static array $belongsTo = [
         'parent'     => [
-            'mapper' => self::class,
+            'mapper'     => self::class,
             'external'   => 'organization_position_parent',
         ],
         'department' => [
-            'mapper' => DepartmentMapper::class,
+            'mapper'     => DepartmentMapper::class,
             'external'   => 'organization_position_department',
         ],
     ];

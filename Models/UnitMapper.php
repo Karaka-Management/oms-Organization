@@ -51,7 +51,7 @@ final class UnitMapper extends DataMapperAbstract
      */
     protected static array $ownsOne = [
         'image'    => [
-            'mapper' => MediaMapper::class,
+            'mapper'     => MediaMapper::class,
             'external'   => 'organization_unit_image',
         ],
     ];
@@ -64,7 +64,7 @@ final class UnitMapper extends DataMapperAbstract
      */
     protected static array $belongsTo = [
         'parent'  => [
-            'mapper' => self::class,
+            'mapper'     => self::class,
             'external'   => 'organization_unit_parent',
         ],
     ];
