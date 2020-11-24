@@ -112,12 +112,12 @@ class UnitTest extends \PHPUnit\Framework\TestCase
      */
     public function testSerialize() : void
     {
-        $this->unit->name = 'Name';
-        $this->unit->description = 'Description';
+        $this->unit->name           = 'Name';
+        $this->unit->description    = 'Description';
         $this->unit->descriptionRaw = 'DescriptionRaw';
         $this->unit->setStatus(Status::ACTIVE);
         $this->unit->parent = ($p = new NullUnit(1));
-        $this->unit->image = ($i = new NullMedia(1));
+        $this->unit->image  = ($i = new NullMedia(1));
 
         self::assertEquals($this->unit->toArray(), $this->unit->jsonSerialize());
         self::assertEquals(

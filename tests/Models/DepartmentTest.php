@@ -112,12 +112,12 @@ class DepartmentTest extends \PHPUnit\Framework\TestCase
      */
     public function testSerialize() : void
     {
-        $this->department->name = 'Name';
-        $this->department->description = 'Description';
+        $this->department->name           = 'Name';
+        $this->department->description    = 'Description';
         $this->department->descriptionRaw = 'DescriptionRaw';
         $this->department->setStatus(Status::ACTIVE);
         $this->department->parent = ($p = new NullDepartment(1));
-        $this->department->unit = ($u = new NullUnit(1));
+        $this->department->unit   = ($u = new NullUnit(1));
 
         self::assertEquals($this->department->toArray(), $this->department->jsonSerialize());
         self::assertEquals(

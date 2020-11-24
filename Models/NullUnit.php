@@ -35,7 +35,7 @@ final class NullUnit extends Unit
      */
     public function __construct(int $id = 0)
     {
-        $this->id = $id;
+        $this->id    = $id;
         $this->image = new NullMedia();
     }
 }

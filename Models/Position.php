@@ -89,7 +89,7 @@ class Position implements \JsonSerializable, ArrayableInterface
      */
     public function __construct()
     {
-        $this->parent = new NullPosition();
+        $this->parent     = new NullPosition();
         $this->department = new NullDepartment();
     }
 

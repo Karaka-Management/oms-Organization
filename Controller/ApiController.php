@@ -127,12 +127,12 @@ final class ApiController extends Controller
     private function updateUnitFromRequest(RequestAbstract $request) : Unit
     {
         /** @var Unit $unit */
-        $unit = UnitMapper::get((int) $request->getData('id'));
-        $unit->name = (string) ($request->getData('name') ?? $unit->name);
+        $unit                 = UnitMapper::get((int) $request->getData('id'));
+        $unit->name           = (string) ($request->getData('name') ?? $unit->name);
         $unit->descriptionRaw = (string) ($request->getData('description') ?? $unit->descriptionRaw);
-        $unit->description = Markdown::parse((string) ($request->getData('description') ?? $unit->descriptionRaw));
+        $unit->description    = Markdown::parse((string) ($request->getData('description') ?? $unit->descriptionRaw));
 
-        $parent = (int) $request->getData('parent');
+        $parent       = (int) $request->getData('parent');
         $unit->parent = !empty($parent) ? new NullUnit($parent) : $unit->parent;
         $unit->setStatus((int) ($request->getData('status') ?? $unit->getStatus()));
 
@@ -206,12 +206,12 @@ final class ApiController extends Controller
      */
     private function createUnitFromRequest(RequestAbstract $request) : Unit
     {
-        $unit = new Unit();
-        $unit->name = (string) $request->getData('name');
+        $unit                 = new Unit();
+        $unit->name           = (string) $request->getData('name');
         $unit->descriptionRaw = (string) ($request->getData('description') ?? '');
-        $unit->description = Markdown::parse((string) ($request->getData('description') ?? ''));
+        $unit->description    = Markdown::parse((string) ($request->getData('description') ?? ''));
 
-        $parent = (int) $request->getData('parent');
+        $parent       = (int) $request->getData('parent');
         $unit->parent = new NullUnit($parent);
         $unit->setStatus((int) $request->getData('status'));
 
@@ -362,15 +362,15 @@ final class ApiController extends Controller
     private function updatePositionFromRequest(RequestAbstract $request) : Position
     {
         /** @var Position $position */
-        $position = PositionMapper::get((int) $request->getData('id'));
-        $position->name = (string) ($request->getData('name') ?? $position->name);
+        $position                 = PositionMapper::get((int) $request->getData('id'));
+        $position->name           = (string) ($request->getData('name') ?? $position->name);
         $position->descriptionRaw = (string) ($request->getData('description') ?? $position->descriptionRaw);
-        $position->description = Markdown::parse((string) ($request->getData('description') ?? $position->descriptionRaw));
+        $position->description    = Markdown::parse((string) ($request->getData('description') ?? $position->descriptionRaw));
 
-        $parent = (int) $request->getData('parent');
+        $parent           = (int) $request->getData('parent');
         $position->parent = !empty($parent) ? new NullPosition($parent) : $position->parent;
 
-        $department = (int) $request->getData('department');
+        $department           = (int) $request->getData('department');
         $position->department = !empty($department) ? new NullDepartment($department) : $position->department;
         $position->setStatus((int) ($request->getData('status') ?? $position->getStatus()));
 
@@ -423,16 +423,16 @@ final class ApiController extends Controller
      */
     private function createPositionFromRequest(RequestAbstract $request) : Position
     {
-        $position = new Position();
+        $position       = new Position();
         $position->name = (string) ($request->getData('name'));
         $position->setStatus((int) $request->getData('status'));
         $position->descriptionRaw = (string) ($request->getData('description') ?? '');
-        $position->description = Markdown::parse((string) ($request->getData('description') ?? ''));
+        $position->description    = Markdown::parse((string) ($request->getData('description') ?? ''));
 
-        $parent = (int) $request->getData('parent');
+        $parent           = (int) $request->getData('parent');
         $position->parent = new NullPosition($parent);
 
-        $department = (int) $request->getData('department');
+        $department           = (int) $request->getData('department');
         $position->department = new NullDepartment($department);
 
         return $position;
@@ -519,16 +519,16 @@ final class ApiController extends Controller
     private function updateDepartmentFromRequest(RequestAbstract $request) : Department
     {
         /** @var Department $department */
-        $department = DepartmentMapper::get((int) $request->getData('id'));
-        $department->name = (string) ($request->getData('name') ?? $department->name);
+        $department                 = DepartmentMapper::get((int) $request->getData('id'));
+        $department->name           = (string) ($request->getData('name') ?? $department->name);
         $department->descriptionRaw = (string) ($request->getData('description') ?? $department->descriptionRaw);
-        $department->description = Markdown::parse((string) ($request->getData('description') ?? $department->descriptionRaw));
+        $department->description    = Markdown::parse((string) ($request->getData('description') ?? $department->descriptionRaw));
 
-        $parent = (int) $request->getData('parent');
+        $parent             = (int) $request->getData('parent');
         $department->parent = !empty($parent) ? new NullDepartment($parent) : $department->parent;
         $department->setStatus((int) ($request->getData('status') ?? $department->getStatus()));
 
-        $unit = (int) $request->getData('unit');
+        $unit             = (int) $request->getData('unit');
         $department->unit = !empty($unit) ? new NullUnit($unit) : $department->unit;
 
         return $department;
@@ -601,15 +601,15 @@ final class ApiController extends Controller
      */
     private function createDepartmentFromRequest(RequestAbstract $request) : Department
     {
-        $department = new Department();
+        $department       = new Department();
         $department->name = (string) $request->getData('name');
         $department->setStatus((int) $request->getData('status'));
 
-        $parent = (int) $request->getData('parent');
-        $department->parent = new NullDepartment($parent);
-        $department->unit = new NullUnit((int) ($request->getData('unit') ?? 1));
+        $parent                     = (int) $request->getData('parent');
+        $department->parent         = new NullDepartment($parent);
+        $department->unit           = new NullUnit((int) ($request->getData('unit') ?? 1));
         $department->descriptionRaw = (string) ($request->getData('description') ?? '');
-        $department->description = Markdown::parse((string) ($request->getData('description') ?? ''));
+        $department->description    = Markdown::parse((string) ($request->getData('description') ?? ''));
 
         return $department;
     }

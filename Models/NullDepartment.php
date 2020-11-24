@@ -33,7 +33,7 @@ final class NullDepartment extends Department
      */
     public function __construct(int $id = 0)
     {
-        $this->id = $id;
+        $this->id   = $id;
         $this->unit = new NullUnit();
     }
 }

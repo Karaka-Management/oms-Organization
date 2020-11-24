@@ -112,11 +112,11 @@ class PositionTest extends \PHPUnit\Framework\TestCase
      */
     public function testSerialize() : void
     {
-        $this->position->name = 'Name';
-        $this->position->description = 'Description';
+        $this->position->name           = 'Name';
+        $this->position->description    = 'Description';
         $this->position->descriptionRaw = 'DescriptionRaw';
         $this->position->setStatus(Status::ACTIVE);
-        $this->position->parent = ($p = new NullPosition(1));
+        $this->position->parent     = ($p = new NullPosition(1));
         $this->position->department = ($d = new NullDepartment(1));
 
         self::assertEquals($this->position->toArray(), $this->position->jsonSerialize());

@@ -29,8 +29,8 @@ class PositionMapperTest extends \PHPUnit\Framework\TestCase
      */
     public function testCRUD() : void
     {
-        $position = new Position();
-        $position->name = 'CEO';
+        $position              = new Position();
+        $position->name        = 'CEO';
         $position->description = 'Description';
 
         $id = PositionMapper::create($position);
@@ -53,59 +53,59 @@ class PositionMapperTest extends \PHPUnit\Framework\TestCase
         $first = 2;
 
         /* 4 */
-        $position = new Position();
-        $position->name = 'CFO';
+        $position              = new Position();
+        $position->name        = 'CFO';
         $position->description = 'Description';
-        $position->parent = new NullPosition($first);
-        $id = PositionMapper::create($position);
+        $position->parent      = new NullPosition($first);
+        $id                    = PositionMapper::create($position);
 
         /* 5 */
-        $position = new Position();
-        $position->name = 'Accountant';
+        $position              = new Position();
+        $position->name        = 'Accountant';
         $position->description = 'Description';
-        $position->parent = new NullPosition($id);
+        $position->parent      = new NullPosition($id);
         PositionMapper::create($position);
 
         /* 6 */
-        $position = new Position();
-        $position->name = 'Controller';
+        $position              = new Position();
+        $position->name        = 'Controller';
         $position->description = 'Description';
-        $position->parent = new NullPosition($id);
+        $position->parent      = new NullPosition($id);
         PositionMapper::create($position);
 
         /* 7 */
-        $position = new Position();
-        $position->name = 'Sales Director';
+        $position              = new Position();
+        $position->name        = 'Sales Director';
         $position->description = 'Description';
-        $position->parent = new NullPosition($first);
+        $position->parent      = new NullPosition($first);
         PositionMapper::create($position);
 
         /* 8 */
-        $position = new Position();
-        $position->name = 'Purchase Director';
+        $position              = new Position();
+        $position->name        = 'Purchase Director';
         $position->description = 'Description';
-        $position->parent = new NullPosition($first);
+        $position->parent      = new NullPosition($first);
         PositionMapper::create($position);
 
         /* 9 */
-        $position = new Position();
-        $position->name = 'Territory Manager';
+        $position              = new Position();
+        $position->name        = 'Territory Manager';
         $position->description = 'Description';
-        $position->parent = new NullPosition($first + 4);
+        $position->parent      = new NullPosition($first + 4);
         PositionMapper::create($position);
 
         /* 10 */
-        $position = new Position();
-        $position->name = 'Territory Sales Assistant';
+        $position              = new Position();
+        $position->name        = 'Territory Sales Assistant';
         $position->description = 'Description';
-        $position->parent = new NullPosition($first + 6);
+        $position->parent      = new NullPosition($first + 6);
         PositionMapper::create($position);
 
         /* 11 */
-        $position = new Position();
-        $position->name = 'Domestic Sales Manager';
+        $position              = new Position();
+        $position->name        = 'Domestic Sales Manager';
         $position->description = 'Description';
-        $position->parent = new NullPosition($first + 4);
+        $position->parent      = new NullPosition($first + 4);
         PositionMapper::create($position);
     }
 }

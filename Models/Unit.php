@@ -91,7 +91,7 @@ class Unit implements \JsonSerializable, ArrayableInterface
      */
     public function __construct()
     {
-        $this->image = new NullMedia();
+        $this->image  = new NullMedia();
         $this->parent = new NullUnit();
     }
 

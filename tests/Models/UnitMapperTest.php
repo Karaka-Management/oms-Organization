@@ -29,10 +29,10 @@ class UnitMapperTest extends \PHPUnit\Framework\TestCase
      */
     public function testCRUD() : void
     {
-        $unit = new Unit();
-        $unit->name = 'Scrooge Inc.';
+        $unit              = new Unit();
+        $unit->name        = 'Scrooge Inc.';
         $unit->description = 'Description';
-        $unit->parent = new NullUnit(1);
+        $unit->parent      = new NullUnit(1);
 
         $id = UnitMapper::create($unit);
 

@@ -91,9 +91,9 @@ class Department implements \JsonSerializable, ArrayableInterface
      */
     public function __construct(string $name = '')
     {
-        $this->name = $name;
+        $this->name   = $name;
         $this->parent = new NullDepartment();
-        $this->unit = new NullUnit();
+        $this->unit   = new NullUnit();
     }
 
     /**

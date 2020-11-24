@@ -30,10 +30,10 @@ class DepartmentMapperTest extends \PHPUnit\Framework\TestCase
      */
     public function testCRUD() : void
     {
-        $department = new Department();
-        $department->name = 'Management';
+        $department              = new Department();
+        $department->name        = 'Management';
         $department->description = 'Description';
-        $department->unit = new NullUnit(1);
+        $department->unit        = new NullUnit(1);
 
         $id = DepartmentMapper::create($department);
 
@@ -56,67 +56,67 @@ class DepartmentMapperTest extends \PHPUnit\Framework\TestCase
         $first = 2;
 
         /* 2 */
-        $department = new Department();
-        $department->name = 'HR';
+        $department              = new Department();
+        $department->name        = 'HR';
         $department->description = 'Description';
-        $department->parent = new NullDepartment($first);
-        $department->unit = new NullUnit(1);
+        $department->parent      = new NullDepartment($first);
+        $department->unit        = new NullUnit(1);
         DepartmentMapper::create($department);
 
         /* 3 */
-        $department = new Department();
-        $department->name = 'QM';
+        $department              = new Department();
+        $department->name        = 'QM';
         $department->description = 'Description';
-        $department->parent = new NullDepartment($first);
-        $department->unit = new NullUnit(1);
+        $department->parent      = new NullDepartment($first);
+        $department->unit        = new NullUnit(1);
         DepartmentMapper::create($department);
 
         /* 4 */
-        $department = new Department();
-        $department->name = 'Sales';
+        $department              = new Department();
+        $department->name        = 'Sales';
         $department->description = 'Description';
-        $department->parent = new NullDepartment($first);
-        $department->unit = new NullUnit(1);
+        $department->parent      = new NullDepartment($first);
+        $department->unit        = new NullUnit(1);
         DepartmentMapper::create($department);
 
         /* 5 */
-        $department = new Department();
-        $department->name = 'Shipping';
+        $department              = new Department();
+        $department->name        = 'Shipping';
         $department->description = 'Description';
-        $department->parent = new NullDepartment($first + 3);
-        $department->unit = new NullUnit(1);
+        $department->parent      = new NullDepartment($first + 3);
+        $department->unit        = new NullUnit(1);
         DepartmentMapper::create($department);
 
         /* 6 */
-        $department = new Department();
-        $department->name = 'Purchase';
+        $department              = new Department();
+        $department->name        = 'Purchase';
         $department->description = 'Description';
-        $department->parent = new NullDepartment($first);
-        $department->unit = new NullUnit(1);
+        $department->parent      = new NullDepartment($first);
+        $department->unit        = new NullUnit(1);
         DepartmentMapper::create($department);
 
         /* 7 */
-        $department = new Department();
-        $department->name = 'Arrival';
+        $department              = new Department();
+        $department->name        = 'Arrival';
         $department->description = 'Description';
-        $department->parent = new NullDepartment($first + 5);
-        $department->unit = new NullUnit(1);
+        $department->parent      = new NullDepartment($first + 5);
+        $department->unit        = new NullUnit(1);
         DepartmentMapper::create($department);
 
         /* 8 */
-        $department = new Department();
-        $department->name = 'Accounting';
+        $department              = new Department();
+        $department->name        = 'Accounting';
         $department->description = 'Description';
-        $department->parent = new NullDepartment($first);
-        $department->unit = new NullUnit(1);
+        $department->parent      = new NullDepartment($first);
+        $department->unit        = new NullUnit(1);
         DepartmentMapper::create($department);
 
         /* 9 */
-        $department = new Department();
-        $department->name = 'Production';
+        $department              = new Department();
+        $department->name        = 'Production';
         $department->description = 'Description';
-        $department->parent = new NullDepartment($first);
-        $department->unit = new NullUnit(1);
+        $department->parent      = new NullDepartment($first);
+        $department->unit        = new NullUnit(1);
         DepartmentMapper::create($department);
     }
 }
