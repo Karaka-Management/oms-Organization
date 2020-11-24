@@ -38,11 +38,11 @@ class UnitTest extends \PHPUnit\Framework\TestCase
     public function testDefault() : void
     {
         self::assertEquals(0, $this->unit->getId());
-        self::assertEquals('', $this->unit->getName());
-        self::assertEquals('', $this->unit->getDescription());
-        self::assertEquals('', $this->unit->getDescriptionRaw());
-        self::assertInstanceOf('Modules\Organization\Models\NullUnit', $this->unit->getParent());
-        self::assertInstanceOf('Modules\Media\Models\NullMedia', $this->unit->getImage());
+        self::assertEquals('', $this->unit->name);
+        self::assertEquals('', $this->unit->description);
+        self::assertEquals('', $this->unit->descriptionRaw);
+        self::assertInstanceOf('Modules\Organization\Models\NullUnit', $this->unit->parent);
+        self::assertInstanceOf('Modules\Media\Models\NullMedia', $this->unit->image);
         self::assertEquals(Status::INACTIVE, $this->unit->getStatus());
     }
 
@@ -52,8 +52,8 @@ class UnitTest extends \PHPUnit\Framework\TestCase
      */
     public function testNameInputOutput() : void
     {
-        $this->unit->setName('Name');
-        self::assertEquals('Name', $this->unit->getName());
+        $this->unit->name = 'Name';
+        self::assertEquals('Name', $this->unit->name);
     }
 
     /**
@@ -72,8 +72,8 @@ class UnitTest extends \PHPUnit\Framework\TestCase
      */
     public function testDescriptionInputOutput() : void
     {
-        $this->unit->setDescription('Description');
-        self::assertEquals('Description', $this->unit->getDescription());
+        $this->unit->description = 'Description';
+        self::assertEquals('Description', $this->unit->description);
     }
 
     /**
@@ -82,8 +82,8 @@ class UnitTest extends \PHPUnit\Framework\TestCase
      */
     public function testDescriptionRawInputOutput() : void
     {
-        $this->unit->setDescriptionRaw('DescriptionRaw');
-        self::assertEquals('DescriptionRaw', $this->unit->getDescriptionRaw());
+        $this->unit->descriptionRaw = 'DescriptionRaw';
+        self::assertEquals('DescriptionRaw', $this->unit->descriptionRaw);
     }
 
     /**
@@ -92,8 +92,8 @@ class UnitTest extends \PHPUnit\Framework\TestCase
      */
     public function testParentInputOutput() : void
     {
-        $this->unit->setParent(new NullUnit(1));
-        self::assertEquals(1, $this->unit->getParent()->getId());
+        $this->unit->parent = new NullUnit(1);
+        self::assertEquals(1, $this->unit->parent->getId());
     }
 
     /**
@@ -102,8 +102,8 @@ class UnitTest extends \PHPUnit\Framework\TestCase
      */
     public function testImageInputOutput() : void
     {
-        $this->unit->setImage(new NullMedia(1));
-        self::assertEquals(1, $this->unit->getImage()->getId());
+        $this->unit->image = new NullMedia(1);
+        self::assertEquals(1, $this->unit->image->getId());
     }
 
     /**
@@ -112,12 +112,12 @@ class UnitTest extends \PHPUnit\Framework\TestCase
      */
     public function testSerialize() : void
     {
-        $this->unit->setName('Name');
-        $this->unit->setDescription('Description');
-        $this->unit->setDescriptionRaw('DescriptionRaw');
+        $this->unit->name = 'Name';
+        $this->unit->description = 'Description';
+        $this->unit->descriptionRaw = 'DescriptionRaw';
         $this->unit->setStatus(Status::ACTIVE);
-        $this->unit->setParent($p = new NullUnit(1));
-        $this->unit->setImage($i = new NullMedia(1));
+        $this->unit->parent = ($p = new NullUnit(1));
+        $this->unit->image = ($i = new NullMedia(1));
 
         self::assertEquals($this->unit->toArray(), $this->unit->jsonSerialize());
         self::assertEquals(

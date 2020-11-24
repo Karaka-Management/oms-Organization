@@ -40,7 +40,7 @@
 </div>
 <div class="box" id="<?= $this->printHtml($this->getId()); ?>-tags" data-limit="0" data-active="true">
     <template id="<?= $this->printHtml($this->getId()); ?>-tagTemplate">
-        <span class="tag red" data-tpl-value="/id" data-value="" data-uuid="" data-name="<?= $this->printHtml($this->getName()); ?>">
+        <span class="tag red" data-tpl-value="/id" data-value="" data-uuid="" data-name="<?= $this->printHtml($this->name); ?>">
             <i class="fa fa-times"></i>
             <span data-tpl-text="/id" data-name="id" data-tpl-value="/id" data-value=""></span>
             <span data-tpl-text="/name" data-tpl-value="/name" data-value=""></span>

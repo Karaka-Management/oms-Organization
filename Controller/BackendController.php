@@ -151,9 +151,9 @@ final class BackendController extends Controller
         foreach ($components as $component) {
             $ref = null;
             if ($component instanceof Department) {
-                $ref = $component->getUnit()->getId();
+                $ref = $component->unit->getId();
             } elseif ($component instanceof Position) {
-                $ref = $component->getDepartment()->getId();
+                $ref = $component->department->getId();
             }
 
             if (!isset($tree[$ref])) {
@@ -166,9 +166,9 @@ final class BackendController extends Controller
 
             $tree[$ref][$component->getId()]['obj'] = $component;
 
-            $parent = $component->getParent()->getId();
+            $parent = $component->parent->getId();
             if (!($component instanceof Position) // parent could be in different department then ignore
-                || $component->getParent()->getDepartment()->getId() === $component->getDepartment()->getId()
+                || $component->parent->department->getId() === $component->department->getId()
             ) {
                 if (!isset($tree[$ref][$parent])) {
                     $tree[$ref][$parent] = ['obj' => null, 'children' => [], 'index' => 0];

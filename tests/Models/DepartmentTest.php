@@ -38,11 +38,11 @@ class DepartmentTest extends \PHPUnit\Framework\TestCase
     public function testDefault() : void
     {
         self::assertEquals(0, $this->department->getId());
-        self::assertEquals('', $this->department->getName());
-        self::assertEquals('', $this->department->getDescription());
-        self::assertEquals('', $this->department->getDescriptionRaw());
-        self::assertInstanceOf(NullDepartment::class, $this->department->getParent());
-        self::assertEquals(0, $this->department->getUnit()->getId());
+        self::assertEquals('', $this->department->name);
+        self::assertEquals('', $this->department->description);
+        self::assertEquals('', $this->department->descriptionRaw);
+        self::assertInstanceOf(NullDepartment::class, $this->department->parent);
+        self::assertEquals(0, $this->department->unit->getId());
         self::assertEquals(Status::INACTIVE, $this->department->getStatus());
     }
 
@@ -52,8 +52,8 @@ class DepartmentTest extends \PHPUnit\Framework\TestCase
      */
     public function testNameInputOutput() : void
     {
-        $this->department->setName('Name');
-        self::assertEquals('Name', $this->department->getName());
+        $this->department->name = 'Name';
+        self::assertEquals('Name', $this->department->name);
     }
 
     /**
@@ -62,8 +62,8 @@ class DepartmentTest extends \PHPUnit\Framework\TestCase
      */
     public function testDescriptionInputOutput() : void
     {
-        $this->department->setDescription('Description');
-        self::assertEquals('Description', $this->department->getDescription());
+        $this->department->description = 'Description';
+        self::assertEquals('Description', $this->department->description);
     }
 
     /**
@@ -72,8 +72,8 @@ class DepartmentTest extends \PHPUnit\Framework\TestCase
      */
     public function testDescriptionRawInputOutput() : void
     {
-        $this->department->setDescriptionRaw('DescriptionRaw');
-        self::assertEquals('DescriptionRaw', $this->department->getDescriptionRaw());
+        $this->department->descriptionRaw = 'DescriptionRaw';
+        self::assertEquals('DescriptionRaw', $this->department->descriptionRaw);
     }
 
     /**
@@ -92,8 +92,8 @@ class DepartmentTest extends \PHPUnit\Framework\TestCase
      */
     public function testParentInputOutput() : void
     {
-        $this->department->setParent(new NullDepartment(1));
-        self::assertEquals(1, $this->department->getParent()->getId());
+        $this->department->parent = new NullDepartment(1);
+        self::assertEquals(1, $this->department->parent->getId());
     }
 
     /**
@@ -102,8 +102,8 @@ class DepartmentTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnitInputOutput() : void
     {
-        $this->department->setUnit(new NullUnit(1));
-        self::assertEquals(1, $this->department->getUnit()->getId());
+        $this->department->unit = new NullUnit(1);
+        self::assertEquals(1, $this->department->unit->getId());
     }
 
     /**
@@ -112,12 +112,12 @@ class DepartmentTest extends \PHPUnit\Framework\TestCase
      */
     public function testSerialize() : void
     {
-        $this->department->setName('Name');
-        $this->department->setDescription('Description');
-        $this->department->setDescriptionRaw('DescriptionRaw');
+        $this->department->name = 'Name';
+        $this->department->description = 'Description';
+        $this->department->descriptionRaw = 'DescriptionRaw';
         $this->department->setStatus(Status::ACTIVE);
-        $this->department->setParent($p = new NullDepartment(1));
-        $this->department->setUnit($u = new NullUnit(1));
+        $this->department->parent = ($p = new NullDepartment(1));
+        $this->department->unit = ($u = new NullUnit(1));
 
         self::assertEquals($this->department->toArray(), $this->department->jsonSerialize());
         self::assertEquals(

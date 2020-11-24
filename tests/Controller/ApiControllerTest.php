@@ -91,12 +91,12 @@ class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $response = new HttpResponse();
         $request  = new HttpRequest(new HttpUri(''));
 
-        $request->getHeader()->setAccount(1);
+        $request->header->account = 1;
         $request->setData('id', '1');
 
         $this->module->apiUnitGet($request, $response);
 
-        self::assertEquals('Orange-Management', $response->get('')['response']->getName());
+        self::assertEquals('Orange-Management', $response->get('')['response']->name);
         self::assertGreaterThan(0, $response->get('')['response']->getId());
     }
 
@@ -109,14 +109,14 @@ class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $response = new HttpResponse();
         $request  = new HttpRequest(new HttpUri(''));
 
-        $request->getHeader()->setAccount(1);
+        $request->header->account = 1;
         $request->setData('id', '1');
         $request->setData('name', 'OMS');
 
         $this->module->apiUnitSet($request, $response);
         $this->module->apiUnitGet($request, $response);
 
-        self::assertEquals('OMS', $response->get('')['response']->getName());
+        self::assertEquals('OMS', $response->get('')['response']->name);
     }
 
     /**
@@ -128,12 +128,12 @@ class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $response = new HttpResponse();
         $request  = new HttpRequest(new HttpUri(''));
 
-        $request->getHeader()->setAccount(1);
+        $request->header->account = 1;
         $request->setData('search', 'OMS');
 
         $this->module->apiUnitFind($request, $response);
 
-        self::assertEquals('OMS', $response->get('')[0]->getName());
+        self::assertEquals('OMS', $response->get('')[0]->name);
         self::assertGreaterThan(0, $response->get('')[0]->getId());
     }
 
@@ -146,14 +146,14 @@ class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $response = new HttpResponse();
         $request  = new HttpRequest(new HttpUri(''));
 
-        $request->getHeader()->setAccount(1);
+        $request->header->account = 1;
         $request->setData('name', 'test');
         $request->setData('status', Status::INACTIVE);
         $request->setData('description', 'test description');
 
         $this->module->apiUnitCreate($request, $response);
 
-        self::assertEquals('test', $response->get('')['response']->getName());
+        self::assertEquals('test', $response->get('')['response']->name);
         self::assertGreaterThan(0, $response->get('')['response']->getId());
 
         // test delete
@@ -172,11 +172,11 @@ class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $response = new HttpResponse();
         $request  = new HttpRequest(new HttpUri(''));
 
-        $request->getHeader()->setAccount(1);
+        $request->header->account = 1;
 
         $this->module->apiUnitCreate($request, $response);
 
-        self::assertEquals(RequestStatusCode::R_400, $response->getHeader()->getStatusCode());
+        self::assertEquals(RequestStatusCode::R_400, $response->header->status);
     }
 
     protected static $departmentId = 0;
@@ -190,7 +190,7 @@ class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $response = new HttpResponse();
         $request  = new HttpRequest(new HttpUri(''));
 
-        $request->getHeader()->setAccount(1);
+        $request->header->account = 1;
         $request->setData('name', 'test');
         $request->setData('status', Status::INACTIVE);
         $request->setData('unit', 1);
@@ -198,7 +198,7 @@ class ApiControllerTest extends \PHPUnit\Framework\TestCase
 
         $this->module->apiDepartmentCreate($request, $response);
 
-        self::assertEquals('test', $response->get('')['response']->getName());
+        self::assertEquals('test', $response->get('')['response']->name);
         self::assertGreaterThan(0, $response->get('')['response']->getId());
 
         self::$departmentId = $response->get('')['response']->getId();
@@ -213,12 +213,12 @@ class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $response = new HttpResponse();
         $request  = new HttpRequest(new HttpUri(''));
 
-        $request->getHeader()->setAccount(1);
+        $request->header->account = 1;
         $request->setData('search', 'test');
 
         $this->module->apiDepartmentFind($request, $response);
 
-        self::assertEquals('test', $response->get('')[0]->getName());
+        self::assertEquals('test', $response->get('')[0]->name);
         self::assertGreaterThan(0, $response->get('')[0]->getId());
     }
 
@@ -231,11 +231,11 @@ class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $response = new HttpResponse();
         $request  = new HttpRequest(new HttpUri(''));
 
-        $request->getHeader()->setAccount(1);
+        $request->header->account = 1;
 
         $this->module->apiDepartmentCreate($request, $response);
 
-        self::assertEquals(RequestStatusCode::R_400, $response->getHeader()->getStatusCode());
+        self::assertEquals(RequestStatusCode::R_400, $response->header->status);
     }
 
     /**
@@ -247,12 +247,12 @@ class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $response = new HttpResponse();
         $request  = new HttpRequest(new HttpUri(''));
 
-        $request->getHeader()->setAccount(1);
+        $request->header->account = 1;
         $request->setData('id', self::$departmentId);
 
         $this->module->apiDepartmentGet($request, $response);
 
-        self::assertEquals('test', $response->get('')['response']->getName());
+        self::assertEquals('test', $response->get('')['response']->name);
         self::assertGreaterThan(0, $response->get('')['response']->getId());
     }
 
@@ -265,14 +265,14 @@ class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $response = new HttpResponse();
         $request  = new HttpRequest(new HttpUri(''));
 
-        $request->getHeader()->setAccount(1);
+        $request->header->account = 1;
         $request->setData('id', self::$departmentId);
         $request->setData('name', 'Production');
 
         $this->module->apiDepartmentSet($request, $response);
         $this->module->apiDepartmentGet($request, $response);
 
-        self::assertEquals('Production', $response->get('')['response']->getName());
+        self::assertEquals('Production', $response->get('')['response']->name);
     }
 
     /**
@@ -284,7 +284,7 @@ class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $response = new HttpResponse();
         $request  = new HttpRequest(new HttpUri(''));
 
-        $request->getHeader()->setAccount(1);
+        $request->header->account = 1;
         $request->setData('id', self::$departmentId);
         $this->module->apiDepartmentDelete($request, $response);
 
@@ -302,14 +302,14 @@ class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $response = new HttpResponse();
         $request  = new HttpRequest(new HttpUri(''));
 
-        $request->getHeader()->setAccount(1);
+        $request->header->account = 1;
         $request->setData('name', 'test');
         $request->setData('status', Status::INACTIVE);
         $request->setData('description', 'test description');
 
         $this->module->apiPositionCreate($request, $response);
 
-        self::assertEquals('test', $response->get('')['response']->getName());
+        self::assertEquals('test', $response->get('')['response']->name);
         self::assertGreaterThan(0, $response->get('')['response']->getId());
         self::$positionId = $response->get('')['response']->getId();
     }
@@ -323,12 +323,12 @@ class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $response = new HttpResponse();
         $request  = new HttpRequest(new HttpUri(''));
 
-        $request->getHeader()->setAccount(1);
+        $request->header->account = 1;
         $request->setData('search', 'test');
 
         $this->module->apiPositionFind($request, $response);
 
-        self::assertEquals('test', $response->get('')[0]->getName());
+        self::assertEquals('test', $response->get('')[0]->name);
         self::assertGreaterThan(0, $response->get('')[0]->getId());
     }
 
@@ -341,11 +341,11 @@ class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $response = new HttpResponse();
         $request  = new HttpRequest(new HttpUri(''));
 
-        $request->getHeader()->setAccount(1);
+        $request->header->account = 1;
 
         $this->module->apiPositionCreate($request, $response);
 
-        self::assertEquals(RequestStatusCode::R_400, $response->getHeader()->getStatusCode());
+        self::assertEquals(RequestStatusCode::R_400, $response->header->status);
     }
 
     /**
@@ -357,12 +357,12 @@ class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $response = new HttpResponse();
         $request  = new HttpRequest(new HttpUri(''));
 
-        $request->getHeader()->setAccount(1);
+        $request->header->account = 1;
         $request->setData('id', self::$positionId);
 
         $this->module->apiPositionGet($request, $response);
 
-        self::assertEquals('test', $response->get('')['response']->getName());
+        self::assertEquals('test', $response->get('')['response']->name);
         self::assertGreaterThan(0, $response->get('')['response']->getId());
     }
 
@@ -375,14 +375,14 @@ class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $response = new HttpResponse();
         $request  = new HttpRequest(new HttpUri(''));
 
-        $request->getHeader()->setAccount(1);
+        $request->header->account = 1;
         $request->setData('id', self::$positionId);
         $request->setData('name', 'Test');
 
         $this->module->apiPositionSet($request, $response);
         $this->module->apiPositionGet($request, $response);
 
-        self::assertEquals('Test', $response->get('')['response']->getName());
+        self::assertEquals('Test', $response->get('')['response']->name);
     }
 
     /**
@@ -394,7 +394,7 @@ class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $response = new HttpResponse();
         $request  = new HttpRequest(new HttpUri(''));
 
-        $request->getHeader()->setAccount(1);
+        $request->header->account = 1;
         $request->setData('id', self::$positionId);
         $this->module->apiPositionDelete($request, $response);
 
@@ -412,7 +412,7 @@ class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $response = new HttpResponse();
         $request  = new HttpRequest(new HttpUri(''));
 
-        $request->getHeader()->setAccount(1);
+        $request->header->account = 1;
         $request->setData('name', 'Organization Logo');
         $request->setData('id', 1);
 
@@ -427,8 +427,8 @@ class ApiControllerTest extends \PHPUnit\Framework\TestCase
         ]);
         $this->module->apiUnitImageSet($request, $response);
 
-        $image = UnitMapper::get(1)->getImage();
-        self::assertEquals('Organization Logo', $image->getName());
+        $image = UnitMapper::get(1)->image;
+        self::assertEquals('Organization Logo', $image->name);
     }
 
     /**
@@ -442,6 +442,6 @@ class ApiControllerTest extends \PHPUnit\Framework\TestCase
 
         $this->module->apiUnitImageSet($request, $response);
 
-        self::assertEquals(RequestStatusCode::R_400, $response->getHeader()->getStatusCode());
+        self::assertEquals(RequestStatusCode::R_400, $response->header->status);
     }
 }

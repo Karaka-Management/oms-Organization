@@ -30,7 +30,7 @@ echo $this->getData('nav')->render(); ?>
                 <div class="portlet-body">
                     <table class="layout wf-100" style="table-layout: fixed">
                         <tr><td><label for="iName"><?= $this->getHtml('Name'); ?></label>
-                        <tr><td><input type="text" name="name" id="iName" value="<?= $this->printHtml($department->getName()); ?>">
+                        <tr><td><input type="text" name="name" id="iName" value="<?= $this->printHtml($department->name); ?>">
                         <tr><td><label for="iParent"><?= $this->getHtml('Parent'); ?></label>
                         <tr><td><?= $this->getData('department-selector')->render('iParent', 'parent', false); ?>
                         <tr><td><label for="iUnit"><?= $this->getHtml('Unit'); ?></label>
@@ -45,8 +45,8 @@ echo $this->getData('nav')->render(); ?>
                             'department-editor',
                             'description',
                             'iDepartment',
-                            $department->getDescriptionRaw(),
-                            $department->getDescription()
+                            $department->descriptionRaw,
+                            $department->description
                         ); ?>
                     </table>
                 </div>

@@ -42,7 +42,7 @@ class Unit implements \JsonSerializable, ArrayableInterface
      * @var string
      * @since 1.0.0
      */
-    private string $name = '';
+    public string $name = '';
 
     /**
      * Unit image.
@@ -50,7 +50,7 @@ class Unit implements \JsonSerializable, ArrayableInterface
      * @var Media
      * @since 1.0.0
      */
-    protected Media $image;
+    public Media $image;
 
     /**
      * Parent
@@ -58,7 +58,7 @@ class Unit implements \JsonSerializable, ArrayableInterface
      * @var null|Unit
      * @since 1.0.0
      */
-    private ?self $parent = null;
+    public ?self $parent = null;
 
     /**
      * Description.
@@ -66,7 +66,7 @@ class Unit implements \JsonSerializable, ArrayableInterface
      * @var string
      * @since 1.0.0
      */
-    private string $description = '';
+    public string $description = '';
 
     /**
      * Description.
@@ -74,7 +74,7 @@ class Unit implements \JsonSerializable, ArrayableInterface
      * @var string
      * @since 1.0.0
      */
-    protected string $descriptionRaw = '';
+    public string $descriptionRaw = '';
 
     /**
      * Status
@@ -92,6 +92,7 @@ class Unit implements \JsonSerializable, ArrayableInterface
     public function __construct()
     {
         $this->image = new NullMedia();
+        $this->parent = new NullUnit();
     }
 
     /**
@@ -104,84 +105,6 @@ class Unit implements \JsonSerializable, ArrayableInterface
     public function getId() : int
     {
         return $this->id;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getName() : string
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name Name
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setName(string $name) : void
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * Get unit image.
-     *
-     * @return Media
-     *
-     * @since 1.0.0
-     */
-    public function getImage() : Media
-    {
-        return $this->image ?? new NullMedia();
-    }
-
-    /**
-     * Set unit image.
-     *
-     * @param Media $image Profile image
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setImage(Media $image) : void
-    {
-        $this->image = $image;
-    }
-
-    /**
-     * Get parent
-     *
-     * @return Unit
-     *
-     * @since 1.0.0
-     */
-    public function getParent() : self
-    {
-        return $this->parent ?? new NullUnit();
-    }
-
-    /**
-     * Set parent
-     *
-     * @param null|Unit $parent Parent
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setParent(?self $parent) : void
-    {
-        $this->parent = $parent;
     }
 
     /**
@@ -208,58 +131,6 @@ class Unit implements \JsonSerializable, ArrayableInterface
     public function setStatus(int $status) : void
     {
         $this->status = $status;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getDescription() : string
-    {
-        return $this->description;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $desc Description
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setDescription(string $desc) : void
-    {
-        $this->description = $desc;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getDescriptionRaw() : string
-    {
-        return $this->descriptionRaw;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $desc Description
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setDescriptionRaw(string $desc) : void
-    {
-        $this->descriptionRaw = $desc;
     }
 
     /**

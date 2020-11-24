@@ -40,23 +40,23 @@ class Position implements \JsonSerializable, ArrayableInterface
      * @var string
      * @since 1.0.0
      */
-    private string $name = '';
+    public string $name = '';
 
     /**
      * Parent
      *
-     * @var null|Position
+     * @var Position
      * @since 1.0.0
      */
-    private ?self $parent = null;
+    public self $parent;
 
     /**
      * Department
      *
-     * @var null|Department
+     * @var Department
      * @since 1.0.0
      */
-    private ?Department $department = null;
+    public Department $department;
 
     /**
      * Description.
@@ -64,7 +64,7 @@ class Position implements \JsonSerializable, ArrayableInterface
      * @var string
      * @since 1.0.0
      */
-    private string $description = '';
+    public string $description = '';
 
     /**
      * Description.
@@ -72,7 +72,7 @@ class Position implements \JsonSerializable, ArrayableInterface
      * @var string
      * @since 1.0.0
      */
-    private string $descriptionRaw = '';
+    public string $descriptionRaw = '';
 
     /**
      * Status
@@ -81,6 +81,17 @@ class Position implements \JsonSerializable, ArrayableInterface
      * @since 1.0.0
      */
     protected int $status = Status::INACTIVE;
+
+    /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     */
+    public function __construct()
+    {
+        $this->parent = new NullPosition();
+        $this->department = new NullDepartment();
+    }
 
     /**
      * Get id
@@ -92,84 +103,6 @@ class Position implements \JsonSerializable, ArrayableInterface
     public function getId() : int
     {
         return $this->id;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getName() : string
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name Name
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setName(string $name) : void
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * Get parent
-     *
-     * @return Position
-     *
-     * @since 1.0.0
-     */
-    public function getParent() : self
-    {
-        return $this->parent ?? new NullPosition();
-    }
-
-    /**
-     * Set parent
-     *
-     * @param null|Position $parent Parent
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setParent(?self $parent) : void
-    {
-        $this->parent = $parent;
-    }
-
-    /**
-     * Get parent
-     *
-     * @return Department
-     *
-     * @since 1.0.0
-     */
-    public function getDepartment() : Department
-    {
-        return $this->department ?? new NullDepartment();
-    }
-
-    /**
-     * Set department
-     *
-     * @param null|Department $department Department
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setDepartment(?Department $department) : void
-    {
-        $this->department = $department;
     }
 
     /**
@@ -196,58 +129,6 @@ class Position implements \JsonSerializable, ArrayableInterface
     public function setStatus(int $status) : void
     {
         $this->status = $status;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getDescription() : string
-    {
-        return $this->description;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $desc Description
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setDescription(string $desc) : void
-    {
-        $this->description = $desc;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getDescriptionRaw() : string
-    {
-        return $this->descriptionRaw;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $desc Description
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setDescriptionRaw(string $desc) : void
-    {
-        $this->descriptionRaw = $desc;
     }
 
     /**

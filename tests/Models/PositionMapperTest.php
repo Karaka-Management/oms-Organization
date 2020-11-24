@@ -30,16 +30,16 @@ class PositionMapperTest extends \PHPUnit\Framework\TestCase
     public function testCRUD() : void
     {
         $position = new Position();
-        $position->setName('CEO');
-        $position->setDescription('Description');
+        $position->name = 'CEO';
+        $position->description = 'Description';
 
         $id = PositionMapper::create($position);
 
         $positionR = PositionMapper::get($id);
         self::assertEquals($id, $positionR->getId());
-        self::assertEquals($position->getName(), $positionR->getName());
-        self::assertEquals($position->getDescription(), $positionR->getDescription());
-        self::assertInstanceOf('Modules\Organization\Models\NullPosition', $positionR->getParent());
+        self::assertEquals($position->name, $positionR->name);
+        self::assertEquals($position->description, $positionR->description);
+        self::assertInstanceOf('Modules\Organization\Models\NullPosition', $positionR->parent);
     }
 
     /**
@@ -54,58 +54,58 @@ class PositionMapperTest extends \PHPUnit\Framework\TestCase
 
         /* 4 */
         $position = new Position();
-        $position->setName('CFO');
-        $position->setDescription('Description');
-        $position->setParent(new NullPosition($first));
+        $position->name = 'CFO';
+        $position->description = 'Description';
+        $position->parent = new NullPosition($first);
         $id = PositionMapper::create($position);
 
         /* 5 */
         $position = new Position();
-        $position->setName('Accountant');
-        $position->setDescription('Description');
-        $position->setParent(new NullPosition($id));
+        $position->name = 'Accountant';
+        $position->description = 'Description';
+        $position->parent = new NullPosition($id);
         PositionMapper::create($position);
 
         /* 6 */
         $position = new Position();
-        $position->setName('Controller');
-        $position->setDescription('Description');
-        $position->setParent(new NullPosition($id));
+        $position->name = 'Controller';
+        $position->description = 'Description';
+        $position->parent = new NullPosition($id);
         PositionMapper::create($position);
 
         /* 7 */
         $position = new Position();
-        $position->setName('Sales Director');
-        $position->setDescription('Description');
-        $position->setParent(new NullPosition($first));
+        $position->name = 'Sales Director';
+        $position->description = 'Description';
+        $position->parent = new NullPosition($first);
         PositionMapper::create($position);
 
         /* 8 */
         $position = new Position();
-        $position->setName('Purchase Director');
-        $position->setDescription('Description');
-        $position->setParent(new NullPosition($first));
+        $position->name = 'Purchase Director';
+        $position->description = 'Description';
+        $position->parent = new NullPosition($first);
         PositionMapper::create($position);
 
         /* 9 */
         $position = new Position();
-        $position->setName('Territory Manager');
-        $position->setDescription('Description');
-        $position->setParent(new NullPosition($first + 4));
+        $position->name = 'Territory Manager';
+        $position->description = 'Description';
+        $position->parent = new NullPosition($first + 4);
         PositionMapper::create($position);
 
         /* 10 */
         $position = new Position();
-        $position->setName('Territory Sales Assistant');
-        $position->setDescription('Description');
-        $position->setParent(new NullPosition($first + 6));
+        $position->name = 'Territory Sales Assistant';
+        $position->description = 'Description';
+        $position->parent = new NullPosition($first + 6);
         PositionMapper::create($position);
 
         /* 11 */
         $position = new Position();
-        $position->setName('Domestic Sales Manager');
-        $position->setDescription('Description');
-        $position->setParent(new NullPosition($first + 4));
+        $position->name = 'Domestic Sales Manager';
+        $position->description = 'Description';
+        $position->parent = new NullPosition($first + 4);
         PositionMapper::create($position);
     }
 }

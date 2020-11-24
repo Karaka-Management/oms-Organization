@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace Modules\Organization\Models;
 
+use Modules\Media\Models\NullMedia;
+
 /**
  * Organization null class.
  *
@@ -34,6 +36,6 @@ final class NullUnit extends Unit
     public function __construct(int $id = 0)
     {
         $this->id = $id;
-        parent::__construct();
+        $this->image = new NullMedia();
     }
 }

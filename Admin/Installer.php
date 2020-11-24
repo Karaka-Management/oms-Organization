@@ -51,7 +51,7 @@ final class Installer extends InstallerAbstract
     private static function installDefaultUnit() : void
     {
         $unit = new Unit();
-        $unit->setName('Orange Management');
+        $unit->name = 'Orange Management';
 
         UnitMapper::create($unit);
     }

@@ -111,7 +111,7 @@ final class ApiController extends Controller
         /** @var Unit $old */
         $old = clone UnitMapper::get((int) $request->getData('id'));
         $new = $this->updateUnitFromRequest($request);
-        $this->updateModel($request->getHeader()->getAccount(), $old, $new, UnitMapper::class, 'unit', $request->getOrigin());
+        $this->updateModel($request->header->account, $old, $new, UnitMapper::class, 'unit', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Unit', 'Unit successfully updated.', $new);
     }
 
@@ -128,12 +128,12 @@ final class ApiController extends Controller
     {
         /** @var Unit $unit */
         $unit = UnitMapper::get((int) $request->getData('id'));
-        $unit->setName((string) ($request->getData('name') ?? $unit->getName()));
-        $unit->setDescriptionRaw((string) ($request->getData('description') ?? $unit->getDescriptionRaw()));
-        $unit->setDescription(Markdown::parse((string) ($request->getData('description') ?? $unit->getDescriptionRaw())));
+        $unit->name = (string) ($request->getData('name') ?? $unit->name);
+        $unit->descriptionRaw = (string) ($request->getData('description') ?? $unit->descriptionRaw);
+        $unit->description = Markdown::parse((string) ($request->getData('description') ?? $unit->descriptionRaw));
 
         $parent = (int) $request->getData('parent');
-        $unit->setParent(!empty($parent) ? new NullUnit($parent) : $unit->getParent());
+        $unit->parent = !empty($parent) ? new NullUnit($parent) : $unit->parent;
         $unit->setStatus((int) ($request->getData('status') ?? $unit->getStatus()));
 
         return $unit;
@@ -156,7 +156,7 @@ final class ApiController extends Controller
     {
         /** @var Unit $unit */
         $unit = UnitMapper::get((int) $request->getData('id'));
-        $this->deleteModel($request->getHeader()->getAccount(), $unit, UnitMapper::class, 'unit', $request->getOrigin());
+        $this->deleteModel($request->header->account, $unit, UnitMapper::class, 'unit', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Unit', 'Unit successfully deleted.', $unit);
     }
 
@@ -177,17 +177,17 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateUnitCreate($request))) {
             $response->set('unit_create', new FormValidation($val));
-            $response->getHeader()->setStatusCode(RequestStatusCode::R_400);
+            $response->header->status = RequestStatusCode::R_400;
 
             return;
         }
 
         $unit = $this->createUnitFromRequest($request);
-        $this->createModel($request->getHeader()->getAccount(), $unit, UnitMapper::class, 'unit', $request->getOrigin());
+        $this->createModel($request->header->account, $unit, UnitMapper::class, 'unit', $request->getOrigin());
 
         if ($this->app->appSettings->get(null, SettingsEnum::GROUP_GENERATE_AUTOMATICALLY_UNIT)['content'] === '1') {
             $newRequest = new HttpRequest();
-            $newRequest->setData('name', 'org:unit:' . \strtolower($unit->getName()));
+            $newRequest->setData('name', 'org:unit:' . \strtolower($unit->name));
             $newRequest->setData('status', GroupStatus::ACTIVE);
             $this->app->moduleManager->get('Admin')->apiGroupCreate($newRequest, $response, $data);
         }
@@ -207,12 +207,12 @@ final class ApiController extends Controller
     private function createUnitFromRequest(RequestAbstract $request) : Unit
     {
         $unit = new Unit();
-        $unit->setName((string) $request->getData('name'));
-        $unit->setDescriptionRaw((string) ($request->getData('description') ?? ''));
-        $unit->setDescription(Markdown::parse((string) ($request->getData('description') ?? '')));
+        $unit->name = (string) $request->getData('name');
+        $unit->descriptionRaw = (string) ($request->getData('description') ?? '');
+        $unit->description = Markdown::parse((string) ($request->getData('description') ?? ''));
 
         $parent = (int) $request->getData('parent');
-        $unit->setParent(!empty($parent) ? new NullUnit($parent) : null);
+        $unit->parent = new NullUnit($parent);
         $unit->setStatus((int) $request->getData('status'));
 
         return $unit;
@@ -236,7 +236,7 @@ final class ApiController extends Controller
         $uploadedFiles = $request->getFiles() ?? [];
         if (empty($uploadedFiles)) {
             $this->fillJsonResponse($request, $response, NotificationLevel::ERROR, 'Unit', 'Invalid unit image', $uploadedFiles);
-            $response->getHeader()->setStatusCode(RequestStatusCode::R_400);
+            $response->header->status = RequestStatusCode::R_400;
 
             return;
         }
@@ -248,14 +248,14 @@ final class ApiController extends Controller
         $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
             $request->getData('name') ?? '',
             $uploadedFiles,
-            $request->getHeader()->getAccount(),
+            $request->header->account,
             'Modules/Media/Files',
             '/Modules/Organization'
         );
 
-        $unit->setImage(\reset($uploaded));
+        $unit->image = \reset($uploaded);
 
-        $this->updateModel($request->getHeader()->getAccount(), $old, $unit, UnitMapper::class, 'unit', $request->getOrigin());
+        $this->updateModel($request->header->account, $old, $unit, UnitMapper::class, 'unit', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Unit', 'Unit image successfully updated', $unit);
     }
 
@@ -324,7 +324,7 @@ final class ApiController extends Controller
     {
         /** @var Position $position */
         $position = PositionMapper::get((int) $request->getData('id'));
-        $this->deleteModel($request->getHeader()->getAccount(), $position, PositionMapper::class, 'position', $request->getOrigin());
+        $this->deleteModel($request->header->account, $position, PositionMapper::class, 'position', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Position', 'Position successfully deleted.', $position);
     }
 
@@ -346,7 +346,7 @@ final class ApiController extends Controller
         /** @var Position $old */
         $old = clone PositionMapper::get((int) $request->getData('id'));
         $new = $this->updatePositionFromRequest($request);
-        $this->updateModel($request->getHeader()->getAccount(), $old, $new, PositionMapper::class, 'position', $request->getOrigin());
+        $this->updateModel($request->header->account, $old, $new, PositionMapper::class, 'position', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Position', 'Position successfully updated.', $new);
     }
 
@@ -363,15 +363,15 @@ final class ApiController extends Controller
     {
         /** @var Position $position */
         $position = PositionMapper::get((int) $request->getData('id'));
-        $position->setName((string) ($request->getData('name') ?? $position->getName()));
-        $position->setDescriptionRaw((string) ($request->getData('description') ?? $position->getDescriptionRaw()));
-        $position->setDescription(Markdown::parse((string) ($request->getData('description') ?? $position->getDescriptionRaw())));
+        $position->name = (string) ($request->getData('name') ?? $position->name);
+        $position->descriptionRaw = (string) ($request->getData('description') ?? $position->descriptionRaw);
+        $position->description = Markdown::parse((string) ($request->getData('description') ?? $position->descriptionRaw));
 
         $parent = (int) $request->getData('parent');
-        $position->setParent(!empty($parent) ? new NullPosition($parent) : $position->getParent());
+        $position->parent = !empty($parent) ? new NullPosition($parent) : $position->parent;
 
         $department = (int) $request->getData('department');
-        $position->setDepartment(!empty($department) ? new NullDepartment($department) : $position->getDepartment());
+        $position->department = !empty($department) ? new NullDepartment($department) : $position->department;
         $position->setStatus((int) ($request->getData('status') ?? $position->getStatus()));
 
         return $position;
@@ -394,17 +394,17 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validatePositionCreate($request))) {
             $response->set('position_create', new FormValidation($val));
-            $response->getHeader()->setStatusCode(RequestStatusCode::R_400);
+            $response->header->status = RequestStatusCode::R_400;
 
             return;
         }
 
         $position = $this->createPositionFromRequest($request);
-        $this->createModel($request->getHeader()->getAccount(), $position, PositionMapper::class, 'position', $request->getOrigin());
+        $this->createModel($request->header->account, $position, PositionMapper::class, 'position', $request->getOrigin());
 
         if ($this->app->appSettings->get(null, SettingsEnum::GROUP_GENERATE_AUTOMATICALLY_POSITION)['content'] === '1') {
             $newRequest = new HttpRequest();
-            $newRequest->setData('name', 'org:pos:' . \strtolower($position->getName()));
+            $newRequest->setData('name', 'org:pos:' . \strtolower($position->name));
             $newRequest->setData('status', GroupStatus::ACTIVE);
             $this->app->moduleManager->get('Admin')->apiGroupCreate($newRequest, $response, $data);
         }
@@ -424,16 +424,16 @@ final class ApiController extends Controller
     private function createPositionFromRequest(RequestAbstract $request) : Position
     {
         $position = new Position();
-        $position->setName((string) ($request->getData('name')));
+        $position->name = (string) ($request->getData('name'));
         $position->setStatus((int) $request->getData('status'));
-        $position->setDescriptionRaw((string) ($request->getData('description') ?? ''));
-        $position->setDescription(Markdown::parse((string) ($request->getData('description') ?? '')));
+        $position->descriptionRaw = (string) ($request->getData('description') ?? '');
+        $position->description = Markdown::parse((string) ($request->getData('description') ?? ''));
 
         $parent = (int) $request->getData('parent');
-        $position->setParent(!empty($parent) ? new NullPosition($parent) : null);
+        $position->parent = new NullPosition($parent);
 
         $department = (int) $request->getData('department');
-        $position->setDepartment(!empty($department) ? new NullDepartment($department) : null);
+        $position->department = new NullDepartment($department);
 
         return $position;
     }
@@ -503,7 +503,7 @@ final class ApiController extends Controller
         /** @var Department $old */
         $old = clone DepartmentMapper::get((int) $request->getData('id'));
         $new = $this->updateDepartmentFromRequest($request);
-        $this->updateModel($request->getHeader()->getAccount(), $old, $new, DepartmentMapper::class, 'department', $request->getOrigin());
+        $this->updateModel($request->header->account, $old, $new, DepartmentMapper::class, 'department', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Department', 'Department successfully updated.', $new);
     }
 
@@ -520,16 +520,16 @@ final class ApiController extends Controller
     {
         /** @var Department $department */
         $department = DepartmentMapper::get((int) $request->getData('id'));
-        $department->setName((string) ($request->getData('name') ?? $department->getName()));
-        $department->setDescriptionRaw((string) ($request->getData('description') ?? $department->getDescriptionRaw()));
-        $department->setDescription(Markdown::parse((string) ($request->getData('description') ?? $department->getDescriptionRaw())));
+        $department->name = (string) ($request->getData('name') ?? $department->name);
+        $department->descriptionRaw = (string) ($request->getData('description') ?? $department->descriptionRaw);
+        $department->description = Markdown::parse((string) ($request->getData('description') ?? $department->descriptionRaw));
 
         $parent = (int) $request->getData('parent');
-        $department->setParent(!empty($parent) ? new NullDepartment($parent) : $department->getParent());
+        $department->parent = !empty($parent) ? new NullDepartment($parent) : $department->parent;
         $department->setStatus((int) ($request->getData('status') ?? $department->getStatus()));
 
         $unit = (int) $request->getData('unit');
-        $department->setUnit(!empty($unit) ? new NullUnit($unit) : $department->getUnit());
+        $department->unit = !empty($unit) ? new NullUnit($unit) : $department->unit;
 
         return $department;
     }
@@ -551,7 +551,7 @@ final class ApiController extends Controller
     {
         /** @var Department $department */
         $department = DepartmentMapper::get((int) $request->getData('id'));
-        $this->deleteModel($request->getHeader()->getAccount(), $department, DepartmentMapper::class, 'department', $request->getOrigin());
+        $this->deleteModel($request->header->account, $department, DepartmentMapper::class, 'department', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Department', 'Department successfully deleted.', $department);
     }
 
@@ -572,17 +572,17 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateDepartmentCreate($request))) {
             $response->set('department_create', new FormValidation($val));
-            $response->getHeader()->setStatusCode(RequestStatusCode::R_400);
+            $response->header->status = RequestStatusCode::R_400;
 
             return;
         }
 
         $department = $this->createDepartmentFromRequest($request);
-        $this->createModel($request->getHeader()->getAccount(), $department, DepartmentMapper::class, 'department', $request->getOrigin());
+        $this->createModel($request->header->account, $department, DepartmentMapper::class, 'department', $request->getOrigin());
 
         if ($this->app->appSettings->get(null, SettingsEnum::GROUP_GENERATE_AUTOMATICALLY_DEPARTMENT)['content'] === '1') {
             $newRequest = new HttpRequest();
-            $newRequest->setData('name', 'org:dep:' . \strtolower($department->getName()));
+            $newRequest->setData('name', 'org:dep:' . \strtolower($department->name));
             $newRequest->setData('status', GroupStatus::ACTIVE);
             $this->app->moduleManager->get('Admin')->apiGroupCreate($newRequest, $response, $data);
         }
@@ -602,14 +602,14 @@ final class ApiController extends Controller
     private function createDepartmentFromRequest(RequestAbstract $request) : Department
     {
         $department = new Department();
-        $department->setName((string) $request->getData('name'));
+        $department->name = (string) $request->getData('name');
         $department->setStatus((int) $request->getData('status'));
 
         $parent = (int) $request->getData('parent');
-        $department->setParent(!empty($parent) ? new NullDepartment($parent) : null);
-        $department->setUnit(new NullUnit((int) ($request->getData('unit') ?? 1)));
-        $department->setDescriptionRaw((string) ($request->getData('description') ?? ''));
-        $department->setDescription(Markdown::parse((string) ($request->getData('description') ?? '')));
+        $department->parent = new NullDepartment($parent);
+        $department->unit = new NullUnit((int) ($request->getData('unit') ?? 1));
+        $department->descriptionRaw = (string) ($request->getData('description') ?? '');
+        $department->description = Markdown::parse((string) ($request->getData('description') ?? ''));
 
         return $department;
     }
@@ -629,9 +629,9 @@ final class ApiController extends Controller
      */
     public function apiUnitFind(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
-        $response->getHeader()->set('Content-Type', MimeType::M_JSON, true);
+        $response->header->set('Content-Type', MimeType::M_JSON, true);
         $response->set(
-            $request->getUri()->__toString(),
+            $request->uri->__toString(),
             \array_values(
                 UnitMapper::find((string) ($request->getData('search') ?? ''))
             )
@@ -653,9 +653,9 @@ final class ApiController extends Controller
      */
     public function apiDepartmentFind(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
-        $response->getHeader()->set('Content-Type', MimeType::M_JSON, true);
+        $response->header->set('Content-Type', MimeType::M_JSON, true);
         $response->set(
-            $request->getUri()->__toString(),
+            $request->uri->__toString(),
             \array_values(
                 DepartmentMapper::find((string) ($request->getData('search') ?? ''))
             )
@@ -677,9 +677,9 @@ final class ApiController extends Controller
      */
     public function apiPositionFind(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
-        $response->getHeader()->set('Content-Type', MimeType::M_JSON, true);
+        $response->header->set('Content-Type', MimeType::M_JSON, true);
         $response->set(
-            $request->getUri()->__toString(),
+            $request->uri->__toString(),
             \array_values(
                 PositionMapper::find((string) ($request->getData('search') ?? ''))
             )

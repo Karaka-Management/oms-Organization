@@ -44,7 +44,7 @@ class UnitTagSelectorView extends View
      * @var string
      * @since 1.0.0
      */
-    private string $name = '';
+    public string $name = '';
 
     /**
      * Is required
@@ -88,18 +88,6 @@ class UnitTagSelectorView extends View
     public function isRequired() : bool
     {
         return $this->isRequired;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getName() : string
-    {
-        return $this->name;
     }
 
     /**

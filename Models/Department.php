@@ -40,15 +40,15 @@ class Department implements \JsonSerializable, ArrayableInterface
      * @var string
      * @since 1.0.0
      */
-    protected string $name = '';
+    public string $name = '';
 
     /**
      * Parent
      *
-     * @var null|self
+     * @var self
      * @since 1.0.0
      */
-    protected ?self $parent = null;
+    public self $parent;
 
     /**
      * Status
@@ -64,7 +64,7 @@ class Department implements \JsonSerializable, ArrayableInterface
      * @var Unit
      * @since 1.0.0
      */
-    protected Unit $unit;
+    public Unit $unit;
 
     /**
      * Description.
@@ -72,7 +72,7 @@ class Department implements \JsonSerializable, ArrayableInterface
      * @var string
      * @since 1.0.0
      */
-    protected string $description = '';
+    public string $description = '';
 
     /**
      * Description.
@@ -80,7 +80,7 @@ class Department implements \JsonSerializable, ArrayableInterface
      * @var string
      * @since 1.0.0
      */
-    protected string $descriptionRaw = '';
+    public string $descriptionRaw = '';
 
     /**
      * Constructor
@@ -91,7 +91,9 @@ class Department implements \JsonSerializable, ArrayableInterface
      */
     public function __construct(string $name = '')
     {
-        $this->setName($name);
+        $this->name = $name;
+        $this->parent = new NullDepartment();
+        $this->unit = new NullUnit();
     }
 
     /**
@@ -104,58 +106,6 @@ class Department implements \JsonSerializable, ArrayableInterface
     public function getId() : int
     {
         return $this->id;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getName() : string
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name Name
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setName(string $name) : void
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * Get parent
-     *
-     * @return Department
-     *
-     * @since 1.0.0
-     */
-    public function getParent() : self
-    {
-        return $this->parent ?? new NullDepartment();
-    }
-
-    /**
-     * Set parent
-     *
-     * @param null|self $parent Parent
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setParent(?self $parent) : void
-    {
-        $this->parent = $parent;
     }
 
     /**
@@ -182,84 +132,6 @@ class Department implements \JsonSerializable, ArrayableInterface
     public function setStatus(int $status) : void
     {
         $this->status = $status;
-    }
-
-    /**
-     * Get unit
-     *
-     * @return Unit
-     *
-     * @since 1.0.0
-     */
-    public function getUnit() : Unit
-    {
-        return $this->unit ?? new NullUnit();
-    }
-
-    /**
-     * Set unit
-     *
-     * @param Unit $unit Unit
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setUnit(Unit $unit) : void
-    {
-        $this->unit = $unit;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getDescription() : string
-    {
-        return $this->description;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $desc Description
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setDescription(string $desc) : void
-    {
-        $this->description = $desc;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getDescriptionRaw() : string
-    {
-        return $this->descriptionRaw;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $desc Description
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setDescriptionRaw(string $desc) : void
-    {
-        $this->descriptionRaw = $desc;
     }
 
     /**

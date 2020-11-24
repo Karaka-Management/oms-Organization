@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 use Modules\Media\Models\NullMedia;
 use phpOMS\Uri\UriFactory;
+use Modules\Organization\Models\Status;
 
 /**
  * @var \phpOMS\Views\View                $this
@@ -36,9 +37,9 @@ echo $this->getData('nav')->render(); ?>
                                 alt="<?= $this->getHtml('Logo'); ?>"
                                 itemprop="logo" loading="lazy"
                                 src="<?=
-                                $unit->getImage() instanceof NullMedia ?
+                                $unit->image instanceof NullMedia ?
                                     UriFactory::build('Web/Backend/img/user_default_' . \mt_rand(1, 6) .'.png') :
-                                    UriFactory::build('{/prefix}' . $unit->getImage()->getPath()); ?>"
+                                    UriFactory::build('{/prefix}' . $unit->image->getPath()); ?>"
                             width="40x">
                         </a>
                     </div>
@@ -47,21 +48,21 @@ echo $this->getData('nav')->render(); ?>
                 <div class="portlet-body">
                     <table class="layout wf-100" style="table-layout: fixed">
                         <tr><td><label for="iName"><?= $this->getHtml('Name'); ?></label>
-                        <tr><td><input type="text" name="name" id="iName" value="<?= $this->printHtml($unit->getName()); ?>">
+                        <tr><td><input type="text" name="name" id="iName" value="<?= $this->printHtml($unit->name); ?>">
                         <tr><td><label for="iParent"><?= $this->getHtml('Parent'); ?></label>
                         <tr><td><?= $this->getData('unit-selector')->render('iParent', 'parent', false); ?>
                         <tr><td><label for="iStatus"><?= $this->getHtml('Status'); ?></label>
                         <tr><td><select name="status" id="iStatus">
-                                    <option value="<?= $this->printHtml(\Modules\Organization\Models\Status::ACTIVE); ?>"<?= \Modules\Organization\Models\Status::ACTIVE === $unit->getStatus() ? ' selected' : ''; ?>><?= $this->getHtml('Active'); ?>
-                                    <option value="<?= $this->printHtml(\Modules\Organization\Models\Status::INACTIVE); ?>"<?= \Modules\Organization\Models\Status::INACTIVE === $unit->getStatus() ? ' selected' : ''; ?>><?= $this->getHtml('Inactive'); ?>
+                                    <option value="<?= $this->printHtml(Status::ACTIVE); ?>"<?= Status::ACTIVE === $unit->getStatus() ? ' selected' : ''; ?>><?= $this->getHtml('Active'); ?>
+                                    <option value="<?= $this->printHtml(Status::INACTIVE); ?>"<?= Status::INACTIVE === $unit->getStatus() ? ' selected' : ''; ?>><?= $this->getHtml('Inactive'); ?>
                                 </select>
                         <tr><td><?= $this->getData('editor')->render('unit-editor'); ?>
                         <tr><td><?= $this->getData('editor')->getData('text')->render(
                             'unit-editor',
                             'description',
                             'iUnit',
-                            $unit->getDescriptionRaw(),
-                            $unit->getDescription()
+                            $unit->descriptionRaw,
+                            $unit->description
                         ); ?>
                     </table>
                 </div>

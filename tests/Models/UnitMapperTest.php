@@ -30,16 +30,16 @@ class UnitMapperTest extends \PHPUnit\Framework\TestCase
     public function testCRUD() : void
     {
         $unit = new Unit();
-        $unit->setName('Scrooge Inc.');
-        $unit->setDescription('Description');
-        $unit->setParent(new NullUnit(1));
+        $unit->name = 'Scrooge Inc.';
+        $unit->description = 'Description';
+        $unit->parent = new NullUnit(1);
 
         $id = UnitMapper::create($unit);
 
         $unitR = UnitMapper::get($id);
         self::assertEquals($id, $unitR->getId());
-        self::assertEquals($unit->getName(), $unitR->getName());
-        self::assertEquals($unit->getDescription(), $unitR->getDescription());
-        self::assertEquals($unit->getParent()->getId(), $unitR->getParent()->getId());
+        self::assertEquals($unit->name, $unitR->name);
+        self::assertEquals($unit->description, $unitR->description);
+        self::assertEquals($unit->parent->getId(), $unitR->parent->getId());
     }
 }

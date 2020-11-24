@@ -38,11 +38,11 @@ class PositionTest extends \PHPUnit\Framework\TestCase
     public function testDefault() : void
     {
         self::assertEquals(0, $this->position->getId());
-        self::assertEquals('', $this->position->getName());
-        self::assertEquals('', $this->position->getDescription());
-        self::assertEquals('', $this->position->getDescriptionRaw());
-        self::assertInstanceOf(NullPosition::class, $this->position->getParent());
-        self::assertEquals(0, $this->position->getDepartment()->getId());
+        self::assertEquals('', $this->position->name);
+        self::assertEquals('', $this->position->description);
+        self::assertEquals('', $this->position->descriptionRaw);
+        self::assertInstanceOf(NullPosition::class, $this->position->parent);
+        self::assertEquals(0, $this->position->department->getId());
         self::assertEquals(Status::INACTIVE, $this->position->getStatus());
     }
 
@@ -52,8 +52,8 @@ class PositionTest extends \PHPUnit\Framework\TestCase
      */
     public function testNameInputOutput() : void
     {
-        $this->position->setName('Name');
-        self::assertEquals('Name', $this->position->getName());
+        $this->position->name = 'Name';
+        self::assertEquals('Name', $this->position->name);
     }
 
     /**
@@ -62,8 +62,8 @@ class PositionTest extends \PHPUnit\Framework\TestCase
      */
     public function testDescriptionInputOutput() : void
     {
-        $this->position->setDescription('Description');
-        self::assertEquals('Description', $this->position->getDescription());
+        $this->position->description = 'Description';
+        self::assertEquals('Description', $this->position->description);
     }
 
     /**
@@ -72,8 +72,8 @@ class PositionTest extends \PHPUnit\Framework\TestCase
      */
     public function testDescriptionRawInputOutput() : void
     {
-        $this->position->setDescriptionRaw('DescriptionRaw');
-        self::assertEquals('DescriptionRaw', $this->position->getDescriptionRaw());
+        $this->position->descriptionRaw = 'DescriptionRaw';
+        self::assertEquals('DescriptionRaw', $this->position->descriptionRaw);
     }
 
     /**
@@ -92,8 +92,8 @@ class PositionTest extends \PHPUnit\Framework\TestCase
      */
     public function testParentInputOutput() : void
     {
-        $this->position->setParent(new NullPosition(1));
-        self::assertEquals(1, $this->position->getParent()->getId());
+        $this->position->parent = new NullPosition(1);
+        self::assertEquals(1, $this->position->parent->getId());
     }
 
     /**
@@ -102,8 +102,8 @@ class PositionTest extends \PHPUnit\Framework\TestCase
      */
     public function testDepartmentInputOutput() : void
     {
-        $this->position->setDepartment(new NullDepartment(1));
-        self::assertEquals(1, $this->position->getDepartment()->getId());
+        $this->position->department = new NullDepartment(1);
+        self::assertEquals(1, $this->position->department->getId());
     }
 
     /**
@@ -112,12 +112,12 @@ class PositionTest extends \PHPUnit\Framework\TestCase
      */
     public function testSerialize() : void
     {
-        $this->position->setName('Name');
-        $this->position->setDescription('Description');
-        $this->position->setDescriptionRaw('DescriptionRaw');
+        $this->position->name = 'Name';
+        $this->position->description = 'Description';
+        $this->position->descriptionRaw = 'DescriptionRaw';
         $this->position->setStatus(Status::ACTIVE);
-        $this->position->setParent($p = new NullPosition(1));
-        $this->position->setDepartment($d = new NullDepartment(1));
+        $this->position->parent = ($p = new NullPosition(1));
+        $this->position->department = ($d = new NullDepartment(1));
 
         self::assertEquals($this->position->toArray(), $this->position->jsonSerialize());
         self::assertEquals(

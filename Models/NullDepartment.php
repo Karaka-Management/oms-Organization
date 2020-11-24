@@ -34,6 +34,6 @@ final class NullDepartment extends Department
     public function __construct(int $id = 0)
     {
         $this->id = $id;
-        parent::__construct();
+        $this->unit = new NullUnit();
     }
 }

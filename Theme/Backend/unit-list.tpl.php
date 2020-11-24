@@ -42,11 +42,11 @@ echo $this->getData('nav')->render(); ?>
                         $url = UriFactory::build('{/prefix}organization/unit/profile?{?}&id=' . $value->getId()); ?>
                 <tr tabindex="0" data-href="<?= $url; ?>">
                     <td data-label="<?= $this->getHtml('ID', '0', '0'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->getId()); ?></a>
-                    <td><a href="<?= $url; ?>"><img class="profile-image" src="<?= $value->getImage() instanceof NullMedia ?
+                    <td><a href="<?= $url; ?>"><img class="profile-image" src="<?= $value->image instanceof NullMedia ?
                                     UriFactory::build('Web/Backend/img/user_default_' . \mt_rand(1, 6) .'.png') :
-                                    UriFactory::build('{/prefix}' . $value->getImage()->getPath()); ?>"></a>
-                    <td data-label="<?= $this->getHtml('Name'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->getName()); ?></a>
-                    <td data-label="<?= $this->getHtml('Parent'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->getParent()->getName()); ?></a>
+                                    UriFactory::build('{/prefix}' . $value->image->getPath()); ?>"></a>
+                    <td data-label="<?= $this->getHtml('Name'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->name); ?></a>
+                    <td data-label="<?= $this->getHtml('Parent'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->parent->name); ?></a>
                         <?php endforeach; ?>
             </table>
             <div class="portlet-foot">

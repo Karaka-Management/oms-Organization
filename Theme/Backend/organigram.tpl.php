@@ -28,7 +28,7 @@ $unitRoot = $unitTree[null][0]['children'];
     <?php foreach ($unitRoot as $unitEle) : ?>
         <div class="row">
         <?php while (!empty($unitEle) && $unitEle['obj'] !== null) {
-            $unitTree[null][$unitEle['obj']->getParent()->getId()]['index'] = $unitTree[null][$unitEle['obj']->getParent()->getId()]['index'] + 1;
+            $unitTree[null][$unitEle['obj']->parent->getId()]['index'] = $unitTree[null][$unitEle['obj']->parent->getId()]['index'] + 1;
             ?>
             <?php while (!empty($unitEle)) {
                 $unitId  = $unitEle['obj']->getId(); ?>
@@ -42,7 +42,7 @@ $unitRoot = $unitTree[null][0]['children'];
                             $depRoot = $depTree[$unitId][0]['children'] ?? []; foreach ($depRoot as $depEle) : ?>
                             <div class="row" style="margin: 0 auto;">
                             <?php while (!empty($depEle) && $depEle['obj'] !== null) {
-                                $depTree[$unitId][$depEle['obj']->getParent()->getId()]['index'] = $depTree[$unitId][$depEle['obj']->getParent()->getId()]['index'] + 1;
+                                $depTree[$unitId][$depEle['obj']->parent->getId()]['index'] = $depTree[$unitId][$depEle['obj']->parent->getId()]['index'] + 1;
                                 ?>
                                 <?php while (!empty($depEle)) { ?>
                                     <div class="departments">
@@ -58,9 +58,9 @@ $unitRoot = $unitTree[null][0]['children'];
 
                                                 foreach ($posRoot as $posEle) : ?>
                                                 <?php while (!empty($posEle) && $posEle['obj'] !== null) {
-                                                    if (isset($posTree[$depId][$posEle['obj']->getParent()->getId()])) {
+                                                    if (isset($posTree[$depId][$posEle['obj']->parent->getId()])) {
                                                         // here is a bug or somewhere else... the index is not moved correctly $c is always 0
-                                                        $posTree[$depId][$posEle['obj']->getParent()->getId()]['index'] = $posTree[$depId][$posEle['obj']->getParent()->getId()]['index'] + $c + 1;
+                                                        $posTree[$depId][$posEle['obj']->parent->getId()]['index'] = $posTree[$depId][$posEle['obj']->parent->getId()]['index'] + $c + 1;
                                                     }
 
                                                     $c = 0; while (!empty($posEle)) {  ?>
@@ -87,7 +87,7 @@ $unitRoot = $unitTree[null][0]['children'];
 
                                         do {
                                             ++$toCloseDep;
-                                            $parentDep   = $parentDep->getParent();
+                                            $parentDep   = $parentDep->parent;
                                             $parentDepId = $parentDep->getId();
                                         } while ($parentDepId !== 0
                                             && !isset($depTree[$unitId][$parentDepId]['children'][($depTree[$unitId][$parentDepId]['index'] ?? 0) + 1])
@@ -115,7 +115,7 @@ $unitRoot = $unitTree[null][0]['children'];
 
                     do {
                         ++$toCloseUnit;
-                        $parentUnit   = $parentUnit->getParent();
+                        $parentUnit   = $parentUnit->parent;
                         $parentUnitId = $parentUnit->getId();
                     } while ($parentUnitId !== 0
                         && !isset($unitTree[null][$parentUnitId]['children'][($unitTree[null][$parentUnitId]['index'] ?? 0) + 1])
