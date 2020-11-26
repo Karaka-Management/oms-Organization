@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Modules\Organization\Controller;
 
 use phpOMS\Module\ModuleAbstract;
-use phpOMS\Module\WebInterface;
 
 /**
  * Organization Controller class.
