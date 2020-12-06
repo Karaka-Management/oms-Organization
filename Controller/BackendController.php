@@ -17,6 +17,7 @@ namespace Modules\Organization\Controller;
 use Modules\Organization\Models\Department;
 use Modules\Organization\Models\DepartmentMapper;
 use Modules\Organization\Models\Position;
+use Modules\Organization\Models\NullPosition;
 use Modules\Organization\Models\PositionMapper;
 use Modules\Organization\Models\Unit;
 use Modules\Organization\Models\UnitMapper;
@@ -168,7 +169,7 @@ final class BackendController extends Controller
 
             $parent = $component->parent->getId();
             if (!($component instanceof Position) // parent could be in different department then ignore
-                || $component->parent->department->getId() === $component->department->getId()
+                || (!($component->parent instanceof NullPosition) && $component->parent->department->getId() === $component->department->getId())
             ) {
                 if (!isset($tree[$ref][$parent])) {
                     $tree[$ref][$parent] = ['obj' => null, 'children' => [], 'index' => 0];

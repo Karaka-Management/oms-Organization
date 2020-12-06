@@ -53,8 +53,8 @@ echo $this->getData('nav')->render(); ?>
                         <tr><td><?= $this->getData('unit-selector')->render('iParent', 'parent', false); ?>
                         <tr><td><label for="iStatus"><?= $this->getHtml('Status'); ?></label>
                         <tr><td><select name="status" id="iStatus">
-                                    <option value="<?= $this->printHtml(Status::ACTIVE); ?>"<?= Status::ACTIVE === $unit->getStatus() ? ' selected' : ''; ?>><?= $this->getHtml('Active'); ?>
-                                    <option value="<?= $this->printHtml(Status::INACTIVE); ?>"<?= Status::INACTIVE === $unit->getStatus() ? ' selected' : ''; ?>><?= $this->getHtml('Inactive'); ?>
+                                    <option value="<?= Status::ACTIVE; ?>"<?= Status::ACTIVE === $unit->getStatus() ? ' selected' : ''; ?>><?= $this->getHtml('Active'); ?>
+                                    <option value="<?= Status::INACTIVE; ?>"<?= Status::INACTIVE === $unit->getStatus() ? ' selected' : ''; ?>><?= $this->getHtml('Inactive'); ?>
                                 </select>
                         <tr><td><?= $this->getData('editor')->render('unit-editor'); ?>
                         <tr><td><?= $this->getData('editor')->getData('text')->render(

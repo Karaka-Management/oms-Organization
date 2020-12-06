@@ -33,7 +33,7 @@ $unitRoot = $unitTree[null][0]['children'];
             <?php while (!empty($unitEle)) {
                 $unitId  = $unitEle['obj']->getId(); ?>
                 <div class="col">
-                    <div class="portlet unit"><div class="portlet-body"><?= $unitEle['obj']->getName(); ?></div></div>
+                    <div class="portlet unit"><div class="portlet-body"><?= $unitEle['obj']->name; ?></div></div>
 
                     <?php if (isset($depTree[$unitId]) && !empty($depTree[$unitId])) : ?>
                     <!-- departments -->
@@ -47,7 +47,7 @@ $unitRoot = $unitTree[null][0]['children'];
                                 <?php while (!empty($depEle)) { ?>
                                     <div class="departments">
                                         <div class="portlet">
-                                        <div class="portlet-head"><?= $depEle['obj']->getName(); ?></div>
+                                        <div class="portlet-head"><?= $depEle['obj']->name; ?></div>
 
                                         <!-- positions -->
                                         <div class="portlet-body">
@@ -64,7 +64,7 @@ $unitRoot = $unitTree[null][0]['children'];
                                                     }
 
                                                     $c = 0; while (!empty($posEle)) {  ?>
-                                                            <li><?= $posEle['obj']->getName(); ?>
+                                                            <li><?= $posEle['obj']->name; ?>
                                                     <?php
                                                         $posEle = [];
                                                     } // if no more children go back to parrent

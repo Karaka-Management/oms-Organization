@@ -40,7 +40,7 @@ echo $this->getData('nav')->render(); ?>
                         <?php $count = 0; foreach ($positions as $key => $value) : ++$count;
                         $url         = \phpOMS\Uri\UriFactory::build('{/prefix}organization/position/profile?{?}&id=' . $value->getId()); ?>
                 <tr tabindex="0" data-href="<?= $url; ?>">
-                    <td data-label="<?= $this->getHtml('ID', '0', '0'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->getId()); ?></a>
+                    <td data-label="<?= $this->getHtml('ID', '0', '0'); ?>"><a href="<?= $url; ?>"><?= $value->getId(); ?></a>
                     <td data-label="<?= $this->getHtml('Name'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->name); ?></a>
                     <td data-label="<?= $this->getHtml('Parent'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->parent->name); ?></a>
                     <td data-label="<?= $this->getHtml('Department'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->department->name); ?></a>
