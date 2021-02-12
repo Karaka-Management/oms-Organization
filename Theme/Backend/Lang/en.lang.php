@@ -22,6 +22,7 @@ return ['Organization' => [
     'Parent'      => 'Parent',
     'Position'    => 'Position',
     'Positions'   => 'Positions',
+    'Search'      => '',
     'Status'      => 'Status',
     'Unit'        => 'Unit',
     'UnitLogo'    => 'Unit Logo',
