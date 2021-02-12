@@ -3,7 +3,7 @@
         <header><h1><?= $this->getHtml('Department', 'Organization'); ?></h1></header>
 
         <div class="inner">
-            <label for="iSearchOrgDepartment">Search</label>
+            <label for="iSearchOrgDepartment"><?= $this->getHtml('Search'); ?></label>
             <input type="text" id="iSearchOrgDepartment" name="receiver-search" data-action='[
                 {
                     "key": 1, "listener": "keyup", "action": [
