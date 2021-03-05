@@ -4,6 +4,7 @@
  *
  * PHP Version 8.0
  *
+ * @package   Modules\Localization
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
@@ -22,7 +23,7 @@ return ['Organization' => [
     'Parent'      => 'Parent',
     'Position'    => 'Position',
     'Positions'   => 'Positions',
-    'Search'      => '',
+    'Search'      => 'Search',
     'Status'      => 'Status',
     'Unit'        => 'Unit',
     'UnitLogo'    => 'Unit Logo',
