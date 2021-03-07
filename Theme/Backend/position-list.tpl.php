@@ -32,13 +32,57 @@ echo $this->getData('nav')->render(); ?>
             <table id="positionList" class="default">
                 <thead>
                 <tr>
-                    <td><?= $this->getHtml('ID', '0', '0'); ?><i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
-                    <td class="wf-100"><?= $this->getHtml('Name'); ?><i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
-                    <td><?= $this->getHtml('Parent'); ?><i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
-                    <td><?= $this->getHtml('Department'); ?><i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
-                        <tbody>
-                        <?php $count = 0; foreach ($positions as $key => $value) : ++$count;
-                        $url         = \phpOMS\Uri\UriFactory::build('{/prefix}organization/position/profile?{?}&id=' . $value->getId()); ?>
+                    <td><?= $this->getHtml('ID', '0', '0'); ?>
+                        <label for="positionList-sort-1">
+                            <input type="radio" name="positionList-sort" id="positionList-sort-1">
+                            <i class="sort-asc fa fa-chevron-up"></i>
+                        </label>
+                        <label for="positionList-sort-2">
+                            <input type="radio" name="positionList-sort" id="positionList-sort-2">
+                             <i class="sort-desc fa fa-chevron-down"></i>
+                        </label>
+                        <label>
+                            <i class="filter fa fa-filter"></i>
+                        </label>
+                    <td class="wf-100"><?= $this->getHtml('Name'); ?>
+                        <label for="positionList-sort-3">
+                            <input type="radio" name="positionList-sort" id="positionList-sort-3">
+                            <i class="sort-asc fa fa-chevron-up"></i>
+                        </label>
+                        <label for="positionList-sort-4">
+                            <input type="radio" name="positionList-sort" id="positionList-sort-4">
+                             <i class="sort-desc fa fa-chevron-down"></i>
+                        </label>
+                        <label>
+                            <i class="filter fa fa-filter"></i>
+                        </label>
+                    <td><?= $this->getHtml('Parent'); ?>
+                        <label for="positionList-sort-5">
+                            <input type="radio" name="positionList-sort" id="positionList-sort-5">
+                            <i class="sort-asc fa fa-chevron-up"></i>
+                        </label>
+                        <label for="positionList-sort-6">
+                            <input type="radio" name="positionList-sort" id="positionList-sort-6">
+                             <i class="sort-desc fa fa-chevron-down"></i>
+                        </label>
+                        <label>
+                            <i class="filter fa fa-filter"></i>
+                        </label>
+                    <td><?= $this->getHtml('Department'); ?>
+                        <label for="positionList-sort-7">
+                            <input type="radio" name="positionList-sort" id="positionList-sort-7">
+                            <i class="sort-asc fa fa-chevron-up"></i>
+                        </label>
+                        <label for="positionList-sort-8">
+                            <input type="radio" name="positionList-sort" id="positionList-sort-8">
+                             <i class="sort-desc fa fa-chevron-down"></i>
+                        </label>
+                        <label>
+                            <i class="filter fa fa-filter"></i>
+                        </label>
+                <tbody>
+                <?php $count = 0; foreach ($positions as $key => $value) : ++$count;
+                $url         = \phpOMS\Uri\UriFactory::build('{/prefix}organization/position/profile?{?}&id=' . $value->getId()); ?>
                 <tr tabindex="0" data-href="<?= $url; ?>">
                     <td data-label="<?= $this->getHtml('ID', '0', '0'); ?>"><a href="<?= $url; ?>"><?= $value->getId(); ?></a>
                     <td data-label="<?= $this->getHtml('Name'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->name); ?></a>

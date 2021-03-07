@@ -32,13 +32,57 @@ echo $this->getData('nav')->render(); ?>
             <table id="departmentList" class="default">
                 <thead>
                 <tr>
-                    <td><?= $this->getHtml('ID', '0', '0'); ?><i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
-                    <td class="wf-100"><?= $this->getHtml('Name'); ?><i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
-                    <td><?= $this->getHtml('Parent'); ?><i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
-                    <td><?= $this->getHtml('Unit'); ?><i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
-                        <tbody>
-                        <?php $c = 0; foreach ($departments as $key => $value) : ++$c;
-                        $url     = UriFactory::build('{/prefix}organization/department/profile?{?}&id=' . $value->getId()); ?>
+                    <td><?= $this->getHtml('ID', '0', '0'); ?>
+                        <label for="departmentList-sort-1">
+                            <input type="radio" name="departmentList-sort" id="departmentList-sort-1">
+                            <i class="sort-asc fa fa-chevron-up"></i>
+                        </label>
+                        <label for="departmentList-sort-2">
+                            <input type="radio" name="departmentList-sort" id="departmentList-sort-2">
+                             <i class="sort-desc fa fa-chevron-down"></i>
+                        </label>
+                        <label>
+                            <i class="filter fa fa-filter"></i>
+                        </label>
+                    <td class="wf-100"><?= $this->getHtml('Name'); ?>
+                        <label for="departmentList-sort-3">
+                            <input type="radio" name="departmentList-sort" id="departmentList-sort-3">
+                            <i class="sort-asc fa fa-chevron-up"></i>
+                        </label>
+                        <label for="departmentList-sort-4">
+                            <input type="radio" name="departmentList-sort" id="departmentList-sort-4">
+                             <i class="sort-desc fa fa-chevron-down"></i>
+                        </label>
+                        <label>
+                            <i class="filter fa fa-filter"></i>
+                        </label>
+                    <td><?= $this->getHtml('Parent'); ?>
+                        <label for="departmentList-sort-5">
+                            <input type="radio" name="departmentList-sort" id="departmentList-sort-5">
+                            <i class="sort-asc fa fa-chevron-up"></i>
+                        </label>
+                        <label for="departmentList-sort-6">
+                            <input type="radio" name="departmentList-sort" id="departmentList-sort-6">
+                             <i class="sort-desc fa fa-chevron-down"></i>
+                        </label>
+                        <label>
+                            <i class="filter fa fa-filter"></i>
+                        </label>
+                    <td><?= $this->getHtml('Unit'); ?>
+                        <label for="departmentList-sort-7">
+                            <input type="radio" name="departmentList-sort" id="departmentList-sort-7">
+                            <i class="sort-asc fa fa-chevron-up"></i>
+                        </label>
+                        <label for="departmentList-sort-8">
+                            <input type="radio" name="departmentList-sort" id="departmentList-sort-8">
+                             <i class="sort-desc fa fa-chevron-down"></i>
+                        </label>
+                        <label>
+                            <i class="filter fa fa-filter"></i>
+                        </label>
+                <tbody>
+                <?php $c = 0; foreach ($departments as $key => $value) : ++$c;
+                    $url     = UriFactory::build('{/prefix}organization/department/profile?{?}&id=' . $value->getId()); ?>
                 <tr tabindex="0" data-href="<?= $url; ?>">
                     <td data-label="<?= $this->getHtml('ID', '0', '0'); ?>"><a href="<?= $url; ?>"><?= $value->getId(); ?></a>
                     <td data-label="<?= $this->getHtml('Name'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->name); ?></a>

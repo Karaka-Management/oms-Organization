@@ -33,13 +33,57 @@ echo $this->getData('nav')->render(); ?>
             <table id="unitList" class="default">
                 <thead>
                 <tr>
-                    <td><?= $this->getHtml('ID', '0', '0'); ?><i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
+                    <td><?= $this->getHtml('ID', '0', '0'); ?>
+                        <label for="unitList-sort-1">
+                            <input type="radio" name="unitList-sort" id="unitList-sort-1">
+                            <i class="sort-asc fa fa-chevron-up"></i>
+                        </label>
+                        <label for="unitList-sort-2">
+                            <input type="radio" name="unitList-sort" id="unitList-sort-2">
+                             <i class="sort-desc fa fa-chevron-down"></i>
+                        </label>
+                        <label>
+                            <i class="filter fa fa-filter"></i>
+                        </label>
                     <td><?= $this->getHtml('Logo'); ?>
-                    <td class="wf-100"><?= $this->getHtml('Name'); ?><i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
-                    <td><?= $this->getHtml('Parent'); ?><i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
-                        <tbody>
-                        <?php foreach ($units as $key => $value) :
-                        $url = UriFactory::build('{/prefix}organization/unit/profile?{?}&id=' . $value->getId()); ?>
+                        <label for="unitList-sort-3">
+                            <input type="radio" name="unitList-sort" id="unitList-sort-3">
+                            <i class="sort-asc fa fa-chevron-up"></i>
+                        </label>
+                        <label for="unitList-sort-4">
+                            <input type="radio" name="unitList-sort" id="unitList-sort-4">
+                             <i class="sort-desc fa fa-chevron-down"></i>
+                        </label>
+                        <label>
+                            <i class="filter fa fa-filter"></i>
+                        </label>
+                    <td class="wf-100"><?= $this->getHtml('Name'); ?>
+                        <label for="unitList-sort-5">
+                            <input type="radio" name="unitList-sort" id="unitList-sort-5">
+                            <i class="sort-asc fa fa-chevron-up"></i>
+                        </label>
+                        <label for="unitList-sort-6">
+                            <input type="radio" name="unitList-sort" id="unitList-sort-6">
+                             <i class="sort-desc fa fa-chevron-down"></i>
+                        </label>
+                        <label>
+                            <i class="filter fa fa-filter"></i>
+                        </label>
+                    <td><?= $this->getHtml('Parent'); ?>
+                        <label for="unitList-sort-7">
+                            <input type="radio" name="unitList-sort" id="unitList-sort-7">
+                            <i class="sort-asc fa fa-chevron-up"></i>
+                        </label>
+                        <label for="unitList-sort-8">
+                            <input type="radio" name="unitList-sort" id="unitList-sort-8">
+                             <i class="sort-desc fa fa-chevron-down"></i>
+                        </label>
+                        <label>
+                            <i class="filter fa fa-filter"></i>
+                        </label>
+                <tbody>
+                <?php foreach ($units as $key => $value) :
+                    $url = UriFactory::build('{/prefix}organization/unit/profile?{?}&id=' . $value->getId()); ?>
                 <tr tabindex="0" data-href="<?= $url; ?>">
                     <td data-label="<?= $this->getHtml('ID', '0', '0'); ?>"><a href="<?= $url; ?>"><?= $value->getId(); ?></a>
                     <td><a href="<?= $url; ?>"><img class="profile-image" src="<?= $value->image instanceof NullMedia ?
