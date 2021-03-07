@@ -81,7 +81,7 @@ echo $this->getData('nav')->render(); ?>
                             <i class="filter fa fa-filter"></i>
                         </label>
                 <tbody>
-                <?php $c = 0; foreach ($departments as $key => $value) : ++$c;
+                <?php $c     = 0; foreach ($departments as $key => $value) : ++$c;
                     $url     = UriFactory::build('{/prefix}organization/department/profile?{?}&id=' . $value->getId()); ?>
                 <tr tabindex="0" data-href="<?= $url; ?>">
                     <td data-label="<?= $this->getHtml('ID', '0', '0'); ?>"><a href="<?= $url; ?>"><?= $value->getId(); ?></a>
