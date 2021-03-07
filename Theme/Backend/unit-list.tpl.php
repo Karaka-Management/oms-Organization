@@ -40,7 +40,7 @@ echo $this->getData('nav')->render(); ?>
                         </label>
                         <label for="unitList-sort-2">
                             <input type="radio" name="unitList-sort" id="unitList-sort-2">
-                             <i class="sort-desc fa fa-chevron-down"></i>
+                            <i class="sort-desc fa fa-chevron-down"></i>
                         </label>
                         <label>
                             <i class="filter fa fa-filter"></i>
@@ -52,7 +52,7 @@ echo $this->getData('nav')->render(); ?>
                         </label>
                         <label for="unitList-sort-4">
                             <input type="radio" name="unitList-sort" id="unitList-sort-4">
-                             <i class="sort-desc fa fa-chevron-down"></i>
+                            <i class="sort-desc fa fa-chevron-down"></i>
                         </label>
                         <label>
                             <i class="filter fa fa-filter"></i>
@@ -64,7 +64,7 @@ echo $this->getData('nav')->render(); ?>
                         </label>
                         <label for="unitList-sort-6">
                             <input type="radio" name="unitList-sort" id="unitList-sort-6">
-                             <i class="sort-desc fa fa-chevron-down"></i>
+                            <i class="sort-desc fa fa-chevron-down"></i>
                         </label>
                         <label>
                             <i class="filter fa fa-filter"></i>
@@ -76,7 +76,7 @@ echo $this->getData('nav')->render(); ?>
                         </label>
                         <label for="unitList-sort-8">
                             <input type="radio" name="unitList-sort" id="unitList-sort-8">
-                             <i class="sort-desc fa fa-chevron-down"></i>
+                            <i class="sort-desc fa fa-chevron-down"></i>
                         </label>
                         <label>
                             <i class="filter fa fa-filter"></i>
