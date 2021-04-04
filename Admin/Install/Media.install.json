@@ -5,5 +5,24 @@
         "name": "Organization",
         "virtualPath": "/Modules",
         "user": 1
+    },
+    {
+        "type": "collection",
+        "create_directory": true,
+        "name": "Templates",
+        "virtualPath": "/Modules/Organization",
+        "user": 1
+    },
+    {
+        "type": "upload",
+        "create_collection": false,
+        "name": "Letter",
+        "type": "default_letter",
+        "virtualPath": "/Modules/Organization/Templates",
+        "path": "/Modules/Media/Files/Modules/Organization/Templates",
+        "files": [
+            "/Modules/Organization/Admin/Install/Media/letter.doc.php"
+        ],
+        "user": 1
     }
 ]

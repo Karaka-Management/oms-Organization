@@ -70,6 +70,21 @@ final class UnitMapper extends DataMapperAbstract
     ];
 
     /**
+     * Has many relation.
+     *
+     * @var array<string, array{mapper:string, table:string, self?:?string, external?:?string, column?:string}>
+     * @since 1.0.0
+     */
+    protected static array $hasMany = [
+        'files'           => [
+            'mapper'   => MediaMapper::class,              /* mapper of the related object */
+            'table'    => 'organization_unit_media',       /* table of the related object, null if no relation table is used (many->1) */
+            'external' => 'organization_unit_media_dst',
+            'self'     => 'organization_unit_media_src',
+        ],
+    ];
+
+    /**
      * Model to use by the mapper.
      *
      * @var string
