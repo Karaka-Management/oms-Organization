@@ -30,7 +30,7 @@ echo $this->getData('nav')->render(); ?>
     <div class="col-xs-12">
         <div class="portlet">
             <div class="portlet-head"><?= $this->getHtml('Units'); ?><i class="fa fa-download floatRight download btn"></i></div>
-            <table id="unitList" class="default">
+            <table id="unitList" class="default sticky">
                 <thead>
                 <tr>
                     <td><?= $this->getHtml('ID', '0', '0'); ?>
