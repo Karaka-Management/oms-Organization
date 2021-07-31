@@ -86,8 +86,8 @@ echo $this->getData('nav')->render(); ?>
                 <tr tabindex="0" data-href="<?= $url; ?>">
                     <td data-label="<?= $this->getHtml('ID', '0', '0'); ?>"><a href="<?= $url; ?>"><?= $value->getId(); ?></a>
                     <td data-label="<?= $this->getHtml('Name'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->name); ?></a>
-                    <td data-label="<?= $this->getHtml('Parent'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->parent->name); ?></a>
-                    <td data-label="<?= $this->getHtml('Department'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->department->name); ?></a>
+                    <td data-label="<?= $this->getHtml('Parent'); ?>"><a class="content" href="<?= UriFactory::build('{/prefix}organization/position/profile?{?}&id=' . $value->parent->getId()); ?>"><?= $this->printHtml($value->parent->name); ?></a>
+                    <td data-label="<?= $this->getHtml('Department'); ?>"><a class="content" href="<?= UriFactory::build('{/prefix}organization/department/profile?{?}&id=' . $value->department->getId()); ?>"><?= $this->printHtml($value->department->name); ?></a>
                         <?php endforeach; ?>
                         <?php if ($count === 0) : ?>
                     <tr><td colspan="5" class="empty"><?= $this->getHtml('Empty', '0', '0'); ?>
