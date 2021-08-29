@@ -26,6 +26,9 @@ class PositionTest extends \PHPUnit\Framework\TestCase
 {
     private Position $position;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->position = new Position();

@@ -26,6 +26,9 @@ class UnitTest extends \PHPUnit\Framework\TestCase
 {
     private Unit $unit;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->unit = new Unit();
