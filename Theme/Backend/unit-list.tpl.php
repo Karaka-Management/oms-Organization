@@ -30,6 +30,7 @@ echo $this->getData('nav')->render(); ?>
     <div class="col-xs-12">
         <div class="portlet">
             <div class="portlet-head"><?= $this->getHtml('Units'); ?><i class="fa fa-download floatRight download btn"></i></div>
+            <div class="slider">
             <table id="unitList" class="default sticky">
                 <thead>
                 <tr>
@@ -93,6 +94,7 @@ echo $this->getData('nav')->render(); ?>
                     <td data-label="<?= $this->getHtml('Parent'); ?>"><a class="content" href="<?= UriFactory::build('{/prefix}organization/unit/profile?{?}&id=' . $value->parent->getId()); ?>"><?= $this->printHtml($value->parent->name); ?></a>
                         <?php endforeach; ?>
             </table>
+            </div>
             <div class="portlet-foot">
                 <a tabindex="0" class="button" href="<?= UriFactory::build($previous); ?>"><?= $this->getHtml('Previous', '0', '0'); ?></a>
                 <a tabindex="0" class="button" href="<?= UriFactory::build($next); ?>"><?= $this->getHtml('Next', '0', '0'); ?></a>

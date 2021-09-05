@@ -29,6 +29,7 @@ echo $this->getData('nav')->render(); ?>
     <div class="col-xs-12">
         <div class="portlet">
             <div class="portlet-head"><?= $this->getHtml('Departments'); ?><i class="fa fa-download floatRight download btn"></i></div>
+            <div class="slider">
             <table id="departmentList" class="default sticky">
                 <thead>
                 <tr>
@@ -95,6 +96,7 @@ echo $this->getData('nav')->render(); ?>
                     <td colspan="4" class="empty"><?= $this->getHtml('Empty', '0', '0'); ?>
                 <?php endif; ?>
             </table>
+            </div>
             <div class="portlet-foot">
                 <a tabindex="0" class="button" href="<?= UriFactory::build($previous); ?>"><?= $this->getHtml('Previous', '0', '0'); ?></a>
                 <a tabindex="0" class="button" href="<?= UriFactory::build($next); ?>"><?= $this->getHtml('Next', '0', '0'); ?></a>
