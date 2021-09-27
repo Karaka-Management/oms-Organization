@@ -17,19 +17,19 @@ use Modules\Organization\Models\SettingsEnum;
 
 return [
     [
-        'type' => 'setting',
+        'type'    => 'setting',
         'name'    => SettingsEnum::GROUP_GENERATE_AUTOMATICALLY_UNIT,
         'content' => '1',
         'module'  => ApiController::MODULE_NAME,
     ],
     [
-        'type' => 'setting',
+        'type'    => 'setting',
         'name'    => SettingsEnum::GROUP_GENERATE_AUTOMATICALLY_DEPARTMENT,
         'content' => '1',
         'module'  => ApiController::MODULE_NAME,
     ],
     [
-        'type' => 'setting',
+        'type'    => 'setting',
         'name'    => SettingsEnum::GROUP_GENERATE_AUTOMATICALLY_POSITION,
         'content' => '1',
         'module'  => ApiController::MODULE_NAME,
