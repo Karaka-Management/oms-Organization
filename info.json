@@ -23,6 +23,7 @@
     },
     "providing": {
         "Navigation": "*",
+        "Admin": "*",
         "Media": "*"
     },
     "load": [
