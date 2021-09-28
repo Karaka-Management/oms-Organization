@@ -23,7 +23,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiPositionCreate',
             'verb'       => RouteVerb::PUT,
             'permission' => [
-                'module' => ApiController::MODULE_NAME,
+                'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
                 'state'  => PermissionState::POSITION,
             ],
@@ -32,7 +32,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiPositionGet',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => ApiController::MODULE_NAME,
+                'module' => ApiController::NAME,
                 'type'   => PermissionType::READ,
                 'state'  => PermissionState::POSITION,
             ],
@@ -41,7 +41,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiPositionSet',
             'verb'       => RouteVerb::SET,
             'permission' => [
-                'module' => ApiController::MODULE_NAME,
+                'module' => ApiController::NAME,
                 'type'   => PermissionType::MODIFY,
                 'state'  => PermissionState::POSITION,
             ],
@@ -50,7 +50,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiPositionDelete',
             'verb'       => RouteVerb::DELETE,
             'permission' => [
-                'module' => ApiController::MODULE_NAME,
+                'module' => ApiController::NAME,
                 'type'   => PermissionType::DELETE,
                 'state'  => PermissionState::POSITION,
             ],
@@ -61,7 +61,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiDepartmentCreate',
             'verb'       => RouteVerb::PUT,
             'permission' => [
-                'module' => ApiController::MODULE_NAME,
+                'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
                 'state'  => PermissionState::DEPARTMENT,
             ],
@@ -70,7 +70,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiDepartmentGet',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => ApiController::MODULE_NAME,
+                'module' => ApiController::NAME,
                 'type'   => PermissionType::READ,
                 'state'  => PermissionState::DEPARTMENT,
             ],
@@ -79,7 +79,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiDepartmentSet',
             'verb'       => RouteVerb::SET,
             'permission' => [
-                'module' => ApiController::MODULE_NAME,
+                'module' => ApiController::NAME,
                 'type'   => PermissionType::MODIFY,
                 'state'  => PermissionState::DEPARTMENT,
             ],
@@ -88,7 +88,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiDepartmentDelete',
             'verb'       => RouteVerb::DELETE,
             'permission' => [
-                'module' => ApiController::MODULE_NAME,
+                'module' => ApiController::NAME,
                 'type'   => PermissionType::DELETE,
                 'state'  => PermissionState::DEPARTMENT,
             ],
@@ -99,7 +99,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiUnitCreate',
             'verb'       => RouteVerb::PUT,
             'permission' => [
-                'module' => ApiController::MODULE_NAME,
+                'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
                 'state'  => PermissionState::UNIT,
             ],
@@ -108,7 +108,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiUnitGet',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => ApiController::MODULE_NAME,
+                'module' => ApiController::NAME,
                 'type'   => PermissionType::READ,
                 'state'  => PermissionState::UNIT,
             ],
@@ -117,7 +117,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiUnitSet',
             'verb'       => RouteVerb::SET,
             'permission' => [
-                'module' => ApiController::MODULE_NAME,
+                'module' => ApiController::NAME,
                 'type'   => PermissionType::MODIFY,
                 'state'  => PermissionState::UNIT,
             ],
@@ -126,7 +126,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiUnitDelete',
             'verb'       => RouteVerb::DELETE,
             'permission' => [
-                'module' => ApiController::MODULE_NAME,
+                'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
                 'state'  => PermissionState::UNIT,
             ],
@@ -138,7 +138,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiUnitImageSet',
             'verb'       => RouteVerb::SET,
             'permission' => [
-                'module' => ApiController::MODULE_NAME,
+                'module' => ApiController::NAME,
                 'type'   => PermissionType::MODIFY,
                 'state'  => PermissionState::UNIT,
             ],
@@ -150,7 +150,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiUnitFind',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => ApiController::MODULE_NAME,
+                'module' => ApiController::NAME,
                 'type'   => PermissionType::READ,
                 'state'  => PermissionState::UNIT,
             ],
@@ -161,7 +161,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiDepartmentFind',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => ApiController::MODULE_NAME,
+                'module' => ApiController::NAME,
                 'type'   => PermissionType::READ,
                 'state'  => PermissionState::DEPARTMENT,
             ],
@@ -172,7 +172,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiPositionFind',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => ApiController::MODULE_NAME,
+                'module' => ApiController::NAME,
                 'type'   => PermissionType::READ,
                 'state'  => PermissionState::POSITION,
             ],

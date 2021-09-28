@@ -20,18 +20,18 @@ return [
         'type' => 'setting',
         'name'    => SettingsEnum::GROUP_GENERATE_AUTOMATICALLY_UNIT,
         'content' => '1',
-        'module'  => ApiController::MODULE_NAME,
+        'module'  => ApiController::NAME,
     ],
     [
         'type' => 'setting',
         'name'    => SettingsEnum::GROUP_GENERATE_AUTOMATICALLY_DEPARTMENT,
         'content' => '1',
-        'module'  => ApiController::MODULE_NAME,
+        'module'  => ApiController::NAME,
     ],
     [
         'type' => 'setting',
         'name'    => SettingsEnum::GROUP_GENERATE_AUTOMATICALLY_POSITION,
         'content' => '1',
-        'module'  => ApiController::MODULE_NAME,
+        'module'  => ApiController::NAME,
     ],
 ];

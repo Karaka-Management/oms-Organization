@@ -23,7 +23,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\BackendController:viewOrganigram',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => BackendController::MODULE_NAME,
+                'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
                 'state'  => PermissionState::ORGANIGRAM,
             ],
@@ -34,7 +34,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\BackendController:viewUnitList',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => BackendController::MODULE_NAME,
+                'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
                 'state'  => PermissionState::UNIT,
             ],
@@ -45,7 +45,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\BackendController:viewUnitProfile',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => BackendController::MODULE_NAME,
+                'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
                 'state'  => PermissionState::UNIT,
             ],
@@ -56,7 +56,7 @@ return [
             'dest'       => '\Modules\Media\Controller\BackendController::setUpFileUploaderTrait',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => BackendController::MODULE_NAME,
+                'module' => BackendController::NAME,
                 'type'   => PermissionType::CREATE,
                 'state'  => PermissionState::UNIT,
             ],
@@ -65,7 +65,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\BackendController:viewUnitCreate',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => BackendController::MODULE_NAME,
+                'module' => BackendController::NAME,
                 'type'   => PermissionType::CREATE,
                 'state'  => PermissionState::UNIT,
             ],
@@ -76,7 +76,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\BackendController:viewDepartmentList',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => BackendController::MODULE_NAME,
+                'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
                 'state'  => PermissionState::DEPARTMENT,
             ],
@@ -87,7 +87,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\BackendController:viewDepartmentProfile',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => BackendController::MODULE_NAME,
+                'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
                 'state'  => PermissionState::DEPARTMENT,
             ],
@@ -98,7 +98,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\BackendController:viewDepartmentCreate',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => BackendController::MODULE_NAME,
+                'module' => BackendController::NAME,
                 'type'   => PermissionType::CREATE,
                 'state'  => PermissionState::DEPARTMENT,
             ],
@@ -109,7 +109,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\BackendController:viewPositionList',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => BackendController::MODULE_NAME,
+                'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
                 'state'  => PermissionState::POSITION,
             ],
@@ -120,7 +120,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\BackendController:viewPositionProfile',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => BackendController::MODULE_NAME,
+                'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
                 'state'  => PermissionState::POSITION,
             ],
@@ -131,7 +131,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\BackendController:viewPositionCreate',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => BackendController::MODULE_NAME,
+                'module' => BackendController::NAME,
                 'type'   => PermissionType::CREATE,
                 'state'  => PermissionState::POSITION,
             ],
