@@ -185,7 +185,7 @@ final class ApiController extends Controller
         $unit = $this->createUnitFromRequest($request);
         $this->createModel($request->header->account, $unit, UnitMapper::class, 'unit', $request->getOrigin());
 
-        if ($this->app->appSettings->get(null, SettingsEnum::GROUP_GENERATE_AUTOMATICALLY_UNIT)['content'] === '1') {
+        if ($this->app->appSettings->get(null, SettingsEnum::GROUP_GENERATE_AUTOMATICALLY_UNIT)->content === '1') {
             $newRequest = new HttpRequest();
             $newRequest->setData('name', 'org:unit:' . \strtolower($unit->name));
             $newRequest->setData('status', GroupStatus::ACTIVE);
@@ -402,7 +402,7 @@ final class ApiController extends Controller
         $position = $this->createPositionFromRequest($request);
         $this->createModel($request->header->account, $position, PositionMapper::class, 'position', $request->getOrigin());
 
-        if ($this->app->appSettings->get(null, SettingsEnum::GROUP_GENERATE_AUTOMATICALLY_POSITION)['content'] === '1') {
+        if ($this->app->appSettings->get(null, SettingsEnum::GROUP_GENERATE_AUTOMATICALLY_POSITION)->content === '1') {
             $newRequest = new HttpRequest();
             $newRequest->setData('name', 'org:pos:' . \strtolower($position->name));
             $newRequest->setData('status', GroupStatus::ACTIVE);
@@ -580,7 +580,7 @@ final class ApiController extends Controller
         $department = $this->createDepartmentFromRequest($request);
         $this->createModel($request->header->account, $department, DepartmentMapper::class, 'department', $request->getOrigin());
 
-        if ($this->app->appSettings->get(null, SettingsEnum::GROUP_GENERATE_AUTOMATICALLY_DEPARTMENT)['content'] === '1') {
+        if ($this->app->appSettings->get(null, SettingsEnum::GROUP_GENERATE_AUTOMATICALLY_DEPARTMENT)->content === '1') {
             $newRequest = new HttpRequest();
             $newRequest->setData('name', 'org:dep:' . \strtolower($department->name));
             $newRequest->setData('status', GroupStatus::ACTIVE);
