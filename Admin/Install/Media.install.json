@@ -22,6 +22,7 @@
         "path": "/Modules/Media/Files/Modules/Organization/Templates",
         "files": [
             "/Modules/Organization/Admin/Install/Media/letter.doc.php"
+            "/Modules/Organization/Admin/Install/Media/letter.pdf.php"
         ],
         "user": 1
     }
