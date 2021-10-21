@@ -22,7 +22,7 @@ use Modules\Organization\Models\Unit;
 /**
  * @internal
  */
-class UnitTest extends \PHPUnit\Framework\TestCase
+final class UnitTest extends \PHPUnit\Framework\TestCase
 {
     private Unit $unit;
 

@@ -22,7 +22,7 @@ use Modules\Organization\Models\NullUnit;
 /**
  * @internal
  */
-class DepartmentMapperTest extends \PHPUnit\Framework\TestCase
+final class DepartmentMapperTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers Modules\Organization\Models\DepartmentMapper

@@ -21,7 +21,7 @@ use Modules\Organization\Models\PositionMapper;
 /**
  * @internal
  */
-class PositionMapperTest extends \PHPUnit\Framework\TestCase
+final class PositionMapperTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers Modules\Organization\Models\PositionMapper

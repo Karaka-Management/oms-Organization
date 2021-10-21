@@ -22,7 +22,7 @@ use Modules\Organization\Models\Status;
 /**
  * @internal
  */
-class DepartmentTest extends \PHPUnit\Framework\TestCase
+final class DepartmentTest extends \PHPUnit\Framework\TestCase
 {
     private Department $department;
 

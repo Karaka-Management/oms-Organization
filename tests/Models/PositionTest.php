@@ -22,7 +22,7 @@ use Modules\Organization\Models\Status;
 /**
  * @internal
  */
-class PositionTest extends \PHPUnit\Framework\TestCase
+final class PositionTest extends \PHPUnit\Framework\TestCase
 {
     private Position $position;
 

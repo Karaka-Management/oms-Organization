@@ -21,7 +21,7 @@ use Modules\Organization\Models\UnitMapper;
 /**
  * @internal
  */
-class UnitMapperTest extends \PHPUnit\Framework\TestCase
+final class UnitMapperTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers Modules\Organization\Models\UnitMapper
