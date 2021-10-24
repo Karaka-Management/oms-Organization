@@ -85,14 +85,6 @@ class Unit implements \JsonSerializable, ArrayableInterface
     protected int $status = Status::INACTIVE;
 
     /**
-     * Media files
-     *
-     * @var array
-     * @since 1.0.0
-     */
-    protected array $files = [];
-
-    /**
      * Constructor.
      *
      * @since 1.0.0
@@ -113,73 +105,6 @@ class Unit implements \JsonSerializable, ArrayableInterface
     public function getId() : int
     {
         return $this->id;
-    }
-
-    /**
-     * Get media.
-     *
-     * @return array
-     *
-     * @since 1.0.0
-     */
-    public function getFiles() : array
-    {
-        return $this->files;
-    }
-
-    /**
-     * Add media.
-     *
-     * @param Media $file Media
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function addFile(Media $file) : void
-    {
-        $this->files[] = $file;
-    }
-
-    /**
-     * Get media file by type
-     *
-     * @param string $type Media type
-     *
-     * @return Media
-     *
-     * @since 1.0.0
-     */
-    public function getFileByType(string $type) : Media
-    {
-        foreach ($this->files as $file) {
-            if ($file->type === $type) {
-                return $file;
-            }
-        }
-
-        return new NullMedia();
-    }
-
-    /**
-     * Get all media files by type
-     *
-     * @param string $type Media type
-     *
-     * @return Media[]
-     *
-     * @since 1.0.0
-     */
-    public function getFilesByType(string $type) : array
-    {
-        $files = [];
-        foreach ($this->files as $file) {
-            if ($file->type === $type) {
-                $files[] = $file;
-            }
-        }
-
-        return $files;
     }
 
     /**
