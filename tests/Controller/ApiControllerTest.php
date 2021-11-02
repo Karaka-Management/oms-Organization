@@ -221,7 +221,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
 
         $this->module->apiDepartmentFind($request, $response);
 
-        self::assertEquals('test', $response->get('')[0]->name);
+        self::assertTrue(\stripos(\strtolower($response->get('')[0]->name), 'test') !== false);
         self::assertGreaterThan(0, $response->get('')[0]->getId());
     }
 
@@ -331,7 +331,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
 
         $this->module->apiPositionFind($request, $response);
 
-        self::assertEquals('test', $response->get('')[0]->name);
+        self::assertTrue(\stripos(\strtolower($response->get('')[0]->name), 'test') !== false);
         self::assertGreaterThan(0, $response->get('')[0]->getId());
     }
 
