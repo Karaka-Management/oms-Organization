@@ -89,7 +89,7 @@ final class ApiController extends Controller
     public function apiUnitGet(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
         /** @var Unit $unit */
-        $unit = UnitMapper::get((int) $request->getData('id'));
+        $unit = UnitMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Unit', 'Unit successfully returned.', $unit);
     }
 
@@ -109,7 +109,7 @@ final class ApiController extends Controller
     public function apiUnitSet(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
         /** @var Unit $old */
-        $old = clone UnitMapper::get((int) $request->getData('id'));
+        $old = clone UnitMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $new = $this->updateUnitFromRequest($request);
         $this->updateModel($request->header->account, $old, $new, UnitMapper::class, 'unit', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Unit', 'Unit successfully updated.', $new);
@@ -127,7 +127,7 @@ final class ApiController extends Controller
     private function updateUnitFromRequest(RequestAbstract $request) : Unit
     {
         /** @var Unit $unit */
-        $unit                 = UnitMapper::get((int) $request->getData('id'));
+        $unit                 = UnitMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $unit->name           = (string) ($request->getData('name') ?? $unit->name);
         $unit->descriptionRaw = (string) ($request->getData('description') ?? $unit->descriptionRaw);
         $unit->description    = Markdown::parse((string) ($request->getData('description') ?? $unit->descriptionRaw));
@@ -155,7 +155,7 @@ final class ApiController extends Controller
     public function apiUnitDelete(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
         /** @var Unit $unit */
-        $unit = UnitMapper::get((int) $request->getData('id'));
+        $unit = UnitMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $this->deleteModel($request->header->account, $unit, UnitMapper::class, 'unit', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Unit', 'Unit successfully deleted.', $unit);
     }
@@ -242,7 +242,7 @@ final class ApiController extends Controller
         }
 
         /** @var Unit $unit */
-        $unit = UnitMapper::get((int) ($request->getData('id') ?? 0));
+        $unit = UnitMapper::get()->where('id', (int) ($request->getData('id') ?? 0))->execute();
         $old  = clone $unit;
 
         $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
@@ -304,7 +304,7 @@ final class ApiController extends Controller
     public function apiPositionGet(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
         /** @var Position $position */
-        $position = PositionMapper::get((int) $request->getData('id'));
+        $position = PositionMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Position', 'Position successfully returned.', $position);
     }
 
@@ -324,7 +324,7 @@ final class ApiController extends Controller
     public function apiPositionDelete(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
         /** @var Position $position */
-        $position = PositionMapper::get((int) $request->getData('id'));
+        $position = PositionMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $this->deleteModel($request->header->account, $position, PositionMapper::class, 'position', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Position', 'Position successfully deleted.', $position);
     }
@@ -345,7 +345,7 @@ final class ApiController extends Controller
     public function apiPositionSet(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
         /** @var Position $old */
-        $old = clone PositionMapper::get((int) $request->getData('id'));
+        $old = clone PositionMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $new = $this->updatePositionFromRequest($request);
         $this->updateModel($request->header->account, $old, $new, PositionMapper::class, 'position', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Position', 'Position successfully updated.', $new);
@@ -363,7 +363,7 @@ final class ApiController extends Controller
     private function updatePositionFromRequest(RequestAbstract $request) : Position
     {
         /** @var Position $position */
-        $position                 = PositionMapper::get((int) $request->getData('id'));
+        $position                 = PositionMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $position->name           = (string) ($request->getData('name') ?? $position->name);
         $position->descriptionRaw = (string) ($request->getData('description') ?? $position->descriptionRaw);
         $position->description    = Markdown::parse((string) ($request->getData('description') ?? $position->descriptionRaw));
@@ -482,7 +482,7 @@ final class ApiController extends Controller
     public function apiDepartmentGet(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
         /** @var Department $department */
-        $department = DepartmentMapper::get((int) $request->getData('id'));
+        $department = DepartmentMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Department', 'Department successfully returned.', $department);
     }
 
@@ -502,7 +502,7 @@ final class ApiController extends Controller
     public function apiDepartmentSet(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
         /** @var Department $old */
-        $old = clone DepartmentMapper::get((int) $request->getData('id'));
+        $old = clone DepartmentMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $new = $this->updateDepartmentFromRequest($request);
         $this->updateModel($request->header->account, $old, $new, DepartmentMapper::class, 'department', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Department', 'Department successfully updated.', $new);
@@ -520,7 +520,7 @@ final class ApiController extends Controller
     private function updateDepartmentFromRequest(RequestAbstract $request) : Department
     {
         /** @var Department $department */
-        $department                 = DepartmentMapper::get((int) $request->getData('id'));
+        $department                 = DepartmentMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $department->name           = (string) ($request->getData('name') ?? $department->name);
         $department->descriptionRaw = (string) ($request->getData('description') ?? $department->descriptionRaw);
         $department->description    = Markdown::parse((string) ($request->getData('description') ?? $department->descriptionRaw));
@@ -551,7 +551,7 @@ final class ApiController extends Controller
     public function apiDepartmentDelete(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
         /** @var Department $department */
-        $department = DepartmentMapper::get((int) $request->getData('id'));
+        $department = DepartmentMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $this->deleteModel($request->header->account, $department, DepartmentMapper::class, 'department', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Department', 'Department successfully deleted.', $department);
     }
@@ -634,7 +634,7 @@ final class ApiController extends Controller
         $response->set(
             $request->uri->__toString(),
             \array_values(
-                UnitMapper::find((string) ($request->getData('search') ?? ''))
+                UnitMapper::getAll()->where('name', '%' . ($request->getData('search') ?? '') . '%', 'LIKE')->execute()
             )
         );
     }
@@ -658,7 +658,7 @@ final class ApiController extends Controller
         $response->set(
             $request->uri->__toString(),
             \array_values(
-                DepartmentMapper::find((string) ($request->getData('search') ?? ''))
+                DepartmentMapper::getAll()->where('name', '%' . ($request->getData('search') ?? '') . '%', 'LIKE')->execute()
             )
         );
     }
@@ -682,7 +682,7 @@ final class ApiController extends Controller
         $response->set(
             $request->uri->__toString(),
             \array_values(
-                PositionMapper::find((string) ($request->getData('search') ?? ''))
+                PositionMapper::getAll()->where('name', '%' . ($request->getData('search') ?? '') . '%', 'LIKE')->execute()
             )
         );
     }

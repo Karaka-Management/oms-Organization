@@ -430,7 +430,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         ]);
         $this->module->apiUnitImageSet($request, $response);
 
-        $image = UnitMapper::get(1)->image;
+        $image = UnitMapper::get()->with('image')->where('id', 1)->execute()->image;
         self::assertEquals('Organization Logo', $image->name);
     }
 

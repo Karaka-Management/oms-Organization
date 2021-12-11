@@ -58,11 +58,11 @@ final class BackendController extends Controller
         $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1004703001, $request, $response));
 
         if ($request->getData('ptype') === 'p') {
-            $view->setData('units', UnitMapper::getBeforePivot((int) ($request->getData('id') ?? 0), null, 25));
+            $view->setData('units', UnitMapper::getAll()->with('parent')->with('image')->where('id', (int) ($request->getData('id') ?? 0), '<')->limit(25)->execute());
         } elseif ($request->getData('ptype') === 'n') {
-            $view->setData('units', UnitMapper::getAfterPivot((int) ($request->getData('id') ?? 0), null, 25));
+            $view->setData('units', UnitMapper::getAll()->with('parent')->with('image')->where('id', (int) ($request->getData('id') ?? 0), '>')->limit(25)->execute());
         } else {
-            $view->setData('units', UnitMapper::getAfterPivot(0, null, 25));
+            $view->setData('units', UnitMapper::getAll()->with('parent')->with('image')->where('id', 0, '>')->limit(25)->execute());
         }
 
         return $view;
@@ -89,7 +89,7 @@ final class BackendController extends Controller
 
         $selectorView = new \Modules\Organization\Theme\Backend\Components\UnitTagSelector\UnitTagSelectorView($this->app->l11nManager, $request, $response);
         $view->addData('unit-selector', $selectorView);
-        $view->addData('unit', UnitMapper::get((int) $request->getData('id')));
+        $view->addData('unit', UnitMapper::get()->with('parent')->with('image')->where('id', (int) $request->getData('id'))->execute());
 
         $editor = new \Modules\Editor\Theme\Backend\Components\Editor\BaseView($this->app->l11nManager, $request, $response);
         $view->addData('editor', $editor);
@@ -120,17 +120,17 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/Organization/Theme/Backend/organigram');
 
         /** @var Unit[] $units */
-        $units    = UnitMapper::getAll();
+        $units    = UnitMapper::getAll()->with('parent')->execute();
         $unitTree = $this->createOrgTree($units);
         $view->setData('unitTree', $unitTree);
 
         /** @var Department[] $departments */
-        $departments = DepartmentMapper::getAll();
+        $departments = DepartmentMapper::getAll()->with('parent')->with('unit')->execute();
         $depTree     = $this->createOrgTree($departments);
         $view->setData('departmentTree', $depTree);
 
         /** @var Position[] $positions */
-        $positions = PositionMapper::getAll();
+        $positions = PositionMapper::getAll()->with('parent')->with('unit')->with('department')->execute();
         $posTree   = $this->createOrgTree($positions);
         $view->setData('positionTree', $posTree);
 
@@ -236,11 +236,11 @@ final class BackendController extends Controller
         $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1004704001, $request, $response));
 
         if ($request->getData('ptype') === 'p') {
-            $view->setData('departments', DepartmentMapper::getBeforePivot((int) ($request->getData('id') ?? 0), null, 25));
+            $view->setData('departments', DepartmentMapper::getAll()->with('parent')->with('unit')->where('id', (int) ($request->getData('id') ?? 0), '<')->limit(25)->execute());
         } elseif ($request->getData('ptype') === 'n') {
-            $view->setData('departments', DepartmentMapper::getAfterPivot((int) ($request->getData('id') ?? 0), null, 25));
+            $view->setData('departments', DepartmentMapper::getAll()->with('parent')->with('unit')->where('id', (int) ($request->getData('id') ?? 0), '>')->limit(25)->execute());
         } else {
-            $view->setData('departments', DepartmentMapper::getAfterPivot(0, null, 25));
+            $view->setData('departments', DepartmentMapper::getAll()->with('parent')->with('unit')->where('id', 0, '>')->limit(25)->execute());
         }
 
         return $view;
@@ -271,7 +271,7 @@ final class BackendController extends Controller
         $unitSelectorView = new \Modules\Organization\Theme\Backend\Components\UnitTagSelector\UnitTagSelectorView($this->app->l11nManager, $request, $response);
         $view->addData('unit-selector', $unitSelectorView);
 
-        $view->addData('department', DepartmentMapper::get((int) $request->getData('id')));
+        $view->addData('department', DepartmentMapper::get()->with('parent')->with('unit')->where('id', (int) $request->getData('id'))->execute());
 
         $editor = new \Modules\Editor\Theme\Backend\Components\Editor\BaseView($this->app->l11nManager, $request, $response);
         $view->addData('editor', $editor);
@@ -330,11 +330,11 @@ final class BackendController extends Controller
         $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1004705001, $request, $response));
 
         if ($request->getData('ptype') === 'p') {
-            $view->setData('positions', PositionMapper::getBeforePivot((int) ($request->getData('id') ?? 0), null, 25));
+            $view->setData('positions', PositionMapper::getAll()->with('parent')->with('department')->where('id', (int) ($request->getData('id') ?? 0), '<')->limit(25)->execute());
         } elseif ($request->getData('ptype') === 'n') {
-            $view->setData('positions', PositionMapper::getAfterPivot((int) ($request->getData('id') ?? 0), null, 25));
+            $view->setData('positions', PositionMapper::getAll()->with('parent')->with('department')->where('id', (int) ($request->getData('id') ?? 0), '>')->limit(25)->execute());
         } else {
-            $view->setData('positions', PositionMapper::getAfterPivot(0, null, 25));
+            $view->setData('positions', PositionMapper::getAll()->with('parent')->with('department')->where('id', 0, '>')->limit(25)->execute());
         }
 
         return $view;
@@ -365,7 +365,7 @@ final class BackendController extends Controller
         $departmentSelectorView = new \Modules\Organization\Theme\Backend\Components\DepartmentTagSelector\DepartmentTagSelectorView($this->app->l11nManager, $request, $response);
         $view->addData('department-selector', $departmentSelectorView);
 
-        $view->addData('position', PositionMapper::get((int) $request->getData('id')));
+        $view->addData('position', PositionMapper::get()->with('parent')->with('department')->where('id', (int) $request->getData('id'))->execute());
 
         $editor = new \Modules\Editor\Theme\Backend\Components\Editor\BaseView($this->app->l11nManager, $request, $response);
         $view->addData('editor', $editor);

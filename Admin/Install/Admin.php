@@ -39,7 +39,7 @@ class Admin
     public static function install(string $path, ApplicationAbstract $app) : void
     {
         $settings = include __DIR__ . '/Admin.install.php';
-        \file_put_contents(__DIR__ . '/Admin.install.json', \json_encode($settings));
+        \file_put_contents(__DIR__ . '/Admin.install.json', \json_encode($settings, \JSON_PRETTY_PRINT));
 
         \Modules\Admin\Admin\Installer::installExternal($app, ['path' => __DIR__ . '/Admin.install.json']);
     }

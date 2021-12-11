@@ -33,9 +33,9 @@ final class PositionMapperTest extends \PHPUnit\Framework\TestCase
         $position->name        = 'CEO';
         $position->description = 'Description';
 
-        $id = PositionMapper::create($position);
+        $id = PositionMapper::create()->execute($position);
 
-        $positionR = PositionMapper::get($id);
+        $positionR = PositionMapper::get()->where('id', $id)->execute();
         self::assertEquals($id, $positionR->getId());
         self::assertEquals($position->name, $positionR->name);
         self::assertEquals($position->description, $positionR->description);
@@ -57,55 +57,55 @@ final class PositionMapperTest extends \PHPUnit\Framework\TestCase
         $position->name        = 'CFO';
         $position->description = 'Description';
         $position->parent      = new NullPosition($first);
-        $id                    = PositionMapper::create($position);
+        $id                    = PositionMapper::create()->execute($position);
 
         /* 5 */
         $position              = new Position();
         $position->name        = 'Accountant';
         $position->description = 'Description';
         $position->parent      = new NullPosition($id);
-        PositionMapper::create($position);
+        PositionMapper::create()->execute($position);
 
         /* 6 */
         $position              = new Position();
         $position->name        = 'Controller';
         $position->description = 'Description';
         $position->parent      = new NullPosition($id);
-        PositionMapper::create($position);
+        PositionMapper::create()->execute($position);
 
         /* 7 */
         $position              = new Position();
         $position->name        = 'Sales Director';
         $position->description = 'Description';
         $position->parent      = new NullPosition($first);
-        PositionMapper::create($position);
+        PositionMapper::create()->execute($position);
 
         /* 8 */
         $position              = new Position();
         $position->name        = 'Purchase Director';
         $position->description = 'Description';
         $position->parent      = new NullPosition($first);
-        PositionMapper::create($position);
+        PositionMapper::create()->execute($position);
 
         /* 9 */
         $position              = new Position();
         $position->name        = 'Territory Manager';
         $position->description = 'Description';
         $position->parent      = new NullPosition($first + 4);
-        PositionMapper::create($position);
+        PositionMapper::create()->execute($position);
 
         /* 10 */
         $position              = new Position();
         $position->name        = 'Territory Sales Assistant';
         $position->description = 'Description';
         $position->parent      = new NullPosition($first + 6);
-        PositionMapper::create($position);
+        PositionMapper::create()->execute($position);
 
         /* 11 */
         $position              = new Position();
         $position->name        = 'Domestic Sales Manager';
         $position->description = 'Description';
         $position->parent      = new NullPosition($first + 4);
-        PositionMapper::create($position);
+        PositionMapper::create()->execute($position);
     }
 }

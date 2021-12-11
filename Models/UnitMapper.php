@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace Modules\Organization\Models;
 
 use Modules\Media\Models\MediaMapper;
-use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
  * Organization unit mapper class.
@@ -25,7 +25,7 @@ use phpOMS\DataStorage\Database\DataMapperAbstract;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class UnitMapper extends DataMapperAbstract
+final class UnitMapper extends DataMapperFactory
 {
     /**
      * Columns.
@@ -33,7 +33,7 @@ final class UnitMapper extends DataMapperAbstract
      * @var array<string, array{name:string, type:string, internal:string, autocomplete?:bool, readonly?:bool, writeonly?:bool, annotations?:array}>
      * @since 1.0.0
      */
-    protected static array $columns = [
+    public const COLUMNS = [
         'organization_unit_id'             => ['name' => 'organization_unit_id',             'type' => 'int',    'internal' => 'id'],
         'organization_unit_name'           => ['name' => 'organization_unit_name',           'type' => 'string', 'internal' => 'name', 'autocomplete' => true],
         'organization_unit_image'          => ['name' => 'organization_unit_image',          'type' => 'int',    'internal' => 'image'],
@@ -49,7 +49,7 @@ final class UnitMapper extends DataMapperAbstract
      * @var array<string, array{mapper:string, external:string, by?:string, column?:string, conditional?:bool}>
      * @since 1.0.0
      */
-    protected static array $ownsOne = [
+    public const OWNS_ONE = [
         'image'    => [
             'mapper'     => MediaMapper::class,
             'external'   => 'organization_unit_image',
@@ -62,7 +62,7 @@ final class UnitMapper extends DataMapperAbstract
      * @var array<string, array{mapper:string, external:string}>
      * @since 1.0.0
      */
-    protected static array $belongsTo = [
+    public const BELONGS_TO = [
         'parent'  => [
             'mapper'     => self::class,
             'external'   => 'organization_unit_parent',
@@ -75,7 +75,7 @@ final class UnitMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $model = Unit::class;
+    public const MODEL = Unit::class;
 
     /**
      * Primary table.
@@ -83,7 +83,7 @@ final class UnitMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $table = 'organization_unit';
+    public const TABLE = 'organization_unit';
 
     /**
      * Primary field name.
@@ -91,5 +91,5 @@ final class UnitMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $primaryField = 'organization_unit_id';
+    public const PRIMARYFIELD ='organization_unit_id';
 }

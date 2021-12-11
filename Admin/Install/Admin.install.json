@@ -1,1 +1,20 @@
-[{"type":"setting","name":"1004700001","content":"1","module":"Organization"},{"type":"setting","name":"1004700002","content":"1","module":"Organization"},{"type":"setting","name":"1004700003","content":"1","module":"Organization"}]
+[
+    {
+        "type": "setting",
+        "name": "1004700001",
+        "content": "1",
+        "module": "Organization"
+    },
+    {
+        "type": "setting",
+        "name": "1004700002",
+        "content": "1",
+        "module": "Organization"
+    },
+    {
+        "type": "setting",
+        "name": "1004700003",
+        "content": "1",
+        "module": "Organization"
+    }
+]

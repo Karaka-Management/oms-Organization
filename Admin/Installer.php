@@ -61,6 +61,6 @@ final class Installer extends InstallerAbstract
         $unit       = new Unit();
         $unit->name = 'Orange Management';
 
-        UnitMapper::create($unit);
+        UnitMapper::create()->execute($unit);
     }
 }

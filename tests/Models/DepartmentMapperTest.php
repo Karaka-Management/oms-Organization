@@ -35,9 +35,9 @@ final class DepartmentMapperTest extends \PHPUnit\Framework\TestCase
         $department->description = 'Description';
         $department->unit        = new NullUnit(1);
 
-        $id = DepartmentMapper::create($department);
+        $id = DepartmentMapper::create()->execute($department);
 
-        $departmentR = DepartmentMapper::get($id);
+        $departmentR = DepartmentMapper::get()->where('id', $id)->execute();
         self::assertEquals($id, $departmentR->getId());
         self::assertEquals($department->name, $departmentR->name);
         self::assertEquals($department->description, $departmentR->description);
@@ -61,7 +61,7 @@ final class DepartmentMapperTest extends \PHPUnit\Framework\TestCase
         $department->description = 'Description';
         $department->parent      = new NullDepartment($first);
         $department->unit        = new NullUnit(1);
-        DepartmentMapper::create($department);
+        DepartmentMapper::create()->execute($department);
 
         /* 3 */
         $department              = new Department();
@@ -69,7 +69,7 @@ final class DepartmentMapperTest extends \PHPUnit\Framework\TestCase
         $department->description = 'Description';
         $department->parent      = new NullDepartment($first);
         $department->unit        = new NullUnit(1);
-        DepartmentMapper::create($department);
+        DepartmentMapper::create()->execute($department);
 
         /* 4 */
         $department              = new Department();
@@ -77,7 +77,7 @@ final class DepartmentMapperTest extends \PHPUnit\Framework\TestCase
         $department->description = 'Description';
         $department->parent      = new NullDepartment($first);
         $department->unit        = new NullUnit(1);
-        DepartmentMapper::create($department);
+        DepartmentMapper::create()->execute($department);
 
         /* 5 */
         $department              = new Department();
@@ -85,7 +85,7 @@ final class DepartmentMapperTest extends \PHPUnit\Framework\TestCase
         $department->description = 'Description';
         $department->parent      = new NullDepartment($first + 3);
         $department->unit        = new NullUnit(1);
-        DepartmentMapper::create($department);
+        DepartmentMapper::create()->execute($department);
 
         /* 6 */
         $department              = new Department();
@@ -93,7 +93,7 @@ final class DepartmentMapperTest extends \PHPUnit\Framework\TestCase
         $department->description = 'Description';
         $department->parent      = new NullDepartment($first);
         $department->unit        = new NullUnit(1);
-        DepartmentMapper::create($department);
+        DepartmentMapper::create()->execute($department);
 
         /* 7 */
         $department              = new Department();
@@ -101,7 +101,7 @@ final class DepartmentMapperTest extends \PHPUnit\Framework\TestCase
         $department->description = 'Description';
         $department->parent      = new NullDepartment($first + 5);
         $department->unit        = new NullUnit(1);
-        DepartmentMapper::create($department);
+        DepartmentMapper::create()->execute($department);
 
         /* 8 */
         $department              = new Department();
@@ -109,7 +109,7 @@ final class DepartmentMapperTest extends \PHPUnit\Framework\TestCase
         $department->description = 'Description';
         $department->parent      = new NullDepartment($first);
         $department->unit        = new NullUnit(1);
-        DepartmentMapper::create($department);
+        DepartmentMapper::create()->execute($department);
 
         /* 9 */
         $department              = new Department();
@@ -117,6 +117,6 @@ final class DepartmentMapperTest extends \PHPUnit\Framework\TestCase
         $department->description = 'Description';
         $department->parent      = new NullDepartment($first);
         $department->unit        = new NullUnit(1);
-        DepartmentMapper::create($department);
+        DepartmentMapper::create()->execute($department);
     }
 }

@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Modules\Organization\Models;
 
-use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
  * Organization position mapper class.
@@ -24,7 +24,7 @@ use phpOMS\DataStorage\Database\DataMapperAbstract;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class PositionMapper extends DataMapperAbstract
+final class PositionMapper extends DataMapperFactory
 {
     /**
      * Columns.
@@ -32,7 +32,7 @@ final class PositionMapper extends DataMapperAbstract
      * @var array<string, array{name:string, type:string, internal:string, autocomplete?:bool, readonly?:bool, writeonly?:bool, annotations?:array}>
      * @since 1.0.0
      */
-    protected static array $columns = [
+    public const COLUMNS = [
         'organization_position_id'             => ['name' => 'organization_position_id',             'type' => 'int',    'internal' => 'id'],
         'organization_position_name'           => ['name' => 'organization_position_name',           'type' => 'string', 'internal' => 'name', 'autocomplete' => true],
         'organization_position_description'    => ['name' => 'organization_position_description',    'type' => 'string', 'internal' => 'description'],
@@ -48,7 +48,7 @@ final class PositionMapper extends DataMapperAbstract
      * @var array<string, array{mapper:string, external:string}>
      * @since 1.0.0
      */
-    protected static array $belongsTo = [
+    public const BELONGS_TO = [
         'parent'     => [
             'mapper'     => self::class,
             'external'   => 'organization_position_parent',
@@ -65,7 +65,7 @@ final class PositionMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $model = Position::class;
+    public const MODEL = Position::class;
 
     /**
      * Primary table.
@@ -73,7 +73,7 @@ final class PositionMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $table = 'organization_position';
+    public const TABLE = 'organization_position';
 
     /**
      * Primary field name.
@@ -81,5 +81,5 @@ final class PositionMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $primaryField = 'organization_position_id';
+    public const PRIMARYFIELD ='organization_position_id';
 }

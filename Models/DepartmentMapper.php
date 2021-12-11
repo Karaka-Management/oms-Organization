@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Modules\Organization\Models;
 
-use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
  * Organization department mapper class.
@@ -24,7 +24,7 @@ use phpOMS\DataStorage\Database\DataMapperAbstract;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class DepartmentMapper extends DataMapperAbstract
+final class DepartmentMapper extends DataMapperFactory
 {
     /**
      * Columns.
@@ -32,7 +32,7 @@ final class DepartmentMapper extends DataMapperAbstract
      * @var array<string, array{name:string, type:string, internal:string, autocomplete?:bool, readonly?:bool, writeonly?:bool, annotations?:array}>
      * @since 1.0.0
      */
-    protected static array $columns = [
+    public const COLUMNS = [
         'organization_department_id'             => ['name' => 'organization_department_id',             'type' => 'int',    'internal' => 'id'],
         'organization_department_name'           => ['name' => 'organization_department_name',           'type' => 'string', 'internal' => 'name', 'autocomplete' => true],
         'organization_department_description'    => ['name' => 'organization_department_description',    'type' => 'string', 'internal' => 'description'],
@@ -48,7 +48,7 @@ final class DepartmentMapper extends DataMapperAbstract
      * @var array<string, array{mapper:string, external:string}>
      * @since 1.0.0
      */
-    protected static array $belongsTo = [
+    public const BELONGS_TO = [
         'unit'   => [
             'mapper'     => UnitMapper::class,
             'external'   => 'organization_department_unit',
@@ -65,7 +65,7 @@ final class DepartmentMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $model = Department::class;
+    public const MODEL = Department::class;
 
     /**
      * Primary table.
@@ -73,7 +73,7 @@ final class DepartmentMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $table = 'organization_department';
+    public const TABLE = 'organization_department';
 
     /**
      * Primary field name.
@@ -81,5 +81,5 @@ final class DepartmentMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $primaryField = 'organization_department_id';
+    public const PRIMARYFIELD ='organization_department_id';
 }
