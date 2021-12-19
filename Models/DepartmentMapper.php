@@ -50,12 +50,12 @@ final class DepartmentMapper extends DataMapperFactory
      */
     public const BELONGS_TO = [
         'unit'   => [
-            'mapper'     => UnitMapper::class,
-            'external'   => 'organization_department_unit',
+            'mapper'   => UnitMapper::class,
+            'external' => 'organization_department_unit',
         ],
         'parent' => [
-            'mapper'     => self::class,
-            'external'   => 'organization_department_parent',
+            'mapper'   => self::class,
+            'external' => 'organization_department_parent',
         ],
     ];
 

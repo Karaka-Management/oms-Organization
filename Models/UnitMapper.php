@@ -51,8 +51,8 @@ final class UnitMapper extends DataMapperFactory
      */
     public const OWNS_ONE = [
         'image'    => [
-            'mapper'     => MediaMapper::class,
-            'external'   => 'organization_unit_image',
+            'mapper'   => MediaMapper::class,
+            'external' => 'organization_unit_image',
         ],
     ];
 
@@ -64,8 +64,8 @@ final class UnitMapper extends DataMapperFactory
      */
     public const BELONGS_TO = [
         'parent'  => [
-            'mapper'     => self::class,
-            'external'   => 'organization_unit_parent',
+            'mapper'   => self::class,
+            'external' => 'organization_unit_parent',
         ],
     ];
 
