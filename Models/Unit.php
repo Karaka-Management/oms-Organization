@@ -144,7 +144,7 @@ class Unit implements \JsonSerializable, ArrayableInterface
             'status'         => $this->status,
             'description'    => $this->description,
             'descriptionRaw' => $this->descriptionRaw,
-            'parent'         => $this->parent,
+            'parent'         => $this->parent ?? null,
             'image'          => $this->image,
         ];
     }

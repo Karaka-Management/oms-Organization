@@ -145,8 +145,8 @@ class Department implements \JsonSerializable, ArrayableInterface
             'status'         => $this->status,
             'description'    => $this->description,
             'descriptionRaw' => $this->descriptionRaw,
-            'unit'           => $this->unit ?? new NullUnit(),
-            'parent'         => $this->parent ?? new NullDepartment(),
+            'unit'           => $this->unit,
+            'parent'         => $this->parent ?? null,
         ];
     }
 

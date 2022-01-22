@@ -87,8 +87,8 @@ $unitRoot = $unitTree[null][0]['children'];
 
                                         do {
                                             ++$toCloseDep;
-                                            $parentDep   = $parentDep->parent;
-                                            $parentDepId = $parentDep->getId();
+                                            $parentDep   = $parentDep->parent ?? null;
+                                            $parentDepId = $parentDep?->getId() ?? 0;
                                         } while ($parentDepId !== 0
                                             && !isset($depTree[$unitId][$parentDepId]['children'][($depTree[$unitId][$parentDepId]['index'] ?? 0) + 1])
                                         );

@@ -143,7 +143,7 @@ class Position implements \JsonSerializable, ArrayableInterface
             'description'    => $this->description,
             'descriptionRaw' => $this->descriptionRaw,
             'department'     => $this->department ?? new NullDepartment(),
-            'parent'         => $this->parent ?? new NullPosition(),
+            'parent'         => $this->parent ?? null,
         ];
     }
 
