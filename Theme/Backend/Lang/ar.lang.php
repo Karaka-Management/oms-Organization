@@ -14,18 +14,18 @@ declare(strict_types=1);
 
 return ['Organization' => [
     'Active'      => 'نشيط',
-    'Department'  => 'قسم',
+    'Department'  => ' قسم، أقسام',
     'Departments' => 'الإدارات',
     'Description' => 'وصف',
     'Inactive'    => 'غير نشط',
     'Logo'        => 'شعار',
     'Name'        => 'اسم',
     'Parent'      => 'الأبوين',
-    'Position'    => 'موقع',
-    'Positions'   => 'مواقف',
+    'Position'    => 'موضع',
+    'Positions'   => 'المواقف',
     'Search'      => 'بحث',
     'Status'      => 'حالة',
     'Unit'        => 'وحدة',
-    'UnitLogo'    => 'وحدة الشعار',
+    'UnitLogo'    => 'شعار الوحدة',
     'Units'       => 'وحدات',
 ]];

@@ -13,9 +13,9 @@
 declare(strict_types=1);
 
 return ['Navigation' => [
-    'Departments'  => 'Departments',
+    'Departments'  => 'Avdelinger',
     'Organigram'   => 'Organigram',
-    'Organization' => 'Organization',
-    'Positions'    => 'Positions',
-    'Units'        => 'Units',
+    'Organization' => 'Organisasjon',
+    'Positions'    => 'Posisjoner',
+    'Units'        => 'Enheter',
 ]];

@@ -22,10 +22,10 @@ return ['Organization' => [
     'Name'        => 'Ονομα',
     'Parent'      => 'Μητρική εταιρεία',
     'Position'    => 'Θέση',
-    'Positions'   => 'θέσεις',
+    'Positions'   => 'Θέσεις',
     'Search'      => 'Αναζήτηση',
     'Status'      => 'Κατάσταση',
     'Unit'        => 'Μονάδα',
-    'UnitLogo'    => 'Μονάδα Logo',
-    'Units'       => 'μονάδες',
+    'UnitLogo'    => 'Λογότυπο μονάδας',
+    'Units'       => 'Μονάδες',
 ]];

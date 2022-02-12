@@ -14,18 +14,18 @@ declare(strict_types=1);
 
 return ['Organization' => [
     'Active'      => 'Aktywny',
-    'Department'  => 'Departament',
-    'Departments' => 'wydziały',
+    'Department'  => 'dział',
+    'Departments' => 'Wydziały',
     'Description' => 'Opis',
     'Inactive'    => 'Nieaktywny',
     'Logo'        => 'Logo',
     'Name'        => 'Nazwa',
     'Parent'      => 'Rodzic',
     'Position'    => 'Pozycja',
-    'Positions'   => 'pozycje',
+    'Positions'   => 'Pozycje',
     'Search'      => 'Szukaj',
     'Status'      => 'Status',
     'Unit'        => 'Jednostka',
-    'UnitLogo'    => 'jednostka Logo',
-    'Units'       => 'jednostki',
+    'UnitLogo'    => 'Logo jednostki',
+    'Units'       => 'Jednostki',
 ]];

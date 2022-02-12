@@ -13,19 +13,19 @@
 declare(strict_types=1);
 
 return ['Organization' => [
-    'Active'      => 'aktiivinen',
-    'Department'  => 'osasto',
-    'Departments' => 'osastot',
+    'Active'      => 'Aktiivinen',
+    'Department'  => 'Osasto',
+    'Departments' => 'Osasto',
     'Description' => 'Kuvaus',
     'Inactive'    => 'Epäaktiivinen',
     'Logo'        => 'Logo',
     'Name'        => 'Nimi',
-    'Parent'      => 'vanhempi',
-    'Position'    => 'asento',
-    'Positions'   => 'kannat',
+    'Parent'      => 'Vanhempi',
+    'Position'    => 'Asento',
+    'Positions'   => 'Asemat',
     'Search'      => 'Hae',
     'Status'      => 'Tila',
-    'Unit'        => 'yksikkö',
-    'UnitLogo'    => 'yksikkö Logo',
-    'Units'       => 'yksiköt',
+    'Unit'        => 'Yksikkö',
+    'UnitLogo'    => 'Yksikkölogo',
+    'Units'       => 'Yksiköt',
 ]];

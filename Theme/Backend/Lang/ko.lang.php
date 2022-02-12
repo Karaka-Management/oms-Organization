@@ -13,17 +13,17 @@
 declare(strict_types=1);
 
 return ['Organization' => [
-    'Active'      => '유효한',
-    'Department'  => '학과',
+    'Active'      => '활동적인',
+    'Department'  => '부서',
     'Departments' => '부서',
-    'Description' => '기술',
-    'Inactive'    => '비활성',
+    'Description' => '설명',
+    'Inactive'    => '비활성으로',
     'Logo'        => '심벌 마크',
     'Name'        => '이름',
     'Parent'      => '부모의',
     'Position'    => '위치',
-    'Positions'   => '포지션',
-    'Search'      => '검색',
+    'Positions'   => '위치',
+    'Search'      => '찾다',
     'Status'      => '상태',
     'Unit'        => '단위',
     'UnitLogo'    => '단위 로고',

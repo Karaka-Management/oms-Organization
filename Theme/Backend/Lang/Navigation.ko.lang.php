@@ -13,9 +13,9 @@
 declare(strict_types=1);
 
 return ['Navigation' => [
-    'Departments'  => 'Departments',
-    'Organigram'   => 'Organigram',
-    'Organization' => 'Organization',
-    'Positions'    => 'Positions',
-    'Units'        => 'Units',
+    'Departments'  => '부서',
+    'Organigram'   => '죄수들',
+    'Organization' => '조직',
+    'Positions'    => '위치',
+    'Units'        => '단위',
 ]];

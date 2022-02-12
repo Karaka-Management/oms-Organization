@@ -13,19 +13,19 @@
 declare(strict_types=1);
 
 return ['Organization' => [
-    'Active'      => 'активный',
+    'Active'      => 'Активный',
     'Department'  => 'отделение',
-    'Departments' => 'ведомства',
+    'Departments' => 'Отделы',
     'Description' => 'Описание',
     'Inactive'    => 'Неактивный',
-    'Logo'        => 'логотип',
+    'Logo'        => 'Логотип',
     'Name'        => 'Имя',
-    'Parent'      => 'родитель',
-    'Position'    => 'Позиция',
-    'Positions'   => 'позиции',
+    'Parent'      => 'Родитель',
+    'Position'    => 'Должность',
+    'Positions'   => 'Позиции',
     'Search'      => 'Поиск',
-    'Status'      => 'Положение дел',
+    'Status'      => 'Статус',
     'Unit'        => 'Единица измерения',
-    'UnitLogo'    => 'Unit Logo',
+    'UnitLogo'    => 'Блок логотипа',
     'Units'       => 'Единицы',
 ]];
