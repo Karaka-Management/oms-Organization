@@ -26,6 +26,6 @@ return ['Organization' => [
     'Search'      => 'Chercher',
     'Status'      => 'Statut',
     'Unit'        => 'Unité',
-    'UnitLogo'    => 'Logo de l\\'unité',
+    'UnitLogo'    => 'Logo de l\'unité',
     'Units'       => 'Unités',
 ]];
