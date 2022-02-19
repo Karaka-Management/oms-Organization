@@ -99,7 +99,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
 
         $this->module->apiUnitGet($request, $response);
 
-        self::assertEquals('Orange-Management', $response->get('')['response']->name);
+        self::assertEquals('Karaka', $response->get('')['response']->name);
         self::assertGreaterThan(0, $response->get('')['response']->getId());
     }
 
