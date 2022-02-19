@@ -1,6 +1,6 @@
 <?php
 /**
- * Orange Management
+ * Karaka
  *
  * PHP Version 8.0
  *
@@ -8,7 +8,7 @@
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
- * @link      https://orange-management.org
+ * @link      https://karaka.app
  */
 declare(strict_types=1);
 
@@ -26,7 +26,7 @@ echo $this->getData('nav')->render(); ?>
                 <div class="portlet-body">
                     <table class="layout wf-100" style="table-layout: fixed">
                         <tr><td><label for="iName"><?= $this->getHtml('Name'); ?></label>
-                        <tr><td><input type="text" name="name" id="iName" placeholder="&#xf040; Orange Management" required>
+                        <tr><td><input type="text" name="name" id="iName" placeholder="&#xf040; Karaka" required>
                         <tr><td><label for="iParent"><?= $this->getHtml('Parent'); ?></label>
                         <tr><td><?= $this->getData('position-selector')->render('iParent', 'parent', false); ?>
                         <tr><td><label for="iDepartment"><?= $this->getHtml('Department'); ?></label>
