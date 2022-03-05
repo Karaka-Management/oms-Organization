@@ -187,6 +187,7 @@ final class ApiController extends Controller
 
         if ($this->app->appSettings->get(null, SettingsEnum::GROUP_GENERATE_AUTOMATICALLY_UNIT)->content === '1') {
             $newRequest = new HttpRequest();
+            $newRequest->header->account = $request->header->account;
             $newRequest->setData('name', 'org:unit:' . \strtolower($unit->name));
             $newRequest->setData('status', GroupStatus::ACTIVE);
             $this->app->moduleManager->get('Admin')->apiGroupCreate($newRequest, $response, $data);
@@ -405,6 +406,7 @@ final class ApiController extends Controller
 
         if ($this->app->appSettings->get(null, SettingsEnum::GROUP_GENERATE_AUTOMATICALLY_POSITION)->content === '1') {
             $newRequest = new HttpRequest();
+            $newRequest->header->account = $request->header->account;
             $newRequest->setData('name', 'org:pos:' . \strtolower($position->name));
             $newRequest->setData('status', GroupStatus::ACTIVE);
             $this->app->moduleManager->get('Admin')->apiGroupCreate($newRequest, $response, $data);
@@ -583,6 +585,7 @@ final class ApiController extends Controller
 
         if ($this->app->appSettings->get(null, SettingsEnum::GROUP_GENERATE_AUTOMATICALLY_DEPARTMENT)->content === '1') {
             $newRequest = new HttpRequest();
+            $newRequest->header->account = $request->header->account;
             $newRequest->setData('name', 'org:dep:' . \strtolower($department->name));
             $newRequest->setData('status', GroupStatus::ACTIVE);
             $this->app->moduleManager->get('Admin')->apiGroupCreate($newRequest, $response, $data);
