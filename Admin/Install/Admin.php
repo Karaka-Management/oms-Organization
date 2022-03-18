@@ -29,14 +29,14 @@ class Admin
     /**
      * Install Admin providing
      *
-     * @param string              $path Module path
      * @param ApplicationAbstract $app  Application
+     * @param string              $path Module path
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public static function install(string $path, ApplicationAbstract $app) : void
+    public static function install(ApplicationAbstract $app, string $path) : void
     {
         $settings = include __DIR__ . '/Admin.install.php';
         \file_put_contents(__DIR__ . '/Admin.install.json', \json_encode($settings, \JSON_PRETTY_PRINT));
