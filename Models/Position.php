@@ -150,7 +150,7 @@ class Position implements \JsonSerializable, ArrayableInterface
     /**
      * {@inheritdoc}
      */
-    public function jsonSerialize()
+    public function jsonSerialize() : mixed
     {
         return $this->toArray();
     }
