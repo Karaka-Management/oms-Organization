@@ -16,7 +16,6 @@ namespace Modules\Organization\Models;
 
 use Modules\Media\Models\Media;
 use Modules\Media\Models\NullMedia;
-use phpOMS\Contract\ArrayableInterface;
 
 /**
  * Organization unit class.
@@ -26,7 +25,7 @@ use phpOMS\Contract\ArrayableInterface;
  * @link    https://karaka.app
  * @since   1.0.0
  */
-class Unit implements \JsonSerializable, ArrayableInterface
+class Unit implements \JsonSerializable
 {
     /**
      * Article ID.

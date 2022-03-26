@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace Modules\Organization\Models;
 
-use phpOMS\Contract\ArrayableInterface;
 
 /**
  * Organization position class.
@@ -24,7 +23,7 @@ use phpOMS\Contract\ArrayableInterface;
  * @link    https://karaka.app
  * @since   1.0.0
  */
-class Position implements \JsonSerializable, ArrayableInterface
+class Position implements \JsonSerializable
 {
     /**
      * Article ID.
