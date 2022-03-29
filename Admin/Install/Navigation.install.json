@@ -10,7 +10,7 @@
         "icon": "fa fa-database",
         "order": 2,
         "from": "Organization",
-        "permission": { "permission": 2, "type": null, "element": null },
+        "permission": { "permission": 2, "category": null, "element": null },
         "parent": 0,
         "children": [
             {
@@ -26,7 +26,7 @@
                 "from": "Organization",
                 "permission": {
                     "permission": 2,
-                    "type": null,
+                    "category": null,
                     "element": null
                 },
                 "parent": 1004701001,
@@ -43,7 +43,7 @@
                 "icon": null,
                 "order": 5,
                 "from": "Organization",
-                "permission": { "permission": 2, "type": null, "element": null },
+                "permission": { "permission": 2, "category": null, "element": null },
                 "parent": 1004701001,
                 "children": [
                     {
@@ -57,7 +57,7 @@
                         "icon": null,
                         "order": 5,
                         "from": "Organization",
-                        "permission": { "permission": 2, "type": null, "element": null },
+                        "permission": { "permission": 2, "category": null, "element": null },
                         "parent": 1004703001,
                         "children": []
                     },
@@ -72,7 +72,7 @@
                         "icon": null,
                         "order": 25,
                         "from": "Organization",
-                        "permission": { "permission": 4, "type": null, "element": null },
+                        "permission": { "permission": 4, "category": null, "element": null },
                         "parent": 1004703001,
                         "children": []
                     }
@@ -89,7 +89,7 @@
                 "icon": null,
                 "order": 10,
                 "from": "Organization",
-                "permission": { "permission": 2, "type": null, "element": null },
+                "permission": { "permission": 2, "category": null, "element": null },
                 "parent": 1004701001,
                 "children": [
                     {
@@ -103,7 +103,7 @@
                         "icon": null,
                         "order": 5,
                         "from": "Organization",
-                        "permission": { "permission": 2, "type": null, "element": null },
+                        "permission": { "permission": 2, "category": null, "element": null },
                         "parent": 1004704001,
                         "children": []
                     },
@@ -118,7 +118,7 @@
                         "icon": null,
                         "order": 25,
                         "from": "Organization",
-                        "permission": { "permission": 4, "type": null, "element": null },
+                        "permission": { "permission": 4, "category": null, "element": null },
                         "parent": 1004704001,
                         "children": []
                     }
@@ -135,7 +135,7 @@
                 "icon": null,
                 "order": 20,
                 "from": "Organization",
-                "permission": { "permission": 2, "type": null, "element": null },
+                "permission": { "permission": 2, "category": null, "element": null },
                 "parent": 1004701001,
                 "children": [
                     {
@@ -149,7 +149,7 @@
                         "icon": null,
                         "order": 5,
                         "from": "Organization",
-                        "permission": { "permission": 2, "type": null, "element": null },
+                        "permission": { "permission": 2, "category": null, "element": null },
                         "parent": 1004705001,
                         "children": []
                     },
@@ -164,7 +164,7 @@
                         "icon": null,
                         "order": 25,
                         "from": "Organization",
-                        "permission": { "permission": 4, "type": null, "element": null },
+                        "permission": { "permission": 4, "category": null, "element": null },
                         "parent": 1004705001,
                         "children": []
                     }
