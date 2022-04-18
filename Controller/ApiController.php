@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Modules\Organization\Controller;
 
+use Modules\Media\Models\PathSettings;
 use Modules\Organization\Models\Department;
 use Modules\Organization\Models\DepartmentMapper;
 use Modules\Organization\Models\NullDepartment;
@@ -246,13 +247,16 @@ final class ApiController extends Controller
         $unit = UnitMapper::get()->where('id', (int) ($request->getData('id') ?? 0))->execute();
         $old  = clone $unit;
 
+        $path = '/Modules/Organization/' . $unit->name;
+
         $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
             $request->getDataList('names'),
             $request->getDataList('filenames'),
             $uploadedFiles,
             $request->header->account,
-            __DIR__ . '/../../../Modules/Media/Files',
-            '/Modules/Organization'
+            __DIR__ . '/../../../Modules/Media/Files' . $path,
+            $path,
+            pathSettings: PathSettings::FILE_PATH
         );
 
         $unit->image = \reset($uploaded);
