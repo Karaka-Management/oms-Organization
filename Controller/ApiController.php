@@ -87,7 +87,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiUnitGet(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiUnitGet(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         /** @var Unit $unit */
         $unit = UnitMapper::get()->where('id', (int) $request->getData('id'))->execute();
@@ -107,7 +107,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiUnitSet(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiUnitSet(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         /** @var Unit $old */
         $old = clone UnitMapper::get()->where('id', (int) $request->getData('id'))->execute();
@@ -153,7 +153,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiUnitDelete(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiUnitDelete(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         /** @var Unit $unit */
         $unit = UnitMapper::get()->where('id', (int) $request->getData('id'))->execute();
@@ -174,7 +174,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiUnitCreate(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiUnitCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateUnitCreate($request))) {
             $response->set('unit_create', new FormValidation($val));
@@ -233,7 +233,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiUnitImageSet(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiUnitImageSet(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         $uploadedFiles = $request->getFiles();
         if (empty($uploadedFiles)) {
@@ -306,7 +306,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiPositionGet(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiPositionGet(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         /** @var Position $position */
         $position = PositionMapper::get()->where('id', (int) $request->getData('id'))->execute();
@@ -326,7 +326,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiPositionDelete(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiPositionDelete(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         /** @var Position $position */
         $position = PositionMapper::get()->where('id', (int) $request->getData('id'))->execute();
@@ -347,7 +347,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiPositionSet(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiPositionSet(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         /** @var Position $old */
         $old = clone PositionMapper::get()->where('id', (int) $request->getData('id'))->execute();
@@ -396,7 +396,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiPositionCreate(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiPositionCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validatePositionCreate($request))) {
             $response->set('position_create', new FormValidation($val));
@@ -485,7 +485,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiDepartmentGet(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiDepartmentGet(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         /** @var Department $department */
         $department = DepartmentMapper::get()->where('id', (int) $request->getData('id'))->execute();
@@ -505,7 +505,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiDepartmentSet(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiDepartmentSet(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         /** @var Department $old */
         $old = clone DepartmentMapper::get()->where('id', (int) $request->getData('id'))->execute();
@@ -554,7 +554,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiDepartmentDelete(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiDepartmentDelete(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         /** @var Department $department */
         $department = DepartmentMapper::get()->where('id', (int) $request->getData('id'))->execute();
@@ -575,7 +575,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiDepartmentCreate(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiDepartmentCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateDepartmentCreate($request))) {
             $response->set('department_create', new FormValidation($val));
@@ -635,7 +635,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiUnitFind(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiUnitFind(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         $response->header->set('Content-Type', MimeType::M_JSON, true);
         $response->set(
@@ -659,7 +659,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiDepartmentFind(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiDepartmentFind(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         $response->header->set('Content-Type', MimeType::M_JSON, true);
         $response->set(
@@ -683,7 +683,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiPositionFind(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiPositionFind(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         $response->header->set('Content-Type', MimeType::M_JSON, true);
         $response->set(
