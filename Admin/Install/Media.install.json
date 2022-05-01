@@ -19,7 +19,7 @@
         "name": "Letter",
         "type": "default_letter",
         "virtualPath": "/Modules/Organization/Templates",
-        "path": "/Modules/Media/Files/Modules/Organization/Templates",
+        "path": "/Modules/Organization/Templates",
         "files": [
             "/Modules/Organization/Admin/Install/Media/letter.doc.php"
             "/Modules/Organization/Admin/Install/Media/letter.pdf.php"

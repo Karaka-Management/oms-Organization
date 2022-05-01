@@ -237,15 +237,27 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/Organization/Theme/Backend/department-list');
         $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1004704001, $request, $response));
 
-        $mapper = DepartmentMapper::getAll()->with('parent')->with('unit')->limit(25);
+        $pageLimit = 25;
+        $view->addData('pageLimit', $pageLimit);
 
+        $mapper = DepartmentMapper::getAll()->with('parent')->with('unit')->limit($pageLimit + 1);
+
+        /** @var \Modules\Organization\Models\Department[] $departments */
+        $departments = [];
         if ($request->getData('ptype') === 'p') {
-            $view->setData('departments', $mapper->where('id', (int) ($request->getData('id') ?? 0), '<')->execute());
+            $departments = $mapper->where('id', (int) ($request->getData('id') ?? 0), '<')->execute();
         } elseif ($request->getData('ptype') === 'n') {
-            $view->setData('departments', $mapper->where('id', (int) ($request->getData('id') ?? 0), '>')->execute());
+            $departments = $mapper->where('id', (int) ($request->getData('id') ?? 0), '>')->execute();
         } else {
-            $view->setData('departments', $mapper->where('id', 0, '>')->execute());
+            $departments = $mapper->where('id', 0, '>')->execute();
         }
+
+        $view->setData('hasMore', ($count = \count($departments)) > $pageLimit);
+
+        if ($count > $pageLimit) {
+            \array_pop($departments);
+        }
+        $view->setData('departments', $departments);
 
         return $view;
     }

@@ -20,8 +20,14 @@ use phpOMS\Uri\UriFactory;
  */
 $departments = $this->getData('departments') ?? [];
 
-$previous = empty($departments) ? '{/prefix}organization/department/list' : '{/prefix}organization/department/list?{?}&id=' . \reset($departments)->getId() . '&ptype=p';
-$next     = empty($departments) ? '{/prefix}organization/department/list' : '{/prefix}organization/department/list?{?}&id=' . \end($departments)->getId() . '&ptype=n';
+$previous = empty($departments)
+    ? '{/prefix}organization/department/list'
+    : '{/prefix}organization/department/list?{?}&id=' . \reset($departments)->getId() . '&ptype=p';
+$next     = empty($departments)
+    ? '{/prefix}organization/department/list'
+    : '{/prefix}organization/department/list?{?}&id='
+        . ($this->getData('hasMore') ? \end($departments)->getId() : $this->request->getData('id'))
+        . '&ptype=n';
 
 echo $this->getData('nav')->render(); ?>
 
