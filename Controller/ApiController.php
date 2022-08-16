@@ -110,8 +110,8 @@ final class ApiController extends Controller
     public function apiUnitSet(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         /** @var Unit $old */
-        $old = clone UnitMapper::get()->where('id', (int) $request->getData('id'))->execute();
-        $new = $this->updateUnitFromRequest($request);
+        $old = UnitMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $new = $this->updateUnitFromRequest($request, clone $old);
         $this->updateModel($request->header->account, $old, $new, UnitMapper::class, 'unit', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Unit', 'Unit successfully updated.', $new);
     }
@@ -125,10 +125,8 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    private function updateUnitFromRequest(RequestAbstract $request) : Unit
+    private function updateUnitFromRequest(RequestAbstract $request, Unit $unit) : Unit
     {
-        /** @var Unit $unit */
-        $unit                 = UnitMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $unit->name           = (string) ($request->getData('name') ?? $unit->name);
         $unit->descriptionRaw = (string) ($request->getData('description') ?? $unit->descriptionRaw);
         $unit->description    = Markdown::parse((string) ($request->getData('description') ?? $unit->descriptionRaw));
@@ -213,8 +211,7 @@ final class ApiController extends Controller
         $unit->descriptionRaw = (string) ($request->getData('description') ?? '');
         $unit->description    = Markdown::parse((string) ($request->getData('description') ?? ''));
 
-        $parent       = (int) $request->getData('parent');
-        $unit->parent = new NullUnit($parent);
+        $unit->parent = new NullUnit((int) $request->getData('parent'));
         $unit->setStatus((int) $request->getData('status'));
 
         return $unit;
@@ -350,8 +347,8 @@ final class ApiController extends Controller
     public function apiPositionSet(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         /** @var Position $old */
-        $old = clone PositionMapper::get()->where('id', (int) $request->getData('id'))->execute();
-        $new = $this->updatePositionFromRequest($request);
+        $old = PositionMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $new = $this->updatePositionFromRequest($request, clone $old);
         $this->updateModel($request->header->account, $old, $new, PositionMapper::class, 'position', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Position', 'Position successfully updated.', $new);
     }
@@ -365,10 +362,8 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    private function updatePositionFromRequest(RequestAbstract $request) : Position
+    private function updatePositionFromRequest(RequestAbstract $request, Position $position) : Position
     {
-        /** @var Position $position */
-        $position                 = PositionMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $position->name           = (string) ($request->getData('name') ?? $position->name);
         $position->descriptionRaw = (string) ($request->getData('description') ?? $position->descriptionRaw);
         $position->description    = Markdown::parse((string) ($request->getData('description') ?? $position->descriptionRaw));
@@ -435,12 +430,8 @@ final class ApiController extends Controller
         $position->setStatus((int) $request->getData('status'));
         $position->descriptionRaw = (string) ($request->getData('description') ?? '');
         $position->description    = Markdown::parse((string) ($request->getData('description') ?? ''));
-
-        $parent           = (int) $request->getData('parent');
-        $position->parent = new NullPosition($parent);
-
-        $department           = (int) $request->getData('department');
-        $position->department = new NullDepartment($department);
+        $position->parent         = new NullPosition((int) $request->getData('parent'));
+        $position->department     = new NullDepartment((int) $request->getData('department'));
 
         return $position;
     }
@@ -508,8 +499,8 @@ final class ApiController extends Controller
     public function apiDepartmentSet(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         /** @var Department $old */
-        $old = clone DepartmentMapper::get()->where('id', (int) $request->getData('id'))->execute();
-        $new = $this->updateDepartmentFromRequest($request);
+        $old = DepartmentMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $new = $this->updateDepartmentFromRequest($request, clone $old);
         $this->updateModel($request->header->account, $old, $new, DepartmentMapper::class, 'department', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Department', 'Department successfully updated.', $new);
     }
@@ -523,10 +514,8 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    private function updateDepartmentFromRequest(RequestAbstract $request) : Department
+    private function updateDepartmentFromRequest(RequestAbstract $request, Department $department) : Department
     {
-        /** @var Department $department */
-        $department                 = DepartmentMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $department->name           = (string) ($request->getData('name') ?? $department->name);
         $department->descriptionRaw = (string) ($request->getData('description') ?? $department->descriptionRaw);
         $department->description    = Markdown::parse((string) ($request->getData('description') ?? $department->descriptionRaw));
@@ -578,7 +567,8 @@ final class ApiController extends Controller
     public function apiDepartmentCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateDepartmentCreate($request))) {
-            $response->set('department_create', new FormValidation($val));
+            $this->fillJsonResponse($request, $response, NotificationLevel::OK, '', 'Invalid form data.', new FormValidation($val));
+            $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -613,8 +603,7 @@ final class ApiController extends Controller
         $department->name = (string) $request->getData('name');
         $department->setStatus((int) $request->getData('status'));
 
-        $parent                     = (int) $request->getData('parent');
-        $department->parent         = new NullDepartment($parent);
+        $department->parent         = new NullDepartment((int) $request->getData('parent'));
         $department->unit           = new NullUnit((int) ($request->getData('unit') ?? 1));
         $department->descriptionRaw = (string) ($request->getData('description') ?? '');
         $department->description    = Markdown::parse((string) ($request->getData('description') ?? ''));

@@ -5,15 +5,15 @@
                 {
                     "key": 1, "listener": "click", "action": [
                         {"key": 1, "type": "dom.popup", "selector": "#acc-grp-tpl", "aniIn": "fadeIn", "id": "<?= $this->getId(); ?>"},
-                        {"key": 2, "type": "message.request", "uri": "<?= \phpOMS\Uri\UriFactory::build('{/prefix}admin/account?filter=some&limit=10'); ?>", "method": "GET", "request_type": "json"},
+                        {"key": 2, "type": "message.request", "uri": "<?= \phpOMS\Uri\UriFactory::build('{/api}organization/find/unit'); ?>", "method": "GET", "request_type": "json"},
                         {"key": 3, "type": "dom.table.append", "id": "acc-table", "aniIn": "fadeIn", "data": [], "bindings": {"id": "id", "name": "name"}, "position": -1},
-                        {"key": 4, "type": "message.request", "uri": "<?= \phpOMS\Uri\UriFactory::build('{/prefix}admin/account?filter=some&limit=10'); ?>", "method": "GET", "request_type": "json"},
+                        {"key": 4, "type": "message.request", "uri": "<?= \phpOMS\Uri\UriFactory::build('{/api}organization/find/unit'); ?>", "method": "GET", "request_type": "json"},
                         {"key": 5, "type": "dom.table.append", "id": "grp-table", "aniIn": "fadeIn", "data": [], "bindings": {"id": "id", "name": "name"}, "position": -1}
                     ]
                 }
             ]' formaction=""><i class="fa fa-book"></i></button>
             <div class="advancedInput wf-100" id="<?= $this->getId(); ?>">
-                <input autocomplete="off" class="input" type="text" id="i<?= $this->getId(); ?>" placeholder="&#xf007; Guest"
+                <input autocomplete="off" class="input" type="text" id="i<?= $this->getId(); ?>"
                     data-emptyAfter="true"
                     data-autocomplete="off"
                     data-src="api/organization/find/unit?search={!#i<?= $this->getId(); ?>}">

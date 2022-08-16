@@ -115,7 +115,7 @@ final class BackendController extends Controller
     {
         $response->get('Content')
             ->getData('head')
-            ->addAsset(AssetType::CSS, 'Modules/Organization/Theme/Backend/css/styles.css');
+            ->addAsset(AssetType::CSS, 'Modules/Organization/Theme/Backend/css/styles.css?v=1.0.0');
 
         $view = new View($this->app->l11nManager, $request, $response);
 

@@ -13,7 +13,7 @@
                 }
             ]' formaction=""><i class="fa fa-book"></i></button>
             <div class="advancedInput wf-100" id="<?= $this->getId(); ?>">
-                <input autocomplete="off" class="input" type="text" id="i<?= $this->getId(); ?>" placeholder="&#xf007; Guest"
+                <input autocomplete="off" class="input" type="text" id="i<?= $this->getId(); ?>"
                     data-emptyAfter="true"
                     data-autocomplete="off"
                     data-src="api/organization/find/department?search={!#i<?= $this->getId(); ?>}">

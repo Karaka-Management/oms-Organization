@@ -21,12 +21,15 @@ echo $this->getData('nav')->render(); ?>
 <div class="row">
     <div class="col-xs-12 col-md-6">
         <div class="portlet">
-            <form id="fPositionCreate" method="POST" action="<?= UriFactory::build('{/api}{/rootPath}{/lang}/api/organization/position'); ?>">
+            <form id="fPositionCreate"
+                method="PUT"
+                action="<?= UriFactory::build('{/api}{/rootPath}{/lang}/api/organization/position'); ?>"
+                autocomplete="off">
                 <div class="portlet-head"><?= $this->getHtml('Position'); ?></div>
                 <div class="portlet-body">
                     <table class="layout wf-100" style="table-layout: fixed">
                         <tr><td><label for="iName"><?= $this->getHtml('Name'); ?></label>
-                        <tr><td><input type="text" name="name" id="iName" placeholder="&#xf040; Karaka" required>
+                        <tr><td><input type="text" name="name" id="iName" required>
                         <tr><td><label for="iParent"><?= $this->getHtml('Parent'); ?></label>
                         <tr><td><?= $this->getData('position-selector')->render('iParent', 'parent', false); ?>
                         <tr><td><label for="iDepartment"><?= $this->getHtml('Department'); ?></label>
