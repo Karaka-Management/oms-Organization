@@ -93,7 +93,7 @@ class DepartmentTagSelectorView extends View
     /**
      * {@inheritdoc}
      */
-    public function render(...$data) : string
+    public function render(mixed ...$data) : string
     {
         $this->id         = $data[0];
         $this->name       = $data[1];
