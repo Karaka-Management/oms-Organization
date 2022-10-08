@@ -28,4 +28,5 @@ return ['Organization' => [
     'Unit'        => 'Unit',
     'UnitLogo'    => 'Unit Logo',
     'Units'       => 'Units',
+    'IMG_alt_profile'       => 'Unit image',
 ]];
