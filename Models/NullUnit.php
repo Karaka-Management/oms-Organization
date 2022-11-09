@@ -38,4 +38,12 @@ final class NullUnit extends Unit
         $this->id    = $id;
         $this->image = new NullMedia();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize() : mixed
+    {
+        return ['id' => $this->id];
+    }
 }

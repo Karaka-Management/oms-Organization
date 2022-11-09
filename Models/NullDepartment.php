@@ -36,4 +36,12 @@ final class NullDepartment extends Department
         $this->id   = $id;
         $this->unit = new NullUnit();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize() : mixed
+    {
+        return ['id' => $this->id];
+    }
 }
