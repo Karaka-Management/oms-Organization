@@ -21,11 +21,11 @@ use phpOMS\Uri\UriFactory;
 $departments = $this->getData('departments') ?? [];
 
 $previous = empty($departments)
-    ? '{/prefix}organization/department/list'
-    : '{/prefix}organization/department/list?{?}&id=' . \reset($departments)->getId() . '&ptype=p';
+    ? 'organization/department/list'
+    : 'organization/department/list?{?}&id=' . \reset($departments)->getId() . '&ptype=p';
 $next     = empty($departments)
-    ? '{/prefix}organization/department/list'
-    : '{/prefix}organization/department/list?{?}&id='
+    ? 'organization/department/list'
+    : 'organization/department/list?{?}&id='
         . ($this->getData('hasMore') ? \end($departments)->getId() : $this->request->getData('id'))
         . '&ptype=n';
 
@@ -90,12 +90,12 @@ echo $this->getData('nav')->render(); ?>
                 <tbody>
                 <?php $c = 0;
                     foreach ($departments as $key => $value) : ++$c;
-                    $url = UriFactory::build('{/prefix}organization/department/profile?{?}&id=' . $value->getId()); ?>
+                    $url = UriFactory::build('organization/department/profile?{?}&id=' . $value->getId()); ?>
                 <tr tabindex="0" data-href="<?= $url; ?>">
                     <td data-label="<?= $this->getHtml('ID', '0', '0'); ?>"><a href="<?= $url; ?>"><?= $value->getId(); ?></a>
                     <td data-label="<?= $this->getHtml('Name'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->name); ?></a>
-                    <td data-label="<?= $this->getHtml('Parent'); ?>"><a class="content" href="<?= UriFactory::build('{/prefix}organization/department/profile?{?}&id=' . $value->parent->getId()); ?>"><?= $this->printHtml($value->parent->name); ?></a>
-                    <td data-label="<?= $this->getHtml('Name'); ?>"><a class="content" href="<?= UriFactory::build('{/prefix}organization/unit/profile?{?}&id=' . $value->unit->getId()); ?>"><?= $this->printHtml($value->unit->name); ?></a>
+                    <td data-label="<?= $this->getHtml('Parent'); ?>"><a class="content" href="<?= UriFactory::build('organization/department/profile?{?}&id=' . $value->parent->getId()); ?>"><?= $this->printHtml($value->parent->name); ?></a>
+                    <td data-label="<?= $this->getHtml('Name'); ?>"><a class="content" href="<?= UriFactory::build('organization/unit/profile?{?}&id=' . $value->unit->getId()); ?>"><?= $this->printHtml($value->unit->name); ?></a>
                         <?php endforeach; ?>
                 <?php if ($c === 0) : ?>
                 <tr>
