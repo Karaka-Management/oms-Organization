@@ -21,8 +21,8 @@ use phpOMS\Uri\UriFactory;
  */
 $units = $this->getData('units') ?? [];
 
-$previous = empty($units) ? 'organization/unit/list' : 'organization/unit/list?{?}&id=' . \reset($units)->getId() . '&ptype=p';
-$next     = empty($units) ? 'organization/unit/list' : 'organization/unit/list?{?}&id=' . \end($units)->getId() . '&ptype=n';
+$previous = empty($units) ? 'organization/unit/list' : '{/lang}/{/app}/organization/unit/list?{?}&id=' . \reset($units)->getId() . '&ptype=p';
+$next     = empty($units) ? 'organization/unit/list' : '{/lang}/{/app}/organization/unit/list?{?}&id=' . \end($units)->getId() . '&ptype=n';
 
 echo $this->getData('nav')->render(); ?>
 
@@ -84,14 +84,14 @@ echo $this->getData('nav')->render(); ?>
                         </label>
                 <tbody>
                 <?php foreach ($units as $key => $value) :
-                    $url = UriFactory::build('organization/unit/profile?{?}&id=' . $value->getId()); ?>
+                    $url = UriFactory::build('{/lang}/{/app}/organization/unit/profile?{?}&id=' . $value->getId()); ?>
                 <tr tabindex="0" data-href="<?= $url; ?>">
                     <td data-label="<?= $this->getHtml('ID', '0', '0'); ?>"><a href="<?= $url; ?>"><?= $value->getId(); ?></a>
                     <td><a href="<?= $url; ?>"><img alt="<?= $this->getHtml('IMG_alt_profile'); ?>" class="profile-image" src="<?= $value->image instanceof NullMedia ?
                                     UriFactory::build('Web/Backend/img/user_default_' . \mt_rand(1, 6) .'.png') :
-                                    UriFactory::build('' . $value->image->getPath()); ?>"></a>
+                                    UriFactory::build('{/lang}/{/app}/' . $value->image->getPath()); ?>"></a>
                     <td data-label="<?= $this->getHtml('Name'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->name); ?></a>
-                    <td data-label="<?= $this->getHtml('Parent'); ?>"><a class="content" href="<?= UriFactory::build('organization/unit/profile?{?}&id=' . $value->parent->getId()); ?>"><?= $this->printHtml($value->parent->name); ?></a>
+                    <td data-label="<?= $this->getHtml('Parent'); ?>"><a class="content" href="<?= UriFactory::build('{/lang}/{/app}/organization/unit/profile?{?}&id=' . $value->parent->getId()); ?>"><?= $this->printHtml($value->parent->name); ?></a>
                         <?php endforeach; ?>
             </table>
             </div>

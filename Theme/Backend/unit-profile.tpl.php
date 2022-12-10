@@ -39,7 +39,7 @@ echo $this->getData('nav')->render(); ?>
                                 src="<?=
                                 $unit->image instanceof NullMedia ?
                                     UriFactory::build('Web/Backend/img/user_default_' . \mt_rand(1, 6) .'.png') :
-                                    UriFactory::build('' . $unit->image->getPath()); ?>"
+                                    UriFactory::build('{/lang}/{/app}/' . $unit->image->getPath()); ?>"
                             width="40x">
                         </a>
                     </div>
