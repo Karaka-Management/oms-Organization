@@ -171,14 +171,15 @@ final class BackendController extends Controller
             $tree[$ref][$component->getId()]['obj'] = $component;
 
             $parent = $component->parent->getId();
-            if (!($component instanceof Position) // parent could be in different department then ignore
-                || (!($component->parent instanceof NullPosition) && $component->parent->department->getId() === $component->department->getId())
+            if ($parent !== 0
+                && (!($component instanceof Position) // parent could be in different department then ignore
+                    || $component->parent->department->getId() === $component->department->getId()
+                )
             ) {
                 if (!isset($tree[$ref][$parent])) {
                     $tree[$ref][$parent] = ['obj' => null, 'children' => [], 'index' => 0];
                 }
 
-                // For some stupid reason the next line is too complicated for phpstan and the error it creates is insane/wrong!
                 /** @phpstan-ignore-next-line */
                 $tree[$ref][$parent]['children'][] = &$tree[$ref][$component->getId()];
             }
