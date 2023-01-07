@@ -56,7 +56,10 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/Organization/Theme/Backend/unit-list');
         $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1004703001, $request, $response));
 
-        $mapper = UnitMapper::getAll()->with('parent')->with('image')->limit(25);
+        $mapper = UnitMapper::getAll()
+            ->with('parent')
+            ->with('image')
+            ->limit(25);
 
         if ($request->getData('ptype') === 'p') {
             $view->setData('units', $mapper->where('id', (int) ($request->getData('id') ?? 0), '<')->execute());
@@ -90,7 +93,14 @@ final class BackendController extends Controller
 
         $selectorView = new \Modules\Organization\Theme\Backend\Components\UnitTagSelector\UnitTagSelectorView($this->app->l11nManager, $request, $response);
         $view->addData('unit-selector', $selectorView);
-        $view->addData('unit', UnitMapper::get()->with('parent')->with('image')->where('id', (int) $request->getData('id'))->execute());
+
+        $unit = UnitMapper::get()
+            ->with('parent')
+            ->with('image')
+            ->where('id', (int) $request->getData('id'))
+            ->execute();
+
+        $view->addData('unit', $unit);
 
         $editor = new \Modules\Editor\Theme\Backend\Components\Editor\BaseView($this->app->l11nManager, $request, $response);
         $view->addData('editor', $editor);

@@ -19,9 +19,7 @@
                 "name": "organization_unit_image",
                 "type": "INT",
                 "default": null,
-                "null": true,
-                "foreignTable": "media",
-                "foreignKey": "media_id"
+                "null": true
             },
             "organization_unit_description": {
                 "name": "organization_unit_description",

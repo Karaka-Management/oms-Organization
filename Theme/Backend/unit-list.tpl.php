@@ -88,8 +88,8 @@ echo $this->getData('nav')->render(); ?>
                 <tr tabindex="0" data-href="<?= $url; ?>">
                     <td data-label="<?= $this->getHtml('ID', '0', '0'); ?>"><a href="<?= $url; ?>"><?= $value->getId(); ?></a>
                     <td><a href="<?= $url; ?>"><img alt="<?= $this->getHtml('IMG_alt_profile'); ?>" class="profile-image" src="<?= $value->image instanceof NullMedia ?
-                                    UriFactory::build('Web/Backend/img/user_default_' . \mt_rand(1, 6) .'.png') :
-                                    UriFactory::build('{/lang}/{/app}/' . $value->image->getPath()); ?>"></a>
+                                    UriFactory::build('Modules/Organization/Theme/Backend/img/org_default.png') :
+                                    UriFactory::build($value->image->getPath()); ?>"></a>
                     <td data-label="<?= $this->getHtml('Name'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->name); ?></a>
                     <td data-label="<?= $this->getHtml('Parent'); ?>"><a class="content" href="<?= UriFactory::build('{/lang}/{/app}/organization/unit/profile?{?}&id=' . $value->parent->getId()); ?>"><?= $this->printHtml($value->parent->name); ?></a>
                         <?php endforeach; ?>

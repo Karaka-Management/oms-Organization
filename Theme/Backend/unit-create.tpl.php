@@ -28,7 +28,8 @@ echo $this->getData('nav')->render(); ?>
                         <tr><td><label for="iName"><?= $this->getHtml('Name'); ?></label>
                         <tr><td><input type="text" name="name" id="iName" placeholder="&#xf040; Karaka" required>
                         <tr><td><label for="iParent"><?= $this->getHtml('UnitLogo'); ?></label>
-                        <tr><td><img id="preview-logo" class="preview" src="#" accept="image/*" alt="<?= $this->getHtml('UnitLogo'); ?>">
+                        <tr><td><img id="preview-logo" alt="<?= $this->getHtml('Logo'); ?>"
+                                itemprop="logo" loading="lazy" width="40x" class="preview" src="<?= UriFactory::build('Modules/Organization/Theme/Backend/img/org_default.png'); ?>" accept="image/*">
                         <tr><td><?= $this->getData('media-preview-upload')->render('fUnitCreate', 'logo', '/Modules/Organization'); ?>
                         <tr><td><label for="iParent"><?= $this->getHtml('Parent'); ?></label>
                         <tr><td><?= $this->getData('unit-selector')->render('iParent', 'parent', false); ?>

@@ -16,10 +16,11 @@
     },
     "description": "The business module.",
     "directory": "Organization",
+    "asset-dependencies": {
+        "Modules/Editor": "*"
+    },
     "dependencies": {
-        "Admin": "1.0.0",
-        "Editor": "1.0.0",
-        "Media": "1.0.0"
+        "Admin": "1.0.0"
     },
     "providing": {
         "Navigation": "*",
