@@ -14,6 +14,9 @@ declare(strict_types=1);
 
 namespace Modules\Organization\Controller;
 
+use Model\Setting;
+use Model\SettingMapper;
+use Modules\Admin\Models\SettingsEnum as ModelsSettingsEnum;
 use Modules\Media\Models\PathSettings;
 use Modules\Organization\Models\Department;
 use Modules\Organization\Models\DepartmentMapper;
@@ -28,6 +31,7 @@ use Modules\Organization\Models\Unit;
 use Modules\Organization\Models\UnitMapper;
 use phpOMS\Account\GroupStatus;
 use phpOMS\Message\Http\HttpRequest;
+use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\NotificationLevel;
 use phpOMS\Message\RequestAbstract;
@@ -187,11 +191,24 @@ final class ApiController extends Controller
         /** @var \Model\Setting $setting */
         $setting = $this->app->appSettings->get(null, SettingsEnum::GROUP_GENERATE_AUTOMATICALLY_UNIT);
         if ($setting->content === '1') {
+            $internalResponse            = new HttpResponse();
             $newRequest                  = new HttpRequest();
             $newRequest->header->account = $request->header->account;
-            $newRequest->setData('name', 'org:unit:' . \strtolower($unit->name));
+            $newRequest->setData('name', 'unit:' . \strtolower($unit->name));
             $newRequest->setData('status', GroupStatus::ACTIVE);
-            $this->app->moduleManager->get('Admin')->apiGroupCreate($newRequest, $response, $data);
+
+            $this->app->moduleManager->get('Admin')->apiGroupCreate($newRequest, $internalResponse, $data);
+            $group = $internalResponse->get($newRequest->uri->__toString())['response'];
+
+            $setting = new Setting(
+                0,
+                ModelsSettingsEnum::UNIT_DEFAULT_GROUPS,
+                \json_encode([$group->getId()]),
+                unit: $unit->getId(),
+                module: 'Admin'
+            );
+            $this->createModel($request->header->account, $setting, SettingMapper::class, 'setting', $request->getOrigin());
+
         }
 
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Unit', 'Unit successfully created.', $unit);

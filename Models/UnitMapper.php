@@ -34,13 +34,13 @@ final class UnitMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'organization_unit_id'             => ['name' => 'organization_unit_id',             'type' => 'int',    'internal' => 'id'],
-        'organization_unit_name'           => ['name' => 'organization_unit_name',           'type' => 'string', 'internal' => 'name', 'autocomplete' => true],
-        'organization_unit_image'          => ['name' => 'organization_unit_image',          'type' => 'int',    'internal' => 'image'],
-        'organization_unit_description'    => ['name' => 'organization_unit_description',    'type' => 'string', 'internal' => 'description'],
-        'organization_unit_descriptionraw' => ['name' => 'organization_unit_descriptionraw', 'type' => 'string', 'internal' => 'descriptionRaw'],
-        'organization_unit_parent'         => ['name' => 'organization_unit_parent',         'type' => 'int',    'internal' => 'parent'],
-        'organization_unit_status'         => ['name' => 'organization_unit_status',         'type' => 'int',    'internal' => 'status'],
+        'unit_id'             => ['name' => 'unit_id',             'type' => 'int',    'internal' => 'id'],
+        'unit_name'           => ['name' => 'unit_name',           'type' => 'string', 'internal' => 'name', 'autocomplete' => true],
+        'unit_image'          => ['name' => 'unit_image',          'type' => 'int',    'internal' => 'image'],
+        'unit_description'    => ['name' => 'unit_description',    'type' => 'string', 'internal' => 'description'],
+        'unit_descriptionraw' => ['name' => 'unit_descriptionraw', 'type' => 'string', 'internal' => 'descriptionRaw'],
+        'unit_parent'         => ['name' => 'unit_parent',         'type' => 'int',    'internal' => 'parent'],
+        'unit_status'         => ['name' => 'unit_status',         'type' => 'int',    'internal' => 'status'],
     ];
 
     /**
@@ -52,7 +52,7 @@ final class UnitMapper extends DataMapperFactory
     public const OWNS_ONE = [
         'image'    => [
             'mapper'   => MediaMapper::class,
-            'external' => 'organization_unit_image',
+            'external' => 'unit_image',
         ],
     ];
 
@@ -65,7 +65,7 @@ final class UnitMapper extends DataMapperFactory
     public const BELONGS_TO = [
         'parent'  => [
             'mapper'   => self::class,
-            'external' => 'organization_unit_parent',
+            'external' => 'unit_parent',
         ],
     ];
 
@@ -83,7 +83,7 @@ final class UnitMapper extends DataMapperFactory
      * @var string
      * @since 1.0.0
      */
-    public const TABLE = 'organization_unit';
+    public const TABLE = 'unit';
 
     /**
      * Primary field name.
@@ -91,5 +91,5 @@ final class UnitMapper extends DataMapperFactory
      * @var string
      * @since 1.0.0
      */
-    public const PRIMARYFIELD ='organization_unit_id';
+    public const PRIMARYFIELD ='unit_id';
 }
