@@ -45,7 +45,7 @@ final class PositionMapper extends DataMapperFactory
     /**
      * Belongs to.
      *
-     * @var array<string, array{mapper:string, external:string, column?:string, by?:string}>
+     * @var array<string, array{mapper:class-string, external:string, column?:string, by?:string}>
      * @since 1.0.0
      */
     public const BELONGS_TO = [
@@ -62,7 +62,7 @@ final class PositionMapper extends DataMapperFactory
     /**
      * Model to use by the mapper.
      *
-     * @var string
+     * @var class-string
      * @since 1.0.0
      */
     public const MODEL = Position::class;

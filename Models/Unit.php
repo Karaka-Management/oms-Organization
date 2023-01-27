@@ -28,7 +28,7 @@ use Modules\Media\Models\NullMedia;
 class Unit implements \JsonSerializable
 {
     /**
-     * Article ID.
+     * Unit ID.
      *
      * @var int
      * @since 1.0.0

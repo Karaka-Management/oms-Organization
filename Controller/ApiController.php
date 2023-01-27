@@ -198,12 +198,19 @@ final class ApiController extends Controller
             $newRequest->setData('status', GroupStatus::ACTIVE);
 
             $this->app->moduleManager->get('Admin')->apiGroupCreate($newRequest, $internalResponse, $data);
+
+            /** @var \Modules\Admin\Models\Group $group */
             $group = $internalResponse->get($newRequest->uri->__toString())['response'];
+
+            $content = \json_encode([$group->getId()]);
+            if ($content === false) {
+                $content = '[]';
+            }
 
             $setting = new Setting(
                 0,
                 ModelsSettingsEnum::UNIT_DEFAULT_GROUPS,
-                \json_encode([$group->getId()]),
+                $content,
                 unit: $unit->getId(),
                 module: 'Admin'
             );
