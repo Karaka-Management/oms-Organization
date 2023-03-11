@@ -81,5 +81,5 @@ final class PositionMapper extends DataMapperFactory
      * @var string
      * @since 1.0.0
      */
-    public const PRIMARYFIELD ='organization_position_id';
+    public const PRIMARYFIELD = 'organization_position_id';
 }

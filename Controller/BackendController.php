@@ -96,6 +96,7 @@ final class BackendController extends Controller
 
         $unit = UnitMapper::get()
             ->with('parent')
+            ->with('mainAddress')
             ->with('image')
             ->where('id', (int) $request->getData('id'))
             ->execute();

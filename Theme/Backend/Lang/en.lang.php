@@ -28,5 +28,11 @@ return ['Organization' => [
     'Unit'                  => 'Unit',
     'UnitLogo'              => 'Unit Logo',
     'Units'                 => 'Units',
+    'LegalName'                 => 'Legal Name',
+    'Address'                 => 'Address',
+    'Postal'                 => 'Postal',
+    'City'                 => 'City',
+    'Country'                 => 'Country',
+    'MainAddress'                 => 'Main Address',
     'IMG_alt_profile'       => 'Unit image',
 ]];

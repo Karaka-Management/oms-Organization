@@ -14,9 +14,10 @@ declare(strict_types=1);
 
 namespace Modules\Organization\Models;
 
+use Modules\Admin\Models\Address;
+use Modules\Admin\Models\NullAddress;
 use Modules\Media\Models\Media;
 use Modules\Media\Models\NullMedia;
-
 /**
  * Organization unit class.
  *
@@ -83,6 +84,18 @@ class Unit implements \JsonSerializable
      */
     protected int $status = Status::INACTIVE;
 
+    public Address $mainAddress;
+
+    private array $address = [];
+
+    /**
+     * Attributes.
+     *
+     * @var UnitAttribute[]
+     * @since 1.0.0
+     */
+    private array $attributes = [];
+
     /**
      * Constructor.
      *
@@ -92,6 +105,7 @@ class Unit implements \JsonSerializable
     {
         $this->image  = new NullMedia();
         $this->parent = new NullUnit();
+        $this->mainAddress = new NullAddress();
     }
 
     /**
@@ -104,6 +118,52 @@ class Unit implements \JsonSerializable
     public function getId() : int
     {
         return $this->id;
+    }
+
+    /**
+     * Add attribute to client
+     *
+     * @param UnitAttribute $attribute Attribute
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function addAttribute(UnitAttribute $attribute) : void
+    {
+        $this->attributes[] = $attribute;
+    }
+
+    /**
+     * Get attributes
+     *
+     * @return UnitAttribute[]
+     *
+     * @since 1.0.0
+     */
+    public function getAttributes() : array
+    {
+        return $this->attributes;
+    }
+
+    /**
+     * Get attribute
+     *
+     * @param string $attrName Attribute name
+     *
+     * @return null|UnitAttribute
+     *
+     * @since 1.0.0
+     */
+    public function getAttribute(string $attrName) : ?UnitAttribute
+    {
+        foreach ($this->attributes as $attribute) {
+            if ($attribute->type->name === $attrName) {
+                return $attribute->value;
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -130,6 +190,18 @@ class Unit implements \JsonSerializable
     public function setStatus(int $status) : void
     {
         $this->status = $status;
+    }
+
+    /**
+     * Get addresses.
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    public function getAddresses() : array
+    {
+        return $this->address;
     }
 
     /**

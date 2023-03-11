@@ -16,6 +16,9 @@ namespace Modules\Organization\Controller;
 
 use Model\Setting;
 use Model\SettingMapper;
+use Modules\Admin\Models\Address;
+use Modules\Admin\Models\AddressMapper;
+use Modules\Admin\Models\NullAddress;
 use Modules\Admin\Models\SettingsEnum as ModelsSettingsEnum;
 use Modules\Media\Models\PathSettings;
 use Modules\Organization\Models\Department;
@@ -23,13 +26,26 @@ use Modules\Organization\Models\DepartmentMapper;
 use Modules\Organization\Models\NullDepartment;
 use Modules\Organization\Models\NullPosition;
 use Modules\Organization\Models\NullUnit;
+use Modules\Organization\Models\NullUnitAttributeType;
+use Modules\Organization\Models\NullUnitAttributeValue;
 use Modules\Organization\Models\Position;
 use Modules\Organization\Models\PositionMapper;
 use Modules\Organization\Models\SettingsEnum;
 use Modules\Organization\Models\Status;
 use Modules\Organization\Models\Unit;
+use Modules\Organization\Models\UnitAttribute;
+use Modules\Organization\Models\UnitAttributeMapper;
+use Modules\Organization\Models\UnitAttributeType;
+use Modules\Organization\Models\UnitAttributeTypeL11nMapper;
+use Modules\Organization\Models\UnitAttributeTypeMapper;
+use Modules\Organization\Models\UnitAttributeValue;
+use Modules\Organization\Models\UnitAttributeValueL11nMapper;
+use Modules\Organization\Models\UnitAttributeValueMapper;
 use Modules\Organization\Models\UnitMapper;
 use phpOMS\Account\GroupStatus;
+use phpOMS\Localization\BaseStringL11n;
+use phpOMS\Localization\ISO3166TwoEnum;
+use phpOMS\Localization\ISO639x1Enum;
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Message\Http\RequestStatusCode;
@@ -215,10 +231,116 @@ final class ApiController extends Controller
                 module: 'Admin'
             );
             $this->createModel($request->header->account, $setting, SettingMapper::class, 'setting', $request->getOrigin());
-
         }
 
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Unit', 'Unit successfully created.', $unit);
+    }
+
+    /**
+     * Api method to create a unit
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiUnitMainAddressSet(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    {
+        if (!empty($val = $this->validateUnitMainAddressSet($request))) {
+            $response->set('unit_address_set', new FormValidation($val));
+            $response->header->status = RequestStatusCode::R_400;
+
+            return;
+        }
+
+        /** @var Unit $unit */
+        $unit = UnitMapper::get()->with('mainAddress')->where('id', $request->getData('unit'))->execute();
+        $oldUnit = clone $unit;
+
+        if ($unit->mainAddress->getId() !== 0) {
+            $oldAddr = clone $unit->mainAddress;
+            $addr = $this->updateUnitMainAddressFromRequest($request, $unit);
+            $this->updateModel($request->header->account, $oldAddr, $addr, AddressMapper::class, 'address', $request->getOrigin());
+
+        } else {
+            $addr = $this->createUnitMainAddressFromRequest($request);
+            $this->createModel($request->header->account, $addr, AddressMapper::class, 'address', $request->getOrigin());
+
+            $unit->mainAddress = new NullAddress($addr->getId());
+            $this->updateModel($request->header->account, $oldUnit, $unit, UnitMapper::class, 'unit', $request->getOrigin());
+        }
+
+        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Address', 'Address successfully set.', $unit);
+    }
+
+    /**
+     * Validate unit create request
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return array<string, bool>
+     *
+     * @since 1.0.0
+     */
+    private function validateUnitMainAddressSet(RequestAbstract $request) : array
+    {
+        $val = [];
+        if (($val['unit'] = empty($request->getData('unit')))
+            || ($val['address'] = empty($request->getData('address')))
+        ) {
+            return $val;
+        }
+
+        return [];
+    }
+
+    /**
+     * Method to create unit from request.
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return Address
+     *
+     * @since 1.0.0
+     */
+    private function createUnitMainAddressFromRequest(RequestAbstract $request) : Address
+    {
+        $addr          = new Address();
+        $addr->name = (string) ($request->getData('legal') ?? '');
+        $addr->address = (string) ($request->getData('address') ?? '');
+        $addr->postal  = (string) ($request->getData('postal') ?? '');
+        $addr->city    = (string) ($request->getData('city') ?? '');
+        $addr->setCountry($request->getData('country') ?? ISO3166TwoEnum::_XXX);
+        $addr->state         = (string) ($request->getData('state') ?? '');
+
+        return $addr;
+    }
+
+    /**
+     * Method to create unit from request.
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return Address
+     *
+     * @since 1.0.0
+     */
+    private function updateUnitMainAddressFromRequest(RequestAbstract $request, Unit $unit) : Address
+    {
+        $addr          = $unit->mainAddress;
+        $addr->name = (string) ($request->getData('legal') ?? '');
+        $addr->address = (string) ($request->getData('address') ?? '');
+        $addr->postal  = (string) ($request->getData('postal') ?? '');
+        $addr->city    = (string) ($request->getData('city') ?? '');
+        $addr->setCountry($request->getData('country') ?? ISO3166TwoEnum::_XXX);
+        $addr->state         = (string) ($request->getData('state') ?? '');
+
+        return $addr;
     }
 
     /**
@@ -239,6 +361,17 @@ final class ApiController extends Controller
 
         $unit->parent = new NullUnit((int) $request->getData('parent'));
         $unit->setStatus((int) $request->getData('status'));
+
+        if ($request->hasData('address')) {
+            $addr          = new Address();
+            $addr->name = (string) ($request->getData('legal') ?? ($request->getData('name') ?? ''));
+            $addr->address = (string) ($request->getData('address') ?? '');
+            $addr->postal  = (string) ($request->getData('postal') ?? '');
+            $addr->city    = (string) ($request->getData('city') ?? '');
+            $addr->setCountry($request->getData('country') ?? ISO3166TwoEnum::_XXX);
+            $addr->state         = (string) ($request->getData('state') ?? '');
+            $unit->mainAddress = $addr;
+        }
 
         return $unit;
     }
@@ -711,5 +844,378 @@ final class ApiController extends Controller
                 PositionMapper::getAll()->where('name', '%' . ($request->getData('search') ?? '') . '%', 'LIKE')->execute()
             )
         );
+    }
+
+    /**
+     * Api method to create item attribute
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiUnitAttributeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    {
+        if (!empty($val = $this->validateUnitAttributeCreate($request))) {
+            $response->set('attribute_create', new FormValidation($val));
+            $response->header->status = RequestStatusCode::R_400;
+
+            return;
+        }
+
+        $attribute = $this->createUnitAttributeFromRequest($request);
+        $this->createModel($request->header->account, $attribute, UnitAttributeMapper::class, 'attribute', $request->getOrigin());
+
+        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Attribute', 'Attribute successfully created', $attribute);
+    }
+
+    /**
+     * Method to create item attribute from request.
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return UnitAttribute
+     *
+     * @since 1.0.0
+     */
+    private function createUnitAttributeFromRequest(RequestAbstract $request) : UnitAttribute
+    {
+        $attribute       = new UnitAttribute();
+        $attribute->unit = (int) $request->getData('unit');
+        $attribute->type = new NullUnitAttributeType((int) $request->getData('type'));
+
+        if ($request->getData('value') !== null) {
+            $attribute->value = new NullUnitAttributeValue((int) $request->getData('value'));
+        } else {
+            $newRequest = clone $request;
+            $newRequest->setData('value', $request->getData('custom'), true);
+
+            $value = $this->createUnitAttributeValueFromRequest($newRequest);
+
+            $attribute->value = $value;
+        }
+
+        return $attribute;
+    }
+
+    /**
+     * Validate unit attribute create request
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return array<string, bool>
+     *
+     * @since 1.0.0
+     */
+    private function validateUnitAttributeCreate(RequestAbstract $request) : array
+    {
+        $val = [];
+        if (($val['type'] = empty($request->getData('type')))
+            || ($val['value'] = (empty($request->getData('value')) && empty($request->getData('custom'))))
+            || ($val['unit'] = empty($request->getData('unit')))
+        ) {
+            return $val;
+        }
+
+        return [];
+    }
+
+    /**
+     * Api method to create unit attribute l11n
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiUnitAttributeTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    {
+        if (!empty($val = $this->validateUnitAttributeTypeL11nCreate($request))) {
+            $response->set('attr_type_l11n_create', new FormValidation($val));
+            $response->header->status = RequestStatusCode::R_400;
+
+            return;
+        }
+
+        $attrL11n = $this->createUnitAttributeTypeL11nFromRequest($request);
+        $this->createModel($request->header->account, $attrL11n, UnitAttributeTypeL11nMapper::class, 'attr_type_l11n', $request->getOrigin());
+        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Localization', 'Localization successfully created', $attrL11n);
+    }
+
+    /**
+     * Method to create unit attribute l11n from request.
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return BaseStringL11n
+     *
+     * @since 1.0.0
+     */
+    private function createUnitAttributeTypeL11nFromRequest(RequestAbstract $request) : BaseStringL11n
+    {
+        $attrL11n      = new BaseStringL11n();
+        $attrL11n->ref = (int) ($request->getData('type') ?? 0);
+        $attrL11n->setLanguage((string) (
+            $request->getData('language') ?? $request->getLanguage()
+        ));
+        $attrL11n->content = (string) ($request->getData('title') ?? '');
+
+        return $attrL11n;
+    }
+
+    /**
+     * Validate unit attribute l11n create request
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return array<string, bool>
+     *
+     * @since 1.0.0
+     */
+    private function validateUnitAttributeTypeL11nCreate(RequestAbstract $request) : array
+    {
+        $val = [];
+        if (($val['title'] = empty($request->getData('title')))
+            || ($val['type'] = empty($request->getData('type')))
+        ) {
+            return $val;
+        }
+
+        return [];
+    }
+
+    /**
+     * Api method to create unit attribute type
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiUnitAttributeTypeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    {
+        if (!empty($val = $this->validateUnitAttributeTypeCreate($request))) {
+            $response->set('attr_type_create', new FormValidation($val));
+            $response->header->status = RequestStatusCode::R_400;
+
+            return;
+        }
+
+        $attrType = $this->createUnitAttributeTypeFromRequest($request);
+        $this->createModel($request->header->account, $attrType, UnitAttributeTypeMapper::class, 'attr_type', $request->getOrigin());
+
+        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Attribute type', 'Attribute type successfully created', $attrType);
+    }
+
+    /**
+     * Method to create unit attribute from request.
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return UnitAttributeType
+     *
+     * @since 1.0.0
+     */
+    private function createUnitAttributeTypeFromRequest(RequestAbstract $request) : UnitAttributeType
+    {
+        $attrType                    = new UnitAttributeType($request->getData('name') ?? '');
+        $attrType->datatype          = (int) ($request->getData('datatype') ?? 0);
+        $attrType->custom            = (bool) ($request->getData('custom') ?? false);
+        $attrType->isRequired        = (bool) ($request->getData('is_required') ?? false);
+        $attrType->validationPattern = (string) ($request->getData('validation_pattern') ?? '');
+        $attrType->setL11n((string) ($request->getData('title') ?? ''), $request->getData('language') ?? ISO639x1Enum::_EN);
+        $attrType->setFields((int) ($request->getData('fields') ?? 0));
+
+        return $attrType;
+    }
+
+    /**
+     * Validate unit attribute create request
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return array<string, bool>
+     *
+     * @since 1.0.0
+     */
+    private function validateUnitAttributeTypeCreate(RequestAbstract $request) : array
+    {
+        $val = [];
+        if (($val['title'] = empty($request->getData('title')))
+            || ($val['name'] = empty($request->getData('name')))
+        ) {
+            return $val;
+        }
+
+        return [];
+    }
+
+    /**
+     * Api method to create unit attribute value
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiUnitAttributeValueCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    {
+        if (!empty($val = $this->validateUnitAttributeValueCreate($request))) {
+            $response->set('attr_value_create', new FormValidation($val));
+            $response->header->status = RequestStatusCode::R_400;
+
+            return;
+        }
+
+        $attrValue = $this->createUnitAttributeValueFromRequest($request);
+        $this->createModel($request->header->account, $attrValue, UnitAttributeValueMapper::class, 'attr_value', $request->getOrigin());
+
+        if ($attrValue->isDefault) {
+            $this->createModelRelation(
+                $request->header->account,
+                (int) $request->getData('type'),
+                $attrValue->getId(),
+                UnitAttributeTypeMapper::class, 'defaults', '', $request->getOrigin()
+            );
+        }
+
+        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Attribute value', 'Attribute value successfully created', $attrValue);
+    }
+
+    /**
+     * Method to create unit attribute value from request.
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return UnitAttributeValue
+     *
+     * @since 1.0.0
+     */
+    private function createUnitAttributeValueFromRequest(RequestAbstract $request) : UnitAttributeValue
+    {
+        /** @var UnitAttributeType $type */
+        $type = UnitAttributeTypeMapper::get()
+            ->where('id', (int) ($request->getData('type') ?? 0))
+            ->execute();
+
+        $attrValue            = new UnitAttributeValue();
+        $attrValue->isDefault = (bool) ($request->getData('default') ?? false);
+        $attrValue->setValue($request->getData('value'), $type->datatype);
+
+        if ($request->getData('title') !== null) {
+            $attrValue->setL11n($request->getData('title'), $request->getData('language') ?? ISO639x1Enum::_EN);
+        }
+
+        return $attrValue;
+    }
+
+    /**
+     * Validate unit attribute value create request
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return array<string, bool>
+     *
+     * @since 1.0.0
+     */
+    private function validateUnitAttributeValueCreate(RequestAbstract $request) : array
+    {
+        $val = [];
+        if (($val['type'] = empty($request->getData('type')))
+            || ($val['value'] = empty($request->getData('value')))
+        ) {
+            return $val;
+        }
+
+        return [];
+    }
+
+    /**
+     * Api method to create unit attribute l11n
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiUnitAttributeValueL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    {
+        if (!empty($val = $this->validateUnitAttributeValueL11nCreate($request))) {
+            $response->set('attr_value_l11n_create', new FormValidation($val));
+            $response->header->status = RequestStatusCode::R_400;
+
+            return;
+        }
+
+        $attrL11n = $this->createUnitAttributeValueL11nFromRequest($request);
+        $this->createModel($request->header->account, $attrL11n, UnitAttributeValueL11nMapper::class, 'attr_value_l11n', $request->getOrigin());
+        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Localization', 'Localization successfully created', $attrL11n);
+    }
+
+    /**
+     * Method to create unit attribute l11n from request.
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return BaseStringL11n
+     *
+     * @since 1.0.0
+     */
+    private function createUnitAttributeValueL11nFromRequest(RequestAbstract $request) : BaseStringL11n
+    {
+        $attrL11n      = new BaseStringL11n();
+        $attrL11n->ref = (int) ($request->getData('value') ?? 0);
+        $attrL11n->setLanguage((string) (
+            $request->getData('language') ?? $request->getLanguage()
+        ));
+        $attrL11n->content = (string) ($request->getData('title') ?? '');
+
+        return $attrL11n;
+    }
+
+    /**
+     * Validate unit attribute l11n create request
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return array<string, bool>
+     *
+     * @since 1.0.0
+     */
+    private function validateUnitAttributeValueL11nCreate(RequestAbstract $request) : array
+    {
+        $val = [];
+        if (($val['title'] = empty($request->getData('title')))
+            || ($val['value'] = empty($request->getData('value')))
+        ) {
+            return $val;
+        }
+
+        return [];
     }
 }

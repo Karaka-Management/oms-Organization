@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 use Modules\Media\Models\NullMedia;
 use Modules\Organization\Models\Status;
+use phpOMS\Localization\ISO3166NameEnum;
+use phpOMS\Localization\ISO3166TwoEnum;
 use phpOMS\Uri\UriFactory;
 
 /**
@@ -21,6 +23,9 @@ use phpOMS\Uri\UriFactory;
  * @var \Modules\Organization\Models\Unit $unit;
  */
 $unit = $this->getData('unit');
+
+$countryCodes    = ISO3166TwoEnum::getConstants();
+$countries       = ISO3166NameEnum::getConstants();
 
 echo $this->getData('nav')->render(); ?>
 
@@ -46,25 +51,83 @@ echo $this->getData('nav')->render(); ?>
                     <div><?= $this->getHtml('Unit'); ?></div>
                 </div>
                 <div class="portlet-body">
-                    <table class="layout wf-100" style="table-layout: fixed">
-                        <tr><td><label for="iName"><?= $this->getHtml('Name'); ?></label>
-                        <tr><td><input type="text" name="name" id="iName" value="<?= $this->printHtml($unit->name); ?>">
-                        <tr><td><label for="iParent"><?= $this->getHtml('Parent'); ?></label>
-                        <tr><td><?= $this->getData('unit-selector')->render('iParent', 'parent', false); ?>
-                        <tr><td><label for="iStatus"><?= $this->getHtml('Status'); ?></label>
-                        <tr><td><select name="status" id="iStatus">
-                                    <option value="<?= Status::ACTIVE; ?>"<?= $unit->getStatus() === Status::ACTIVE ? ' selected' : ''; ?>><?= $this->getHtml('Active'); ?>
-                                    <option value="<?= Status::INACTIVE; ?>"<?= $unit->getStatus() === Status::INACTIVE ? ' selected' : ''; ?>><?= $this->getHtml('Inactive'); ?>
-                                </select>
-                        <tr><td><?= $this->getData('editor')->render('unit-editor'); ?>
-                        <tr><td><?= $this->getData('editor')->getData('text')->render(
-                            'unit-editor',
-                            'description',
-                            'iUnit',
-                            $unit->descriptionRaw,
-                            $unit->description
-                        ); ?>
-                    </table>
+                    <div class="form-group">
+                        <label for="iName"><?= $this->getHtml('Name'); ?></label>
+                        <input type="text" name="name" id="iName" value="<?= $this->printHtml($unit->name); ?>">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="iParent"><?= $this->getHtml('Parent'); ?></label>
+                        <?= $this->getData('unit-selector')->render('iParent', 'parent', false); ?>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="iStatus"><?= $this->getHtml('Status'); ?></label>
+                        <select name="status" id="iStatus">
+                            <option value="<?= Status::ACTIVE; ?>"<?= $unit->getStatus() === Status::ACTIVE ? ' selected' : ''; ?>><?= $this->getHtml('Active'); ?>
+                            <option value="<?= Status::INACTIVE; ?>"<?= $unit->getStatus() === Status::INACTIVE ? ' selected' : ''; ?>><?= $this->getHtml('Inactive'); ?>
+                        </select>
+                    </div>
+
+                    <?= $this->getData('editor')->render('unit-editor'); ?>
+
+                    <?= $this->getData('editor')->getData('text')->render(
+                        'unit-editor',
+                        'description',
+                        'iUnit',
+                        $unit->descriptionRaw,
+                        $unit->description
+                    ); ?>
+                </div>
+                <div class="portlet-foot">
+                    <input id="iUnitId" name="id" type="hidden" value="<?= (int) $unit->getId(); ?>">
+                    <input id="iSubmit" name="submit" type="submit" value="<?= $this->getHtml('Save', '0', '0'); ?>">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-md-6">
+        <div class="portlet">
+            <div class="portlet-head"><?= $this->getHtml('MainAddress'); ?></div>
+            <form id="iUnitMainAdress" action="<?= UriFactory::build('{/api}organization/unit/address/main'); ?>" method="post">
+                <div class="portlet-body">
+                    <div class="form-group">
+                        <label for="iLegalName"><?= $this->getHtml('LegalName'); ?></label>
+                        <input type="text" name="legal" id="iLegalName" value="<?= $this->printHtml($unit->mainAddress->name); ?>">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="iAddress"><?= $this->getHtml('Address'); ?></label>
+                        <input type="text" name="address" id="iAddress" value="<?= $this->printHtml($unit->mainAddress->address); ?>">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="iPostal"><?= $this->getHtml('Postal'); ?></label>
+                        <input type="text" name="postal" id="iPostal" value="<?= $this->printHtml($unit->mainAddress->postal); ?>">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="iCity"><?= $this->getHtml('City'); ?></label>
+                        <input type="text" name="city" id="iCity" value="<?= $this->printHtml($unit->mainAddress->city); ?>">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="iCountry"><?= $this->getHtml('Country'); ?></label>
+                        <select id="iCountry" name="country">
+                            <?php
+                            $selected = false;
+                            foreach ($countryCodes as $code3 => $code2) :
+                                if ($code2 === $unit->mainAddress->getCountry()) {
+                                    $selected = true;
+                                }
+                            ?>
+                            <option value="<?= $this->printHtml($code2); ?>"<?= $code2 === $unit->mainAddress->getCountry() ? ' selected' : ''; ?>>
+                                <?= $this->printHtml($countries[$code3]); ?>
+                            </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
                 </div>
                 <div class="portlet-foot">
                     <input id="iUnitId" name="id" type="hidden" value="<?= (int) $unit->getId(); ?>">

@@ -18,8 +18,11 @@ use Modules\Organization\Models\Unit;
 use Modules\Organization\Models\UnitMapper;
 use phpOMS\Application\ApplicationAbstract;
 use phpOMS\Config\SettingsInterface;
+use phpOMS\Message\Http\HttpRequest;
+use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Module\InstallerAbstract;
 use phpOMS\Module\ModuleInfo;
+use phpOMS\Uri\HttpUri;
 
 /**
  * Installer class.
@@ -47,6 +50,156 @@ final class Installer extends InstallerAbstract
         parent::install($app, $info, $cfgHandler);
 
         self::installDefaultUnit();
+
+        /* Attributes */
+        $fileContent = \file_get_contents(__DIR__ . '/Install/attributes.json');
+        if ($fileContent === false) {
+            return;
+        }
+
+        $attributes = \json_decode($fileContent, true);
+        $attrTypes  = self::createUnitAttributeTypes($app, $attributes);
+        $attrValues = self::createUnitAttributeValues($app, $attrTypes, $attributes);
+    }
+
+    /**
+     * Install default attribute types
+     *
+     * @param ApplicationAbstract                                                                                                                                                              $app        Application
+     * @param array<array{name:string, l11n?:array<string, string>, is_required?:bool, is_custom_allowed?:bool, validation_pattern?:string, value_type?:string, values?:array<string, mixed>}> $attributes Attribute definition
+     *
+     * @return array<string, array>
+     *
+     * @since 1.0.0
+     */
+    private static function createUnitAttributeTypes(ApplicationAbstract $app, array $attributes) : array
+    {
+        /** @var array<string, array> $unitAttrType */
+        $unitAttrType = [];
+
+        /** @var \Modules\Organization\Controller\ApiController $module */
+        $module = $app->moduleManager->getModuleInstance('Organization');
+
+        /** @var array $attribute */
+        foreach ($attributes as $attribute) {
+            $response = new HttpResponse();
+            $request  = new HttpRequest(new HttpUri(''));
+
+            $request->header->account = 1;
+            $request->setData('name', $attribute['name'] ?? '');
+            $request->setData('title', \reset($attribute['l11n']));
+            $request->setData('language', \array_keys($attribute['l11n'])[0] ?? 'en');
+            $request->setData('is_required', $attribute['is_required'] ?? false);
+            $request->setData('is_custom_allowed', $attribute['is_custom_allowed'] ?? false);
+            $request->setData('validation_pattern', $attribute['validation_pattern'] ?? '');
+            $request->setData('datatype', (int) $attribute['value_type']);
+
+            $module->apiUnitAttributeTypeCreate($request, $response);
+
+            $responseData = $response->get('');
+
+            if (!\is_array($responseData)) {
+                continue;
+            }
+
+            $unitAttrType[$attribute['name']] = !\is_array($responseData['response'])
+                ? $responseData['response']->toArray()
+                : $responseData['response'];
+
+            $isFirst = true;
+            foreach ($attribute['l11n'] as $language => $l11n) {
+                if ($isFirst) {
+                    $isFirst = false;
+                    continue;
+                }
+
+                $response = new HttpResponse();
+                $request  = new HttpRequest(new HttpUri(''));
+
+                $request->header->account = 1;
+                $request->setData('title', $l11n);
+                $request->setData('language', $language);
+                $request->setData('type', $unitAttrType[$attribute['name']]['id']);
+
+                $module->apiUnitAttributeTypeL11nCreate($request, $response);
+            }
+        }
+
+        return $unitAttrType;
+    }
+
+    /**
+     * Create default attribute values for types
+     *
+     * @param ApplicationAbstract                                                                                                                                                              $app          Application
+     * @param array                                                                                                                                                                            $unitAttrType Attribute types
+     * @param array<array{name:string, l11n?:array<string, string>, is_required?:bool, is_custom_allowed?:bool, validation_pattern?:string, value_type?:string, values?:array<string, mixed>}> $attributes   Attribute definition
+     *
+     * @return array<string, array>
+     *
+     * @since 1.0.0
+     */
+    private static function createUnitAttributeValues(ApplicationAbstract $app, array $unitAttrType, array $attributes) : array
+    {
+        /** @var array<string, array> $unitAttrValue */
+        $unitAttrValue = [];
+
+        /** @var \Modules\Organization\Controller\ApiController $module */
+        $module = $app->moduleManager->getModuleInstance('Organization');
+
+        foreach ($attributes as $attribute) {
+            $unitAttrValue[$attribute['name']] = [];
+
+            /** @var array $value */
+            foreach ($attribute['values'] as $value) {
+                $response = new HttpResponse();
+                $request  = new HttpRequest(new HttpUri(''));
+
+                $request->header->account = 1;
+                $request->setData('value', $value['value'] ?? '');
+                $request->setData('unit', $value['unit'] ?? '');
+                $request->setData('default', true); // always true since all defined values are possible default values
+                $request->setData('type', $unitAttrType[$attribute['name']]['id']);
+
+                if (isset($value['l11n']) && !empty($value['l11n'])) {
+                    $request->setData('title', \reset($value['l11n']));
+                    $request->setData('language', \array_keys($value['l11n'])[0] ?? 'en');
+                }
+
+                $module->apiUnitAttributeValueCreate($request, $response);
+
+                $responseData = $response->get('');
+                if (!\is_array($responseData)) {
+                    continue;
+                }
+
+                $attrValue = !\is_array($responseData['response'])
+                    ? $responseData['response']->toArray()
+                    : $responseData['response'];
+
+                $unitAttrValue[$attribute['name']][] = $attrValue;
+
+                $isFirst = true;
+                foreach (($value['l11n'] ?? []) as $language => $l11n) {
+                    if ($isFirst) {
+                        $isFirst = false;
+                        continue;
+                    }
+
+                    $response = new HttpResponse();
+                    $request  = new HttpRequest(new HttpUri(''));
+
+                    $request->header->account = 1;
+                    $request->setData('title', $l11n);
+                    $request->setData('language', $language);
+                    $request->setData('value', $attrValue['id']);
+
+                    $module->apiUnitAttributeValueL11nCreate($request, $response);
+                }
+            }
+        }
+
+        return $unitAttrValue;
     }
 
     /**

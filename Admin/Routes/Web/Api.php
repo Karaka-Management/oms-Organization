@@ -133,6 +133,18 @@ return [
         ],
     ],
 
+    '^.*/organization/unit/address/main(\?.*|$)' => [
+        [
+            'dest'       => '\Modules\Organization\Controller\ApiController:apiUnitMainAddressSet',
+            'verb'       => RouteVerb::SET,
+            'permission' => [
+                'module' => ApiController::NAME,
+                'type'   => PermissionType::MODIFY,
+                'state'  => PermissionCategory::UNIT,
+            ],
+        ],
+    ],
+
     '^.*/organization/unit/image(\?.*|$)' => [
         [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiUnitImageSet',
