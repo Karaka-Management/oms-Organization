@@ -6,7 +6,7 @@
  *
  * @package   Modules\Organization
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -90,12 +90,12 @@ echo $this->getData('nav')->render(); ?>
                 <tbody>
                 <?php $c = 0;
                     foreach ($departments as $key => $value) : ++$c;
-                    $url = UriFactory::build('{/lang}/{/app}/organization/department/profile?{?}&id=' . $value->getId()); ?>
+                    $url = UriFactory::build('{/base}/organization/department/profile?{?}&id=' . $value->getId()); ?>
                 <tr tabindex="0" data-href="<?= $url; ?>">
                     <td data-label="<?= $this->getHtml('ID', '0', '0'); ?>"><a href="<?= $url; ?>"><?= $value->getId(); ?></a>
                     <td data-label="<?= $this->getHtml('Name'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->name); ?></a>
-                    <td data-label="<?= $this->getHtml('Parent'); ?>"><a class="content" href="<?= UriFactory::build('{/lang}/{/app}/organization/department/profile?{?}&id=' . $value->parent->getId()); ?>"><?= $this->printHtml($value->parent->name); ?></a>
-                    <td data-label="<?= $this->getHtml('Name'); ?>"><a class="content" href="<?= UriFactory::build('{/lang}/{/app}/organization/unit/profile?{?}&id=' . $value->unit->getId()); ?>"><?= $this->printHtml($value->unit->name); ?></a>
+                    <td data-label="<?= $this->getHtml('Parent'); ?>"><a class="content" href="<?= UriFactory::build('{/base}/organization/department/profile?{?}&id=' . $value->parent->getId()); ?>"><?= $this->printHtml($value->parent->name); ?></a>
+                    <td data-label="<?= $this->getHtml('Name'); ?>"><a class="content" href="<?= UriFactory::build('{/base}/organization/unit/profile?{?}&id=' . $value->unit->getId()); ?>"><?= $this->printHtml($value->unit->name); ?></a>
                         <?php endforeach; ?>
                 <?php if ($c === 0) : ?>
                 <tr>

@@ -6,7 +6,7 @@
  *
  * @package   Modules\Organization
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -30,7 +30,7 @@ use phpOMS\Views\View;
  * Organization Controller class.
  *
  * @package Modules\Organization
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  * @codeCoverageIgnore
@@ -62,9 +62,9 @@ final class BackendController extends Controller
             ->limit(25);
 
         if ($request->getData('ptype') === 'p') {
-            $view->setData('units', $mapper->where('id', (int) ($request->getData('id') ?? 0), '<')->execute());
+            $view->setData('units', $mapper->where('id', $request->getDataInt('id') ?? 0, '<')->execute());
         } elseif ($request->getData('ptype') === 'n') {
-            $view->setData('units', $mapper->where('id', (int) ($request->getData('id') ?? 0), '>')->execute());
+            $view->setData('units', $mapper->where('id', $request->getDataInt('id') ?? 0, '>')->execute());
         } else {
             $view->setData('units', $mapper->where('id', 0, '>')->execute());
         }
@@ -253,15 +253,16 @@ final class BackendController extends Controller
 
         $mapper = DepartmentMapper::getAll()->with('parent')->with('unit')->limit($pageLimit + 1);
 
-        /** @var \Modules\Organization\Models\Department[] $departments */
-        $departments = [];
         if ($request->getData('ptype') === 'p') {
-            $departments = $mapper->where('id', (int) ($request->getData('id') ?? 0), '<')->execute();
+            $mapper->where('id', $request->getDataInt('id') ?? 0, '<');
         } elseif ($request->getData('ptype') === 'n') {
-            $departments = $mapper->where('id', (int) ($request->getData('id') ?? 0), '>')->execute();
+            $mapper->where('id', $request->getDataInt('id') ?? 0, '>');
         } else {
-            $departments = $mapper->where('id', 0, '>')->execute();
+            $mapper->where('id', 0, '>');
         }
+
+        /** @var \Modules\Organization\Models\Department[] $departments */
+        $departments = $mapper->execute();
 
         $view->setData('hasMore', ($count = \count($departments)) > $pageLimit);
 
@@ -357,9 +358,9 @@ final class BackendController extends Controller
         $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1004705001, $request, $response));
 
         if ($request->getData('ptype') === 'p') {
-            $view->setData('positions', PositionMapper::getAll()->with('parent')->with('department')->where('id', (int) ($request->getData('id') ?? 0), '<')->limit(25)->execute());
+            $view->setData('positions', PositionMapper::getAll()->with('parent')->with('department')->where('id', $request->getDataInt('id') ?? 0, '<')->limit(25)->execute());
         } elseif ($request->getData('ptype') === 'n') {
-            $view->setData('positions', PositionMapper::getAll()->with('parent')->with('department')->where('id', (int) ($request->getData('id') ?? 0), '>')->limit(25)->execute());
+            $view->setData('positions', PositionMapper::getAll()->with('parent')->with('department')->where('id', $request->getDataInt('id') ?? 0, '>')->limit(25)->execute());
         } else {
             $view->setData('positions', PositionMapper::getAll()->with('parent')->with('department')->where('id', 0, '>')->limit(25)->execute());
         }

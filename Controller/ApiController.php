@@ -6,7 +6,7 @@
  *
  * @package   Modules\Organization
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -60,7 +60,7 @@ use phpOMS\Utils\Parser\Markdown\Markdown;
  * Organization Controller class.
  *
  * @package Modules\Organization
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
@@ -84,7 +84,7 @@ final class ApiController extends Controller
                 && !\is_numeric($request->getData('parent'))
             ))
             || ($val['status'] = (
-                $request->getData('status') === null
+                !$request->hasData('status')
                 || !Status::isValidValue((int) $request->getData('status'))
             ))
         ) {
@@ -153,7 +153,7 @@ final class ApiController extends Controller
 
         $parent       = (int) $request->getData('parent');
         $unit->parent = !empty($parent) ? new NullUnit($parent) : $unit->parent;
-        $unit->setStatus((int) ($request->getData('status') ?? $unit->getStatus()));
+        $unit->setStatus($request->getDataInt('status') ?? $unit->getStatus());
 
         return $unit;
     }
@@ -259,12 +259,12 @@ final class ApiController extends Controller
         }
 
         /** @var Unit $unit */
-        $unit = UnitMapper::get()->with('mainAddress')->where('id', $request->getData('unit'))->execute();
+        $unit    = UnitMapper::get()->with('mainAddress')->where('id', $request->getData('unit'))->execute();
         $oldUnit = clone $unit;
 
         if ($unit->mainAddress->getId() !== 0) {
             $oldAddr = clone $unit->mainAddress;
-            $addr = $this->updateUnitMainAddressFromRequest($request, $unit);
+            $addr    = $this->updateUnitMainAddressFromRequest($request, $unit);
             $this->updateModel($request->header->account, $oldAddr, $addr, AddressMapper::class, 'address', $request->getOrigin());
 
         } else {
@@ -311,12 +311,12 @@ final class ApiController extends Controller
     private function createUnitMainAddressFromRequest(RequestAbstract $request) : Address
     {
         $addr          = new Address();
-        $addr->name = (string) ($request->getData('legal') ?? '');
-        $addr->address = (string) ($request->getData('address') ?? '');
-        $addr->postal  = (string) ($request->getData('postal') ?? '');
-        $addr->city    = (string) ($request->getData('city') ?? '');
-        $addr->setCountry($request->getData('country') ?? ISO3166TwoEnum::_XXX);
-        $addr->state         = (string) ($request->getData('state') ?? '');
+        $addr->name    = $request->getDataString('legal') ?? '';
+        $addr->address = $request->getDataString('address') ?? '';
+        $addr->postal  = $request->getDataString('postal') ?? '';
+        $addr->city    = $request->getDataString('city') ?? '';
+        $addr->state   = $request->getDataString('state') ?? '';
+        $addr->setCountry($request->getDataString('country') ?? ISO3166TwoEnum::_XXX);
 
         return $addr;
     }
@@ -333,12 +333,12 @@ final class ApiController extends Controller
     private function updateUnitMainAddressFromRequest(RequestAbstract $request, Unit $unit) : Address
     {
         $addr          = $unit->mainAddress;
-        $addr->name = (string) ($request->getData('legal') ?? '');
-        $addr->address = (string) ($request->getData('address') ?? '');
-        $addr->postal  = (string) ($request->getData('postal') ?? '');
-        $addr->city    = (string) ($request->getData('city') ?? '');
-        $addr->setCountry($request->getData('country') ?? ISO3166TwoEnum::_XXX);
-        $addr->state         = (string) ($request->getData('state') ?? '');
+        $addr->name    = $request->getDataString('legal') ?? '';
+        $addr->address = $request->getDataString('address') ?? '';
+        $addr->postal  = $request->getDataString('postal') ?? '';
+        $addr->city    = $request->getDataString('city') ?? '';
+        $addr->state   = $request->getDataString('state') ?? '';
+        $addr->setCountry($request->getDataString('country') ?? ISO3166TwoEnum::_XXX);
 
         return $addr;
     }
@@ -356,20 +356,21 @@ final class ApiController extends Controller
     {
         $unit                 = new Unit();
         $unit->name           = (string) $request->getData('name');
-        $unit->descriptionRaw = (string) ($request->getData('description') ?? '');
-        $unit->description    = Markdown::parse((string) ($request->getData('description') ?? ''));
+        $unit->descriptionRaw = $request->getDataString('description') ?? '';
+        $unit->description    = Markdown::parse($request->getDataString('description') ?? '');
 
         $unit->parent = new NullUnit((int) $request->getData('parent'));
         $unit->setStatus((int) $request->getData('status'));
 
         if ($request->hasData('address')) {
             $addr          = new Address();
-            $addr->name = (string) ($request->getData('legal') ?? ($request->getData('name') ?? ''));
-            $addr->address = (string) ($request->getData('address') ?? '');
-            $addr->postal  = (string) ($request->getData('postal') ?? '');
-            $addr->city    = (string) ($request->getData('city') ?? '');
-            $addr->setCountry($request->getData('country') ?? ISO3166TwoEnum::_XXX);
-            $addr->state         = (string) ($request->getData('state') ?? '');
+            $addr->name    = $request->getDataString('legal') ?? ($request->getDataString('name') ?? '');
+            $addr->address = $request->getDataString('address') ?? '';
+            $addr->postal  = $request->getDataString('postal') ?? '';
+            $addr->city    = $request->getDataString('city') ?? '';
+            $addr->state   = $request->getDataString('state') ?? '';
+            $addr->setCountry($request->getDataString('country') ?? ISO3166TwoEnum::_XXX);
+
             $unit->mainAddress = $addr;
         }
 
@@ -400,7 +401,7 @@ final class ApiController extends Controller
         }
 
         /** @var Unit $unit */
-        $unit = UnitMapper::get()->where('id', (int) ($request->getData('id') ?? 0))->execute();
+        $unit = UnitMapper::get()->where('id', $request->getDataInt('id') ?? 0)->execute();
         $old  = clone $unit;
 
         $path = '/Modules/Organization/' . $unit->name;
@@ -439,7 +440,7 @@ final class ApiController extends Controller
                 && !\is_numeric($request->getData('parent'))
             ))
             || ($val['status'] = (
-                $request->getData('status') === null
+                !$request->hasData('status')
                 || !Status::isValidValue((int) $request->getData('status'))
             ))
         ) {
@@ -532,7 +533,7 @@ final class ApiController extends Controller
 
         $department           = (int) $request->getData('department');
         $position->department = !empty($department) ? new NullDepartment($department) : $position->department;
-        $position->setStatus((int) ($request->getData('status') ?? $position->getStatus()));
+        $position->setStatus($request->getDataInt('status') ?? $position->getStatus());
 
         return $position;
     }
@@ -589,8 +590,8 @@ final class ApiController extends Controller
         $position       = new Position();
         $position->name = (string) ($request->getData('name'));
         $position->setStatus((int) $request->getData('status'));
-        $position->descriptionRaw = (string) ($request->getData('description') ?? '');
-        $position->description    = Markdown::parse((string) ($request->getData('description') ?? ''));
+        $position->descriptionRaw = $request->getDataString('description') ?? '';
+        $position->description    = Markdown::parse($request->getDataString('description') ?? '');
         $position->parent         = new NullPosition((int) $request->getData('parent'));
         $position->department     = new NullDepartment((int) $request->getData('department'));
 
@@ -683,7 +684,7 @@ final class ApiController extends Controller
 
         $parent             = (int) $request->getData('parent');
         $department->parent = !empty($parent) ? new NullDepartment($parent) : $department->parent;
-        $department->setStatus((int) ($request->getData('status') ?? $department->getStatus()));
+        $department->setStatus($request->getDataInt('status') ?? $department->getStatus());
 
         $unit             = (int) $request->getData('unit');
         $department->unit = !empty($unit) ? new NullUnit($unit) : $department->unit;
@@ -767,9 +768,9 @@ final class ApiController extends Controller
         $department->setStatus((int) $request->getData('status'));
 
         $department->parent         = new NullDepartment((int) $request->getData('parent'));
-        $department->unit           = new NullUnit((int) ($request->getData('unit') ?? 1));
-        $department->descriptionRaw = (string) ($request->getData('description') ?? '');
-        $department->description    = Markdown::parse((string) ($request->getData('description') ?? ''));
+        $department->unit           = new NullUnit($request->getDataInt('unit') ?? 1);
+        $department->descriptionRaw = $request->getDataString('description') ?? '';
+        $department->description    = Markdown::parse($request->getDataString('description') ?? '');
 
         return $department;
     }
@@ -789,12 +790,15 @@ final class ApiController extends Controller
      */
     public function apiUnitFind(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
+        /** @var \Modules\Organization\Models\Unit[] $units */
+        $units = UnitMapper::getAll()
+            ->where('name', '%' . ($request->getDataString('search') ?? '') . '%', 'LIKE')
+            ->execute();
+
         $response->header->set('Content-Type', MimeType::M_JSON, true);
         $response->set(
             $request->uri->__toString(),
-            \array_values(
-                UnitMapper::getAll()->where('name', '%' . ($request->getData('search') ?? '') . '%', 'LIKE')->execute()
-            )
+            \array_values($units)
         );
     }
 
@@ -813,12 +817,15 @@ final class ApiController extends Controller
      */
     public function apiDepartmentFind(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
+        /** @var \Modules\Organization\Models\Department[] $departments */
+        $departments = DepartmentMapper::getAll()
+            ->where('name', '%' . ($request->getDataString('search') ?? '') . '%', 'LIKE')
+            ->execute();
+
         $response->header->set('Content-Type', MimeType::M_JSON, true);
         $response->set(
             $request->uri->__toString(),
-            \array_values(
-                DepartmentMapper::getAll()->where('name', '%' . ($request->getData('search') ?? '') . '%', 'LIKE')->execute()
-            )
+            \array_values($departments)
         );
     }
 
@@ -837,12 +844,15 @@ final class ApiController extends Controller
      */
     public function apiPositionFind(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
+        /** @var \Modules\Organization\Models\Position[] $positions */
+        $positions = PositionMapper::getAll()
+            ->where('name', '%' . ($request->getDataString('search') ?? '') . '%', 'LIKE')
+            ->execute();
+
         $response->header->set('Content-Type', MimeType::M_JSON, true);
         $response->set(
             $request->uri->__toString(),
-            \array_values(
-                PositionMapper::getAll()->where('name', '%' . ($request->getData('search') ?? '') . '%', 'LIKE')->execute()
-            )
+            \array_values($positions)
         );
     }
 
@@ -889,7 +899,7 @@ final class ApiController extends Controller
         $attribute->unit = (int) $request->getData('unit');
         $attribute->type = new NullUnitAttributeType((int) $request->getData('type'));
 
-        if ($request->getData('value') !== null) {
+        if ($request->hasData('value')) {
             $attribute->value = new NullUnitAttributeValue((int) $request->getData('value'));
         } else {
             $newRequest = clone $request;
@@ -964,11 +974,11 @@ final class ApiController extends Controller
     private function createUnitAttributeTypeL11nFromRequest(RequestAbstract $request) : BaseStringL11n
     {
         $attrL11n      = new BaseStringL11n();
-        $attrL11n->ref = (int) ($request->getData('type') ?? 0);
-        $attrL11n->setLanguage((string) (
-            $request->getData('language') ?? $request->getLanguage()
-        ));
-        $attrL11n->content = (string) ($request->getData('title') ?? '');
+        $attrL11n->ref = $request->getDataInt('type') ?? 0;
+        $attrL11n->setLanguage(
+            $request->getDataString('language') ?? $request->getLanguage()
+        );
+        $attrL11n->content = $request->getDataString('title') ?? '';
 
         return $attrL11n;
     }
@@ -1033,13 +1043,13 @@ final class ApiController extends Controller
      */
     private function createUnitAttributeTypeFromRequest(RequestAbstract $request) : UnitAttributeType
     {
-        $attrType                    = new UnitAttributeType($request->getData('name') ?? '');
-        $attrType->datatype          = (int) ($request->getData('datatype') ?? 0);
-        $attrType->custom            = (bool) ($request->getData('custom') ?? false);
+        $attrType                    = new UnitAttributeType($request->getDataString('name') ?? '');
+        $attrType->datatype          = $request->getDataInt('datatype') ?? 0;
+        $attrType->custom            = $request->getDataBool('custom') ?? false;
         $attrType->isRequired        = (bool) ($request->getData('is_required') ?? false);
-        $attrType->validationPattern = (string) ($request->getData('validation_pattern') ?? '');
-        $attrType->setL11n((string) ($request->getData('title') ?? ''), $request->getData('language') ?? ISO639x1Enum::_EN);
-        $attrType->setFields((int) ($request->getData('fields') ?? 0));
+        $attrType->validationPattern = $request->getDataString('validation_pattern') ?? '';
+        $attrType->setL11n($request->getDataString('title') ?? '', $request->getDataString('language') ?? ISO639x1Enum::_EN);
+        $attrType->setFields($request->getDataInt('fields') ?? 0);
 
         return $attrType;
     }
@@ -1115,15 +1125,18 @@ final class ApiController extends Controller
     {
         /** @var UnitAttributeType $type */
         $type = UnitAttributeTypeMapper::get()
-            ->where('id', (int) ($request->getData('type') ?? 0))
+            ->where('id', $request->getDataInt('type') ?? 0)
             ->execute();
 
         $attrValue            = new UnitAttributeValue();
-        $attrValue->isDefault = (bool) ($request->getData('default') ?? false);
+        $attrValue->isDefault = $request->getDataBool('default') ?? false;
         $attrValue->setValue($request->getData('value'), $type->datatype);
 
-        if ($request->getData('title') !== null) {
-            $attrValue->setL11n($request->getData('title'), $request->getData('language') ?? ISO639x1Enum::_EN);
+        if ($request->hasData('title')) {
+            $attrValue->setL11n(
+                $request->getDataString('title') ?? '',
+                $request->getDataString('language') ?? ISO639x1Enum::_EN
+            );
         }
 
         return $attrValue;
@@ -1189,11 +1202,11 @@ final class ApiController extends Controller
     private function createUnitAttributeValueL11nFromRequest(RequestAbstract $request) : BaseStringL11n
     {
         $attrL11n      = new BaseStringL11n();
-        $attrL11n->ref = (int) ($request->getData('value') ?? 0);
-        $attrL11n->setLanguage((string) (
-            $request->getData('language') ?? $request->getLanguage()
-        ));
-        $attrL11n->content = (string) ($request->getData('title') ?? '');
+        $attrL11n->ref = $request->getDataInt('value') ?? 0;
+        $attrL11n->setLanguage(
+            $request->getDataString('language') ?? $request->getLanguage()
+        );
+        $attrL11n->content = $request->getDataString('title') ?? '';
 
         return $attrL11n;
     }

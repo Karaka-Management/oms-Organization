@@ -6,7 +6,7 @@
  *
  * @package   Modules\Organization
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -20,8 +20,8 @@ use phpOMS\Uri\UriFactory;
  */
 $positions = $this->getData('positions') ?? [];
 
-$previous = empty($positions) ? 'organization/position/list' : '{/lang}/{/app}/organization/position/list?{?}&id=' . \reset($positions)->getId() . '&ptype=p';
-$next     = empty($positions) ? 'organization/position/list' : '{/lang}/{/app}/organization/position/list?{?}&id=' . \end($positions)->getId() . '&ptype=n';
+$previous = empty($positions) ? 'organization/position/list' : '{/base}/organization/position/list?{?}&id=' . \reset($positions)->getId() . '&ptype=p';
+$next     = empty($positions) ? 'organization/position/list' : '{/base}/organization/position/list?{?}&id=' . \end($positions)->getId() . '&ptype=n';
 
 echo $this->getData('nav')->render(); ?>
 
@@ -87,8 +87,8 @@ echo $this->getData('nav')->render(); ?>
                 <tr tabindex="0" data-href="<?= $url; ?>">
                     <td data-label="<?= $this->getHtml('ID', '0', '0'); ?>"><a href="<?= $url; ?>"><?= $value->getId(); ?></a>
                     <td data-label="<?= $this->getHtml('Name'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->name); ?></a>
-                    <td data-label="<?= $this->getHtml('Parent'); ?>"><a class="content" href="<?= UriFactory::build('{/lang}/{/app}/organization/position/profile?{?}&id=' . $value->parent->getId()); ?>"><?= $this->printHtml($value->parent->name); ?></a>
-                    <td data-label="<?= $this->getHtml('Department'); ?>"><a class="content" href="<?= UriFactory::build('{/lang}/{/app}/organization/department/profile?{?}&id=' . $value->department->getId()); ?>"><?= $this->printHtml($value->department->name); ?></a>
+                    <td data-label="<?= $this->getHtml('Parent'); ?>"><a class="content" href="<?= UriFactory::build('{/base}/organization/position/profile?{?}&id=' . $value->parent->getId()); ?>"><?= $this->printHtml($value->parent->name); ?></a>
+                    <td data-label="<?= $this->getHtml('Department'); ?>"><a class="content" href="<?= UriFactory::build('{/base}/organization/department/profile?{?}&id=' . $value->department->getId()); ?>"><?= $this->printHtml($value->department->name); ?></a>
                         <?php endforeach; ?>
                         <?php if ($count === 0) : ?>
                     <tr><td colspan="5" class="empty"><?= $this->getHtml('Empty', '0', '0'); ?>
