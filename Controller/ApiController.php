@@ -78,9 +78,9 @@ final class ApiController extends Controller
     private function validateUnitCreate(RequestAbstract $request) : array
     {
         $val = [];
-        if (($val['name'] = empty($request->getData('name')))
+        if (($val['name'] = !$request->hasData('name'))
             || ($val['parent'] = (
-                !empty($request->getData('parent'))
+                $request->hasData('parent')
                 && !\is_numeric($request->getData('parent'))
             ))
             || ($val['status'] = (
@@ -290,8 +290,8 @@ final class ApiController extends Controller
     private function validateUnitMainAddressSet(RequestAbstract $request) : array
     {
         $val = [];
-        if (($val['unit'] = empty($request->getData('unit')))
-            || ($val['address'] = empty($request->getData('address')))
+        if (($val['unit'] = !$request->hasData('unit'))
+            || ($val['address'] = !$request->hasData('address'))
         ) {
             return $val;
         }
@@ -434,9 +434,9 @@ final class ApiController extends Controller
     private function validatePositionCreate(RequestAbstract $request) : array
     {
         $val = [];
-        if (($val['name'] = empty($request->getData('name')))
+        if (($val['name'] = !$request->hasData('name'))
             || ($val['parent'] = (
-                !empty($request->getData('parent'))
+                $request->hasData('parent')
                 && !\is_numeric($request->getData('parent'))
             ))
             || ($val['status'] = (
@@ -610,9 +610,9 @@ final class ApiController extends Controller
     private function validateDepartmentCreate(RequestAbstract $request) : array
     {
         $val = [];
-        if (($val['name'] = empty($request->getData('name')))
+        if (($val['name'] = !$request->hasData('name'))
             || ($val['parent'] = (
-                !empty($request->getData('parent'))
+                $request->hasData('parent')
                 && !\is_numeric($request->getData('parent'))
             ))
             || ($val['unit'] = (
@@ -925,9 +925,9 @@ final class ApiController extends Controller
     private function validateUnitAttributeCreate(RequestAbstract $request) : array
     {
         $val = [];
-        if (($val['type'] = empty($request->getData('type')))
-            || ($val['value'] = (empty($request->getData('value')) && empty($request->getData('custom'))))
-            || ($val['unit'] = empty($request->getData('unit')))
+        if (($val['type'] = !$request->hasData('type'))
+            || ($val['value'] = (!$request->hasData('value') && !$request->hasData('custom')))
+            || ($val['unit'] = !$request->hasData('unit'))
         ) {
             return $val;
         }
@@ -995,8 +995,8 @@ final class ApiController extends Controller
     private function validateUnitAttributeTypeL11nCreate(RequestAbstract $request) : array
     {
         $val = [];
-        if (($val['title'] = empty($request->getData('title')))
-            || ($val['type'] = empty($request->getData('type')))
+        if (($val['title'] = !$request->hasData('title'))
+            || ($val['type'] = !$request->hasData('type'))
         ) {
             return $val;
         }
@@ -1066,8 +1066,8 @@ final class ApiController extends Controller
     private function validateUnitAttributeTypeCreate(RequestAbstract $request) : array
     {
         $val = [];
-        if (($val['title'] = empty($request->getData('title')))
-            || ($val['name'] = empty($request->getData('name')))
+        if (($val['title'] = !$request->hasData('title'))
+            || ($val['name'] = !$request->hasData('name'))
         ) {
             return $val;
         }
@@ -1154,8 +1154,8 @@ final class ApiController extends Controller
     private function validateUnitAttributeValueCreate(RequestAbstract $request) : array
     {
         $val = [];
-        if (($val['type'] = empty($request->getData('type')))
-            || ($val['value'] = empty($request->getData('value')))
+        if (($val['type'] = !$request->hasData('type'))
+            || ($val['value'] = !$request->hasData('value'))
         ) {
             return $val;
         }
@@ -1223,8 +1223,8 @@ final class ApiController extends Controller
     private function validateUnitAttributeValueL11nCreate(RequestAbstract $request) : array
     {
         $val = [];
-        if (($val['title'] = empty($request->getData('title')))
-            || ($val['value'] = empty($request->getData('value')))
+        if (($val['title'] = !$request->hasData('title'))
+            || ($val['value'] = !$request->hasData('value'))
         ) {
             return $val;
         }
