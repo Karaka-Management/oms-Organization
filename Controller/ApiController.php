@@ -20,6 +20,11 @@ use Modules\Admin\Models\Address;
 use Modules\Admin\Models\AddressMapper;
 use Modules\Admin\Models\NullAddress;
 use Modules\Admin\Models\SettingsEnum as ModelsSettingsEnum;
+use Modules\Attribute\Models\Attribute;
+use Modules\Attribute\Models\AttributeType;
+use Modules\Attribute\Models\AttributeValue;
+use Modules\Attribute\Models\NullAttributeType;
+use Modules\Attribute\Models\NullAttributeValue;
 use Modules\Media\Models\PathSettings;
 use Modules\Organization\Models\Department;
 use Modules\Organization\Models\DepartmentMapper;
@@ -889,18 +894,18 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract $request Request
      *
-     * @return UnitAttribute
+     * @return Attribute
      *
      * @since 1.0.0
      */
-    private function createUnitAttributeFromRequest(RequestAbstract $request) : UnitAttribute
+    private function createUnitAttributeFromRequest(RequestAbstract $request) : Attribute
     {
-        $attribute       = new UnitAttribute();
-        $attribute->unit = (int) $request->getData('unit');
-        $attribute->type = new NullUnitAttributeType((int) $request->getData('type'));
+        $attribute       = new Attribute();
+        $attribute->ref  = (int) $request->getData('unit');
+        $attribute->type = new NullAttributeType((int) $request->getData('type'));
 
         if ($request->hasData('value')) {
-            $attribute->value = new NullUnitAttributeValue((int) $request->getData('value'));
+            $attribute->value = new NullAttributeValue((int) $request->getData('value'));
         } else {
             $newRequest = clone $request;
             $newRequest->setData('value', $request->getData('custom'), true);
@@ -1037,13 +1042,13 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract $request Request
      *
-     * @return UnitAttributeType
+     * @return AttributeType
      *
      * @since 1.0.0
      */
-    private function createUnitAttributeTypeFromRequest(RequestAbstract $request) : UnitAttributeType
+    private function createUnitAttributeTypeFromRequest(RequestAbstract $request) : AttributeType
     {
-        $attrType                    = new UnitAttributeType($request->getDataString('name') ?? '');
+        $attrType                    = new AttributeType($request->getDataString('name') ?? '');
         $attrType->datatype          = $request->getDataInt('datatype') ?? 0;
         $attrType->custom            = $request->getDataBool('custom') ?? false;
         $attrType->isRequired        = (bool) ($request->getData('is_required') ?? false);
@@ -1117,18 +1122,18 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract $request Request
      *
-     * @return UnitAttributeValue
+     * @return AttributeValue
      *
      * @since 1.0.0
      */
-    private function createUnitAttributeValueFromRequest(RequestAbstract $request) : UnitAttributeValue
+    private function createUnitAttributeValueFromRequest(RequestAbstract $request) : AttributeValue
     {
-        /** @var UnitAttributeType $type */
+        /** @var AttributeType $type */
         $type = UnitAttributeTypeMapper::get()
             ->where('id', $request->getDataInt('type') ?? 0)
             ->execute();
 
-        $attrValue            = new UnitAttributeValue();
+        $attrValue            = new AttributeValue();
         $attrValue->isDefault = $request->getDataBool('default') ?? false;
         $attrValue->setValue($request->getData('value'), $type->datatype);
 

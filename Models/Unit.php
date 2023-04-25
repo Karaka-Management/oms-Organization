@@ -90,14 +90,6 @@ class Unit implements \JsonSerializable
     private array $address = [];
 
     /**
-     * Attributes.
-     *
-     * @var UnitAttribute[]
-     * @since 1.0.0
-     */
-    private array $attributes = [];
-
-    /**
      * Constructor.
      *
      * @since 1.0.0
@@ -119,52 +111,6 @@ class Unit implements \JsonSerializable
     public function getId() : int
     {
         return $this->id;
-    }
-
-    /**
-     * Add attribute to client
-     *
-     * @param UnitAttribute $attribute Attribute
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function addAttribute(UnitAttribute $attribute) : void
-    {
-        $this->attributes[] = $attribute;
-    }
-
-    /**
-     * Get attributes
-     *
-     * @return UnitAttribute[]
-     *
-     * @since 1.0.0
-     */
-    public function getAttributes() : array
-    {
-        return $this->attributes;
-    }
-
-    /**
-     * Get attribute
-     *
-     * @param string $attrName Attribute name
-     *
-     * @return null|UnitAttribute
-     *
-     * @since 1.0.0
-     */
-    public function getAttribute(string $attrName) : ?UnitAttribute
-    {
-        foreach ($this->attributes as $attribute) {
-            if ($attribute->type->name === $attrName) {
-                return $attribute->value;
-            }
-        }
-
-        return null;
     }
 
     /**
@@ -228,4 +174,6 @@ class Unit implements \JsonSerializable
     {
         return $this->toArray();
     }
+
+    use \Modules\Attribute\Models\AttributeHolderTrait;
 }

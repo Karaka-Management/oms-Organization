@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Modules\Organization\Models;
 
+use Modules\Attribute\Models\AttributeValue;
 use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
@@ -24,7 +25,7 @@ use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
  * @link    https://jingga.app
  * @since   1.0.0
  *
- * @template T of UnitAttributeValue
+ * @template T of AttributeValue
  * @extends DataMapperFactory<T>
  */
 final class UnitAttributeValueMapper extends DataMapperFactory
@@ -61,6 +62,14 @@ final class UnitAttributeValueMapper extends DataMapperFactory
             'external' => null,
         ],
     ];
+
+    /**
+     * Model to use by the mapper.
+     *
+     * @var class-string<T>
+     * @since 1.0.0
+     */
+    public const MODEL = AttributeValue::class;
 
     /**
      * Primary table.

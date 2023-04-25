@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Modules\Organization\Models;
 
+use Modules\Attribute\Models\AttributeType;
 use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
@@ -24,7 +25,7 @@ use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
  * @link    https://jingga.app
  * @since   1.0.0
  *
- * @template T of UnitAttributeType
+ * @template T of AttributeType
  * @extends DataMapperFactory<T>
  */
 final class UnitAttributeTypeMapper extends DataMapperFactory
@@ -66,6 +67,14 @@ final class UnitAttributeTypeMapper extends DataMapperFactory
             'external' => 'unit_attr_default_value',
         ],
     ];
+
+    /**
+     * Model to use by the mapper.
+     *
+     * @var class-string<T>
+     * @since 1.0.0
+     */
+    public const MODEL = AttributeType::class;
 
     /**
      * Primary table.

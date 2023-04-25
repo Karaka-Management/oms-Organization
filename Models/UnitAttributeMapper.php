@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Modules\Organization\Models;
 
+use Modules\Attribute\Models\Attribute;
 use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
@@ -24,7 +25,7 @@ use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
  * @link    https://jingga.app
  * @since   1.0.0
  *
- * @template T of UnitAttribute
+ * @template T of Attribute
  * @extends DataMapperFactory<T>
  */
 final class UnitAttributeMapper extends DataMapperFactory
@@ -37,7 +38,7 @@ final class UnitAttributeMapper extends DataMapperFactory
      */
     public const COLUMNS = [
         'unit_attr_id'    => ['name' => 'unit_attr_id',    'type' => 'int', 'internal' => 'id'],
-        'unit_attr_unit'  => ['name' => 'unit_attr_unit',  'type' => 'int', 'internal' => 'unit'],
+        'unit_attr_unit'  => ['name' => 'unit_attr_unit',  'type' => 'int', 'internal' => 'ref'],
         'unit_attr_type'  => ['name' => 'unit_attr_type',  'type' => 'int', 'internal' => 'type'],
         'unit_attr_value' => ['name' => 'unit_attr_value', 'type' => 'int', 'internal' => 'value'],
     ];
@@ -58,6 +59,14 @@ final class UnitAttributeMapper extends DataMapperFactory
             'external' => 'unit_attr_value',
         ],
     ];
+
+    /**
+     * Model to use by the mapper.
+     *
+     * @var class-string<T>
+     * @since 1.0.0
+     */
+    public const MODEL = Attribute::class;
 
     /**
      * Primary table.
