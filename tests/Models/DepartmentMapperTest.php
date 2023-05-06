@@ -38,11 +38,11 @@ final class DepartmentMapperTest extends \PHPUnit\Framework\TestCase
         $id = DepartmentMapper::create()->execute($department);
 
         $departmentR = DepartmentMapper::get()->where('id', $id)->execute();
-        self::assertEquals($id, $departmentR->getId());
+        self::assertEquals($id, $departmentR->id);
         self::assertEquals($department->name, $departmentR->name);
         self::assertEquals($department->description, $departmentR->description);
         self::assertInstanceOf('Modules\Organization\Models\NullDepartment', $departmentR->parent);
-        self::assertEquals($department->unit->getId(), $departmentR->unit->getId());
+        self::assertEquals($department->unit->id, $departmentR->unit->id);
     }
 
     /**

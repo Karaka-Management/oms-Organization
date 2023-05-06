@@ -223,7 +223,7 @@ final class ApiController extends Controller
             /** @var \Modules\Admin\Models\Group $group */
             $group = $internalResponse->get($newRequest->uri->__toString())['response'];
 
-            $content = \json_encode([$group->getId()]);
+            $content = \json_encode([$group->id]);
             if ($content === false) {
                 $content = '[]';
             }
@@ -232,7 +232,7 @@ final class ApiController extends Controller
                 0,
                 ModelsSettingsEnum::UNIT_DEFAULT_GROUPS,
                 $content,
-                unit: $unit->getId(),
+                unit: $unit->id,
                 module: 'Admin'
             );
             $this->createModel($request->header->account, $setting, SettingMapper::class, 'setting', $request->getOrigin());
@@ -267,7 +267,7 @@ final class ApiController extends Controller
         $unit    = UnitMapper::get()->with('mainAddress')->where('id', $request->getData('unit'))->execute();
         $oldUnit = clone $unit;
 
-        if ($unit->mainAddress->getId() !== 0) {
+        if ($unit->mainAddress->id !== 0) {
             $oldAddr = clone $unit->mainAddress;
             $addr    = $this->updateUnitMainAddressFromRequest($request, $unit);
             $this->updateModel($request->header->account, $oldAddr, $addr, AddressMapper::class, 'address', $request->getOrigin());
@@ -276,7 +276,7 @@ final class ApiController extends Controller
             $addr = $this->createUnitMainAddressFromRequest($request);
             $this->createModel($request->header->account, $addr, AddressMapper::class, 'address', $request->getOrigin());
 
-            $unit->mainAddress = new NullAddress($addr->getId());
+            $unit->mainAddress = new NullAddress($addr->id);
             $this->updateModel($request->header->account, $oldUnit, $unit, UnitMapper::class, 'unit', $request->getOrigin());
         }
 
@@ -1109,7 +1109,7 @@ final class ApiController extends Controller
             $this->createModelRelation(
                 $request->header->account,
                 (int) $request->getData('type'),
-                $attrValue->getId(),
+                $attrValue->id,
                 UnitAttributeTypeMapper::class, 'defaults', '', $request->getOrigin()
             );
         }

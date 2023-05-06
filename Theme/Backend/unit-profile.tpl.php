@@ -42,7 +42,7 @@ echo $this->getData('nav')->render(); ?>
                                 alt="<?= $this->getHtml('Logo'); ?>"
                                 itemprop="logo" loading="lazy"
                                 src="<?=
-                                $unit->image instanceof NullMedia ?
+                                $unit->image->id === 0 ?
                                     UriFactory::build('Modules/Organization/Theme/Backend/img/org_default.png') :
                                     UriFactory::build($unit->image->getPath()); ?>"
                             width="40x">
@@ -80,7 +80,7 @@ echo $this->getData('nav')->render(); ?>
                     ); ?>
                 </div>
                 <div class="portlet-foot">
-                    <input id="iUnitId" name="id" type="hidden" value="<?= (int) $unit->getId(); ?>">
+                    <input id="iUnitId" name="id" type="hidden" value="<?= (int) $unit->id; ?>">
                     <input id="iSubmit" name="submit" type="submit" value="<?= $this->getHtml('Save', '0', '0'); ?>">
                 </div>
             </form>
@@ -130,7 +130,7 @@ echo $this->getData('nav')->render(); ?>
                     </div>
                 </div>
                 <div class="portlet-foot">
-                    <input id="iUnitId" name="id" type="hidden" value="<?= (int) $unit->getId(); ?>">
+                    <input id="iUnitId" name="id" type="hidden" value="<?= (int) $unit->id; ?>">
                     <input id="iSubmit" name="submit" type="submit" value="<?= $this->getHtml('Save', '0', '0'); ?>">
                 </div>
             </form>

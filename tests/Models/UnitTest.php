@@ -40,7 +40,7 @@ final class UnitTest extends \PHPUnit\Framework\TestCase
      */
     public function testDefault() : void
     {
-        self::assertEquals(0, $this->unit->getId());
+        self::assertEquals(0, $this->unit->id);
         self::assertEquals('', $this->unit->name);
         self::assertEquals('', $this->unit->description);
         self::assertEquals('', $this->unit->descriptionRaw);
@@ -96,7 +96,7 @@ final class UnitTest extends \PHPUnit\Framework\TestCase
     public function testParentInputOutput() : void
     {
         $this->unit->parent = new NullUnit(1);
-        self::assertEquals(1, $this->unit->parent->getId());
+        self::assertEquals(1, $this->unit->parent->id);
     }
 
     /**
@@ -106,7 +106,7 @@ final class UnitTest extends \PHPUnit\Framework\TestCase
     public function testImageInputOutput() : void
     {
         $this->unit->image = new NullMedia(1);
-        self::assertEquals(1, $this->unit->image->getId());
+        self::assertEquals(1, $this->unit->image->id);
     }
 
     /**

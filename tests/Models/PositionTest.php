@@ -40,12 +40,12 @@ final class PositionTest extends \PHPUnit\Framework\TestCase
      */
     public function testDefault() : void
     {
-        self::assertEquals(0, $this->position->getId());
+        self::assertEquals(0, $this->position->id);
         self::assertEquals('', $this->position->name);
         self::assertEquals('', $this->position->description);
         self::assertEquals('', $this->position->descriptionRaw);
         self::assertInstanceOf(NullPosition::class, $this->position->parent);
-        self::assertEquals(0, $this->position->department->getId());
+        self::assertEquals(0, $this->position->department->id);
         self::assertEquals(Status::INACTIVE, $this->position->getStatus());
     }
 
@@ -96,7 +96,7 @@ final class PositionTest extends \PHPUnit\Framework\TestCase
     public function testParentInputOutput() : void
     {
         $this->position->parent = new NullPosition(1);
-        self::assertEquals(1, $this->position->parent->getId());
+        self::assertEquals(1, $this->position->parent->id);
     }
 
     /**
@@ -106,7 +106,7 @@ final class PositionTest extends \PHPUnit\Framework\TestCase
     public function testDepartmentInputOutput() : void
     {
         $this->position->department = new NullDepartment(1);
-        self::assertEquals(1, $this->position->department->getId());
+        self::assertEquals(1, $this->position->department->id);
     }
 
     /**

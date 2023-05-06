@@ -30,7 +30,7 @@ class Department implements \JsonSerializable
      * @var int
      * @since 1.0.0
      */
-    protected int $id = 0;
+    public int $id = 0;
 
     /**
      * Name.
@@ -54,7 +54,7 @@ class Department implements \JsonSerializable
      * @var int
      * @since 1.0.0
      */
-    protected int $status = Status::INACTIVE;
+    public int $status = Status::INACTIVE;
 
     /**
      * Unit this department belongs to

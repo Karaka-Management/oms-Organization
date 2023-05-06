@@ -163,36 +163,17 @@ final class BackendController extends Controller
     {
         $tree = [];
         foreach ($components as $component) {
-            $ref = null;
+            $ref = 0;
             if ($component instanceof Department) {
-                $ref = $component->unit->getId();
+                $ref = $component->unit->id;
             } elseif ($component instanceof Position) {
-                $ref = $component->department->getId();
+                $ref = $component->department->id;
             }
 
-            if (!isset($tree[$ref])) {
-                $tree[$ref] = [];
-            }
-
-            if (!isset($tree[$ref][$component->getId()])) {
-                $tree[$ref][$component->getId()] = ['obj' => null, 'children' => [], 'index' => 0];
-            }
-
-            $tree[$ref][$component->getId()]['obj'] = $component;
-
-            $parent = $component->parent->getId();
-            if ($parent !== 0
-                && (!($component instanceof Position) // parent could be in different department then ignore
-                    || $component->parent->department->getId() === $component->department->getId()
-                )
-            ) {
-                if (!isset($tree[$ref][$parent])) {
-                    $tree[$ref][$parent] = ['obj' => null, 'children' => [], 'index' => 0];
-                }
-
-                /** @phpstan-ignore-next-line */
-                $tree[$ref][$parent]['children'][] = &$tree[$ref][$component->getId()];
-            }
+            $tree[$component->id] = [
+                'obj' => $component,
+                'ref' => $ref
+            ];
         }
 
         return $tree;

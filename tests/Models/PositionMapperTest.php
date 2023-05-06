@@ -36,7 +36,7 @@ final class PositionMapperTest extends \PHPUnit\Framework\TestCase
         $id = PositionMapper::create()->execute($position);
 
         $positionR = PositionMapper::get()->where('id', $id)->execute();
-        self::assertEquals($id, $positionR->getId());
+        self::assertEquals($id, $positionR->id);
         self::assertEquals($position->name, $positionR->name);
         self::assertEquals($position->description, $positionR->description);
         self::assertInstanceOf('Modules\Organization\Models\NullPosition', $positionR->parent);

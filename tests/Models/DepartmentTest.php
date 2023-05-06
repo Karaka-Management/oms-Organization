@@ -40,12 +40,12 @@ final class DepartmentTest extends \PHPUnit\Framework\TestCase
      */
     public function testDefault() : void
     {
-        self::assertEquals(0, $this->department->getId());
+        self::assertEquals(0, $this->department->id);
         self::assertEquals('', $this->department->name);
         self::assertEquals('', $this->department->description);
         self::assertEquals('', $this->department->descriptionRaw);
         self::assertInstanceOf(NullDepartment::class, $this->department->parent);
-        self::assertEquals(0, $this->department->unit->getId());
+        self::assertEquals(0, $this->department->unit->id);
         self::assertEquals(Status::INACTIVE, $this->department->getStatus());
     }
 
@@ -96,7 +96,7 @@ final class DepartmentTest extends \PHPUnit\Framework\TestCase
     public function testParentInputOutput() : void
     {
         $this->department->parent = new NullDepartment(1);
-        self::assertEquals(1, $this->department->parent->getId());
+        self::assertEquals(1, $this->department->parent->id);
     }
 
     /**
@@ -106,7 +106,7 @@ final class DepartmentTest extends \PHPUnit\Framework\TestCase
     public function testUnitInputOutput() : void
     {
         $this->department->unit = new NullUnit(1);
-        self::assertEquals(1, $this->department->unit->getId());
+        self::assertEquals(1, $this->department->unit->id);
     }
 
     /**

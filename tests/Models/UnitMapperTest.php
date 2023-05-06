@@ -37,9 +37,9 @@ final class UnitMapperTest extends \PHPUnit\Framework\TestCase
         $id = UnitMapper::create()->execute($unit);
 
         $unitR = UnitMapper::get()->where('id', $id)->execute();
-        self::assertEquals($id, $unitR->getId());
+        self::assertEquals($id, $unitR->id);
         self::assertEquals($unit->name, $unitR->name);
         self::assertEquals($unit->description, $unitR->description);
-        self::assertEquals($unit->parent->getId(), $unitR->parent->getId());
+        self::assertEquals($unit->parent->id, $unitR->parent->id);
     }
 }
