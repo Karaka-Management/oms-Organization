@@ -31,19 +31,14 @@ use Modules\Organization\Models\DepartmentMapper;
 use Modules\Organization\Models\NullDepartment;
 use Modules\Organization\Models\NullPosition;
 use Modules\Organization\Models\NullUnit;
-use Modules\Organization\Models\NullUnitAttributeType;
-use Modules\Organization\Models\NullUnitAttributeValue;
 use Modules\Organization\Models\Position;
 use Modules\Organization\Models\PositionMapper;
 use Modules\Organization\Models\SettingsEnum;
 use Modules\Organization\Models\Status;
 use Modules\Organization\Models\Unit;
-use Modules\Organization\Models\UnitAttribute;
 use Modules\Organization\Models\UnitAttributeMapper;
-use Modules\Organization\Models\UnitAttributeType;
 use Modules\Organization\Models\UnitAttributeTypeL11nMapper;
 use Modules\Organization\Models\UnitAttributeTypeMapper;
-use Modules\Organization\Models\UnitAttributeValue;
 use Modules\Organization\Models\UnitAttributeValueL11nMapper;
 use Modules\Organization\Models\UnitAttributeValueMapper;
 use Modules\Organization\Models\UnitMapper;
@@ -271,7 +266,6 @@ final class ApiController extends Controller
             $oldAddr = clone $unit->mainAddress;
             $addr    = $this->updateUnitMainAddressFromRequest($request, $unit);
             $this->updateModel($request->header->account, $oldAddr, $addr, AddressMapper::class, 'address', $request->getOrigin());
-
         } else {
             $addr = $this->createUnitMainAddressFromRequest($request);
             $this->createModel($request->header->account, $addr, AddressMapper::class, 'address', $request->getOrigin());

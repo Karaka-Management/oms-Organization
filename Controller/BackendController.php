@@ -172,7 +172,7 @@ final class BackendController extends Controller
 
             $tree[$component->id] = [
                 'obj' => $component,
-                'ref' => $ref
+                'ref' => $ref,
             ];
         }
 

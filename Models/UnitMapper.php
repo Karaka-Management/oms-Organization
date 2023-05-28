@@ -45,7 +45,7 @@ final class UnitMapper extends DataMapperFactory
         'unit_descriptionraw' => ['name' => 'unit_descriptionraw', 'type' => 'string', 'internal' => 'descriptionRaw'],
         'unit_parent'         => ['name' => 'unit_parent',         'type' => 'int',    'internal' => 'parent'],
         'unit_status'         => ['name' => 'unit_status',         'type' => 'int',    'internal' => 'status'],
-        'unit_address'    => ['name' => 'unit_address',    'type' => 'int',      'internal' => 'mainAddress'],
+        'unit_address'        => ['name' => 'unit_address',    'type' => 'int',      'internal' => 'mainAddress'],
     ];
 
     /**

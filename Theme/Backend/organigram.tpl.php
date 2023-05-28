@@ -47,7 +47,7 @@ function renderTree($parent, $ref, &$unitTree, &$depTree, &$posTree, $type = 'un
         $result .= '<li><span><section class="box">' . $leaf['obj']->name . '</section>';
 
         if ($type === 'unit') {
-            $temp = renderTree(0, $leaf['obj']->id, $unitTree, $depTree, $posTree, $type === 'unit' ? 'dep' : 'pos');
+            $temp = \renderTree(0, $leaf['obj']->id, $unitTree, $depTree, $posTree, $type === 'unit' ? 'dep' : 'pos');
 
             if ($temp !== '') {
                 $result .= '<ul class="tree">';
@@ -58,7 +58,7 @@ function renderTree($parent, $ref, &$unitTree, &$depTree, &$posTree, $type = 'un
 
         $result .= '</span>';
 
-        $result .= renderTree($leaf['obj']->id, $ref, $unitTree, $depTree, $posTree, $type);
+        $result .= \renderTree($leaf['obj']->id, $ref, $unitTree, $depTree, $posTree, $type);
         $result .= '</li>';
     }
 
@@ -74,7 +74,7 @@ function renderTree($parent, $ref, &$unitTree, &$depTree, &$posTree, $type = 'un
 <div class="row">
     <div class="col-xs-12">
         <ul class="tree wf-100">
-            <?= renderTree(0, 0, $unitTree, $depTree, $posTree, 'unit') ?>
+            <?= \renderTree(0, 0, $unitTree, $depTree, $posTree, 'unit'); ?>
         </ul>
     </div>
 </div>

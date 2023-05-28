@@ -12,7 +12,6 @@
  */
 declare(strict_types=1);
 
-use Modules\Media\Models\NullMedia;
 use Modules\Organization\Models\Status;
 use phpOMS\Localization\ISO3166NameEnum;
 use phpOMS\Localization\ISO3166TwoEnum;
