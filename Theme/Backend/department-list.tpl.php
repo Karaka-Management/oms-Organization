@@ -18,7 +18,7 @@ use phpOMS\Uri\UriFactory;
  * @var \phpOMS\Views\View                        $this
  * @var \Modules\Organization\Models\Department[] $departments
  */
-$departments = $this->getData('departments') ?? [];
+$departments = $this->data['departments'] ?? [];
 
 $previous = empty($departments)
     ? 'organization/department/list'
@@ -29,7 +29,7 @@ $next     = empty($departments)
         . ($this->getData('hasMore') ? \end($departments)->id : $this->request->getData('id'))
         . '&ptype=n';
 
-echo $this->getData('nav')->render(); ?>
+echo $this->data['nav']->render(); ?>
 
 <div class="row">
     <div class="col-xs-12">

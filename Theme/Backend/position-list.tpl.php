@@ -18,12 +18,12 @@ use phpOMS\Uri\UriFactory;
  * @var \phpOMS\Views\View                      $this
  * @var \Modules\Organization\Models\Position[] $positions
  */
-$positions = $this->getData('positions') ?? [];
+$positions = $this->data['positions'] ?? [];
 
 $previous = empty($positions) ? 'organization/position/list' : '{/base}/organization/position/list?{?}&id=' . \reset($positions)->id . '&ptype=p';
 $next     = empty($positions) ? 'organization/position/list' : '{/base}/organization/position/list?{?}&id=' . \end($positions)->id . '&ptype=n';
 
-echo $this->getData('nav')->render(); ?>
+echo $this->data['nav']->render(); ?>
 
 <div class="row">
     <div class="col-xs-12">

@@ -15,9 +15,9 @@ declare(strict_types=1);
 /**
  * @var \phpOMS\Views\View $this
  */
-$unitTree = $this->getData('unitTree');
-$depTree  = $this->getData('departmentTree');
-$posTree  = $this->getData('positionTree');
+$unitTree = $this->data['unitTree'];
+$depTree  = $this->data['departmentTree'];
+$posTree  = $this->data['positionTree'];
 
 function renderTree($parent, $ref, &$unitTree, &$depTree, &$posTree, $type = 'unit')
 {

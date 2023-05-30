@@ -195,7 +195,7 @@ final class ApiController extends Controller
     public function apiUnitCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateUnitCreate($request))) {
-            $response->set('unit_create', new FormValidation($val));
+            $response->data['unit_create'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -252,7 +252,7 @@ final class ApiController extends Controller
     public function apiUnitMainAddressSet(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateUnitMainAddressSet($request))) {
-            $response->set('unit_address_set', new FormValidation($val));
+            $response->data['unit_address_set'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -391,7 +391,7 @@ final class ApiController extends Controller
      */
     public function apiUnitImageSet(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
-        $uploadedFiles = $request->getFiles();
+        $uploadedFiles = $request->files;
         if (empty($uploadedFiles)) {
             $this->fillJsonResponse($request, $response, NotificationLevel::ERROR, 'Unit', 'Invalid unit image', $uploadedFiles);
             $response->header->status = RequestStatusCode::R_400;
@@ -553,7 +553,7 @@ final class ApiController extends Controller
     public function apiPositionCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validatePositionCreate($request))) {
-            $response->set('position_create', new FormValidation($val));
+            $response->data['position_create'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -871,7 +871,7 @@ final class ApiController extends Controller
     public function apiUnitAttributeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateUnitAttributeCreate($request))) {
-            $response->set('attribute_create', new FormValidation($val));
+            $response->data['attribute_create'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -950,7 +950,7 @@ final class ApiController extends Controller
     public function apiUnitAttributeTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateUnitAttributeTypeL11nCreate($request))) {
-            $response->set('attr_type_l11n_create', new FormValidation($val));
+            $response->data['attr_type_l11n_create'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -975,7 +975,7 @@ final class ApiController extends Controller
         $attrL11n      = new BaseStringL11n();
         $attrL11n->ref = $request->getDataInt('type') ?? 0;
         $attrL11n->setLanguage(
-            $request->getDataString('language') ?? $request->getLanguage()
+            $request->getDataString('language') ?? $request->header->l11n->language
         );
         $attrL11n->content = $request->getDataString('title') ?? '';
 
@@ -1019,7 +1019,7 @@ final class ApiController extends Controller
     public function apiUnitAttributeTypeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateUnitAttributeTypeCreate($request))) {
-            $response->set('attr_type_create', new FormValidation($val));
+            $response->data['attr_type_create'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -1090,7 +1090,7 @@ final class ApiController extends Controller
     public function apiUnitAttributeValueCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateUnitAttributeValueCreate($request))) {
-            $response->set('attr_value_create', new FormValidation($val));
+            $response->data['attr_value_create'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -1178,7 +1178,7 @@ final class ApiController extends Controller
     public function apiUnitAttributeValueL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateUnitAttributeValueL11nCreate($request))) {
-            $response->set('attr_value_l11n_create', new FormValidation($val));
+            $response->data['attr_value_l11n_create'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -1203,7 +1203,7 @@ final class ApiController extends Controller
         $attrL11n      = new BaseStringL11n();
         $attrL11n->ref = $request->getDataInt('value') ?? 0;
         $attrL11n->setLanguage(
-            $request->getDataString('language') ?? $request->getLanguage()
+            $request->getDataString('language') ?? $request->header->l11n->language
         );
         $attrL11n->content = $request->getDataString('title') ?? '';
 
