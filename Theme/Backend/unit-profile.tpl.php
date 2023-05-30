@@ -21,12 +21,12 @@ use phpOMS\Uri\UriFactory;
  * @var \phpOMS\Views\View                $this
  * @var \Modules\Organization\Models\Unit $unit;
  */
-$unit = $this->getData('unit');
+$unit = $this->data['unit'];
 
 $countryCodes    = ISO3166TwoEnum::getConstants();
 $countries       = ISO3166NameEnum::getConstants();
 
-echo $this->getData('nav')->render(); ?>
+echo $this->data['nav']->render(); ?>
 
 <form id="iUnitUploadForm" action="<?= UriFactory::build('{/api}organization/unit/image?id={?id}'); ?>" method="post"><input class="preview" data-action='[{"listener": "change", "key": 1, "action": [{"key": 1, "type": "form.submit", "selector": "#iUnitUploadForm"}]}]' id="iUnitUpload" name="unitImage" type="file" accept="image/png,image/gif,image/jpeg" style="display: none;"></form>
 

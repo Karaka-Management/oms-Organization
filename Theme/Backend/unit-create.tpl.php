@@ -21,7 +21,7 @@ $countryCodes    = ISO3166TwoEnum::getConstants();
 $countries       = ISO3166NameEnum::getConstants();
 
 /** @var \phpOMS\Views\View $this */
-echo $this->getData('nav')->render(); ?>
+echo $this->data['nav']->render(); ?>
 
 <form id="fUnitCreate" method="put" action="<?= UriFactory::build('{/api}organization/unit'); ?>">
 <div class="row">
