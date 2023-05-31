@@ -196,7 +196,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateUnitCreate($request))) {
             $response->data['unit_create'] = new FormValidation($val);
-            $response->header->status = RequestStatusCode::R_400;
+            $response->header->status      = RequestStatusCode::R_400;
 
             return;
         }
@@ -253,7 +253,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateUnitMainAddressSet($request))) {
             $response->data['unit_address_set'] = new FormValidation($val);
-            $response->header->status = RequestStatusCode::R_400;
+            $response->header->status           = RequestStatusCode::R_400;
 
             return;
         }
@@ -554,7 +554,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validatePositionCreate($request))) {
             $response->data['position_create'] = new FormValidation($val);
-            $response->header->status = RequestStatusCode::R_400;
+            $response->header->status          = RequestStatusCode::R_400;
 
             return;
         }
@@ -872,7 +872,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateUnitAttributeCreate($request))) {
             $response->data['attribute_create'] = new FormValidation($val);
-            $response->header->status = RequestStatusCode::R_400;
+            $response->header->status           = RequestStatusCode::R_400;
 
             return;
         }
@@ -951,7 +951,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateUnitAttributeTypeL11nCreate($request))) {
             $response->data['attr_type_l11n_create'] = new FormValidation($val);
-            $response->header->status = RequestStatusCode::R_400;
+            $response->header->status                = RequestStatusCode::R_400;
 
             return;
         }
@@ -1020,7 +1020,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateUnitAttributeTypeCreate($request))) {
             $response->data['attr_type_create'] = new FormValidation($val);
-            $response->header->status = RequestStatusCode::R_400;
+            $response->header->status           = RequestStatusCode::R_400;
 
             return;
         }
@@ -1091,7 +1091,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateUnitAttributeValueCreate($request))) {
             $response->data['attr_value_create'] = new FormValidation($val);
-            $response->header->status = RequestStatusCode::R_400;
+            $response->header->status            = RequestStatusCode::R_400;
 
             return;
         }
@@ -1179,7 +1179,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateUnitAttributeValueL11nCreate($request))) {
             $response->data['attr_value_l11n_create'] = new FormValidation($val);
-            $response->header->status = RequestStatusCode::R_400;
+            $response->header->status                 = RequestStatusCode::R_400;
 
             return;
         }

@@ -91,7 +91,7 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/Organization/Theme/Backend/unit-profile');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1004703001, $request, $response);
 
-        $selectorView = new \Modules\Organization\Theme\Backend\Components\UnitTagSelector\UnitTagSelectorView($this->app->l11nManager, $request, $response);
+        $selectorView                = new \Modules\Organization\Theme\Backend\Components\UnitTagSelector\UnitTagSelectorView($this->app->l11nManager, $request, $response);
         $view->data['unit-selector'] = $selectorView;
 
         $unit = UnitMapper::get()
@@ -103,7 +103,7 @@ final class BackendController extends Controller
 
         $view->data['unit'] = $unit;
 
-        $editor = new \Modules\Editor\Theme\Backend\Components\Editor\BaseView($this->app->l11nManager, $request, $response);
+        $editor               = new \Modules\Editor\Theme\Backend\Components\Editor\BaseView($this->app->l11nManager, $request, $response);
         $view->data['editor'] = $editor;
 
         return $view;
@@ -132,18 +132,18 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/Organization/Theme/Backend/organigram');
 
         /** @var Unit[] $units */
-        $units    = UnitMapper::getAll()->with('parent')->execute();
-        $unitTree = $this->createOrgTree($units);
+        $units                  = UnitMapper::getAll()->with('parent')->execute();
+        $unitTree               = $this->createOrgTree($units);
         $view->data['unitTree'] = $unitTree;
 
         /** @var Department[] $departments */
-        $departments = DepartmentMapper::getAll()->with('parent')->with('unit')->execute();
-        $depTree     = $this->createOrgTree($departments);
+        $departments                  = DepartmentMapper::getAll()->with('parent')->with('unit')->execute();
+        $depTree                      = $this->createOrgTree($departments);
         $view->data['departmentTree'] = $depTree;
 
         /** @var Position[] $positions */
-        $positions = PositionMapper::getAll()->with('parent')->with('unit')->with('department')->execute();
-        $posTree   = $this->createOrgTree($positions);
+        $positions                  = PositionMapper::getAll()->with('parent')->with('unit')->with('department')->execute();
+        $posTree                    = $this->createOrgTree($positions);
         $view->data['positionTree'] = $posTree;
 
         return $view;
@@ -198,13 +198,13 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/Organization/Theme/Backend/unit-create');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1004703001, $request, $response);
 
-        $uploadView = new \Modules\Media\Theme\Backend\Components\InlinePreview\BaseView($this->app->l11nManager, $request, $response);
+        $uploadView                         = new \Modules\Media\Theme\Backend\Components\InlinePreview\BaseView($this->app->l11nManager, $request, $response);
         $view->data['media-preview-upload'] = $uploadView;
 
-        $selectorView = new \Modules\Organization\Theme\Backend\Components\UnitTagSelector\UnitTagSelectorView($this->app->l11nManager, $request, $response);
+        $selectorView                = new \Modules\Organization\Theme\Backend\Components\UnitTagSelector\UnitTagSelectorView($this->app->l11nManager, $request, $response);
         $view->data['unit-selector'] = $selectorView;
 
-        $editor = new \Modules\Editor\Theme\Backend\Components\Editor\BaseView($this->app->l11nManager, $request, $response);
+        $editor               = new \Modules\Editor\Theme\Backend\Components\Editor\BaseView($this->app->l11nManager, $request, $response);
         $view->data['editor'] = $editor;
 
         return $view;
@@ -229,7 +229,7 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/Organization/Theme/Backend/department-list');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1004704001, $request, $response);
 
-        $pageLimit = 25;
+        $pageLimit               = 25;
         $view->data['pageLimit'] = $pageLimit;
 
         $mapper = DepartmentMapper::getAll()->with('parent')->with('unit')->limit($pageLimit + 1);
@@ -274,15 +274,15 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/Organization/Theme/Backend/department-profile');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1004704001, $request, $response);
 
-        $selectorView = new \Modules\Organization\Theme\Backend\Components\DepartmentTagSelector\DepartmentTagSelectorView($this->app->l11nManager, $request, $response);
+        $selectorView                      = new \Modules\Organization\Theme\Backend\Components\DepartmentTagSelector\DepartmentTagSelectorView($this->app->l11nManager, $request, $response);
         $view->data['department-selector'] = $selectorView;
 
-        $unitSelectorView = new \Modules\Organization\Theme\Backend\Components\UnitTagSelector\UnitTagSelectorView($this->app->l11nManager, $request, $response);
+        $unitSelectorView            = new \Modules\Organization\Theme\Backend\Components\UnitTagSelector\UnitTagSelectorView($this->app->l11nManager, $request, $response);
         $view->data['unit-selector'] = $unitSelectorView;
 
         $view->data['department'] = DepartmentMapper::get()->with('parent')->with('unit')->where('id', (int) $request->getData('id'))->execute();
 
-        $editor = new \Modules\Editor\Theme\Backend\Components\Editor\BaseView($this->app->l11nManager, $request, $response);
+        $editor               = new \Modules\Editor\Theme\Backend\Components\Editor\BaseView($this->app->l11nManager, $request, $response);
         $view->data['editor'] = $editor;
 
         return $view;
@@ -307,13 +307,13 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/Organization/Theme/Backend/department-create');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1004704001, $request, $response);
 
-        $selectorView = new \Modules\Organization\Theme\Backend\Components\DepartmentTagSelector\DepartmentTagSelectorView($this->app->l11nManager, $request, $response);
+        $selectorView                      = new \Modules\Organization\Theme\Backend\Components\DepartmentTagSelector\DepartmentTagSelectorView($this->app->l11nManager, $request, $response);
         $view->data['department-selector'] = $selectorView;
 
-        $unitSelectorView = new \Modules\Organization\Theme\Backend\Components\UnitTagSelector\UnitTagSelectorView($this->app->l11nManager, $request, $response);
+        $unitSelectorView            = new \Modules\Organization\Theme\Backend\Components\UnitTagSelector\UnitTagSelectorView($this->app->l11nManager, $request, $response);
         $view->data['unit-selector'] = $unitSelectorView;
 
-        $editor = new \Modules\Editor\Theme\Backend\Components\Editor\BaseView($this->app->l11nManager, $request, $response);
+        $editor               = new \Modules\Editor\Theme\Backend\Components\Editor\BaseView($this->app->l11nManager, $request, $response);
         $view->data['editor'] = $editor;
 
         return $view;
@@ -368,15 +368,15 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/Organization/Theme/Backend/position-profile');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1004705001, $request, $response);
 
-        $selectorView = new \Modules\Organization\Theme\Backend\Components\PositionTagSelector\PositionTagSelectorView($this->app->l11nManager, $request, $response);
+        $selectorView                    = new \Modules\Organization\Theme\Backend\Components\PositionTagSelector\PositionTagSelectorView($this->app->l11nManager, $request, $response);
         $view->data['position-selector'] = $selectorView;
 
-        $departmentSelectorView = new \Modules\Organization\Theme\Backend\Components\DepartmentTagSelector\DepartmentTagSelectorView($this->app->l11nManager, $request, $response);
+        $departmentSelectorView            = new \Modules\Organization\Theme\Backend\Components\DepartmentTagSelector\DepartmentTagSelectorView($this->app->l11nManager, $request, $response);
         $view->data['department-selector'] = $departmentSelectorView;
 
         $view->data['position'] = PositionMapper::get()->with('parent')->with('department')->where('id', (int) $request->getData('id'))->execute();
 
-        $editor = new \Modules\Editor\Theme\Backend\Components\Editor\BaseView($this->app->l11nManager, $request, $response);
+        $editor               = new \Modules\Editor\Theme\Backend\Components\Editor\BaseView($this->app->l11nManager, $request, $response);
         $view->data['editor'] = $editor;
 
         return $view;
@@ -401,13 +401,13 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/Organization/Theme/Backend/position-create');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1004705001, $request, $response);
 
-        $selectorView = new \Modules\Organization\Theme\Backend\Components\PositionTagSelector\PositionTagSelectorView($this->app->l11nManager, $request, $response);
+        $selectorView                    = new \Modules\Organization\Theme\Backend\Components\PositionTagSelector\PositionTagSelectorView($this->app->l11nManager, $request, $response);
         $view->data['position-selector'] = $selectorView;
 
-        $departmentSelectorView = new \Modules\Organization\Theme\Backend\Components\DepartmentTagSelector\DepartmentTagSelectorView($this->app->l11nManager, $request, $response);
+        $departmentSelectorView            = new \Modules\Organization\Theme\Backend\Components\DepartmentTagSelector\DepartmentTagSelectorView($this->app->l11nManager, $request, $response);
         $view->data['department-selector'] = $departmentSelectorView;
 
-        $editor = new \Modules\Editor\Theme\Backend\Components\Editor\BaseView($this->app->l11nManager, $request, $response);
+        $editor               = new \Modules\Editor\Theme\Backend\Components\Editor\BaseView($this->app->l11nManager, $request, $response);
         $view->data['editor'] = $editor;
 
         return $view;
