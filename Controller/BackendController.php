@@ -124,7 +124,7 @@ final class BackendController extends Controller
     public function viewOrganigram(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
     {
         $response->data['Content']
-            ->getData('head')
+            ->head
             ->addAsset(AssetType::CSS, 'Modules/Organization/Theme/Backend/css/styles.css?v=1.0.0');
 
         $view = new View($this->app->l11nManager, $request, $response);
