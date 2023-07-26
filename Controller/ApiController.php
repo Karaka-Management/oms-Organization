@@ -49,10 +49,8 @@ use phpOMS\Localization\ISO639x1Enum;
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Message\Http\RequestStatusCode;
-use phpOMS\Message\NotificationLevel;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
-use phpOMS\Model\Message\FormValidation;
 use phpOMS\System\MimeType;
 use phpOMS\Utils\Parser\Markdown\Markdown;
 
@@ -111,7 +109,7 @@ final class ApiController extends Controller
     {
         /** @var Unit $unit */
         $unit = UnitMapper::get()->where('id', (int) $request->getData('id'))->execute();
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Unit', 'Unit successfully returned.', $unit);
+        $this->createStandardReturnResponse($request, $response, $unit);
     }
 
     /**
@@ -133,7 +131,7 @@ final class ApiController extends Controller
         $old = UnitMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $new = $this->updateUnitFromRequest($request, clone $old);
         $this->updateModel($request->header->account, $old, $new, UnitMapper::class, 'unit', $request->getOrigin());
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Unit', 'Unit successfully updated.', $new);
+        $this->createStandardUpdateResponse($request, $response, $new);
     }
 
     /**
@@ -176,7 +174,7 @@ final class ApiController extends Controller
         /** @var Unit $unit */
         $unit = UnitMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $this->deleteModel($request->header->account, $unit, UnitMapper::class, 'unit', $request->getOrigin());
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Unit', 'Unit successfully deleted.', $unit);
+        $this->createStandardDeleteResponse($request, $response, $unit);
     }
 
     /**
@@ -195,8 +193,8 @@ final class ApiController extends Controller
     public function apiUnitCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateUnitCreate($request))) {
-            $response->data['unit_create'] = new FormValidation($val);
-            $response->header->status      = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
 
             return;
         }
@@ -233,7 +231,7 @@ final class ApiController extends Controller
             $this->createModel($request->header->account, $setting, SettingMapper::class, 'setting', $request->getOrigin());
         }
 
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Unit', 'Unit successfully created.', $unit);
+        $this->createStandardCreateResponse($request, $response, $unit);
     }
 
     /**
@@ -252,8 +250,8 @@ final class ApiController extends Controller
     public function apiUnitMainAddressSet(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateUnitMainAddressSet($request))) {
-            $response->data['unit_address_set'] = new FormValidation($val);
-            $response->header->status           = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidUpdateResponse($request, $response, $val);
 
             return;
         }
@@ -274,7 +272,7 @@ final class ApiController extends Controller
             $this->updateModel($request->header->account, $oldUnit, $unit, UnitMapper::class, 'unit', $request->getOrigin());
         }
 
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Address', 'Address successfully set.', $unit);
+        $this->createStandardUpdateResponse($request, $response, $unit);
     }
 
     /**
@@ -393,8 +391,8 @@ final class ApiController extends Controller
     {
         $uploadedFiles = $request->files;
         if (empty($uploadedFiles)) {
-            $this->fillJsonResponse($request, $response, NotificationLevel::ERROR, 'Unit', 'Invalid unit image', $uploadedFiles);
             $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidUpdateResponse($request, $response, $uploadedFiles);
 
             return;
         }
@@ -418,7 +416,7 @@ final class ApiController extends Controller
         $unit->image = \reset($uploaded);
 
         $this->updateModel($request->header->account, $old, $unit, UnitMapper::class, 'unit', $request->getOrigin());
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Unit', 'Unit image successfully updated', $unit);
+        $this->createStandardUpdateResponse($request, $response, $unit);
     }
 
     /**
@@ -466,7 +464,7 @@ final class ApiController extends Controller
     {
         /** @var Position $position */
         $position = PositionMapper::get()->where('id', (int) $request->getData('id'))->execute();
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Position', 'Position successfully returned.', $position);
+        $this->createStandardReturnResponse($request, $response, $position);
     }
 
     /**
@@ -487,7 +485,7 @@ final class ApiController extends Controller
         /** @var Position $position */
         $position = PositionMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $this->deleteModel($request->header->account, $position, PositionMapper::class, 'position', $request->getOrigin());
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Position', 'Position successfully deleted.', $position);
+        $this->createStandardDeleteResponse($request, $response, $position);
     }
 
     /**
@@ -509,7 +507,7 @@ final class ApiController extends Controller
         $old = PositionMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $new = $this->updatePositionFromRequest($request, clone $old);
         $this->updateModel($request->header->account, $old, $new, PositionMapper::class, 'position', $request->getOrigin());
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Position', 'Position successfully updated.', $new);
+        $this->createStandardUpdateResponse($request, $response, $new);
     }
 
     /**
@@ -553,8 +551,8 @@ final class ApiController extends Controller
     public function apiPositionCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validatePositionCreate($request))) {
-            $response->data['position_create'] = new FormValidation($val);
-            $response->header->status          = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
 
             return;
         }
@@ -572,7 +570,7 @@ final class ApiController extends Controller
             $this->app->moduleManager->get('Admin')->apiGroupCreate($newRequest, $response, $data);
         }
 
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Position', 'Position successfully created.', $position);
+        $this->createStandardCreateResponse($request, $response, $position);
     }
 
     /**
@@ -641,7 +639,7 @@ final class ApiController extends Controller
     {
         /** @var Department $department */
         $department = DepartmentMapper::get()->where('id', (int) $request->getData('id'))->execute();
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Department', 'Department successfully returned.', $department);
+        $this->createStandardReturnResponse($request, $response, $department);
     }
 
     /**
@@ -663,7 +661,7 @@ final class ApiController extends Controller
         $old = DepartmentMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $new = $this->updateDepartmentFromRequest($request, clone $old);
         $this->updateModel($request->header->account, $old, $new, DepartmentMapper::class, 'department', $request->getOrigin());
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Department', 'Department successfully updated.', $new);
+        $this->createStandardUpdateResponse($request, $response, $new);
     }
 
     /**
@@ -709,7 +707,7 @@ final class ApiController extends Controller
         /** @var Department $department */
         $department = DepartmentMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $this->deleteModel($request->header->account, $department, DepartmentMapper::class, 'department', $request->getOrigin());
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Department', 'Department successfully deleted.', $department);
+        $this->createStandardDeleteResponse($request, $response, $department);
     }
 
     /**
@@ -728,9 +726,8 @@ final class ApiController extends Controller
     public function apiDepartmentCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateDepartmentCreate($request))) {
-            $this->fillJsonResponse($request, $response, NotificationLevel::OK, '', 'Invalid form data.', new FormValidation($val));
-            $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
             $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
 
             return;
         }
@@ -748,7 +745,7 @@ final class ApiController extends Controller
             $this->app->moduleManager->get('Admin')->apiGroupCreate($newRequest, $response, $data);
         }
 
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Department', 'Department successfully created.', $department);
+        $this->createStandardCreateResponse($request, $response, $department);
     }
 
     /**
@@ -871,16 +868,15 @@ final class ApiController extends Controller
     public function apiUnitAttributeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateUnitAttributeCreate($request))) {
-            $response->data['attribute_create'] = new FormValidation($val);
-            $response->header->status           = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
 
             return;
         }
 
         $attribute = $this->createUnitAttributeFromRequest($request);
         $this->createModel($request->header->account, $attribute, UnitAttributeMapper::class, 'attribute', $request->getOrigin());
-
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Attribute', 'Attribute successfully created', $attribute);
+        $this->createStandardCreateResponse($request, $response, $attribute);
     }
 
     /**
@@ -950,15 +946,15 @@ final class ApiController extends Controller
     public function apiUnitAttributeTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateUnitAttributeTypeL11nCreate($request))) {
-            $response->data['attr_type_l11n_create'] = new FormValidation($val);
-            $response->header->status                = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
 
             return;
         }
 
         $attrL11n = $this->createUnitAttributeTypeL11nFromRequest($request);
         $this->createModel($request->header->account, $attrL11n, UnitAttributeTypeL11nMapper::class, 'attr_type_l11n', $request->getOrigin());
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Localization', 'Localization successfully created', $attrL11n);
+        $this->createStandardCreateResponse($request, $response, $attrL11n);
     }
 
     /**
@@ -1019,16 +1015,15 @@ final class ApiController extends Controller
     public function apiUnitAttributeTypeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateUnitAttributeTypeCreate($request))) {
-            $response->data['attr_type_create'] = new FormValidation($val);
-            $response->header->status           = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
 
             return;
         }
 
         $attrType = $this->createUnitAttributeTypeFromRequest($request);
         $this->createModel($request->header->account, $attrType, UnitAttributeTypeMapper::class, 'attr_type', $request->getOrigin());
-
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Attribute type', 'Attribute type successfully created', $attrType);
+        $this->createStandardCreateResponse($request, $response, $attrType);
     }
 
     /**
@@ -1045,7 +1040,7 @@ final class ApiController extends Controller
         $attrType                    = new AttributeType($request->getDataString('name') ?? '');
         $attrType->datatype          = $request->getDataInt('datatype') ?? 0;
         $attrType->custom            = $request->getDataBool('custom') ?? false;
-        $attrType->isRequired        = (bool) ($request->getData('is_required') ?? false);
+        $attrType->isRequired        = $request->getDataBool('is_required') ?? false;
         $attrType->validationPattern = $request->getDataString('validation_pattern') ?? '';
         $attrType->setL11n($request->getDataString('title') ?? '', $request->getDataString('language') ?? ISO639x1Enum::_EN);
         $attrType->setFields($request->getDataInt('fields') ?? 0);
@@ -1090,8 +1085,8 @@ final class ApiController extends Controller
     public function apiUnitAttributeValueCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateUnitAttributeValueCreate($request))) {
-            $response->data['attr_value_create'] = new FormValidation($val);
-            $response->header->status            = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
 
             return;
         }
@@ -1108,7 +1103,7 @@ final class ApiController extends Controller
             );
         }
 
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Attribute value', 'Attribute value successfully created', $attrValue);
+        $this->createStandardCreateResponse($request, $response, $attrValue);
     }
 
     /**
@@ -1178,15 +1173,15 @@ final class ApiController extends Controller
     public function apiUnitAttributeValueL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateUnitAttributeValueL11nCreate($request))) {
-            $response->data['attr_value_l11n_create'] = new FormValidation($val);
-            $response->header->status                 = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
 
             return;
         }
 
         $attrL11n = $this->createUnitAttributeValueL11nFromRequest($request);
         $this->createModel($request->header->account, $attrL11n, UnitAttributeValueL11nMapper::class, 'attr_value_l11n', $request->getOrigin());
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Localization', 'Localization successfully created', $attrL11n);
+        $this->createStandardCreateResponse($request, $response, $attrL11n);
     }
 
     /**
