@@ -20,11 +20,6 @@ use Modules\Admin\Models\Address;
 use Modules\Admin\Models\AddressMapper;
 use Modules\Admin\Models\NullAddress;
 use Modules\Admin\Models\SettingsEnum as ModelsSettingsEnum;
-use Modules\Attribute\Models\Attribute;
-use Modules\Attribute\Models\AttributeType;
-use Modules\Attribute\Models\AttributeValue;
-use Modules\Attribute\Models\NullAttributeType;
-use Modules\Attribute\Models\NullAttributeValue;
 use Modules\Media\Models\PathSettings;
 use Modules\Organization\Models\Department;
 use Modules\Organization\Models\DepartmentMapper;
@@ -36,16 +31,9 @@ use Modules\Organization\Models\PositionMapper;
 use Modules\Organization\Models\SettingsEnum;
 use Modules\Organization\Models\Status;
 use Modules\Organization\Models\Unit;
-use Modules\Organization\Models\UnitAttributeMapper;
-use Modules\Organization\Models\UnitAttributeTypeL11nMapper;
-use Modules\Organization\Models\UnitAttributeTypeMapper;
-use Modules\Organization\Models\UnitAttributeValueL11nMapper;
-use Modules\Organization\Models\UnitAttributeValueMapper;
 use Modules\Organization\Models\UnitMapper;
 use phpOMS\Account\GroupStatus;
-use phpOMS\Localization\BaseStringL11n;
 use phpOMS\Localization\ISO3166TwoEnum;
-use phpOMS\Localization\ISO639x1Enum;
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Message\Http\RequestStatusCode;
@@ -145,9 +133,9 @@ final class ApiController extends Controller
      */
     private function updateUnitFromRequest(RequestAbstract $request, Unit $unit) : Unit
     {
-        $unit->name           = (string) ($request->getData('name') ?? $unit->name);
-        $unit->descriptionRaw = (string) ($request->getData('description') ?? $unit->descriptionRaw);
-        $unit->description    = Markdown::parse((string) ($request->getData('description') ?? $unit->descriptionRaw));
+        $unit->name           = $request->getDataString('name') ?? $unit->name;
+        $unit->descriptionRaw = $request->getDataString('description') ?? $unit->descriptionRaw;
+        $unit->description    = Markdown::parse($request->getDataString('description') ?? $unit->descriptionRaw);
 
         $parent       = (int) $request->getData('parent');
         $unit->parent = !empty($parent) ? new NullUnit($parent) : $unit->parent;
@@ -521,9 +509,9 @@ final class ApiController extends Controller
      */
     private function updatePositionFromRequest(RequestAbstract $request, Position $position) : Position
     {
-        $position->name           = (string) ($request->getData('name') ?? $position->name);
-        $position->descriptionRaw = (string) ($request->getData('description') ?? $position->descriptionRaw);
-        $position->description    = Markdown::parse((string) ($request->getData('description') ?? $position->descriptionRaw));
+        $position->name           = $request->getDataString('name') ?? $position->name;
+        $position->descriptionRaw = $request->getDataString('description') ?? $position->descriptionRaw;
+        $position->description    = Markdown::parse($request->getDataString('description') ?? $position->descriptionRaw);
 
         $parent           = (int) $request->getData('parent');
         $position->parent = !empty($parent) ? new NullPosition($parent) : $position->parent;
@@ -565,7 +553,7 @@ final class ApiController extends Controller
         if ($setting->content === '1') {
             $newRequest                  = new HttpRequest();
             $newRequest->header->account = $request->header->account;
-            $newRequest->setData('name', 'org:pos:' . \str_replace(' ', '_', \strtolower($position->name)));
+            $newRequest->setData('name', 'org:pos:' . \strtr(\strtolower($position->name), ' ', '_'));
             $newRequest->setData('status', GroupStatus::ACTIVE);
             $this->app->moduleManager->get('Admin')->apiGroupCreate($newRequest, $response, $data);
         }
@@ -585,8 +573,8 @@ final class ApiController extends Controller
     private function createPositionFromRequest(RequestAbstract $request) : Position
     {
         $position       = new Position();
-        $position->name = (string) ($request->getData('name'));
-        $position->setStatus((int) $request->getData('status'));
+        $position->name = $request->getDataString('name') ?? '';
+        $position->setStatus($request->getDataInt('status') ?? Status::ACTIVE);
         $position->descriptionRaw = $request->getDataString('description') ?? '';
         $position->description    = Markdown::parse($request->getDataString('description') ?? '');
         $position->parent         = new NullPosition((int) $request->getData('parent'));
@@ -675,9 +663,9 @@ final class ApiController extends Controller
      */
     private function updateDepartmentFromRequest(RequestAbstract $request, Department $department) : Department
     {
-        $department->name           = (string) ($request->getData('name') ?? $department->name);
-        $department->descriptionRaw = (string) ($request->getData('description') ?? $department->descriptionRaw);
-        $department->description    = Markdown::parse((string) ($request->getData('description') ?? $department->descriptionRaw));
+        $department->name           = $request->getDataString('name') ?? $department->name;
+        $department->descriptionRaw = $request->getDataString('description') ?? $department->descriptionRaw;
+        $department->description    = Markdown::parse($request->getDataString('description') ?? $department->descriptionRaw);
 
         $parent             = (int) $request->getData('parent');
         $department->parent = !empty($parent) ? new NullDepartment($parent) : $department->parent;
@@ -850,379 +838,5 @@ final class ApiController extends Controller
             $request->uri->__toString(),
             \array_values($positions)
         );
-    }
-
-    /**
-     * Api method to create item attribute
-     *
-     * @param RequestAbstract  $request  Request
-     * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
-     *
-     * @return void
-     *
-     * @api
-     *
-     * @since 1.0.0
-     */
-    public function apiUnitAttributeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
-    {
-        if (!empty($val = $this->validateUnitAttributeCreate($request))) {
-            $response->header->status = RequestStatusCode::R_400;
-            $this->createInvalidCreateResponse($request, $response, $val);
-
-            return;
-        }
-
-        $attribute = $this->createUnitAttributeFromRequest($request);
-        $this->createModel($request->header->account, $attribute, UnitAttributeMapper::class, 'attribute', $request->getOrigin());
-        $this->createStandardCreateResponse($request, $response, $attribute);
-    }
-
-    /**
-     * Method to create item attribute from request.
-     *
-     * @param RequestAbstract $request Request
-     *
-     * @return Attribute
-     *
-     * @since 1.0.0
-     */
-    private function createUnitAttributeFromRequest(RequestAbstract $request) : Attribute
-    {
-        $attribute       = new Attribute();
-        $attribute->ref  = (int) $request->getData('unit');
-        $attribute->type = new NullAttributeType((int) $request->getData('type'));
-
-        if ($request->hasData('value')) {
-            $attribute->value = new NullAttributeValue((int) $request->getData('value'));
-        } else {
-            $newRequest = clone $request;
-            $newRequest->setData('value', $request->getData('custom'), true);
-
-            $value = $this->createUnitAttributeValueFromRequest($newRequest);
-
-            $attribute->value = $value;
-        }
-
-        return $attribute;
-    }
-
-    /**
-     * Validate unit attribute create request
-     *
-     * @param RequestAbstract $request Request
-     *
-     * @return array<string, bool>
-     *
-     * @since 1.0.0
-     */
-    private function validateUnitAttributeCreate(RequestAbstract $request) : array
-    {
-        $val = [];
-        if (($val['type'] = !$request->hasData('type'))
-            || ($val['value'] = (!$request->hasData('value') && !$request->hasData('custom')))
-            || ($val['unit'] = !$request->hasData('unit'))
-        ) {
-            return $val;
-        }
-
-        return [];
-    }
-
-    /**
-     * Api method to create unit attribute l11n
-     *
-     * @param RequestAbstract  $request  Request
-     * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
-     *
-     * @return void
-     *
-     * @api
-     *
-     * @since 1.0.0
-     */
-    public function apiUnitAttributeTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
-    {
-        if (!empty($val = $this->validateUnitAttributeTypeL11nCreate($request))) {
-            $response->header->status = RequestStatusCode::R_400;
-            $this->createInvalidCreateResponse($request, $response, $val);
-
-            return;
-        }
-
-        $attrL11n = $this->createUnitAttributeTypeL11nFromRequest($request);
-        $this->createModel($request->header->account, $attrL11n, UnitAttributeTypeL11nMapper::class, 'attr_type_l11n', $request->getOrigin());
-        $this->createStandardCreateResponse($request, $response, $attrL11n);
-    }
-
-    /**
-     * Method to create unit attribute l11n from request.
-     *
-     * @param RequestAbstract $request Request
-     *
-     * @return BaseStringL11n
-     *
-     * @since 1.0.0
-     */
-    private function createUnitAttributeTypeL11nFromRequest(RequestAbstract $request) : BaseStringL11n
-    {
-        $attrL11n      = new BaseStringL11n();
-        $attrL11n->ref = $request->getDataInt('type') ?? 0;
-        $attrL11n->setLanguage(
-            $request->getDataString('language') ?? $request->header->l11n->language
-        );
-        $attrL11n->content = $request->getDataString('title') ?? '';
-
-        return $attrL11n;
-    }
-
-    /**
-     * Validate unit attribute l11n create request
-     *
-     * @param RequestAbstract $request Request
-     *
-     * @return array<string, bool>
-     *
-     * @since 1.0.0
-     */
-    private function validateUnitAttributeTypeL11nCreate(RequestAbstract $request) : array
-    {
-        $val = [];
-        if (($val['title'] = !$request->hasData('title'))
-            || ($val['type'] = !$request->hasData('type'))
-        ) {
-            return $val;
-        }
-
-        return [];
-    }
-
-    /**
-     * Api method to create unit attribute type
-     *
-     * @param RequestAbstract  $request  Request
-     * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
-     *
-     * @return void
-     *
-     * @api
-     *
-     * @since 1.0.0
-     */
-    public function apiUnitAttributeTypeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
-    {
-        if (!empty($val = $this->validateUnitAttributeTypeCreate($request))) {
-            $response->header->status = RequestStatusCode::R_400;
-            $this->createInvalidCreateResponse($request, $response, $val);
-
-            return;
-        }
-
-        $attrType = $this->createUnitAttributeTypeFromRequest($request);
-        $this->createModel($request->header->account, $attrType, UnitAttributeTypeMapper::class, 'attr_type', $request->getOrigin());
-        $this->createStandardCreateResponse($request, $response, $attrType);
-    }
-
-    /**
-     * Method to create unit attribute from request.
-     *
-     * @param RequestAbstract $request Request
-     *
-     * @return AttributeType
-     *
-     * @since 1.0.0
-     */
-    private function createUnitAttributeTypeFromRequest(RequestAbstract $request) : AttributeType
-    {
-        $attrType                    = new AttributeType($request->getDataString('name') ?? '');
-        $attrType->datatype          = $request->getDataInt('datatype') ?? 0;
-        $attrType->custom            = $request->getDataBool('custom') ?? false;
-        $attrType->isRequired        = $request->getDataBool('is_required') ?? false;
-        $attrType->validationPattern = $request->getDataString('validation_pattern') ?? '';
-        $attrType->setL11n($request->getDataString('title') ?? '', $request->getDataString('language') ?? ISO639x1Enum::_EN);
-        $attrType->setFields($request->getDataInt('fields') ?? 0);
-
-        return $attrType;
-    }
-
-    /**
-     * Validate unit attribute create request
-     *
-     * @param RequestAbstract $request Request
-     *
-     * @return array<string, bool>
-     *
-     * @since 1.0.0
-     */
-    private function validateUnitAttributeTypeCreate(RequestAbstract $request) : array
-    {
-        $val = [];
-        if (($val['title'] = !$request->hasData('title'))
-            || ($val['name'] = !$request->hasData('name'))
-        ) {
-            return $val;
-        }
-
-        return [];
-    }
-
-    /**
-     * Api method to create unit attribute value
-     *
-     * @param RequestAbstract  $request  Request
-     * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
-     *
-     * @return void
-     *
-     * @api
-     *
-     * @since 1.0.0
-     */
-    public function apiUnitAttributeValueCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
-    {
-        if (!empty($val = $this->validateUnitAttributeValueCreate($request))) {
-            $response->header->status = RequestStatusCode::R_400;
-            $this->createInvalidCreateResponse($request, $response, $val);
-
-            return;
-        }
-
-        $attrValue = $this->createUnitAttributeValueFromRequest($request);
-        $this->createModel($request->header->account, $attrValue, UnitAttributeValueMapper::class, 'attr_value', $request->getOrigin());
-
-        if ($attrValue->isDefault) {
-            $this->createModelRelation(
-                $request->header->account,
-                (int) $request->getData('type'),
-                $attrValue->id,
-                UnitAttributeTypeMapper::class, 'defaults', '', $request->getOrigin()
-            );
-        }
-
-        $this->createStandardCreateResponse($request, $response, $attrValue);
-    }
-
-    /**
-     * Method to create unit attribute value from request.
-     *
-     * @param RequestAbstract $request Request
-     *
-     * @return AttributeValue
-     *
-     * @since 1.0.0
-     */
-    private function createUnitAttributeValueFromRequest(RequestAbstract $request) : AttributeValue
-    {
-        /** @var AttributeType $type */
-        $type = UnitAttributeTypeMapper::get()
-            ->where('id', $request->getDataInt('type') ?? 0)
-            ->execute();
-
-        $attrValue            = new AttributeValue();
-        $attrValue->isDefault = $request->getDataBool('default') ?? false;
-        $attrValue->setValue($request->getData('value'), $type->datatype);
-
-        if ($request->hasData('title')) {
-            $attrValue->setL11n(
-                $request->getDataString('title') ?? '',
-                $request->getDataString('language') ?? ISO639x1Enum::_EN
-            );
-        }
-
-        return $attrValue;
-    }
-
-    /**
-     * Validate unit attribute value create request
-     *
-     * @param RequestAbstract $request Request
-     *
-     * @return array<string, bool>
-     *
-     * @since 1.0.0
-     */
-    private function validateUnitAttributeValueCreate(RequestAbstract $request) : array
-    {
-        $val = [];
-        if (($val['type'] = !$request->hasData('type'))
-            || ($val['value'] = !$request->hasData('value'))
-        ) {
-            return $val;
-        }
-
-        return [];
-    }
-
-    /**
-     * Api method to create unit attribute l11n
-     *
-     * @param RequestAbstract  $request  Request
-     * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
-     *
-     * @return void
-     *
-     * @api
-     *
-     * @since 1.0.0
-     */
-    public function apiUnitAttributeValueL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
-    {
-        if (!empty($val = $this->validateUnitAttributeValueL11nCreate($request))) {
-            $response->header->status = RequestStatusCode::R_400;
-            $this->createInvalidCreateResponse($request, $response, $val);
-
-            return;
-        }
-
-        $attrL11n = $this->createUnitAttributeValueL11nFromRequest($request);
-        $this->createModel($request->header->account, $attrL11n, UnitAttributeValueL11nMapper::class, 'attr_value_l11n', $request->getOrigin());
-        $this->createStandardCreateResponse($request, $response, $attrL11n);
-    }
-
-    /**
-     * Method to create unit attribute l11n from request.
-     *
-     * @param RequestAbstract $request Request
-     *
-     * @return BaseStringL11n
-     *
-     * @since 1.0.0
-     */
-    private function createUnitAttributeValueL11nFromRequest(RequestAbstract $request) : BaseStringL11n
-    {
-        $attrL11n      = new BaseStringL11n();
-        $attrL11n->ref = $request->getDataInt('value') ?? 0;
-        $attrL11n->setLanguage(
-            $request->getDataString('language') ?? $request->header->l11n->language
-        );
-        $attrL11n->content = $request->getDataString('title') ?? '';
-
-        return $attrL11n;
-    }
-
-    /**
-     * Validate unit attribute l11n create request
-     *
-     * @param RequestAbstract $request Request
-     *
-     * @return array<string, bool>
-     *
-     * @since 1.0.0
-     */
-    private function validateUnitAttributeValueL11nCreate(RequestAbstract $request) : array
-    {
-        $val = [];
-        if (($val['title'] = !$request->hasData('title'))
-            || ($val['value'] = !$request->hasData('value'))
-        ) {
-            return $val;
-        }
-
-        return [];
     }
 }

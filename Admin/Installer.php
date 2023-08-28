@@ -81,8 +81,8 @@ final class Installer extends InstallerAbstract
         /** @var array<string, array> $unitAttrType */
         $unitAttrType = [];
 
-        /** @var \Modules\Organization\Controller\ApiController $module */
-        $module = $app->moduleManager->getModuleInstance('Organization');
+        /** @var \Modules\Organization\Controller\ApiAttributeController $module */
+        $module = $app->moduleManager->getModuleInstance('Organization', 'ApiAttribute');
 
         /** @var array $attribute */
         foreach ($attributes as $attribute) {
@@ -148,8 +148,8 @@ final class Installer extends InstallerAbstract
         /** @var array<string, array> $unitAttrValue */
         $unitAttrValue = [];
 
-        /** @var \Modules\Organization\Controller\ApiController $module */
-        $module = $app->moduleManager->getModuleInstance('Organization');
+        /** @var \Modules\Organization\Controller\ApiAttributeController $module */
+        $module = $app->moduleManager->getModuleInstance('Organization', 'ApiAttribute');
 
         foreach ($attributes as $attribute) {
             $unitAttrValue[$attribute['name']] = [];
@@ -216,7 +216,7 @@ final class Installer extends InstallerAbstract
     private static function installDefaultUnit() : void
     {
         $unit       = new Unit();
-        $unit->name = 'Karaka';
+        $unit->name = 'Jingga';
 
         UnitMapper::create()->execute($unit);
     }

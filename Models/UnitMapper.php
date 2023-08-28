@@ -16,6 +16,7 @@ namespace Modules\Organization\Models;
 
 use Modules\Admin\Models\AddressMapper;
 use Modules\Media\Models\MediaMapper;
+use Modules\Organization\Models\Attribute\UnitAttributeMapper;
 use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
