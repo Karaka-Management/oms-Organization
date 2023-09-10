@@ -26,10 +26,10 @@
         "values": []
     },
     {
-        "name": "legal_form",
+        "name": "tax_office",
         "l11n": {
-            "en": "Legal form",
-            "de": "Rechtsform"
+            "en": "Tax office",
+            "de": "Finanzamt"
         },
         "value_type": 2,
         "is_custom_allowed": true,
@@ -43,6 +43,19 @@
         "l11n": {
             "en": "Registration Id",
             "de": "Registrationsnummer"
+        },
+        "value_type": 2,
+        "is_custom_allowed": true,
+        "validation_pattern": "",
+        "is_required": false,
+        "default_value": "",
+        "values": []
+    },
+    {
+        "name": "registration_office",
+        "l11n": {
+            "en": "Registration office",
+            "de": "Registergericht"
         },
         "value_type": 2,
         "is_custom_allowed": true,

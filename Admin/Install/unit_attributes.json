@@ -1,0 +1,28 @@
+[
+    {
+        "name": "legal_form",
+        "l11n": {
+            "en": "Legal form",
+            "de": "Rechtsform"
+        },
+        "value_type": 2,
+        "is_custom_allowed": true,
+        "validation_pattern": "",
+        "is_required": false,
+        "default_value": "",
+        "values": []
+    },
+    {
+        "name": "legal_representative",
+        "l11n": {
+            "en": "Legal representatice",
+            "de": "Gesetzlicher Vertreter"
+        },
+        "value_type": 2,
+        "is_custom_allowed": true,
+        "validation_pattern": "",
+        "is_required": false,
+        "default_value": "",
+        "values": []
+    }
+]
