@@ -289,9 +289,9 @@ final class Installer extends InstallerAbstract
     /**
      * Create default attribute values for types
      *
-     * @param ApplicationAbstract $app          Application
+     * @param ApplicationAbstract $app             Application
      * @param array               $addressAttrType Attribute types
-     * @param array               $attributes   Attribute definition
+     * @param array               $attributes      Attribute definition
      *
      * @return array
      *
