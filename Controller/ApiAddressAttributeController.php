@@ -451,17 +451,17 @@ final class ApiAddressAttributeController extends Controller
         // @todo: I don't think values can be deleted? Only Attributes
         // However, It should be possible to remove UNUSED default values
         // either here or other function?
-        if (!empty($val = $this->validateAttributeValueDelete($request))) {
-            $response->header->status = RequestStatusCode::R_400;
-            $this->createInvalidDeleteResponse($request, $response, $val);
+        // if (!empty($val = $this->validateAttributeValueDelete($request))) {
+        //     $response->header->status = RequestStatusCode::R_400;
+        //     $this->createInvalidDeleteResponse($request, $response, $val);
 
-            return;
-        }
+        //     return;
+        // }
 
-        /** @var \Modules\Organization\Models\AddressAttributeValue $addressAttributeValue */
-        $addressAttributeValue = AddressAttributeValueMapper::get()->where('id', (int) $request->getData('id'))->execute();
-        $this->deleteModel($request->header->account, $addressAttributeValue, AddressAttributeValueMapper::class, 'address_attribute_value', $request->getOrigin());
-        $this->createStandardDeleteResponse($request, $response, $addressAttributeValue);
+        // /** @var \Modules\Organization\Models\AddressAttributeValue $addressAttributeValue */
+        // $addressAttributeValue = AddressAttributeValueMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        // $this->deleteModel($request->header->account, $addressAttributeValue, AddressAttributeValueMapper::class, 'address_attribute_value', $request->getOrigin());
+        // $this->createStandardDeleteResponse($request, $response, $addressAttributeValue);
     }
 
     /**
