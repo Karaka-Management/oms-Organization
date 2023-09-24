@@ -138,7 +138,7 @@ final class ApiController extends Controller
         $unit->description    = Markdown::parse($request->getDataString('description') ?? $unit->descriptionRaw);
 
         $parent       = (int) $request->getData('parent');
-        $unit->parent = !empty($parent) ? new NullUnit($parent) : $unit->parent;
+        $unit->parent = empty($parent) ? $unit->parent : new NullUnit($parent);
         $unit->setStatus($request->getDataInt('status') ?? $unit->getStatus());
 
         return $unit;
@@ -514,10 +514,10 @@ final class ApiController extends Controller
         $position->description    = Markdown::parse($request->getDataString('description') ?? $position->descriptionRaw);
 
         $parent           = (int) $request->getData('parent');
-        $position->parent = !empty($parent) ? new NullPosition($parent) : $position->parent;
+        $position->parent = empty($parent) ? $position->parent : new NullPosition($parent);
 
         $department           = (int) $request->getData('department');
-        $position->department = !empty($department) ? new NullDepartment($department) : $position->department;
+        $position->department = empty($department) ? $position->department : new NullDepartment($department);
         $position->setStatus($request->getDataInt('status') ?? $position->getStatus());
 
         return $position;
@@ -668,11 +668,11 @@ final class ApiController extends Controller
         $department->description    = Markdown::parse($request->getDataString('description') ?? $department->descriptionRaw);
 
         $parent             = (int) $request->getData('parent');
-        $department->parent = !empty($parent) ? new NullDepartment($parent) : $department->parent;
+        $department->parent = empty($parent) ? $department->parent : new NullDepartment($parent);
         $department->setStatus($request->getDataInt('status') ?? $department->getStatus());
 
         $unit             = (int) $request->getData('unit');
-        $department->unit = !empty($unit) ? new NullUnit($unit) : $department->unit;
+        $department->unit = empty($unit) ? $department->unit : new NullUnit($unit);
 
         return $department;
     }
