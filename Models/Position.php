@@ -43,10 +43,10 @@ class Position implements \JsonSerializable
     /**
      * Parent
      *
-     * @var Position
+     * @var null|Position
      * @since 1.0.0
      */
-    public self $parent;
+    public ?self $parent = null;
 
     /**
      * Department
@@ -87,7 +87,6 @@ class Position implements \JsonSerializable
      */
     public function __construct()
     {
-        $this->parent     = new NullPosition();
         $this->department = new NullDepartment();
     }
 
@@ -129,7 +128,7 @@ class Position implements \JsonSerializable
             'description'    => $this->description,
             'descriptionRaw' => $this->descriptionRaw,
             'department'     => $this->department ?? new NullDepartment(),
-            'parent'         => $this->parent ?? null,
+            'parent'         => $this->parent,
         ];
     }
 

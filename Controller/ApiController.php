@@ -137,8 +137,8 @@ final class ApiController extends Controller
         $unit->descriptionRaw = $request->getDataString('description') ?? $unit->descriptionRaw;
         $unit->description    = Markdown::parse($request->getDataString('description') ?? $unit->descriptionRaw);
 
-        $parent       = (int) $request->getData('parent');
-        $unit->parent = empty($parent) ? $unit->parent : new NullUnit($parent);
+        $parent       = $request->getDataInt('parent') ?? 0;
+        $unit->parent = $parent === 0 ? $unit->parent : new NullUnit($parent);
         $unit->setStatus($request->getDataInt('status') ?? $unit->getStatus());
 
         return $unit;

@@ -56,10 +56,10 @@ class Unit implements \JsonSerializable
     /**
      * Parent
      *
-     * @var Unit
+     * @var null|Unit
      * @since 1.0.0
      */
-    public self $parent;
+    public ?self $parent;
 
     /**
      * Description.
@@ -97,7 +97,6 @@ class Unit implements \JsonSerializable
     public function __construct()
     {
         $this->image       = new NullMedia();
-        $this->parent      = new NullUnit();
         $this->mainAddress = new NullAddress();
     }
 
@@ -150,7 +149,7 @@ class Unit implements \JsonSerializable
             'status'         => $this->status,
             'description'    => $this->description,
             'descriptionRaw' => $this->descriptionRaw,
-            'parent'         => $this->parent ?? null,
+            'parent'         => $this->parent,
             'image'          => $this->image,
         ];
     }

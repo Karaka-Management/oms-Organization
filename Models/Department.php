@@ -43,10 +43,10 @@ class Department implements \JsonSerializable
     /**
      * Parent
      *
-     * @var self
+     * @var null|self
      * @since 1.0.0
      */
-    public self $parent;
+    public ?self $parent = null;
 
     /**
      * Status
@@ -90,7 +90,6 @@ class Department implements \JsonSerializable
     public function __construct(string $name = '')
     {
         $this->name   = $name;
-        $this->parent = new NullDepartment();
         $this->unit   = new NullUnit();
     }
 
