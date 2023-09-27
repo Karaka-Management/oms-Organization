@@ -44,7 +44,7 @@ final class UnitTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $this->unit->name);
         self::assertEquals('', $this->unit->description);
         self::assertEquals('', $this->unit->descriptionRaw);
-        self::assertInstanceOf('Modules\Organization\Models\NullUnit', $this->unit->parent);
+        self::assertEquals(null, $this->unit->parent);
         self::assertInstanceOf('Modules\Media\Models\NullMedia', $this->unit->image);
         self::assertEquals(Status::INACTIVE, $this->unit->getStatus());
     }

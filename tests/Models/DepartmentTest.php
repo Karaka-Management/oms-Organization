@@ -44,7 +44,7 @@ final class DepartmentTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $this->department->name);
         self::assertEquals('', $this->department->description);
         self::assertEquals('', $this->department->descriptionRaw);
-        self::assertInstanceOf(NullDepartment::class, $this->department->parent);
+        self::assertEquals(null, $this->department->parent);
         self::assertEquals(0, $this->department->unit->id);
         self::assertEquals(Status::INACTIVE, $this->department->getStatus());
     }

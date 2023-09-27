@@ -44,7 +44,7 @@ final class PositionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $this->position->name);
         self::assertEquals('', $this->position->description);
         self::assertEquals('', $this->position->descriptionRaw);
-        self::assertInstanceOf(NullPosition::class, $this->position->parent);
+        self::assertEquals(null, $this->position->parent);
         self::assertEquals(0, $this->position->department->id);
         self::assertEquals(Status::INACTIVE, $this->position->getStatus());
     }
