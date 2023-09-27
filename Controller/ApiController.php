@@ -85,7 +85,7 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -93,7 +93,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiUnitGet(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiUnitGet(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         /** @var Unit $unit */
         $unit = UnitMapper::get()->where('id', (int) $request->getData('id'))->execute();
@@ -105,7 +105,7 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -113,7 +113,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiUnitSet(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiUnitSet(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         /** @var Unit $old */
         $old = UnitMapper::get()->where('id', (int) $request->getData('id'))->execute();
@@ -149,7 +149,7 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -157,7 +157,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiUnitDelete(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiUnitDelete(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         /** @var Unit $unit */
         $unit = UnitMapper::get()->where('id', (int) $request->getData('id'))->execute();
@@ -170,7 +170,7 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -178,7 +178,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiUnitCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiUnitCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateUnitCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -227,7 +227,7 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -235,7 +235,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiUnitMainAddressSet(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiUnitMainAddressSet(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateUnitMainAddressSet($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -367,7 +367,7 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -375,7 +375,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiUnitImageSet(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiUnitImageSet(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         $uploadedFiles = $request->files;
         if (empty($uploadedFiles)) {
@@ -440,7 +440,7 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -448,7 +448,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiPositionGet(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiPositionGet(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         /** @var Position $position */
         $position = PositionMapper::get()->where('id', (int) $request->getData('id'))->execute();
@@ -460,7 +460,7 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -468,7 +468,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiPositionDelete(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiPositionDelete(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         /** @var Position $position */
         $position = PositionMapper::get()->where('id', (int) $request->getData('id'))->execute();
@@ -481,7 +481,7 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -489,7 +489,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiPositionSet(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiPositionSet(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         /** @var Position $old */
         $old = PositionMapper::get()->where('id', (int) $request->getData('id'))->execute();
@@ -528,7 +528,7 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -536,7 +536,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiPositionCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiPositionCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validatePositionCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -615,7 +615,7 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -623,7 +623,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiDepartmentGet(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiDepartmentGet(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         /** @var Department $department */
         $department = DepartmentMapper::get()->where('id', (int) $request->getData('id'))->execute();
@@ -635,7 +635,7 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -643,7 +643,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiDepartmentSet(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiDepartmentSet(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         /** @var Department $old */
         $old = DepartmentMapper::get()->where('id', (int) $request->getData('id'))->execute();
@@ -682,7 +682,7 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -690,7 +690,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiDepartmentDelete(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiDepartmentDelete(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         /** @var Department $department */
         $department = DepartmentMapper::get()->where('id', (int) $request->getData('id'))->execute();
@@ -703,7 +703,7 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -711,7 +711,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiDepartmentCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiDepartmentCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateDepartmentCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -764,7 +764,7 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -772,7 +772,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiUnitFind(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiUnitFind(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         /** @var \Modules\Organization\Models\Unit[] $units */
         $units = UnitMapper::getAll()
@@ -791,7 +791,7 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -799,7 +799,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiDepartmentFind(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiDepartmentFind(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         /** @var \Modules\Organization\Models\Department[] $departments */
         $departments = DepartmentMapper::getAll()
@@ -818,7 +818,7 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -826,7 +826,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiPositionFind(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiPositionFind(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         /** @var \Modules\Organization\Models\Position[] $positions */
         $positions = PositionMapper::getAll()
