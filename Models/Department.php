@@ -89,8 +89,8 @@ class Department implements \JsonSerializable
      */
     public function __construct(string $name = '')
     {
-        $this->name   = $name;
-        $this->unit   = new NullUnit();
+        $this->name = $name;
+        $this->unit = new NullUnit();
     }
 
     /**
