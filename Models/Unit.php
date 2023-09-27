@@ -59,7 +59,7 @@ class Unit implements \JsonSerializable
      * @var null|Unit
      * @since 1.0.0
      */
-    public ?self $parent;
+    public ?self $parent = null;
 
     /**
      * Description.
