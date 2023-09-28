@@ -202,7 +202,7 @@ final class ApiController extends Controller
             $this->app->moduleManager->get('Admin')->apiGroupCreate($newRequest, $internalResponse, $data);
 
             /** @var \Modules\Admin\Models\Group $group */
-            $group = $internalResponse->get($newRequest->uri->__toString())['response'];
+            $group = $internalResponse->getDataArray($newRequest->uri->__toString())['response'];
 
             $content = \json_encode([$group->id]);
             if ($content === false) {
