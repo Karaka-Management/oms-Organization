@@ -87,7 +87,7 @@ class Unit implements \JsonSerializable
 
     public Address $mainAddress;
 
-    private array $address = [];
+    public array $address = [];
 
     /**
      * Constructor.
