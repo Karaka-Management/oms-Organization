@@ -114,7 +114,7 @@ final class Installer extends InstallerAbstract
 
             $module->apiUnitAttributeTypeCreate($request, $response);
 
-            $responseData = $response->get('');
+            $responseData = $response->getData('');
 
             if (!\is_array($responseData)) {
                 continue;
@@ -186,7 +186,7 @@ final class Installer extends InstallerAbstract
 
                 $module->apiUnitAttributeValueCreate($request, $response);
 
-                $responseData = $response->get('');
+                $responseData = $response->getData('');
                 if (!\is_array($responseData)) {
                     continue;
                 }
@@ -254,7 +254,7 @@ final class Installer extends InstallerAbstract
 
             $module->apiAddressAttributeTypeCreate($request, $response);
 
-            $responseData = $response->get('');
+            $responseData = $response->getData('');
 
             if (!\is_array($responseData)) {
                 continue;
@@ -326,7 +326,7 @@ final class Installer extends InstallerAbstract
 
                 $module->apiAddressAttributeValueCreate($request, $response);
 
-                $responseData = $response->get('');
+                $responseData = $response->getData('');
                 if (!\is_array($responseData)) {
                     continue;
                 }

@@ -101,8 +101,8 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
 
         $this->module->apiUnitGet($request, $response);
 
-        self::assertEquals('Karaka', $response->get('')['response']->name);
-        self::assertGreaterThan(0, $response->get('')['response']->id);
+        self::assertEquals('Karaka', $response->getDataArray('')['response']->name);
+        self::assertGreaterThan(0, $response->getDataArray('')['response']->id);
     }
 
     /**
@@ -121,7 +121,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $this->module->apiUnitSet($request, $response);
         $this->module->apiUnitGet($request, $response);
 
-        self::assertEquals('OMS', $response->get('')['response']->name);
+        self::assertEquals('OMS', $response->getDataArray('')['response']->name);
     }
 
     /**
@@ -138,8 +138,8 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
 
         $this->module->apiUnitFind($request, $response);
 
-        self::assertEquals('OMS', $response->get('')[0]->name);
-        self::assertGreaterThan(0, $response->get('')[0]->id);
+        self::assertEquals('OMS', $response->getData('')[0]->name);
+        self::assertGreaterThan(0, $response->getData('')[0]->id);
     }
 
     /**
@@ -158,16 +158,16 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
 
         $this->module->apiUnitCreate($request, $response);
 
-        self::assertEquals('test', $response->get('')['response']->name);
-        self::assertGreaterThan(0, $response->get('')['response']->id);
+        self::assertEquals('test', $response->getDataArray('')['response']->name);
+        self::assertGreaterThan(0, $response->getDataArray('')['response']->id);
 
         // test delete
         /*
         not possible due to foreign keys (default settings in this case)
-        $request->setData('id', $response->get('')['response']->id);
+        $request->setData('id', $response->getDataArray('')['response']->id);
         $this->module->apiUnitDelete($request, $response);
 
-        self::assertGreaterThan(0, $response->get('')['response']->id);
+        self::assertGreaterThan(0, $response->getDataArray('')['response']->id);
         */
     }
 
@@ -206,10 +206,10 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
 
         $this->module->apiDepartmentCreate($request, $response);
 
-        self::assertEquals('test', $response->get('')['response']->name);
-        self::assertGreaterThan(0, $response->get('')['response']->id);
+        self::assertEquals('test', $response->getDataArray('')['response']->name);
+        self::assertGreaterThan(0, $response->getDataArray('')['response']->id);
 
-        self::$departmentId = $response->get('')['response']->id;
+        self::$departmentId = $response->getDataArray('')['response']->id;
     }
 
     /**
@@ -226,8 +226,8 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
 
         $this->module->apiDepartmentFind($request, $response);
 
-        self::assertTrue(\stripos(\strtolower($response->get('')[0]->name), 'test') !== false);
-        self::assertGreaterThan(0, $response->get('')[0]->id);
+        self::assertTrue(\stripos(\strtolower($response->getData('')[0]->name), 'test') !== false);
+        self::assertGreaterThan(0, $response->getData('')[0]->id);
     }
 
     /**
@@ -260,8 +260,8 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
 
         $this->module->apiDepartmentGet($request, $response);
 
-        self::assertEquals('test', $response->get('')['response']->name);
-        self::assertGreaterThan(0, $response->get('')['response']->id);
+        self::assertEquals('test', $response->getDataArray('')['response']->name);
+        self::assertGreaterThan(0, $response->getDataArray('')['response']->id);
     }
 
     /**
@@ -280,7 +280,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $this->module->apiDepartmentSet($request, $response);
         $this->module->apiDepartmentGet($request, $response);
 
-        self::assertEquals('Production', $response->get('')['response']->name);
+        self::assertEquals('Production', $response->getDataArray('')['response']->name);
     }
 
     /**
@@ -296,7 +296,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $request->setData('id', self::$departmentId);
         $this->module->apiDepartmentDelete($request, $response);
 
-        self::assertGreaterThan(0, $response->get('')['response']->id);
+        self::assertGreaterThan(0, $response->getDataArray('')['response']->id);
     }
 
     protected static $positionId = 0;
@@ -317,9 +317,9 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
 
         $this->module->apiPositionCreate($request, $response);
 
-        self::assertEquals('test', $response->get('')['response']->name);
-        self::assertGreaterThan(0, $response->get('')['response']->id);
-        self::$positionId = $response->get('')['response']->id;
+        self::assertEquals('test', $response->getDataArray('')['response']->name);
+        self::assertGreaterThan(0, $response->getDataArray('')['response']->id);
+        self::$positionId = $response->getDataArray('')['response']->id;
     }
 
     /**
@@ -336,8 +336,8 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
 
         $this->module->apiPositionFind($request, $response);
 
-        self::assertTrue(\stripos(\strtolower($response->get('')[0]->name), 'test') !== false);
-        self::assertGreaterThan(0, $response->get('')[0]->id);
+        self::assertTrue(\stripos(\strtolower($response->getData('')[0]->name), 'test') !== false);
+        self::assertGreaterThan(0, $response->getData('')[0]->id);
     }
 
     /**
@@ -370,8 +370,8 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
 
         $this->module->apiPositionGet($request, $response);
 
-        self::assertEquals('test', $response->get('')['response']->name);
-        self::assertGreaterThan(0, $response->get('')['response']->id);
+        self::assertEquals('test', $response->getDataArray('')['response']->name);
+        self::assertGreaterThan(0, $response->getDataArray('')['response']->id);
     }
 
     /**
@@ -390,7 +390,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $this->module->apiPositionSet($request, $response);
         $this->module->apiPositionGet($request, $response);
 
-        self::assertEquals('Test', $response->get('')['response']->name);
+        self::assertEquals('Test', $response->getDataArray('')['response']->name);
     }
 
     /**
@@ -406,7 +406,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $request->setData('id', self::$positionId);
         $this->module->apiPositionDelete($request, $response);
 
-        self::assertGreaterThan(0, $response->get('')['response']->id);
+        self::assertGreaterThan(0, $response->getDataArray('')['response']->id);
     }
 
     /**
