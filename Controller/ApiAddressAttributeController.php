@@ -61,7 +61,7 @@ final class ApiAddressAttributeController extends Controller
             return;
         }
 
-        $type      = AddressAttributeTypeMapper::get()->where('id', (int) $request->getData('type'))->execute();
+        $type      = AddressAttributeTypeMapper::get()->with('defaults')->where('id', (int) $request->getData('type'))->execute();
         $attribute = $this->createAttributeFromRequest($request, $type);
         $this->createModel($request->header->account, $attribute, AddressAttributeMapper::class, 'attribute', $request->getOrigin());
         $this->createStandardCreateResponse($request, $response, $attribute);
@@ -359,7 +359,7 @@ final class ApiAddressAttributeController extends Controller
         }
 
         /** @var AttributeType $old */
-        $old = AddressAttributeTypeMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $old = AddressAttributeTypeMapper::get()->with('defaults')->where('id', (int) $request->getData('id'))->execute();
         $new = $this->updateAttributeTypeFromRequest($request, clone $old);
 
         $this->updateModel($request->header->account, $old, $new, AddressAttributeTypeMapper::class, 'address_attribute_type', $request->getOrigin());
@@ -391,7 +391,7 @@ final class ApiAddressAttributeController extends Controller
         }
 
         /** @var AttributeType $addressAttributeType */
-        $addressAttributeType = AddressAttributeTypeMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $addressAttributeType = AddressAttributeTypeMapper::get()->with('defaults')->where('id', (int) $request->getData('id'))->execute();
         $this->deleteModel($request->header->account, $addressAttributeType, AddressAttributeTypeMapper::class, 'address_attribute_type', $request->getOrigin());
         $this->createStandardDeleteResponse($request, $response, $addressAttributeType);
     }

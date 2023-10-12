@@ -61,7 +61,7 @@ final class ApiAttributeController extends Controller
             return;
         }
 
-        $type      = UnitAttributeTypeMapper::get()->where('id', (int) $request->getData('type'))->execute();
+        $type      = UnitAttributeTypeMapper::get()->with('defaults')->where('id', (int) $request->getData('type'))->execute();
         $attribute = $this->createAttributeFromRequest($request, $type);
         $this->createModel($request->header->account, $attribute, UnitAttributeMapper::class, 'attribute', $request->getOrigin());
         $this->createStandardCreateResponse($request, $response, $attribute);
@@ -359,7 +359,7 @@ final class ApiAttributeController extends Controller
         }
 
         /** @var AttributeType $old */
-        $old = UnitAttributeTypeMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $old = UnitAttributeTypeMapper::get()->with('defaults')->where('id', (int) $request->getData('id'))->execute();
         $new = $this->updateAttributeTypeFromRequest($request, clone $old);
 
         $this->updateModel($request->header->account, $old, $new, UnitAttributeTypeMapper::class, 'unit_attribute_type', $request->getOrigin());
@@ -391,7 +391,7 @@ final class ApiAttributeController extends Controller
         }
 
         /** @var AttributeType $unitAttributeType */
-        $unitAttributeType = UnitAttributeTypeMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $unitAttributeType = UnitAttributeTypeMapper::get()->with('defaults')->where('id', (int) $request->getData('id'))->execute();
         $this->deleteModel($request->header->account, $unitAttributeType, UnitAttributeTypeMapper::class, 'unit_attribute_type', $request->getOrigin());
         $this->createStandardDeleteResponse($request, $response, $unitAttributeType);
     }
