@@ -39,4 +39,14 @@ final class NullDepartmentTest extends \PHPUnit\Framework\TestCase
         $null = new NullDepartment(2);
         self::assertEquals(2, $null->id);
     }
+
+    /**
+     * @covers Modules\Organization\Models\NullDepartment
+     * @group module
+     */
+    public function testJsonSerialize() : void
+    {
+        $null = new NullDepartment(2);
+        self::assertEquals(['id' => 2], $null);
+    }
 }

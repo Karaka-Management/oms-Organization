@@ -39,4 +39,14 @@ final class NullPositionTest extends \PHPUnit\Framework\TestCase
         $null = new NullPosition(2);
         self::assertEquals(2, $null->id);
     }
+
+    /**
+     * @covers Modules\Organization\Models\NullPosition
+     * @group module
+     */
+    public function testJsonSerialize() : void
+    {
+        $null = new NullPosition(2);
+        self::assertEquals(['id' => 2], $null);
+    }
 }
