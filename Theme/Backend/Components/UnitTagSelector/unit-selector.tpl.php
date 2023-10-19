@@ -11,7 +11,7 @@
                         {"key": 5, "type": "dom.table.append", "id": "grp-table", "aniIn": "fadeIn", "data": [], "bindings": {"id": "id", "name": "name"}, "position": -1}
                     ]
                 }
-            ]' formaction=""><i class="fa fa-book"></i></button>
+            ]' formaction=""><i class="g-icon">book</i></button>
             <div class="advancedInput wf-100" id="<?= $this->id; ?>">
                 <input autocomplete="off" class="input" type="text" id="i<?= $this->id; ?>"
                     data-emptyAfter="true"
@@ -21,8 +21,8 @@
                     <table class="default">
                         <thead>
                             <tr>
-                                <td>ID<i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
-                                <td>Name<i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
+                                <td>ID<i class="sort-asc g-icon">expand_less</i><i class="sort-desc g-icon">expand_more</i>
+                                <td>Name<i class="sort-asc g-icon">expand_less</i><i class="sort-desc g-icon">expand_more</i>
                         <tbody>
                             <template id="<?= $this->id; ?>-rowElement" class="rowTemplate">
                                 <tr tabindex="-1">
@@ -41,7 +41,7 @@
 <div class="box" id="<?= $this->id; ?>-tags" data-limit="0" data-active="true">
     <template id="<?= $this->id; ?>-tagTemplate">
         <span class="tag red" data-tpl-value="/id" data-value="" data-uuid="" data-name="<?= $this->printHtml($this->name); ?>">
-            <i class="fa fa-times"></i>
+            <i class="g-icon">close</i>
             <span data-tpl-text="/id" data-name="id" data-tpl-value="/id" data-value=""></span>
             <span data-tpl-text="/name" data-tpl-value="/name" data-value=""></span>
         </span>
