@@ -83,7 +83,7 @@ echo $this->data['nav']->render(); ?>
                         </label>
                 <tbody>
                 <?php $count = 0; foreach ($positions as $key => $value) : ++$count;
-                $url         = \phpOMS\Uri\UriFactory::build('organization/position/profile?{?}&id=' . $value->id); ?>
+                $url         = \phpOMS\Uri\UriFactory::build('{/base}/organization/position/profile?{?}&id=' . $value->id); ?>
                 <tr tabindex="0" data-href="<?= $url; ?>">
                     <td data-label="<?= $this->getHtml('ID', '0', '0'); ?>"><a href="<?= $url; ?>"><?= $value->id; ?></a>
                     <td data-label="<?= $this->getHtml('Name'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->name); ?></a>
