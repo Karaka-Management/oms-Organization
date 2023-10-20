@@ -7,7 +7,7 @@
         "name": "Organization",
         "uri": null,
         "target": "self",
-        "icon": "database",
+        "icon": "family_history",
         "order": 2,
         "from": "Organization",
         "permission": { "permission": 2, "category": null, "element": null },
