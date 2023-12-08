@@ -377,7 +377,7 @@ final class ApiAddressAttributeController extends Controller
      *
      * @api
      *
-     * @todo: implement
+     * @todo Implement API function
      *
      * @since 1.0.0
      */
@@ -448,7 +448,7 @@ final class ApiAddressAttributeController extends Controller
      */
     public function apiAddressAttributeValueDelete(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
-        // @todo: I don't think values can be deleted? Only Attributes
+        // @todo I don't think values can be deleted? Only Attributes
         // However, It should be possible to remove UNUSED default values
         // either here or other function?
         // if (!empty($val = $this->validateAttributeValueDelete($request))) {

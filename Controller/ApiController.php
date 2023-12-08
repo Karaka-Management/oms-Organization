@@ -16,9 +16,7 @@ namespace Modules\Organization\Controller;
 
 use Model\Setting;
 use Model\SettingMapper;
-use Modules\Admin\Models\Address;
 use Modules\Admin\Models\AddressMapper;
-use Modules\Admin\Models\NullAddress;
 use Modules\Admin\Models\SettingsEnum as ModelsSettingsEnum;
 use Modules\Media\Models\PathSettings;
 use Modules\Organization\Models\Department;
@@ -39,6 +37,8 @@ use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
+use phpOMS\Stdlib\Base\Address;
+use phpOMS\Stdlib\Base\NullAddress;
 use phpOMS\System\MimeType;
 use phpOMS\Utils\Parser\Markdown\Markdown;
 

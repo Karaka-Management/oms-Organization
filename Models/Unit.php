@@ -14,10 +14,10 @@ declare(strict_types=1);
 
 namespace Modules\Organization\Models;
 
-use Modules\Admin\Models\Address;
-use Modules\Admin\Models\NullAddress;
 use Modules\Media\Models\Media;
 use Modules\Media\Models\NullMedia;
+use phpOMS\Stdlib\Base\Address;
+use phpOMS\Stdlib\Base\NullAddress;
 
 /**
  * Organization unit class.
