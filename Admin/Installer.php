@@ -49,8 +49,6 @@ final class Installer extends InstallerAbstract
     {
         parent::install($app, $info, $cfgHandler);
 
-        self::installDefaultUnit();
-
         /* Unit Attributes */
         $fileContent = \file_get_contents(__DIR__ . '/Install/unit_attributes.json');
         if ($fileContent === false) {
@@ -78,6 +76,8 @@ final class Installer extends InstallerAbstract
 
         $attrTypes  = self::createAddressAttributeTypes($app, $attributes);
         $attrValues = self::createAddressAttributeValues($app, $attrTypes, $attributes);
+
+        self::installDefaultUnit();
     }
 
     /**

@@ -24,5 +24,18 @@
         "is_required": false,
         "default_value": "",
         "values": []
+    },
+    {
+        "name": "business_year_start",
+        "l11n": {
+            "en": "Business year start",
+            "de": "Geschäftsjahresbeginn"
+        },
+        "value_type": 1,
+        "is_custom_allowed": true,
+        "validation_pattern": "",
+        "is_required": false,
+        "default_value": "",
+        "values": []
     }
 ]
