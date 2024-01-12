@@ -59,6 +59,7 @@ final class UnitAttributeValueMapper extends DataMapperFactory
             'mapper'   => UnitAttributeValueL11nMapper::class,
             'table'    => 'unit_attr_value_l11n',
             'self'     => 'unit_attr_value_l11n_value',
+            'column'   => 'content',
             'external' => null,
         ],
     ];

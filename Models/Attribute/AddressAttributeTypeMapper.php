@@ -42,6 +42,7 @@ final class AddressAttributeTypeMapper extends DataMapperFactory
         'address_attr_type_datatype'   => ['name' => 'address_attr_type_datatype',   'type' => 'int',    'internal' => 'datatype'],
         'address_attr_type_fields'     => ['name' => 'address_attr_type_fields',   'type' => 'int',    'internal' => 'fields'],
         'address_attr_type_custom'     => ['name' => 'address_attr_type_custom',   'type' => 'bool',   'internal' => 'custom'],
+        'address_attr_type_repeatable'     => ['name' => 'address_attr_type_repeatable',   'type' => 'bool',   'internal' => 'repeatable'],
         'address_attr_type_pattern'    => ['name' => 'address_attr_type_pattern',  'type' => 'string', 'internal' => 'validationPattern'],
         'address_attr_type_required'   => ['name' => 'address_attr_type_required', 'type' => 'bool',   'internal' => 'isRequired'],
     ];

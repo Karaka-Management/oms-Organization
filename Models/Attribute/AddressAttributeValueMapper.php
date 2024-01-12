@@ -59,6 +59,7 @@ final class AddressAttributeValueMapper extends DataMapperFactory
             'mapper'   => AddressAttributeValueL11nMapper::class,
             'table'    => 'address_attr_value_l11n',
             'self'     => 'address_attr_value_l11n_value',
+            'column'   => 'content',
             'external' => null,
         ],
     ];
