@@ -37,10 +37,10 @@ final class AddressAttributeMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'address_attr_id'       => ['name' => 'address_attr_id',    'type' => 'int', 'internal' => 'id'],
-        'address_attr_address'  => ['name' => 'address_attr_address',  'type' => 'int', 'internal' => 'ref'],
-        'address_attr_type'     => ['name' => 'address_attr_type',  'type' => 'int', 'internal' => 'type'],
-        'address_attr_value'    => ['name' => 'address_attr_value', 'type' => 'int', 'internal' => 'value'],
+        'address_attr_id'      => ['name' => 'address_attr_id',    'type' => 'int', 'internal' => 'id'],
+        'address_attr_address' => ['name' => 'address_attr_address',  'type' => 'int', 'internal' => 'ref'],
+        'address_attr_type'    => ['name' => 'address_attr_type',  'type' => 'int', 'internal' => 'type'],
+        'address_attr_value'   => ['name' => 'address_attr_value', 'type' => 'int', 'internal' => 'value'],
     ];
 
     /**

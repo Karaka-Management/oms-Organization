@@ -84,11 +84,11 @@ final class BackendController extends Controller
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewUnitProfile(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
+    public function viewUnitView(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
-        $view->setTemplate('/Modules/Organization/Theme/Backend/unit-profile');
+        $view->setTemplate('/Modules/Organization/Theme/Backend/unit-view');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1004703001, $request, $response);
 
         $selectorView                = new \Modules\Organization\Theme\Backend\Components\UnitTagSelector\UnitTagSelectorView($this->app->l11nManager, $request, $response);
@@ -267,11 +267,11 @@ final class BackendController extends Controller
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewDepartmentProfile(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
+    public function viewDepartmentView(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
-        $view->setTemplate('/Modules/Organization/Theme/Backend/department-profile');
+        $view->setTemplate('/Modules/Organization/Theme/Backend/department-view');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1004704001, $request, $response);
 
         $selectorView                      = new \Modules\Organization\Theme\Backend\Components\DepartmentTagSelector\DepartmentTagSelectorView($this->app->l11nManager, $request, $response);
@@ -361,11 +361,11 @@ final class BackendController extends Controller
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewPositionProfile(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
+    public function viewPositionView(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
-        $view->setTemplate('/Modules/Organization/Theme/Backend/position-profile');
+        $view->setTemplate('/Modules/Organization/Theme/Backend/position-view');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1004705001, $request, $response);
 
         $selectorView                    = new \Modules\Organization\Theme\Backend\Components\PositionTagSelector\PositionTagSelectorView($this->app->l11nManager, $request, $response);

@@ -67,18 +67,6 @@ class UnitTagSelectorView extends View
     }
 
     /**
-     * Get selector id
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getId() : string
-    {
-        return $this->id;
-    }
-
-    /**
      * Is required?
      *
      * @return bool
@@ -96,10 +84,10 @@ class UnitTagSelectorView extends View
     public function render(mixed ...$data) : string
     {
         /** @var array{0:string, 1:string, 2:null|bool} $data */
-        $this->id         = $data[0];
-        $this->name       = $data[1];
-        $this->isRequired = $data[2] ?? false;
-        $this->getData('unit-selector-popup')->setId($this->id);
+        $this->id                                 = $data[0];
+        $this->name                               = $data[1];
+        $this->isRequired                         = $data[2] ?? false;
+        $this->getData('unit-selector-popup')->id = $this->id;
 
         return parent::render();
     }

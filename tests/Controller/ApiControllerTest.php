@@ -31,7 +31,6 @@ use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Module\ModuleManager;
 use phpOMS\Router\WebRouter;
 use phpOMS\System\MimeType;
-use phpOMS\Uri\HttpUri;
 use phpOMS\Utils\TestUtils;
 
 /**
@@ -39,7 +38,7 @@ use phpOMS\Utils\TestUtils;
  */
 final class ApiControllerTest extends \PHPUnit\Framework\TestCase
 {
-    protected $app    = null;
+    protected $app = null;
 
     protected $module = null;
 
@@ -53,14 +52,14 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
             protected string $appName = 'Api';
         };
 
-        $this->app->dbPool          = $GLOBALS['dbpool'];
-        $this->app->unitId          = 1;
-        $this->app->accountManager  = new AccountManager($GLOBALS['session']);
-        $this->app->appSettings     = new CoreSettings();
-        $this->app->moduleManager   = new ModuleManager($this->app, __DIR__ . '/../../../Modules/');
-        $this->app->dispatcher      = new Dispatcher($this->app);
-        $this->app->eventManager    = new EventManager($this->app->dispatcher);
-        $this->app->l11nManager     = new L11nManager();
+        $this->app->dbPool         = $GLOBALS['dbpool'];
+        $this->app->unitId         = 1;
+        $this->app->accountManager = new AccountManager($GLOBALS['session']);
+        $this->app->appSettings    = new CoreSettings();
+        $this->app->moduleManager  = new ModuleManager($this->app, __DIR__ . '/../../../Modules/');
+        $this->app->dispatcher     = new Dispatcher($this->app);
+        $this->app->eventManager   = new EventManager($this->app->dispatcher);
+        $this->app->l11nManager    = new L11nManager();
         $this->app->eventManager->importFromFile(__DIR__ . '/../../../Web/Api/Hooks.php');
 
         $account = new Account();
@@ -94,7 +93,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     public function testApiUnitGet() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('id', '1');
@@ -112,7 +111,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     public function testApiUnitSet() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('id', '1');
@@ -131,7 +130,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     public function testApiUnitFind() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('search', 'OMS');
@@ -149,7 +148,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     public function testApiUnitCreateDelete() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('name', 'test');
@@ -178,7 +177,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     public function testApiUnitCreateInvalid() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
 
@@ -196,7 +195,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     public function testApiDepartmentCreate() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('name', 'test');
@@ -219,7 +218,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     public function testApiDepartmentFind() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('search', 'test');
@@ -237,7 +236,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     public function testApiDepartmentCreateInvalid() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
 
@@ -253,7 +252,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     public function testApiDepartmentGet() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('id', self::$departmentId);
@@ -271,7 +270,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     public function testApiDepartmentSet() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('id', self::$departmentId);
@@ -290,7 +289,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     public function testApiDepartmentDelete() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('id', self::$departmentId);
@@ -308,7 +307,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     public function testApiPositionCreate() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('name', 'test');
@@ -329,7 +328,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     public function testApiPositionFind() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('search', 'test');
@@ -347,7 +346,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     public function testApiPositionCreateInvalid() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
 
@@ -363,7 +362,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     public function testApiPositionGet() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('id', self::$positionId);
@@ -381,7 +380,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     public function testApiPositionSet() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('id', self::$positionId);
@@ -400,7 +399,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     public function testApiPositionDelete() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('id', self::$positionId);
@@ -418,7 +417,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         \copy(__DIR__ . '/icon.png', __DIR__ . '/temp_icon.png');
 
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('names', 'Organization Logo');
@@ -446,7 +445,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     public function testApiUnitImageSetInvalid() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $this->module->apiUnitImageSet($request, $response);
 

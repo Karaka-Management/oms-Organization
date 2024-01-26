@@ -46,7 +46,7 @@ final class DepartmentTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $this->department->descriptionRaw);
         self::assertNull($this->department->parent);
         self::assertEquals(0, $this->department->unit->id);
-        self::assertEquals(Status::INACTIVE, $this->department->getStatus());
+        self::assertEquals(Status::INACTIVE, $this->department->status);
     }
 
     /**
@@ -83,16 +83,6 @@ final class DepartmentTest extends \PHPUnit\Framework\TestCase
      * @covers Modules\Organization\Models\Department
      * @group module
      */
-    public function testStatusInputOutput() : void
-    {
-        $this->department->setStatus(Status::ACTIVE);
-        self::assertEquals(Status::ACTIVE, $this->department->getStatus());
-    }
-
-    /**
-     * @covers Modules\Organization\Models\Department
-     * @group module
-     */
     public function testParentInputOutput() : void
     {
         $this->department->parent = new NullDepartment(1);
@@ -118,9 +108,9 @@ final class DepartmentTest extends \PHPUnit\Framework\TestCase
         $this->department->name           = 'Name';
         $this->department->description    = 'Description';
         $this->department->descriptionRaw = 'DescriptionRaw';
-        $this->department->setStatus(Status::ACTIVE);
-        $this->department->parent = ($p = new NullDepartment(1));
-        $this->department->unit   = ($u = new NullUnit(1));
+        $this->department->status         = Status::ACTIVE;
+        $this->department->parent         = ($p = new NullDepartment(1));
+        $this->department->unit           = ($u = new NullUnit(1));
 
         self::assertEquals($this->department->toArray(), $this->department->jsonSerialize());
         self::assertEquals(

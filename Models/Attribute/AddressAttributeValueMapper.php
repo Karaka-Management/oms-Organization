@@ -37,15 +37,15 @@ final class AddressAttributeValueMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'address_attr_value_id'                => ['name' => 'address_attr_value_id',       'type' => 'int',      'internal' => 'id'],
-        'address_attr_value_default'           => ['name' => 'address_attr_value_default',  'type' => 'bool',     'internal' => 'isDefault'],
-        'address_attr_value_valueStr'          => ['name' => 'address_attr_value_valueStr', 'type' => 'string',   'internal' => 'valueStr'],
-        'address_attr_value_valueInt'          => ['name' => 'address_attr_value_valueInt', 'type' => 'int',      'internal' => 'valueInt'],
-        'address_attr_value_valueDec'          => ['name' => 'address_attr_value_valueDec', 'type' => 'float',    'internal' => 'valueDec'],
-        'address_attr_value_valueDat'          => ['name' => 'address_attr_value_valueDat', 'type' => 'DateTime', 'internal' => 'valueDat'],
-        'address_attr_value_unit'              => ['name' => 'address_attr_value_unit', 'type' => 'string', 'internal' => 'unit'],
-        'address_attr_value_deptype'           => ['name' => 'address_attr_value_deptype', 'type' => 'int', 'internal' => 'dependingAttributeType'],
-        'address_attr_value_depvalue'          => ['name' => 'address_attr_value_depvalue', 'type' => 'int', 'internal' => 'dependingAttributeValue'],
+        'address_attr_value_id'       => ['name' => 'address_attr_value_id',       'type' => 'int',      'internal' => 'id'],
+        'address_attr_value_default'  => ['name' => 'address_attr_value_default',  'type' => 'bool',     'internal' => 'isDefault'],
+        'address_attr_value_valueStr' => ['name' => 'address_attr_value_valueStr', 'type' => 'string',   'internal' => 'valueStr'],
+        'address_attr_value_valueInt' => ['name' => 'address_attr_value_valueInt', 'type' => 'int',      'internal' => 'valueInt'],
+        'address_attr_value_valueDec' => ['name' => 'address_attr_value_valueDec', 'type' => 'float',    'internal' => 'valueDec'],
+        'address_attr_value_valueDat' => ['name' => 'address_attr_value_valueDat', 'type' => 'DateTime', 'internal' => 'valueDat'],
+        'address_attr_value_unit'     => ['name' => 'address_attr_value_unit', 'type' => 'string', 'internal' => 'unit'],
+        'address_attr_value_deptype'  => ['name' => 'address_attr_value_deptype', 'type' => 'int', 'internal' => 'dependingAttributeType'],
+        'address_attr_value_depvalue' => ['name' => 'address_attr_value_depvalue', 'type' => 'int', 'internal' => 'dependingAttributeValue'],
     ];
 
     /**

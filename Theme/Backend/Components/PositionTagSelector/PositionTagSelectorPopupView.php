@@ -48,32 +48,6 @@ class PositionTagSelectorPopupView extends View
     }
 
     /**
-     * Set selctor id.
-     *
-     * @param string $id Id
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setId(string $id) : void
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * Get selector id.
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getId() : string
-    {
-        return $this->id;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function render(mixed ...$data) : string

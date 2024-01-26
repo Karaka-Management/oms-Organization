@@ -37,10 +37,10 @@ final class UnitAttributeValueL11nMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'unit_attr_value_l11n_id'     => ['name' => 'unit_attr_value_l11n_id',    'type' => 'int',    'internal' => 'id'],
-        'unit_attr_value_l11n_title'  => ['name' => 'unit_attr_value_l11n_title', 'type' => 'string', 'internal' => 'content', 'autocomplete' => true],
-        'unit_attr_value_l11n_value'  => ['name' => 'unit_attr_value_l11n_value',  'type' => 'int',    'internal' => 'ref'],
-        'unit_attr_value_l11n_lang'   => ['name' => 'unit_attr_value_l11n_lang',  'type' => 'string', 'internal' => 'language'],
+        'unit_attr_value_l11n_id'    => ['name' => 'unit_attr_value_l11n_id',    'type' => 'int',    'internal' => 'id'],
+        'unit_attr_value_l11n_title' => ['name' => 'unit_attr_value_l11n_title', 'type' => 'string', 'internal' => 'content', 'autocomplete' => true],
+        'unit_attr_value_l11n_value' => ['name' => 'unit_attr_value_l11n_value',  'type' => 'int',    'internal' => 'ref'],
+        'unit_attr_value_l11n_lang'  => ['name' => 'unit_attr_value_l11n_lang',  'type' => 'string', 'internal' => 'language'],
     ];
 
     /**

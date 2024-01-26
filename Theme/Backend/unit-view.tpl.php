@@ -23,8 +23,8 @@ use phpOMS\Uri\UriFactory;
  */
 $unit = $this->data['unit'];
 
-$countryCodes    = ISO3166TwoEnum::getConstants();
-$countries       = ISO3166NameEnum::getConstants();
+$countryCodes = ISO3166TwoEnum::getConstants();
+$countries    = ISO3166NameEnum::getConstants();
 
 echo $this->data['nav']->render(); ?>
 
@@ -63,8 +63,8 @@ echo $this->data['nav']->render(); ?>
                     <div class="form-group">
                         <label for="iStatus"><?= $this->getHtml('Status'); ?></label>
                         <select name="status" id="iStatus">
-                            <option value="<?= Status::ACTIVE; ?>"<?= $unit->getStatus() === Status::ACTIVE ? ' selected' : ''; ?>><?= $this->getHtml('Active'); ?>
-                            <option value="<?= Status::INACTIVE; ?>"<?= $unit->getStatus() === Status::INACTIVE ? ' selected' : ''; ?>><?= $this->getHtml('Inactive'); ?>
+                            <option value="<?= Status::ACTIVE; ?>"<?= $unit->status === Status::ACTIVE ? ' selected' : ''; ?>><?= $this->getHtml('Active'); ?>
+                            <option value="<?= Status::INACTIVE; ?>"<?= $unit->status === Status::INACTIVE ? ' selected' : ''; ?>><?= $this->getHtml('Inactive'); ?>
                         </select>
                     </div>
 
@@ -117,11 +117,11 @@ echo $this->data['nav']->render(); ?>
                             <?php
                             $selected = false;
                             foreach ($countryCodes as $code3 => $code2) :
-                                if ($code2 === $unit->mainAddress->getCountry()) {
+                                if ($code2 === $unit->mainAddress->country) {
                                     $selected = true;
                                 }
                             ?>
-                            <option value="<?= $this->printHtml($code2); ?>"<?= $code2 === $unit->mainAddress->getCountry() ? ' selected' : ''; ?>>
+                            <option value="<?= $this->printHtml($code2); ?>"<?= $code2 === $unit->mainAddress->country ? ' selected' : ''; ?>>
                                 <?= $this->printHtml($countries[$code3]); ?>
                             </option>
                             <?php endforeach; ?>

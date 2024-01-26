@@ -37,10 +37,10 @@ final class AddressAttributeValueL11nMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'address_attr_value_l11n_id'     => ['name' => 'address_attr_value_l11n_id',    'type' => 'int',    'internal' => 'id'],
-        'address_attr_value_l11n_title'  => ['name' => 'address_attr_value_l11n_title', 'type' => 'string', 'internal' => 'content', 'autocomplete' => true],
-        'address_attr_value_l11n_value'  => ['name' => 'address_attr_value_l11n_value',  'type' => 'int',    'internal' => 'ref'],
-        'address_attr_value_l11n_lang'   => ['name' => 'address_attr_value_l11n_lang',  'type' => 'string', 'internal' => 'language'],
+        'address_attr_value_l11n_id'    => ['name' => 'address_attr_value_l11n_id',    'type' => 'int',    'internal' => 'id'],
+        'address_attr_value_l11n_title' => ['name' => 'address_attr_value_l11n_title', 'type' => 'string', 'internal' => 'content', 'autocomplete' => true],
+        'address_attr_value_l11n_value' => ['name' => 'address_attr_value_l11n_value',  'type' => 'int',    'internal' => 'ref'],
+        'address_attr_value_l11n_lang'  => ['name' => 'address_attr_value_l11n_lang',  'type' => 'string', 'internal' => 'language'],
     ];
 
     /**

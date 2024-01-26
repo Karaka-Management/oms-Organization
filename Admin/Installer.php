@@ -22,7 +22,6 @@ use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Module\InstallerAbstract;
 use phpOMS\Module\ModuleInfo;
-use phpOMS\Uri\HttpUri;
 
 /**
  * Installer class.
@@ -101,12 +100,14 @@ final class Installer extends InstallerAbstract
         /** @var array $attribute */
         foreach ($attributes as $attribute) {
             $response = new HttpResponse();
-            $request  = new HttpRequest(new HttpUri(''));
+            $request  = new HttpRequest();
 
             $request->header->account = 1;
             $request->setData('name', $attribute['name'] ?? '');
             $request->setData('title', \reset($attribute['l11n']));
             $request->setData('language', \array_keys($attribute['l11n'])[0] ?? 'en');
+            $request->setData('repeatable', $attribute['repeatable'] ?? false);
+            $request->setData('internal', $attribute['internal'] ?? false);
             $request->setData('is_required', $attribute['is_required'] ?? false);
             $request->setData('custom', $attribute['is_custom_allowed'] ?? false);
             $request->setData('validation_pattern', $attribute['validation_pattern'] ?? '');
@@ -132,7 +133,7 @@ final class Installer extends InstallerAbstract
                 }
 
                 $response = new HttpResponse();
-                $request  = new HttpRequest(new HttpUri(''));
+                $request  = new HttpRequest();
 
                 $request->header->account = 1;
                 $request->setData('title', $l11n);
@@ -171,7 +172,7 @@ final class Installer extends InstallerAbstract
             /** @var array $value */
             foreach ($attribute['values'] as $value) {
                 $response = new HttpResponse();
-                $request  = new HttpRequest(new HttpUri(''));
+                $request  = new HttpRequest();
 
                 $request->header->account = 1;
                 $request->setData('value', $value['value'] ?? '');
@@ -205,7 +206,7 @@ final class Installer extends InstallerAbstract
                     }
 
                     $response = new HttpResponse();
-                    $request  = new HttpRequest(new HttpUri(''));
+                    $request  = new HttpRequest();
 
                     $request->header->account = 1;
                     $request->setData('title', $l11n);
@@ -241,12 +242,14 @@ final class Installer extends InstallerAbstract
         /** @var array $attribute */
         foreach ($attributes as $attribute) {
             $response = new HttpResponse();
-            $request  = new HttpRequest(new HttpUri(''));
+            $request  = new HttpRequest();
 
             $request->header->account = 1;
             $request->setData('name', $attribute['name'] ?? '');
             $request->setData('title', \reset($attribute['l11n']));
             $request->setData('language', \array_keys($attribute['l11n'])[0] ?? 'en');
+            $request->setData('repeatable', $attribute['repeatable'] ?? false);
+            $request->setData('internal', $attribute['internal'] ?? false);
             $request->setData('is_required', $attribute['is_required'] ?? false);
             $request->setData('custom', $attribute['is_custom_allowed'] ?? false);
             $request->setData('validation_pattern', $attribute['validation_pattern'] ?? '');
@@ -272,7 +275,7 @@ final class Installer extends InstallerAbstract
                 }
 
                 $response = new HttpResponse();
-                $request  = new HttpRequest(new HttpUri(''));
+                $request  = new HttpRequest();
 
                 $request->header->account = 1;
                 $request->setData('title', $l11n);
@@ -311,7 +314,7 @@ final class Installer extends InstallerAbstract
             /** @var array $value */
             foreach ($attribute['values'] as $value) {
                 $response = new HttpResponse();
-                $request  = new HttpRequest(new HttpUri(''));
+                $request  = new HttpRequest();
 
                 $request->header->account = 1;
                 $request->setData('value', $value['value'] ?? '');
@@ -345,7 +348,7 @@ final class Installer extends InstallerAbstract
                     }
 
                     $response = new HttpResponse();
-                    $request  = new HttpRequest(new HttpUri(''));
+                    $request  = new HttpRequest();
 
                     $request->header->account = 1;
                     $request->setData('title', $l11n);

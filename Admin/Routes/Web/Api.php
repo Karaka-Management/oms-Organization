@@ -18,7 +18,7 @@ use phpOMS\Account\PermissionType;
 use phpOMS\Router\RouteVerb;
 
 return [
-    '^.*/organization/position.*$' => [
+    '^.*/organization/position(\?.*$|$)' => [
         [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiPositionCreate',
             'verb'       => RouteVerb::PUT,
@@ -56,7 +56,7 @@ return [
             ],
         ],
     ],
-    '^.*/organization/department.*$' => [
+    '^.*/organization/department(\?.*$|$)' => [
         [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiDepartmentCreate',
             'verb'       => RouteVerb::PUT,
@@ -157,7 +157,7 @@ return [
         ],
     ],
 
-    '^.*/organization/find/unit.*$' => [
+    '^.*/organization/find/unit(\?.*$|$)' => [
         [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiUnitFind',
             'verb'       => RouteVerb::GET,
@@ -168,7 +168,7 @@ return [
             ],
         ],
     ],
-    '^.*/organization/find/department.*$' => [
+    '^.*/organization/find/department(\?.*$|$)' => [
         [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiDepartmentFind',
             'verb'       => RouteVerb::GET,
@@ -179,7 +179,7 @@ return [
             ],
         ],
     ],
-    '^.*/organization/find/position.*$' => [
+    '^.*/organization/find/position(\?.*$|$)' => [
         [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiPositionFind',
             'verb'       => RouteVerb::GET,

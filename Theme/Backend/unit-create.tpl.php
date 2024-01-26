@@ -17,8 +17,8 @@ use phpOMS\Localization\ISO3166NameEnum;
 use phpOMS\Localization\ISO3166TwoEnum;
 use phpOMS\Uri\UriFactory;
 
-$countryCodes    = ISO3166TwoEnum::getConstants();
-$countries       = ISO3166NameEnum::getConstants();
+$countryCodes = ISO3166TwoEnum::getConstants();
+$countries    = ISO3166NameEnum::getConstants();
 
 /** @var \phpOMS\Views\View $this */
 echo $this->data['nav']->render(); ?>

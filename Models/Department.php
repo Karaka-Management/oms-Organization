@@ -94,32 +94,6 @@ class Department implements \JsonSerializable
     }
 
     /**
-     * Get status
-     *
-     * @return int
-     *
-     * @since 1.0.0
-     */
-    public function getStatus() : int
-    {
-        return $this->status;
-    }
-
-    /**
-     * Set status
-     *
-     * @param int $status Status
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setStatus(int $status) : void
-    {
-        $this->status = $status;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function toArray() : array

@@ -83,12 +83,12 @@ echo $this->data['nav']->render(); ?>
                         </label>
                 <tbody>
                 <?php $count = 0; foreach ($positions as $key => $value) : ++$count;
-                $url         = \phpOMS\Uri\UriFactory::build('{/base}/organization/position/profile?{?}&id=' . $value->id); ?>
+                $url         = \phpOMS\Uri\UriFactory::build('{/base}/organization/position/view?{?}&id=' . $value->id); ?>
                 <tr tabindex="0" data-href="<?= $url; ?>">
                     <td data-label="<?= $this->getHtml('ID', '0', '0'); ?>"><a href="<?= $url; ?>"><?= $value->id; ?></a>
                     <td data-label="<?= $this->getHtml('Name'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->name); ?></a>
-                    <td data-label="<?= $this->getHtml('Parent'); ?>"><a class="content" href="<?= UriFactory::build('{/base}/organization/position/profile?{?}&id=' . $value->parent->id); ?>"><?= $this->printHtml($value->parent->name); ?></a>
-                    <td data-label="<?= $this->getHtml('Department'); ?>"><a class="content" href="<?= UriFactory::build('{/base}/organization/department/profile?{?}&id=' . $value->department->id); ?>"><?= $this->printHtml($value->department->name); ?></a>
+                    <td data-label="<?= $this->getHtml('Parent'); ?>"><a class="content" href="<?= UriFactory::build('{/base}/organization/position/view?{?}&id=' . $value->parent->id); ?>"><?= $this->printHtml($value->parent->name); ?></a>
+                    <td data-label="<?= $this->getHtml('Department'); ?>"><a class="content" href="<?= UriFactory::build('{/base}/organization/department/view?{?}&id=' . $value->department->id); ?>"><?= $this->printHtml($value->department->name); ?></a>
                         <?php endforeach; ?>
                         <?php if ($count === 0) : ?>
                     <tr><td colspan="5" class="empty"><?= $this->getHtml('Empty', '0', '0'); ?>

@@ -46,7 +46,7 @@ final class PositionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $this->position->descriptionRaw);
         self::assertNull($this->position->parent);
         self::assertEquals(0, $this->position->department->id);
-        self::assertEquals(Status::INACTIVE, $this->position->getStatus());
+        self::assertEquals(Status::INACTIVE, $this->position->status);
     }
 
     /**
@@ -83,16 +83,6 @@ final class PositionTest extends \PHPUnit\Framework\TestCase
      * @covers Modules\Organization\Models\Position
      * @group module
      */
-    public function testStatusInputOutput() : void
-    {
-        $this->position->setStatus(Status::ACTIVE);
-        self::assertEquals(Status::ACTIVE, $this->position->getStatus());
-    }
-
-    /**
-     * @covers Modules\Organization\Models\Position
-     * @group module
-     */
     public function testParentInputOutput() : void
     {
         $this->position->parent = new NullPosition(1);
@@ -118,9 +108,9 @@ final class PositionTest extends \PHPUnit\Framework\TestCase
         $this->position->name           = 'Name';
         $this->position->description    = 'Description';
         $this->position->descriptionRaw = 'DescriptionRaw';
-        $this->position->setStatus(Status::ACTIVE);
-        $this->position->parent     = ($p = new NullPosition(1));
-        $this->position->department = ($d = new NullDepartment(1));
+        $this->position->status         = Status::ACTIVE;
+        $this->position->parent         = ($p = new NullPosition(1));
+        $this->position->department     = ($d = new NullDepartment(1));
 
         self::assertEquals($this->position->toArray(), $this->position->jsonSerialize());
         self::assertEquals(

@@ -83,14 +83,14 @@ echo $this->data['nav']->render(); ?>
                         </label>
                 <tbody>
                 <?php foreach ($units as $key => $value) :
-                    $url = UriFactory::build('{/base}/organization/unit/profile?{?}&id=' . $value->id); ?>
+                    $url = UriFactory::build('{/base}/organization/unit/view?{?}&id=' . $value->id); ?>
                 <tr tabindex="0" data-href="<?= $url; ?>">
                     <td data-label="<?= $this->getHtml('ID', '0', '0'); ?>"><a href="<?= $url; ?>"><?= $value->id; ?></a>
                     <td><a href="<?= $url; ?>"><img alt="<?= $this->getHtml('IMG_alt_profile'); ?>" class="profile-image" src="<?= $value->image->id === 0 ?
                             UriFactory::build('Modules/Organization/Theme/Backend/img/org_default.png') :
                             UriFactory::build($value->image->getPath()); ?>"></a>
                     <td data-label="<?= $this->getHtml('Name'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->name); ?></a>
-                    <td data-label="<?= $this->getHtml('Parent'); ?>"><a class="content" href="<?= UriFactory::build('{/base}/organization/unit/profile?{?}&id=' . $value->parent->id); ?>"><?= $this->printHtml($value->parent->name); ?></a>
+                    <td data-label="<?= $this->getHtml('Parent'); ?>"><a class="content" href="<?= UriFactory::build('{/base}/organization/unit/view?{?}&id=' . $value->parent->id); ?>"><?= $this->printHtml($value->parent->name); ?></a>
                         <?php endforeach; ?>
             </table>
             </div>

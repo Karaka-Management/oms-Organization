@@ -67,18 +67,6 @@ class PositionTagSelectorView extends View
     }
 
     /**
-     * Get selector id
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getId() : string
-    {
-        return $this->id;
-    }
-
-    /**
      * Is required?
      *
      * @return bool
@@ -100,7 +88,7 @@ class PositionTagSelectorView extends View
         $this->name       = $data[1];
         $this->isRequired = $data[2] ?? false;
 
-        $this->getData('position-selector-popup')->setId($this->id);
+        $this->getData('position-selector-popup')->id = $this->id;
 
         return parent::render();
     }

@@ -23,7 +23,7 @@ $departments = $this->data['departments'] ?? [];
 $previous = empty($departments)
     ? 'organization/department/list'
     : 'organization/department/list?{?}&id=' . \reset($departments)->id . '&ptype=p';
-$next     = empty($departments)
+$next = empty($departments)
     ? 'organization/department/list'
     : 'organization/department/list?{?}&id='
         . ($this->getData('hasMore') ? \end($departments)->id : $this->request->getData('id'))
@@ -90,12 +90,12 @@ echo $this->data['nav']->render(); ?>
                 <tbody>
                 <?php $c = 0;
                     foreach ($departments as $key => $value) : ++$c;
-                    $url = UriFactory::build('{/base}/organization/department/profile?{?}&id=' . $value->id); ?>
+                    $url = UriFactory::build('{/base}/organization/department/view?{?}&id=' . $value->id); ?>
                 <tr tabindex="0" data-href="<?= $url; ?>">
                     <td data-label="<?= $this->getHtml('ID', '0', '0'); ?>"><a href="<?= $url; ?>"><?= $value->id; ?></a>
                     <td data-label="<?= $this->getHtml('Name'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->name); ?></a>
-                    <td data-label="<?= $this->getHtml('Parent'); ?>"><a class="content" href="<?= UriFactory::build('{/base}/organization/department/profile?{?}&id=' . $value->parent->id); ?>"><?= $this->printHtml($value->parent->name); ?></a>
-                    <td data-label="<?= $this->getHtml('Name'); ?>"><a class="content" href="<?= UriFactory::build('{/base}/organization/unit/profile?{?}&id=' . $value->unit->id); ?>"><?= $this->printHtml($value->unit->name); ?></a>
+                    <td data-label="<?= $this->getHtml('Parent'); ?>"><a class="content" href="<?= UriFactory::build('{/base}/organization/department/view?{?}&id=' . $value->parent->id); ?>"><?= $this->printHtml($value->parent->name); ?></a>
+                    <td data-label="<?= $this->getHtml('Name'); ?>"><a class="content" href="<?= UriFactory::build('{/base}/organization/unit/view?{?}&id=' . $value->unit->id); ?>"><?= $this->printHtml($value->unit->name); ?></a>
                         <?php endforeach; ?>
                 <?php if ($c === 0) : ?>
                 <tr>

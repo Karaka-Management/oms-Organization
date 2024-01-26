@@ -37,15 +37,15 @@ final class UnitAttributeValueMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'unit_attr_value_id'                => ['name' => 'unit_attr_value_id',       'type' => 'int',      'internal' => 'id'],
-        'unit_attr_value_default'           => ['name' => 'unit_attr_value_default',  'type' => 'bool',     'internal' => 'isDefault'],
-        'unit_attr_value_valueStr'          => ['name' => 'unit_attr_value_valueStr', 'type' => 'string',   'internal' => 'valueStr'],
-        'unit_attr_value_valueInt'          => ['name' => 'unit_attr_value_valueInt', 'type' => 'int',      'internal' => 'valueInt'],
-        'unit_attr_value_valueDec'          => ['name' => 'unit_attr_value_valueDec', 'type' => 'float',    'internal' => 'valueDec'],
-        'unit_attr_value_valueDat'          => ['name' => 'unit_attr_value_valueDat', 'type' => 'DateTime', 'internal' => 'valueDat'],
-        'unit_attr_value_unit'              => ['name' => 'unit_attr_value_unit', 'type' => 'string', 'internal' => 'unit'],
-        'unit_attr_value_deptype'           => ['name' => 'unit_attr_value_deptype', 'type' => 'int', 'internal' => 'dependingAttributeType'],
-        'unit_attr_value_depvalue'          => ['name' => 'unit_attr_value_depvalue', 'type' => 'int', 'internal' => 'dependingAttributeValue'],
+        'unit_attr_value_id'       => ['name' => 'unit_attr_value_id',       'type' => 'int',      'internal' => 'id'],
+        'unit_attr_value_default'  => ['name' => 'unit_attr_value_default',  'type' => 'bool',     'internal' => 'isDefault'],
+        'unit_attr_value_valueStr' => ['name' => 'unit_attr_value_valueStr', 'type' => 'string',   'internal' => 'valueStr'],
+        'unit_attr_value_valueInt' => ['name' => 'unit_attr_value_valueInt', 'type' => 'int',      'internal' => 'valueInt'],
+        'unit_attr_value_valueDec' => ['name' => 'unit_attr_value_valueDec', 'type' => 'float',    'internal' => 'valueDec'],
+        'unit_attr_value_valueDat' => ['name' => 'unit_attr_value_valueDat', 'type' => 'DateTime', 'internal' => 'valueDat'],
+        'unit_attr_value_unit'     => ['name' => 'unit_attr_value_unit', 'type' => 'string', 'internal' => 'unit'],
+        'unit_attr_value_deptype'  => ['name' => 'unit_attr_value_deptype', 'type' => 'int', 'internal' => 'dependingAttributeType'],
+        'unit_attr_value_depvalue' => ['name' => 'unit_attr_value_depvalue', 'type' => 'int', 'internal' => 'dependingAttributeValue'],
     ];
 
     /**

@@ -67,18 +67,6 @@ class DepartmentTagSelectorView extends View
     }
 
     /**
-     * Get the selector id
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getId() : string
-    {
-        return $this->id;
-    }
-
-    /**
      * Is required?
      *
      * @return bool
@@ -100,7 +88,7 @@ class DepartmentTagSelectorView extends View
         $this->name       = $data[1];
         $this->isRequired = $data[2] ?? false;
 
-        $this->getData('department-selector-popup')->setId($this->id);
+        $this->getData('department-selector-popup')->id = $this->id;
 
         return parent::render();
     }

@@ -52,7 +52,7 @@ final class PositionMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const BELONGS_TO = [
-        'parent'     => [
+        'parent' => [
             'mapper'   => self::class,
             'external' => 'organization_position_parent',
         ],

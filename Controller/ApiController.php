@@ -31,7 +31,6 @@ use Modules\Organization\Models\Status;
 use Modules\Organization\Models\Unit;
 use Modules\Organization\Models\UnitMapper;
 use phpOMS\Account\GroupStatus;
-use phpOMS\Localization\ISO3166TwoEnum;
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Message\Http\RequestStatusCode;
@@ -139,7 +138,7 @@ final class ApiController extends Controller
 
         $parent       = $request->getDataInt('parent') ?? 0;
         $unit->parent = $parent === 0 ? $unit->parent : new NullUnit($parent);
-        $unit->setStatus($request->getDataInt('status') ?? $unit->getStatus());
+        $unit->status = Status::tryFromValue($request->getDataInt('status')) ?? $unit->status;
 
         return $unit;
     }
@@ -249,11 +248,13 @@ final class ApiController extends Controller
         $oldUnit = clone $unit;
 
         if ($unit->mainAddress->id !== 0) {
-            $oldAddr = clone $unit->mainAddress;
-            $addr    = $this->updateUnitMainAddressFromRequest($request, $unit);
+            // Update existing address
+            $oldAddr = $unit->mainAddress;
+            $addr    = $this->app->moduleManager->get('Admin', 'Api')->updateAddressFromRequest($request, clone $unit->mainAddress);
             $this->updateModel($request->header->account, $oldAddr, $addr, AddressMapper::class, 'address', $request->getOrigin());
         } else {
-            $addr = $this->createUnitMainAddressFromRequest($request);
+            // Create new address
+            $addr = $this->app->moduleManager->get('Admin', 'Api')->createAddressFromRequest($request);
             $this->createModel($request->header->account, $addr, AddressMapper::class, 'address', $request->getOrigin());
 
             $unit->mainAddress = new NullAddress($addr->id);
@@ -289,50 +290,6 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract $request Request
      *
-     * @return Address
-     *
-     * @since 1.0.0
-     */
-    private function createUnitMainAddressFromRequest(RequestAbstract $request) : Address
-    {
-        $addr          = new Address();
-        $addr->name    = $request->getDataString('legal') ?? '';
-        $addr->address = $request->getDataString('address') ?? '';
-        $addr->postal  = $request->getDataString('postal') ?? '';
-        $addr->city    = $request->getDataString('city') ?? '';
-        $addr->state   = $request->getDataString('state') ?? '';
-        $addr->setCountry($request->getDataString('country') ?? ISO3166TwoEnum::_XXX);
-
-        return $addr;
-    }
-
-    /**
-     * Method to create unit from request.
-     *
-     * @param RequestAbstract $request Request
-     *
-     * @return Address
-     *
-     * @since 1.0.0
-     */
-    private function updateUnitMainAddressFromRequest(RequestAbstract $request, Unit $unit) : Address
-    {
-        $addr          = $unit->mainAddress;
-        $addr->name    = $request->getDataString('legal') ?? '';
-        $addr->address = $request->getDataString('address') ?? '';
-        $addr->postal  = $request->getDataString('postal') ?? '';
-        $addr->city    = $request->getDataString('city') ?? '';
-        $addr->state   = $request->getDataString('state') ?? '';
-        $addr->setCountry($request->getDataString('country') ?? ISO3166TwoEnum::_XXX);
-
-        return $addr;
-    }
-
-    /**
-     * Method to create unit from request.
-     *
-     * @param RequestAbstract $request Request
-     *
      * @return Unit
      *
      * @since 1.0.0
@@ -345,18 +302,11 @@ final class ApiController extends Controller
         $unit->description    = Markdown::parse($request->getDataString('description') ?? '');
 
         $unit->parent = new NullUnit((int) $request->getData('parent'));
-        $unit->setStatus((int) $request->getData('status'));
+        $unit->status = Status::tryFromValue($request->getDataInt('status')) ?? Status::ACTIVE;
 
         if ($request->hasData('address')) {
-            $addr          = new Address();
-            $addr->name    = $request->getDataString('legal') ?? ($request->getDataString('name') ?? '');
-            $addr->address = $request->getDataString('address') ?? '';
-            $addr->postal  = $request->getDataString('postal') ?? '';
-            $addr->city    = $request->getDataString('city') ?? '';
-            $addr->state   = $request->getDataString('state') ?? '';
-            $addr->setCountry($request->getDataString('country') ?? ISO3166TwoEnum::_XXX);
-
-            $unit->mainAddress = $addr;
+            $request->setData('name', $request->getDataString('legal') ?? $request->getDataString('name'), true);
+            $unit->mainAddress = $this->app->moduleManager->get('Admin', 'Api')->createAddressFromRequest($request);
         }
 
         return $unit;
@@ -518,7 +468,7 @@ final class ApiController extends Controller
 
         $department           = (int) $request->getData('department');
         $position->department = empty($department) ? $position->department : new NullDepartment($department);
-        $position->setStatus($request->getDataInt('status') ?? $position->getStatus());
+        $position->status     = Status::tryFromValue($request->getDataInt('status')) ?? $position->status;
 
         return $position;
     }
@@ -572,9 +522,9 @@ final class ApiController extends Controller
      */
     private function createPositionFromRequest(RequestAbstract $request) : Position
     {
-        $position       = new Position();
-        $position->name = $request->getDataString('name') ?? '';
-        $position->setStatus($request->getDataInt('status') ?? Status::ACTIVE);
+        $position                 = new Position();
+        $position->name           = $request->getDataString('name') ?? '';
+        $position->status         = Status::tryFromValue($request->getDataInt('status')) ?? Status::ACTIVE;
         $position->descriptionRaw = $request->getDataString('description') ?? '';
         $position->description    = Markdown::parse($request->getDataString('description') ?? '');
         $position->parent         = new NullPosition((int) $request->getData('parent'));
@@ -669,7 +619,7 @@ final class ApiController extends Controller
 
         $parent             = (int) $request->getData('parent');
         $department->parent = empty($parent) ? $department->parent : new NullDepartment($parent);
-        $department->setStatus($request->getDataInt('status') ?? $department->getStatus());
+        $department->status = Status::tryFromValue($request->getDataInt('status')) ?? $department->status;
 
         $unit             = (int) $request->getData('unit');
         $department->unit = empty($unit) ? $department->unit : new NullUnit($unit);
@@ -747,9 +697,9 @@ final class ApiController extends Controller
      */
     private function createDepartmentFromRequest(RequestAbstract $request) : Department
     {
-        $department       = new Department();
-        $department->name = (string) $request->getData('name');
-        $department->setStatus((int) $request->getData('status'));
+        $department         = new Department();
+        $department->name   = (string) $request->getData('name');
+        $department->status = Status::tryFromValue($request->getDataInt('status')) ?? Status::ACTIVE;
 
         $department->parent         = new NullDepartment((int) $request->getData('parent'));
         $department->unit           = new NullUnit($request->getDataInt('unit') ?? 1);

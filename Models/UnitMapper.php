@@ -82,7 +82,7 @@ final class UnitMapper extends DataMapperFactory
             'mapper'   => AddressMapper::class,
             'external' => 'unit_address',
         ],
-        'image'    => [
+        'image' => [
             'mapper'   => MediaMapper::class,
             'external' => 'unit_image',
         ],
@@ -95,7 +95,7 @@ final class UnitMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const BELONGS_TO = [
-        'parent'  => [
+        'parent' => [
             'mapper'   => self::class,
             'external' => 'unit_parent',
         ],

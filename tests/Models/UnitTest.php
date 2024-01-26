@@ -46,7 +46,7 @@ final class UnitTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $this->unit->descriptionRaw);
         self::assertNull($this->unit->parent);
         self::assertInstanceOf('Modules\Media\Models\NullMedia', $this->unit->image);
-        self::assertEquals(Status::INACTIVE, $this->unit->getStatus());
+        self::assertEquals(Status::INACTIVE, $this->unit->status);
     }
 
     /**
@@ -57,16 +57,6 @@ final class UnitTest extends \PHPUnit\Framework\TestCase
     {
         $this->unit->name = 'Name';
         self::assertEquals('Name', $this->unit->name);
-    }
-
-    /**
-     * @covers Modules\Organization\Models\Unit
-     * @group module
-     */
-    public function testStatusInputOutput() : void
-    {
-        $this->unit->setStatus(Status::ACTIVE);
-        self::assertEquals(Status::ACTIVE, $this->unit->getStatus());
     }
 
     /**
@@ -118,9 +108,9 @@ final class UnitTest extends \PHPUnit\Framework\TestCase
         $this->unit->name           = 'Name';
         $this->unit->description    = 'Description';
         $this->unit->descriptionRaw = 'DescriptionRaw';
-        $this->unit->setStatus(Status::ACTIVE);
-        $this->unit->parent = ($p = new NullUnit(1));
-        $this->unit->image  = ($i = new NullMedia(1));
+        $this->unit->status         = Status::ACTIVE;
+        $this->unit->parent         = ($p = new NullUnit(1));
+        $this->unit->image          = ($i = new NullMedia(1));
 
         self::assertEquals($this->unit->toArray(), $this->unit->jsonSerialize());
         self::assertEquals(
