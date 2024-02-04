@@ -341,7 +341,7 @@ final class ApiController extends Controller
 
         $path = '/Modules/Organization/' . $unit->name;
 
-        $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
+        $uploaded = $this->app->moduleManager->get('Media', 'Api')->uploadFiles(
             $request->getDataList('names'),
             $request->getDataList('filenames'),
             $uploadedFiles,
