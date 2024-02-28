@@ -95,7 +95,7 @@ final class Installer extends InstallerAbstract
         $unitAttrType = [];
 
         /** @var \Modules\Organization\Controller\ApiAttributeController $module */
-        $module = $app->moduleManager->getModuleInstance('Organization', 'ApiAttribute');
+        $module = $app->moduleManager->get('Organization', 'ApiAttribute');
 
         /** @var array $attribute */
         foreach ($attributes as $attribute) {
@@ -164,7 +164,7 @@ final class Installer extends InstallerAbstract
         $unitAttrValue = [];
 
         /** @var \Modules\Organization\Controller\ApiAttributeController $module */
-        $module = $app->moduleManager->getModuleInstance('Organization', 'ApiAttribute');
+        $module = $app->moduleManager->get('Organization', 'ApiAttribute');
 
         foreach ($attributes as $attribute) {
             $unitAttrValue[$attribute['name']] = [];
@@ -237,7 +237,7 @@ final class Installer extends InstallerAbstract
         $addressAttrType = [];
 
         /** @var \Modules\Organization\Controller\ApiAddressAttributeController $module */
-        $module = $app->moduleManager->getModuleInstance('Organization', 'ApiAddressAttribute');
+        $module = $app->moduleManager->get('Organization', 'ApiAddressAttribute');
 
         /** @var array $attribute */
         foreach ($attributes as $attribute) {
@@ -306,7 +306,7 @@ final class Installer extends InstallerAbstract
         $addressAttrValue = [];
 
         /** @var \Modules\Organization\Controller\ApiAddressAttributeController $module */
-        $module = $app->moduleManager->getModuleInstance('Organization', 'ApiAddressAttribute');
+        $module = $app->moduleManager->get('Organization', 'ApiAddressAttribute');
 
         foreach ($attributes as $attribute) {
             $addressAttrValue[$attribute['name']] = [];

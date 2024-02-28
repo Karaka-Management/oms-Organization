@@ -123,9 +123,7 @@ final class BackendController extends Controller
      */
     public function viewOrganigram(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
-        $response->data['Content']
-            ->head
-            ->addAsset(AssetType::CSS, 'Modules/Organization/Theme/Backend/css/styles.css?v=1.0.0');
+        $response->data['Content']->head->addAsset(AssetType::CSS, 'Modules/Organization/Theme/Backend/css/styles.css?v=' . self::VERSION);
 
         $view = new View($this->app->l11nManager, $request, $response);
 
@@ -152,7 +150,7 @@ final class BackendController extends Controller
     /**
      * Create organization tree
      *
-     * @param array<int, Unit|Department|Position> $components Componants to form tree for
+     * @param array<int, Unit|Department|Position> $components Components to form tree for
      *
      * @return array
      *

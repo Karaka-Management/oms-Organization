@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Modules\Organization\Models;
 
 use Modules\Admin\Models\AddressMapper;
+use Modules\Admin\Models\ContactMapper;
 use Modules\Media\Models\MediaMapper;
 use Modules\Organization\Models\Attribute\UnitAttributeMapper;
 use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
@@ -68,6 +69,12 @@ final class UnitMapper extends DataMapperFactory
             'self'        => 'unit_attr_unit',
             'conditional' => true,
             'external'    => null,
+        ],
+        'contacts' => [
+            'mapper'   => ContactMapper::class,
+            'table'    => 'unit_contact_rel',
+            'external' => 'unit_contact_rel_contact',
+            'self'     => 'unit_contact_rel_unit',
         ],
     ];
 

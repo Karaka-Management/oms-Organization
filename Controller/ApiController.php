@@ -244,7 +244,11 @@ final class ApiController extends Controller
         }
 
         /** @var Unit $unit */
-        $unit    = UnitMapper::get()->with('mainAddress')->where('id', $request->getData('unit'))->execute();
+        $unit = UnitMapper::get()
+            ->with('mainAddress')
+            ->where('id', $request->getData('unit'))
+            ->execute();
+
         $oldUnit = clone $unit;
 
         if ($unit->mainAddress->id !== 0) {

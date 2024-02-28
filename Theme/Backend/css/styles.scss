@@ -1,31 +1,83 @@
-.organigram {
+.tree, .tree ul, .tree li {
+    list-style: none;
+    padding: 0;
+    position: relative;
+}
 
-    > div {
-        margin: 0 auto;
+.tree {
+    display: table;
+    text-align: center;
+
+    .tree {
+        border-top: 1px solid #666;
     }
 
-    .portlet {
-        margin: 0 auto;
-        margin-bottom: 1rem;
-    }
-
-    .unit {
-        margin: 1rem auto;
-    }
-
-    .departments {
-        margin: .5rem;
-        padding: 1rem 1rem 0 1rem;
-        box-sizing: border-box;
-        display: flex;
-        flex: 0 0 auto;
-        flex-direction: column;
-        flex-wrap: wrap;
-        border: 1px solid rgb(218, 218, 218);
-    }
-
-    .position {
-        margin: 0 auto;
+    .box {
+        margin: 0;
         padding: 1rem;
+        border: 0;
+    }
+
+    ul {
+        width: 100%;
+        display: table;
+    }
+
+    ul:not(.tree) li:before {
+        border: 1px solid #666;
+    }
+
+    li {
+        display: table-cell;
+        padding: .5em 0;
+        vertical-align: top;
+
+        &:before {
+            content: "";
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        &:first-child:before {
+            left: 50%;
+        }
+
+        &:last-child:before {
+            right: 50%;
+        }
+
+        > span {
+            text-align: left;
+            border: solid .1em #666;
+            display: inline-block;
+            margin: 0 .2em .5em;
+            position: relative;
+        }
+    }
+
+    ul:not(.tree):before, span:before {
+        border: solid 1px #666;
+        content: "";
+        height: .45em;
+        left: 50%;
+        position: absolute;
+    }
+
+    ul:before {
+        top: -.5rem;
+    }
+
+    span:before {
+        top: -.5rem;
+    }
+
+    > li {
+        &:before,
+        &:after,
+        > span:before {
+            border: none;
+        }
     }
 }

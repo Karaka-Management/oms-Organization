@@ -87,6 +87,14 @@ class Unit implements \JsonSerializable
 
     public Address $mainAddress;
 
+    /**
+     * Contact data.
+     *
+     * @var Contact[]
+     * @since 1.0.0
+     */
+    public array $contacts = [];
+
     public array $address = [];
 
     /**
