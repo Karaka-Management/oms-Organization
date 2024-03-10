@@ -28,27 +28,40 @@ echo $this->data['nav']->render(); ?>
             <form id="iPosition" action="<?= UriFactory::build('{/api}organization/position?{?}'); ?>" method="POST">
                 <div class="portlet-head"><?= $this->getHtml('Position'); ?></div>
                 <div class="portlet-body">
-                    <table class="layout wf-100" style="table-layout: fixed">
-                        <tr><td><label for="iName"><?= $this->getHtml('Name'); ?></label>
-                        <tr><td><input type="text" name="name" id="iName" value="<?= $this->printHtml($position->name); ?>">
-                        <tr><td><label for="iParent"><?= $this->getHtml('Parent'); ?></label>
-                        <tr><td><?= $this->getData('position-selector')->render('iParent', 'parent', false); ?>
-                        <tr><td><label for="iDepartment"><?= $this->getHtml('Department'); ?></label>
-                        <tr><td><?= $this->getData('department-selector')->render('iDepartment', 'department', false); ?>
-                        <tr><td><label for="iStatus"><?= $this->getHtml('Status'); ?></label>
-                        <tr><td><select name="status" id="iStatus">
-                                    <option><?= $this->getHtml('Active'); ?>
-                                    <option><?= $this->getHtml('Inactive'); ?>
-                                </select>
-                        <tr><td><?= $this->getData('editor')->render('position-editor'); ?>
-                        <tr><td><?= $this->getData('editor')->getData('text')->render(
-                            'position-editor',
-                            'description',
-                            'iPosition',
-                            $position->descriptionRaw,
-                            $position->description
-                        ); ?>
-                    </table>
+                    <div class="form-group">
+                        <label for="iName"><?= $this->getHtml('Name'); ?></label>
+                        <input type="text" name="name" id="iName" value="<?= $this->printHtml($position->name); ?>">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="iParent"><?= $this->getHtml('Parent'); ?></label>
+                        <?= $this->getData('position-selector')->render('iParent', 'parent', false); ?>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="iDepartment"><?= $this->getHtml('Department'); ?></label>
+                        <?= $this->getData('department-selector')->render('iDepartment', 'department', false); ?>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="iStatus"><?= $this->getHtml('Status'); ?></label>
+                        <select name="status" id="iStatus">
+                            <option><?= $this->getHtml('Active'); ?>
+                            <option><?= $this->getHtml('Inactive'); ?>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <?= $this->getData('editor')->render('position-editor'); ?>
+                    </div>
+
+                    <?= $this->getData('editor')->getData('text')->render(
+                        'position-editor',
+                        'description',
+                        'iPosition',
+                        $position->descriptionRaw,
+                        $position->description
+                    ); ?>
                 </div>
                 <div class="portlet-foot">
                     <input id="iSubmit" name="submit" type="submit" value="<?= $this->getHtml('Save', '0', '0'); ?>">

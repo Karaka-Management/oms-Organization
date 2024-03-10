@@ -26,17 +26,27 @@ echo $this->data['nav']->render(); ?>
                 autocomplete="off">
                 <div class="portlet-head"><?= $this->getHtml('Department'); ?></div>
                 <div class="portlet-body">
-                    <table class="layout wf-100" style="table-layout: fixed">
-                        <tr><td><label for="iName"><?= $this->getHtml('Name'); ?></label>
-                        <tr><td><input type="text" name="name" id="iName" required>
-                        <tr><td><label for="iParent"><?= $this->getHtml('Parent'); ?></label>
-                        <tr><td><?= $this->getData('department-selector')->render('iParent', 'parent', false); ?>
-                        <tr><td><label for="iUnit"><?= $this->getHtml('Unit'); ?></label>
-                        <tr><td><?= $this->getData('unit-selector')->render('iUnit', 'unit', false); ?>
-                        <tr><td><label for="iDescription"><?= $this->getHtml('Description'); ?></label>
-                        <tr><td><?= $this->getData('editor')->render('department-editor'); ?>
-                        <tr><td><?= $this->getData('editor')->getData('text')->render('department-editor', 'description', 'fDepartmentCreate'); ?>
-                    </table>
+                    <div class="form-group">
+                        <label for="iName"><?= $this->getHtml('Name'); ?></label>
+                        <input type="text" name="name" id="iName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="iParent"><?= $this->getHtml('Parent'); ?></label>
+                        <?= $this->getData('department-selector')->render('iParent', 'parent', false); ?>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="iUnit"><?= $this->getHtml('Unit'); ?></label>
+                        <?= $this->getData('unit-selector')->render('iUnit', 'unit', false); ?>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="iDescription"><?= $this->getHtml('Description'); ?></label>
+                        <?= $this->getData('editor')->render('department-editor'); ?>
+                    </div>
+
+                    <?= $this->getData('editor')->getData('text')->render('department-editor', 'description', 'fDepartmentCreate'); ?>
                 </div>
                 <div class="portlet-foot">
                     <input id="iSubmit" name="submit" type="submit" value="<?= $this->getHtml('Create', '0', '0'); ?>">

@@ -47,7 +47,10 @@ echo $this->data['nav']->render(); ?>
                         </select>
                     </div>
 
-                    <?= $this->getData('editor')->render('unit-editor'); ?>
+                    <div class="form-group">
+                        <?= $this->getData('editor')->render('unit-editor'); ?>
+                    </div>
+
                     <?= $this->getData('editor')->getData('text')->render('unit-editor', 'description', 'fUnitCreate'); ?>
                 </div>
                 <div class="portlet-foot">
