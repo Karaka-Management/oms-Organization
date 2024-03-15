@@ -90,7 +90,7 @@ class Unit implements \JsonSerializable
     /**
      * Contact data.
      *
-     * @var Contact[]
+     * @var \Modules\Admin\Models\Contact[]
      * @since 1.0.0
      */
     public array $contacts = [];
