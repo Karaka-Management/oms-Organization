@@ -24,7 +24,7 @@ use Modules\Organization\Models\UnitMapper;
 final class UnitMapperTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers Modules\Organization\Models\UnitMapper
+     * @covers \Modules\Organization\Models\UnitMapper
      * @group module
      */
     public function testCRUD() : void

@@ -24,7 +24,7 @@ use Modules\Organization\Models\PositionMapper;
 final class PositionMapperTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers Modules\Organization\Models\PositionMapper
+     * @covers \Modules\Organization\Models\PositionMapper
      * @group module
      */
     public function testCRUD() : void

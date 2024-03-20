@@ -22,7 +22,7 @@ use Modules\Organization\Models\NullUnit;
 final class NullUnitTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers Modules\Organization\Models\NullUnit
+     * @covers \Modules\Organization\Models\NullUnit
      * @group module
      */
     public function testNull() : void
@@ -31,7 +31,7 @@ final class NullUnitTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Organization\Models\NullUnit
+     * @covers \Modules\Organization\Models\NullUnit
      * @group module
      */
     public function testId() : void
@@ -41,7 +41,7 @@ final class NullUnitTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Organization\Models\NullUnit
+     * @covers \Modules\Organization\Models\NullUnit
      * @group module
      */
     public function testJsonSerialize() : void

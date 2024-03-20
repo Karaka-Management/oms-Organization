@@ -22,7 +22,7 @@ use Modules\Organization\Models\NullDepartment;
 final class NullDepartmentTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers Modules\Organization\Models\NullDepartment
+     * @covers \Modules\Organization\Models\NullDepartment
      * @group module
      */
     public function testNull() : void
@@ -31,7 +31,7 @@ final class NullDepartmentTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Organization\Models\NullDepartment
+     * @covers \Modules\Organization\Models\NullDepartment
      * @group module
      */
     public function testId() : void
@@ -41,7 +41,7 @@ final class NullDepartmentTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Organization\Models\NullDepartment
+     * @covers \Modules\Organization\Models\NullDepartment
      * @group module
      */
     public function testJsonSerialize() : void

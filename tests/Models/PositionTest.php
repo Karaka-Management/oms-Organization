@@ -35,7 +35,7 @@ final class PositionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Organization\Models\Position
+     * @covers \Modules\Organization\Models\Position
      * @group module
      */
     public function testDefault() : void
@@ -50,7 +50,7 @@ final class PositionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Organization\Models\Position
+     * @covers \Modules\Organization\Models\Position
      * @group module
      */
     public function testNameInputOutput() : void
@@ -60,7 +60,7 @@ final class PositionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Organization\Models\Position
+     * @covers \Modules\Organization\Models\Position
      * @group module
      */
     public function testDescriptionInputOutput() : void
@@ -70,7 +70,7 @@ final class PositionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Organization\Models\Position
+     * @covers \Modules\Organization\Models\Position
      * @group module
      */
     public function testDescriptionRawInputOutput() : void
@@ -80,7 +80,7 @@ final class PositionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Organization\Models\Position
+     * @covers \Modules\Organization\Models\Position
      * @group module
      */
     public function testParentInputOutput() : void
@@ -90,7 +90,7 @@ final class PositionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Organization\Models\Position
+     * @covers \Modules\Organization\Models\Position
      * @group module
      */
     public function testDepartmentInputOutput() : void
@@ -100,7 +100,7 @@ final class PositionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Organization\Models\Position
+     * @covers \Modules\Organization\Models\Position
      * @group module
      */
     public function testSerialize() : void

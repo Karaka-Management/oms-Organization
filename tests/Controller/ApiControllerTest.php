@@ -87,7 +87,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Organization\Controller\ApiController
+     * @covers \Modules\Organization\Controller\ApiController
      * @group module
      */
     public function testApiUnitGet() : void
@@ -105,7 +105,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Organization\Controller\ApiController
+     * @covers \Modules\Organization\Controller\ApiController
      * @group module
      */
     public function testApiUnitSet() : void
@@ -124,7 +124,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Organization\Controller\ApiController
+     * @covers \Modules\Organization\Controller\ApiController
      * @group module
      */
     public function testApiUnitFind() : void
@@ -142,7 +142,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Organization\Controller\ApiController
+     * @covers \Modules\Organization\Controller\ApiController
      * @group module
      */
     public function testApiUnitCreateDelete() : void
@@ -171,7 +171,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Organization\Controller\ApiController
+     * @covers \Modules\Organization\Controller\ApiController
      * @group module
      */
     public function testApiUnitCreateInvalid() : void
@@ -189,7 +189,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     protected static $departmentId = 0;
 
     /**
-     * @covers Modules\Organization\Controller\ApiController
+     * @covers \Modules\Organization\Controller\ApiController
      * @group module
      */
     public function testApiDepartmentCreate() : void
@@ -212,7 +212,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Organization\Controller\ApiController
+     * @covers \Modules\Organization\Controller\ApiController
      * @group module
      */
     public function testApiDepartmentFind() : void
@@ -230,7 +230,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Organization\Controller\ApiController
+     * @covers \Modules\Organization\Controller\ApiController
      * @group module
      */
     public function testApiDepartmentCreateInvalid() : void
@@ -246,7 +246,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Organization\Controller\ApiController
+     * @covers \Modules\Organization\Controller\ApiController
      * @group module
      */
     public function testApiDepartmentGet() : void
@@ -264,7 +264,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Organization\Controller\ApiController
+     * @covers \Modules\Organization\Controller\ApiController
      * @group module
      */
     public function testApiDepartmentSet() : void
@@ -283,7 +283,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Organization\Controller\ApiController
+     * @covers \Modules\Organization\Controller\ApiController
      * @group module
      */
     public function testApiDepartmentDelete() : void
@@ -301,7 +301,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     protected static $positionId = 0;
 
     /**
-     * @covers Modules\Organization\Controller\ApiController
+     * @covers \Modules\Organization\Controller\ApiController
      * @group module
      */
     public function testApiPositionCreate() : void
@@ -322,7 +322,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Organization\Controller\ApiController
+     * @covers \Modules\Organization\Controller\ApiController
      * @group module
      */
     public function testApiPositionFind() : void
@@ -340,7 +340,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Organization\Controller\ApiController
+     * @covers \Modules\Organization\Controller\ApiController
      * @group module
      */
     public function testApiPositionCreateInvalid() : void
@@ -356,7 +356,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Organization\Controller\ApiController
+     * @covers \Modules\Organization\Controller\ApiController
      * @group module
      */
     public function testApiPositionGet() : void
@@ -374,7 +374,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Organization\Controller\ApiController
+     * @covers \Modules\Organization\Controller\ApiController
      * @group module
      */
     public function testApiPositionSet() : void
@@ -393,7 +393,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Organization\Controller\ApiController
+     * @covers \Modules\Organization\Controller\ApiController
      * @group module
      */
     public function testApiPositionDelete() : void
@@ -409,7 +409,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Organization\Controller\ApiController
+     * @covers \Modules\Organization\Controller\ApiController
      * @group module
      */
     public function testApiUnitImageSet() : void
@@ -439,7 +439,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Organization\Controller\ApiController
+     * @covers \Modules\Organization\Controller\ApiController
      * @group module
      */
     public function testApiUnitImageSetInvalid() : void

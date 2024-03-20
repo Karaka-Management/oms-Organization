@@ -25,7 +25,7 @@ use Modules\Organization\Models\NullUnit;
 final class DepartmentMapperTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers Modules\Organization\Models\DepartmentMapper
+     * @covers \Modules\Organization\Models\DepartmentMapper
      * @group module
      */
     public function testCRUD() : void
