@@ -19,31 +19,23 @@ use Modules\Organization\Models\NullUnit;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\Organization\Models\NullUnit::class)]
 final class NullUnitTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \Modules\Organization\Models\NullUnit
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testNull() : void
     {
         self::assertInstanceOf('\Modules\Organization\Models\Unit', new NullUnit());
     }
 
-    /**
-     * @covers \Modules\Organization\Models\NullUnit
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testId() : void
     {
         $null = new NullUnit(2);
         self::assertEquals(2, $null->id);
     }
 
-    /**
-     * @covers \Modules\Organization\Models\NullUnit
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testJsonSerialize() : void
     {
         $null = new NullUnit(2);

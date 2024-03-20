@@ -21,12 +21,10 @@ use Modules\Organization\Models\PositionMapper;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\Organization\Models\PositionMapper::class)]
 final class PositionMapperTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \Modules\Organization\Models\PositionMapper
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testCRUD() : void
     {
         $position              = new Position();
@@ -43,11 +41,11 @@ final class PositionMapperTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @group         volume
      * @slowThreshold 15000
-     * @group module
-     * @coversNothing
      */
+    #[\PHPUnit\Framework\Attributes\Group('volume')]
+    #[\PHPUnit\Framework\Attributes\Group('module')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testVolume() : void
     {
         $first = 2;

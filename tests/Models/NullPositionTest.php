@@ -19,31 +19,23 @@ use Modules\Organization\Models\NullPosition;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\Organization\Models\NullPosition::class)]
 final class NullPositionTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \Modules\Organization\Models\NullPosition
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testNull() : void
     {
         self::assertInstanceOf('\Modules\Organization\Models\Position', new NullPosition());
     }
 
-    /**
-     * @covers \Modules\Organization\Models\NullPosition
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testId() : void
     {
         $null = new NullPosition(2);
         self::assertEquals(2, $null->id);
     }
 
-    /**
-     * @covers \Modules\Organization\Models\NullPosition
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testJsonSerialize() : void
     {
         $null = new NullPosition(2);

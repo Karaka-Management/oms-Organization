@@ -22,6 +22,7 @@ use Modules\Organization\Models\Status;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\Organization\Models\Department::class)]
 final class DepartmentTest extends \PHPUnit\Framework\TestCase
 {
     private Department $department;
@@ -34,10 +35,7 @@ final class DepartmentTest extends \PHPUnit\Framework\TestCase
         $this->department = new Department();
     }
 
-    /**
-     * @covers \Modules\Organization\Models\Department
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testDefault() : void
     {
         self::assertEquals(0, $this->department->id);
@@ -49,60 +47,42 @@ final class DepartmentTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(Status::INACTIVE, $this->department->status);
     }
 
-    /**
-     * @covers \Modules\Organization\Models\Department
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testNameInputOutput() : void
     {
         $this->department->name = 'Name';
         self::assertEquals('Name', $this->department->name);
     }
 
-    /**
-     * @covers \Modules\Organization\Models\Department
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testDescriptionInputOutput() : void
     {
         $this->department->description = 'Description';
         self::assertEquals('Description', $this->department->description);
     }
 
-    /**
-     * @covers \Modules\Organization\Models\Department
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testDescriptionRawInputOutput() : void
     {
         $this->department->descriptionRaw = 'DescriptionRaw';
         self::assertEquals('DescriptionRaw', $this->department->descriptionRaw);
     }
 
-    /**
-     * @covers \Modules\Organization\Models\Department
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testParentInputOutput() : void
     {
         $this->department->parent = new NullDepartment(1);
         self::assertEquals(1, $this->department->parent->id);
     }
 
-    /**
-     * @covers \Modules\Organization\Models\Department
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testUnitInputOutput() : void
     {
         $this->department->unit = new NullUnit(1);
         self::assertEquals(1, $this->department->unit->id);
     }
 
-    /**
-     * @covers \Modules\Organization\Models\Department
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testSerialize() : void
     {
         $this->department->name           = 'Name';

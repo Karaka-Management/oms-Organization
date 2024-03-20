@@ -22,6 +22,7 @@ use Modules\Organization\Models\Unit;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\Organization\Models\Unit::class)]
 final class UnitTest extends \PHPUnit\Framework\TestCase
 {
     private Unit $unit;
@@ -34,10 +35,7 @@ final class UnitTest extends \PHPUnit\Framework\TestCase
         $this->unit = new Unit();
     }
 
-    /**
-     * @covers \Modules\Organization\Models\Unit
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testDefault() : void
     {
         self::assertEquals(0, $this->unit->id);
@@ -49,60 +47,42 @@ final class UnitTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(Status::INACTIVE, $this->unit->status);
     }
 
-    /**
-     * @covers \Modules\Organization\Models\Unit
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testNameInputOutput() : void
     {
         $this->unit->name = 'Name';
         self::assertEquals('Name', $this->unit->name);
     }
 
-    /**
-     * @covers \Modules\Organization\Models\Unit
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testDescriptionInputOutput() : void
     {
         $this->unit->description = 'Description';
         self::assertEquals('Description', $this->unit->description);
     }
 
-    /**
-     * @covers \Modules\Organization\Models\Unit
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testDescriptionRawInputOutput() : void
     {
         $this->unit->descriptionRaw = 'DescriptionRaw';
         self::assertEquals('DescriptionRaw', $this->unit->descriptionRaw);
     }
 
-    /**
-     * @covers \Modules\Organization\Models\Unit
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testParentInputOutput() : void
     {
         $this->unit->parent = new NullUnit(1);
         self::assertEquals(1, $this->unit->parent->id);
     }
 
-    /**
-     * @covers \Modules\Organization\Models\Unit
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testImageInputOutput() : void
     {
         $this->unit->image = new NullMedia(1);
         self::assertEquals(1, $this->unit->image->id);
     }
 
-    /**
-     * @covers \Modules\Organization\Models\Unit
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testSerialize() : void
     {
         $this->unit->name           = 'Name';

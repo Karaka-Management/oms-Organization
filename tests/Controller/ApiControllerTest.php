@@ -36,6 +36,7 @@ use phpOMS\Utils\TestUtils;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\Organization\Controller\ApiController::class)]
 final class ApiControllerTest extends \PHPUnit\Framework\TestCase
 {
     protected $app = null;
@@ -86,10 +87,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         TestUtils::setMember($this->module, 'app', $this->app);
     }
 
-    /**
-     * @covers \Modules\Organization\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiUnitGet() : void
     {
         $response = new HttpResponse();
@@ -104,10 +102,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         self::assertGreaterThan(0, $response->getDataArray('')['response']->id);
     }
 
-    /**
-     * @covers \Modules\Organization\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiUnitSet() : void
     {
         $response = new HttpResponse();
@@ -123,10 +118,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('OMS', $response->getDataArray('')['response']->name);
     }
 
-    /**
-     * @covers \Modules\Organization\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiUnitFind() : void
     {
         $response = new HttpResponse();
@@ -141,10 +133,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         self::assertGreaterThan(0, $response->getData('')[0]->id);
     }
 
-    /**
-     * @covers \Modules\Organization\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiUnitCreateDelete() : void
     {
         $response = new HttpResponse();
@@ -170,10 +159,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         */
     }
 
-    /**
-     * @covers \Modules\Organization\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiUnitCreateInvalid() : void
     {
         $response = new HttpResponse();
@@ -188,10 +174,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
 
     protected static $departmentId = 0;
 
-    /**
-     * @covers \Modules\Organization\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiDepartmentCreate() : void
     {
         $response = new HttpResponse();
@@ -211,10 +194,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         self::$departmentId = $response->getDataArray('')['response']->id;
     }
 
-    /**
-     * @covers \Modules\Organization\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiDepartmentFind() : void
     {
         $response = new HttpResponse();
@@ -229,10 +209,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         self::assertGreaterThan(0, $response->getData('')[0]->id);
     }
 
-    /**
-     * @covers \Modules\Organization\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiDepartmentCreateInvalid() : void
     {
         $response = new HttpResponse();
@@ -245,10 +222,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(RequestStatusCode::R_400, $response->header->status);
     }
 
-    /**
-     * @covers \Modules\Organization\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiDepartmentGet() : void
     {
         $response = new HttpResponse();
@@ -263,10 +237,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         self::assertGreaterThan(0, $response->getDataArray('')['response']->id);
     }
 
-    /**
-     * @covers \Modules\Organization\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiDepartmentSet() : void
     {
         $response = new HttpResponse();
@@ -282,10 +253,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('Production', $response->getDataArray('')['response']->name);
     }
 
-    /**
-     * @covers \Modules\Organization\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiDepartmentDelete() : void
     {
         $response = new HttpResponse();
@@ -300,10 +268,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
 
     protected static $positionId = 0;
 
-    /**
-     * @covers \Modules\Organization\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiPositionCreate() : void
     {
         $response = new HttpResponse();
@@ -321,10 +286,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         self::$positionId = $response->getDataArray('')['response']->id;
     }
 
-    /**
-     * @covers \Modules\Organization\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiPositionFind() : void
     {
         $response = new HttpResponse();
@@ -339,10 +301,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         self::assertGreaterThan(0, $response->getData('')[0]->id);
     }
 
-    /**
-     * @covers \Modules\Organization\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiPositionCreateInvalid() : void
     {
         $response = new HttpResponse();
@@ -355,10 +314,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(RequestStatusCode::R_400, $response->header->status);
     }
 
-    /**
-     * @covers \Modules\Organization\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiPositionGet() : void
     {
         $response = new HttpResponse();
@@ -373,10 +329,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         self::assertGreaterThan(0, $response->getDataArray('')['response']->id);
     }
 
-    /**
-     * @covers \Modules\Organization\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiPositionSet() : void
     {
         $response = new HttpResponse();
@@ -392,10 +345,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('Test', $response->getDataArray('')['response']->name);
     }
 
-    /**
-     * @covers \Modules\Organization\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiPositionDelete() : void
     {
         $response = new HttpResponse();
@@ -408,10 +358,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         self::assertGreaterThan(0, $response->getDataArray('')['response']->id);
     }
 
-    /**
-     * @covers \Modules\Organization\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiUnitImageSet() : void
     {
         \copy(__DIR__ . '/icon.png', __DIR__ . '/temp_icon.png');
@@ -438,10 +385,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('Organization Logo', $image->name);
     }
 
-    /**
-     * @covers \Modules\Organization\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiUnitImageSetInvalid() : void
     {
         $response = new HttpResponse();

@@ -22,6 +22,7 @@ use Modules\Organization\Models\Status;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\Organization\Models\Position::class)]
 final class PositionTest extends \PHPUnit\Framework\TestCase
 {
     private Position $position;
@@ -34,10 +35,7 @@ final class PositionTest extends \PHPUnit\Framework\TestCase
         $this->position = new Position();
     }
 
-    /**
-     * @covers \Modules\Organization\Models\Position
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testDefault() : void
     {
         self::assertEquals(0, $this->position->id);
@@ -49,60 +47,42 @@ final class PositionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(Status::INACTIVE, $this->position->status);
     }
 
-    /**
-     * @covers \Modules\Organization\Models\Position
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testNameInputOutput() : void
     {
         $this->position->name = 'Name';
         self::assertEquals('Name', $this->position->name);
     }
 
-    /**
-     * @covers \Modules\Organization\Models\Position
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testDescriptionInputOutput() : void
     {
         $this->position->description = 'Description';
         self::assertEquals('Description', $this->position->description);
     }
 
-    /**
-     * @covers \Modules\Organization\Models\Position
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testDescriptionRawInputOutput() : void
     {
         $this->position->descriptionRaw = 'DescriptionRaw';
         self::assertEquals('DescriptionRaw', $this->position->descriptionRaw);
     }
 
-    /**
-     * @covers \Modules\Organization\Models\Position
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testParentInputOutput() : void
     {
         $this->position->parent = new NullPosition(1);
         self::assertEquals(1, $this->position->parent->id);
     }
 
-    /**
-     * @covers \Modules\Organization\Models\Position
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testDepartmentInputOutput() : void
     {
         $this->position->department = new NullDepartment(1);
         self::assertEquals(1, $this->position->department->id);
     }
 
-    /**
-     * @covers \Modules\Organization\Models\Position
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testSerialize() : void
     {
         $this->position->name           = 'Name';
