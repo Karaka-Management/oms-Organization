@@ -18,7 +18,7 @@ use phpOMS\Account\PermissionType;
 use phpOMS\Router\RouteVerb;
 
 return [
-    '^.*/organization/organigram(\?.*$|$)' => [
+    '^/organization/organigram(\?.*$|$)' => [
         [
             'dest'       => '\Modules\Organization\Controller\BackendController:viewOrganigram',
             'verb'       => RouteVerb::GET,
@@ -29,7 +29,7 @@ return [
             ],
         ],
     ],
-    '^.*/organization/unit/list(\?.*$|$)' => [
+    '^/organization/unit/list(\?.*$|$)' => [
         [
             'dest'       => '\Modules\Organization\Controller\BackendController:viewUnitList',
             'verb'       => RouteVerb::GET,
@@ -40,7 +40,7 @@ return [
             ],
         ],
     ],
-    '^.*/organization/unit/view(\?.*$|$)' => [
+    '^/organization/unit/view(\?.*$|$)' => [
         [
             'dest'       => '\Modules\Organization\Controller\BackendController:viewUnitView',
             'verb'       => RouteVerb::GET,
@@ -51,7 +51,7 @@ return [
             ],
         ],
     ],
-    '^.*/organization/unit/create(\?.*$|$)' => [
+    '^/organization/unit/create(\?.*$|$)' => [
         [
             'dest'       => '\Modules\Organization\Controller\BackendController:viewUnitCreate',
             'verb'       => RouteVerb::GET,
@@ -62,7 +62,7 @@ return [
             ],
         ],
     ],
-    '^.*/organization/department/list(\?.*$|$)' => [
+    '^/organization/department/list(\?.*$|$)' => [
         [
             'dest'       => '\Modules\Organization\Controller\BackendController:viewDepartmentList',
             'verb'       => RouteVerb::GET,
@@ -73,7 +73,7 @@ return [
             ],
         ],
     ],
-    '^.*/organization/department/view(\?.*$|$)' => [
+    '^/organization/department/view(\?.*$|$)' => [
         [
             'dest'       => '\Modules\Organization\Controller\BackendController:viewDepartmentView',
             'verb'       => RouteVerb::GET,
@@ -84,7 +84,7 @@ return [
             ],
         ],
     ],
-    '^.*/organization/department/create(\?.*$|$)' => [
+    '^/organization/department/create(\?.*$|$)' => [
         [
             'dest'       => '\Modules\Organization\Controller\BackendController:viewDepartmentCreate',
             'verb'       => RouteVerb::GET,
@@ -95,7 +95,7 @@ return [
             ],
         ],
     ],
-    '^.*/organization/position/list(\?.*$|$)' => [
+    '^/organization/position/list(\?.*$|$)' => [
         [
             'dest'       => '\Modules\Organization\Controller\BackendController:viewPositionList',
             'verb'       => RouteVerb::GET,
@@ -106,7 +106,7 @@ return [
             ],
         ],
     ],
-    '^.*/organization/position/view(\?.*$|$)' => [
+    '^/organization/position/view(\?.*$|$)' => [
         [
             'dest'       => '\Modules\Organization\Controller\BackendController:viewPositionView',
             'verb'       => RouteVerb::GET,
@@ -117,7 +117,7 @@ return [
             ],
         ],
     ],
-    '^.*/organization/position/create(\?.*$|$)' => [
+    '^/organization/position/create(\?.*$|$)' => [
         [
             'dest'       => '\Modules\Organization\Controller\BackendController:viewPositionCreate',
             'verb'       => RouteVerb::GET,
