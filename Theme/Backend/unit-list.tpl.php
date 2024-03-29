@@ -94,10 +94,12 @@ echo $this->data['nav']->render(); ?>
                         <?php endforeach; ?>
             </table>
             </div>
+            <!--
             <div class="portlet-foot">
                 <a tabindex="0" class="button" href="<?= UriFactory::build($previous); ?>"><?= $this->getHtml('Previous', '0', '0'); ?></a>
                 <a tabindex="0" class="button" href="<?= UriFactory::build($next); ?>"><?= $this->getHtml('Next', '0', '0'); ?></a>
             </div>
+            -->
         </div>
     </div>
 </div>

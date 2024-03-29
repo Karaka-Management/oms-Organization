@@ -28,12 +28,12 @@ $countries    = ISO3166NameEnum::getConstants();
 
 echo $this->data['nav']->render(); ?>
 
-<form id="iUnitUploadForm" action="<?= UriFactory::build('{/api}organization/unit/image?id={?id}'); ?>" method="post"><input class="preview" data-action='[{"listener": "change", "key": 1, "action": [{"key": 1, "type": "form.submit", "selector": "#iUnitUploadForm"}]}]' id="iUnitUpload" name="unitImage" type="file" accept="image/png,image/gif,image/jpeg" style="display: none;"></form>
+<form id="iUnitUploadForm" action="<?= UriFactory::build('{/api}organization/unit/image?id={?id}&csrf={$CSRF}'); ?>" method="post"><input class="preview" data-action='[{"listener": "change", "key": 1, "action": [{"key": 1, "type": "form.submit", "selector": "#iUnitUploadForm"}]}]' id="iUnitUpload" name="unitImage" type="file" accept="image/png,image/gif,image/jpeg" style="display: none;"></form>
 
 <div class="row">
     <div class="col-xs-12 col-md-6">
         <div class="portlet">
-            <form id="iUnit" action="<?= UriFactory::build('{/api}organization/unit'); ?>" method="post">
+            <form id="iUnit" action="<?= UriFactory::build('{/api}organization/unit?csrf={$CSRF}'); ?>" method="post">
                 <div class="portlet-head row middle-xs">
                     <div class="col-xs-0">
                         <a id="iUnitUploadButton" href="#upload" data-action='[{"listener": "click", "key": 1, "action": [{"key": 1, "type": "event.prevent"}, {"key": 2, "type": "dom.click", "selector": "#iUnitUpload"}]}]'>
@@ -91,7 +91,7 @@ echo $this->data['nav']->render(); ?>
     <div class="col-xs-12 col-md-6">
         <div class="portlet">
             <div class="portlet-head"><?= $this->getHtml('MainAddress'); ?></div>
-            <form id="iUnitMainAdress" action="<?= UriFactory::build('{/api}organization/unit/address/main'); ?>" method="post">
+            <form id="iUnitMainAdress" action="<?= UriFactory::build('{/api}organization/unit/address/main?csrf={$CSRF}'); ?>" method="post">
                 <div class="portlet-body">
                     <div class="form-group">
                         <label for="iLegalName"><?= $this->getHtml('LegalName'); ?></label>

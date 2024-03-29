@@ -25,7 +25,7 @@ echo $this->data['nav']->render(); ?>
 <div class="row">
     <div class="col-xs-12 col-md-6">
         <div class="portlet">
-            <form id="iPosition" action="<?= UriFactory::build('{/api}organization/position?{?}'); ?>" method="POST">
+            <form id="iPosition" action="<?= UriFactory::build('{/api}organization/position?{?}&csrf={$CSRF}'); ?>" method="POST">
                 <div class="portlet-head"><?= $this->getHtml('Position'); ?></div>
                 <div class="portlet-body">
                     <div class="form-group">

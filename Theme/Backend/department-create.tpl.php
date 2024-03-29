@@ -22,7 +22,7 @@ echo $this->data['nav']->render(); ?>
         <div class="portlet">
             <form id="fDepartmentCreate"
                 method="PUT"
-                action="<?= UriFactory::build('{/api}{/rootPath}{/lang}/api/organization/department'); ?>"
+                action="<?= UriFactory::build('{/api}{/rootPath}{/lang}/api/organization/department?csrf={$CSRF}'); ?>"
                 autocomplete="off">
                 <div class="portlet-head"><?= $this->getHtml('Department'); ?></div>
                 <div class="portlet-body">
