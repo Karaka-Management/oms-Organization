@@ -35,4 +35,6 @@ return ['Organization' => [
     'Unit'            => 'Unit',
     'UnitLogo'        => 'Unit Logo',
     'Units'           => 'Units',
+    'Profile'         => 'Profile',
+    'Addresses'       => 'Addresses',
 ]];

@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace Modules\Organization\Models;
 
+use Modules\Admin\Models\Contact;
+use Modules\Admin\Models\NullContact;
 use Modules\Media\Models\Media;
 use Modules\Media\Models\NullMedia;
 use phpOMS\Stdlib\Base\Address;
@@ -109,15 +111,23 @@ class Unit implements \JsonSerializable
     }
 
     /**
-     * Get addresses.
+     * Get the main contact element by type
      *
-     * @return array
+     * @param int $type Contact element type
+     *
+     * @return Contact
      *
      * @since 1.0.0
      */
-    public function getAddresses() : array
+    public function getContactByType(int $type) : Contact
     {
-        return $this->address;
+        foreach ($this->contacts as $element) {
+            if ($element->type === $type) {
+                return $element;
+            }
+        }
+
+        return new NullContact();
     }
 
     /**

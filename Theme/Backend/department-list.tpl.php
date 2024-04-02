@@ -22,7 +22,7 @@ $departments = $this->data['departments'] ?? [];
 
 $previous = empty($departments)
     ? 'organization/department/list'
-    : 'organization/department/list?{?}&id=' . \reset($departments)->id . '&ptype=p';
+    : 'organization/department/list?{?}&offset=' . \reset($departments)->id . '&ptype=p';
 $next = empty($departments)
     ? 'organization/department/list'
     : 'organization/department/list?{?}&id='

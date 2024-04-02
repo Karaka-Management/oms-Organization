@@ -17,6 +17,9 @@ namespace Modules\Organization\Controller;
 use Model\Setting;
 use Model\SettingMapper;
 use Modules\Admin\Models\AddressMapper;
+use Modules\Admin\Models\Contact;
+use Modules\Admin\Models\ContactMapper;
+use Modules\Admin\Models\ContactType;
 use Modules\Admin\Models\SettingsEnum as ModelsSettingsEnum;
 use Modules\Media\Models\PathSettings;
 use Modules\Organization\Models\Department;
@@ -731,7 +734,7 @@ final class ApiController extends Controller
         /** @var \Modules\Organization\Models\Unit[] $units */
         $units = UnitMapper::getAll()
             ->where('name', '%' . ($request->getDataString('search') ?? '') . '%', 'LIKE')
-            ->execute();
+            ->executeGetArray();
 
         $response->header->set('Content-Type', MimeType::M_JSON, true);
         $response->set(
@@ -758,7 +761,7 @@ final class ApiController extends Controller
         /** @var \Modules\Organization\Models\Department[] $departments */
         $departments = DepartmentMapper::getAll()
             ->where('name', '%' . ($request->getDataString('search') ?? '') . '%', 'LIKE')
-            ->execute();
+            ->executeGetArray();
 
         $response->header->set('Content-Type', MimeType::M_JSON, true);
         $response->set(
@@ -785,12 +788,89 @@ final class ApiController extends Controller
         /** @var \Modules\Organization\Models\Position[] $positions */
         $positions = PositionMapper::getAll()
             ->where('name', '%' . ($request->getDataString('search') ?? '') . '%', 'LIKE')
-            ->execute();
+            ->executeGetArray();
 
         $response->header->set('Content-Type', MimeType::M_JSON, true);
         $response->set(
             $request->uri->__toString(),
             \array_values($positions)
         );
+    }
+
+    /**
+     * Routing end-point for application behavior.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param array            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiUnitContactCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
+    {
+        if (!empty($val = $this->validateUnitContactCreate($request))) {
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
+
+            return;
+        }
+
+        $contact = $this->createUnitContactFromRequest($request);
+        $this->createModel($request->header->account, $contact, ContactMapper::class, 'unit_contact', $request->getOrigin());
+
+        $this->createModelRelation(
+            $request->header->account,
+            (int) $request->getData('unit'),
+            $contact->id,
+            UnitMapper::class, 'contacts', '', $request->getOrigin()
+        );
+
+        $this->createStandardCreateResponse($request, $response, $contact);
+    }
+
+    /**
+     * Validate contact element create request
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return array<string, bool>
+     *
+     * @since 1.0.0
+     */
+    public function validateUnitContactCreate(RequestAbstract $request) : array
+    {
+        $val = [];
+        if (($val['unit'] = !$request->hasData('unit'))
+            || ($val['type'] = !\is_numeric($request->getData('type')))
+            || ($val['content'] = !$request->hasData('content'))
+        ) {
+            return $val;
+        }
+
+        return [];
+    }
+
+    /**
+     * Method to create a account element from request.
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return Contact
+     *
+     * @since 1.0.0
+     */
+    public function createUnitContactFromRequest(RequestAbstract $request) : Contact
+    {
+        /** @var Contact $element */
+        $element          = new Contact();
+        $element->type    = ContactType::tryFromValue($request->getDataInt('type')) ?? ContactType::EMAIL;
+        $element->subtype = $request->getDataInt('subtype') ?? 0;
+        $element->content = $request->getDataString('content') ?? '';
+
+        return $element;
     }
 }

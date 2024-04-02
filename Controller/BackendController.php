@@ -62,9 +62,9 @@ final class BackendController extends Controller
             ->limit(25);
 
         if ($request->getData('ptype') === 'p') {
-            $view->data['units'] = $mapper->where('id', $request->getDataInt('id') ?? 0, '<')->execute();
+            $view->data['units'] = $mapper->where('id', $request->getDataInt('offset') ?? 0, '<')->execute();
         } elseif ($request->getData('ptype') === 'n') {
-            $view->data['units'] = $mapper->where('id', $request->getDataInt('id') ?? 0, '>')->execute();
+            $view->data['units'] = $mapper->where('id', $request->getDataInt('offset') ?? 0, '>')->execute();
         } else {
             $view->data['units'] = $mapper->where('id', 0, '>')->execute();
         }
@@ -94,17 +94,20 @@ final class BackendController extends Controller
         $selectorView                = new \Modules\Organization\Theme\Backend\Components\UnitTagSelector\UnitTagSelectorView($this->app->l11nManager, $request, $response);
         $view->data['unit-selector'] = $selectorView;
 
-        $unit = UnitMapper::get()
+        $view->data['unit'] = UnitMapper::get()
             ->with('parent')
             ->with('mainAddress')
+            ->with('address')
+            ->with('contacts')
             ->with('image')
             ->where('id', (int) $request->getData('id'))
             ->execute();
 
-        $view->data['unit'] = $unit;
-
         $editor               = new \Modules\Editor\Theme\Backend\Components\Editor\BaseView($this->app->l11nManager, $request, $response);
         $view->data['editor'] = $editor;
+
+        $view->data['address-component'] = new \Modules\Admin\Theme\Backend\Components\AddressEditor\AddressView($this->app->l11nManager, $request, $response);
+        $view->data['contact-component'] = new \Modules\Admin\Theme\Backend\Components\ContactEditor\ContactView($this->app->l11nManager, $request, $response);
 
         return $view;
     }
@@ -130,17 +133,17 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/Organization/Theme/Backend/organigram');
 
         /** @var Unit[] $units */
-        $units                  = UnitMapper::getAll()->with('parent')->execute();
+        $units                  = UnitMapper::getAll()->with('parent')->executeGetArray();
         $unitTree               = $this->createOrgTree($units);
         $view->data['unitTree'] = $unitTree;
 
         /** @var Department[] $departments */
-        $departments                  = DepartmentMapper::getAll()->with('parent')->with('unit')->execute();
+        $departments                  = DepartmentMapper::getAll()->with('parent')->with('unit')->executeGetArray();
         $depTree                      = $this->createOrgTree($departments);
         $view->data['departmentTree'] = $depTree;
 
         /** @var Position[] $positions */
-        $positions                  = PositionMapper::getAll()->with('parent')->with('unit')->with('department')->execute();
+        $positions                  = PositionMapper::getAll()->with('parent')->with('unit')->with('department')->executeGetArray();
         $posTree                    = $this->createOrgTree($positions);
         $view->data['positionTree'] = $posTree;
 
@@ -233,9 +236,9 @@ final class BackendController extends Controller
         $mapper = DepartmentMapper::getAll()->with('parent')->with('unit')->limit($pageLimit + 1);
 
         if ($request->getData('ptype') === 'p') {
-            $mapper->where('id', $request->getDataInt('id') ?? 0, '<');
+            $mapper->where('id', $request->getDataInt('offset') ?? 0, '<');
         } elseif ($request->getData('ptype') === 'n') {
-            $mapper->where('id', $request->getDataInt('id') ?? 0, '>');
+            $mapper->where('id', $request->getDataInt('offset') ?? 0, '>');
         } else {
             $mapper->where('id', 0, '>');
         }
@@ -337,11 +340,11 @@ final class BackendController extends Controller
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1004705001, $request, $response);
 
         if ($request->getData('ptype') === 'p') {
-            $view->data['positions'] = PositionMapper::getAll()->with('parent')->with('department')->where('id', $request->getDataInt('id') ?? 0, '<')->limit(25)->execute();
+            $view->data['positions'] = PositionMapper::getAll()->with('parent')->with('department')->where('id', $request->getDataInt('offset') ?? 0, '<')->limit(25)->executeGetArray();
         } elseif ($request->getData('ptype') === 'n') {
-            $view->data['positions'] = PositionMapper::getAll()->with('parent')->with('department')->where('id', $request->getDataInt('id') ?? 0, '>')->limit(25)->execute();
+            $view->data['positions'] = PositionMapper::getAll()->with('parent')->with('department')->where('id', $request->getDataInt('offset') ?? 0, '>')->limit(25)->executeGetArray();
         } else {
-            $view->data['positions'] = PositionMapper::getAll()->with('parent')->with('department')->where('id', 0, '>')->limit(25)->execute();
+            $view->data['positions'] = PositionMapper::getAll()->with('parent')->with('department')->where('id', 0, '>')->limit(25)->executeGetArray();
         }
 
         return $view;
