@@ -23,7 +23,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiPositionCreate',
             'verb'       => RouteVerb::PUT,
             'csrf'       => true,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
@@ -34,7 +34,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiPositionGet',
             'verb'       => RouteVerb::GET,
             'csrf'       => true,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::READ,
@@ -45,7 +45,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiPositionSet',
             'verb'       => RouteVerb::SET,
             'csrf'       => true,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::MODIFY,
@@ -56,7 +56,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiPositionDelete',
             'verb'       => RouteVerb::DELETE,
             'csrf'       => true,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::DELETE,
@@ -69,7 +69,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiDepartmentCreate',
             'verb'       => RouteVerb::PUT,
             'csrf'       => true,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
@@ -80,7 +80,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiDepartmentGet',
             'verb'       => RouteVerb::GET,
             'csrf'       => true,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::READ,
@@ -91,7 +91,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiDepartmentSet',
             'verb'       => RouteVerb::SET,
             'csrf'       => true,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::MODIFY,
@@ -102,7 +102,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiDepartmentDelete',
             'verb'       => RouteVerb::DELETE,
             'csrf'       => true,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::DELETE,
@@ -115,7 +115,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiUnitCreate',
             'verb'       => RouteVerb::PUT,
             'csrf'       => true,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
@@ -126,7 +126,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiUnitGet',
             'verb'       => RouteVerb::GET,
             'csrf'       => true,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::READ,
@@ -137,7 +137,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiUnitSet',
             'verb'       => RouteVerb::SET,
             'csrf'       => true,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::MODIFY,
@@ -148,7 +148,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiUnitDelete',
             'verb'       => RouteVerb::DELETE,
             'csrf'       => true,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
@@ -162,7 +162,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiUnitMainAddressSet',
             'verb'       => RouteVerb::SET,
             'csrf'       => true,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::MODIFY,
@@ -176,7 +176,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiUnitImageSet',
             'verb'       => RouteVerb::SET,
             'csrf'       => true,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::MODIFY,
@@ -190,7 +190,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiUnitFind',
             'verb'       => RouteVerb::GET,
             'csrf'       => true,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::READ,
@@ -203,7 +203,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiDepartmentFind',
             'verb'       => RouteVerb::GET,
             'csrf'       => true,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::READ,
@@ -216,7 +216,7 @@ return [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiPositionFind',
             'verb'       => RouteVerb::GET,
             'csrf'       => true,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::READ,
