@@ -334,10 +334,9 @@ final class ApiController extends Controller
      */
     public function apiUnitImageSet(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
-        $uploadedFiles = $request->files;
-        if (empty($uploadedFiles)) {
+        if (empty($request->files)) {
             $response->header->status = RequestStatusCode::R_400;
-            $this->createInvalidUpdateResponse($request, $response, $uploadedFiles);
+            $this->createInvalidUpdateResponse($request, $response, $request->files);
 
             return;
         }
@@ -349,16 +348,16 @@ final class ApiController extends Controller
         $path = '/Modules/Organization/' . $unit->name;
 
         $uploaded = $this->app->moduleManager->get('Media', 'Api')->uploadFiles(
-            $request->getDataList('names'),
-            $request->getDataList('filenames'),
-            $uploadedFiles,
-            $request->header->account,
-            __DIR__ . '/../../../Modules/Media/Files' . $path,
-            $path,
+            names: $request->getDataList('names'),
+            fileNames: $request->getDataList('filenames'),
+            files: $request->files,
+            account: $request->header->account,
+            basePath: __DIR__ . '/../../../Modules/Media/Files' . $path,
+            virtualPath: $path,
             pathSettings: PathSettings::FILE_PATH
         );
 
-        $unit->image = \reset($uploaded);
+        $unit->image = \reset($uploaded->sources);
 
         $this->updateModel($request->header->account, $old, $unit, UnitMapper::class, 'unit', $request->getOrigin());
         $this->createStandardUpdateResponse($request, $response, $unit);
@@ -510,7 +509,7 @@ final class ApiController extends Controller
         if ($setting->content === '1') {
             $newRequest                  = new HttpRequest();
             $newRequest->header->account = $request->header->account;
-            $newRequest->setData('name', 'org:pos:' . \strtr(\strtolower($position->name), ' ', '_'));
+            $newRequest->setData('name', 'pos:' . \strtr(\strtolower($position->name), ' ', '_'));
             $newRequest->setData('status', GroupStatus::ACTIVE);
             $this->app->moduleManager->get('Admin')->apiGroupCreate($newRequest, $response, $data);
         }
@@ -685,7 +684,7 @@ final class ApiController extends Controller
         if ($setting->content === '1') {
             $newRequest                  = new HttpRequest();
             $newRequest->header->account = $request->header->account;
-            $newRequest->setData('name', 'org:dep:' . \strtolower($department->name));
+            $newRequest->setData('name', 'dep:' . \strtolower($department->name));
             $newRequest->setData('status', GroupStatus::ACTIVE);
             $this->app->moduleManager->get('Admin')->apiGroupCreate($newRequest, $response, $data);
         }

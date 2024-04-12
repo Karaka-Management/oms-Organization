@@ -56,18 +56,15 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/Organization/Theme/Backend/unit-list');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1004703001, $request, $response);
 
-        $mapper = UnitMapper::getAll()
+        $view->data['units'] = UnitMapper::getAll()
             ->with('parent')
             ->with('image')
-            ->limit(25);
-
-        if ($request->getData('ptype') === 'p') {
-            $view->data['units'] = $mapper->where('id', $request->getDataInt('offset') ?? 0, '<')->execute();
-        } elseif ($request->getData('ptype') === 'n') {
-            $view->data['units'] = $mapper->where('id', $request->getDataInt('offset') ?? 0, '>')->execute();
-        } else {
-            $view->data['units'] = $mapper->where('id', 0, '>')->execute();
-        }
+            ->limit(25)
+            ->paginate(
+                'id',
+                $request->getDataString('ptype') ?? '',
+                $request->getDataInt('offset')
+            )->executeGetArray();
 
         return $view;
     }
@@ -233,18 +230,15 @@ final class BackendController extends Controller
         $pageLimit               = 25;
         $view->data['pageLimit'] = $pageLimit;
 
-        $mapper = DepartmentMapper::getAll()->with('parent')->with('unit')->limit($pageLimit + 1);
-
-        if ($request->getData('ptype') === 'p') {
-            $mapper->where('id', $request->getDataInt('offset') ?? 0, '<');
-        } elseif ($request->getData('ptype') === 'n') {
-            $mapper->where('id', $request->getDataInt('offset') ?? 0, '>');
-        } else {
-            $mapper->where('id', 0, '>');
-        }
-
-        /** @var \Modules\Organization\Models\Department[] $departments */
-        $departments = $mapper->execute();
+        $departments = DepartmentMapper::getAll()
+            ->with('parent')
+            ->with('unit')
+            ->limit($pageLimit + 1)
+            ->paginate(
+                'id',
+                $request->getDataString('ptype') ?? '',
+                $request->getDataInt('offset')
+            )->executeGetArray();
 
         $view->data['hasMore'] = ($count = \count($departments)) > $pageLimit;
 
