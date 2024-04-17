@@ -333,13 +333,16 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/Organization/Theme/Backend/position-list');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1004705001, $request, $response);
 
-        if ($request->getData('ptype') === 'p') {
-            $view->data['positions'] = PositionMapper::getAll()->with('parent')->with('department')->where('id', $request->getDataInt('offset') ?? 0, '<')->limit(25)->executeGetArray();
-        } elseif ($request->getData('ptype') === 'n') {
-            $view->data['positions'] = PositionMapper::getAll()->with('parent')->with('department')->where('id', $request->getDataInt('offset') ?? 0, '>')->limit(25)->executeGetArray();
-        } else {
-            $view->data['positions'] = PositionMapper::getAll()->with('parent')->with('department')->where('id', 0, '>')->limit(25)->executeGetArray();
-        }
+        $view->data['positions'] = PositionMapper::getAll()
+            ->with('parent')
+            ->with('department')
+            ->limit(25)
+            ->paginate(
+                'id',
+                $request->getData('ptype'),
+                $request->getDataInt('offset')
+            )
+            ->executeGetArray();
 
         return $view;
     }
