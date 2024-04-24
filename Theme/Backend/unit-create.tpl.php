@@ -31,7 +31,7 @@ echo $this->data['nav']->render(); ?>
                 <div class="portlet-body">
                     <div class="form-group">
                         <label for="iName"><?= $this->getHtml('Name'); ?></label>
-                        <input type="text" name="name" id="iName" value="">
+                        <input type="text" name="name" id="iName" value="" required>
                     </div>
 
                     <div class="form-group">
@@ -54,7 +54,7 @@ echo $this->data['nav']->render(); ?>
                     <?= $this->getData('editor')->getData('text')->render('unit-editor', 'description', 'fUnitCreate'); ?>
                 </div>
                 <div class="portlet-foot">
-                    <input id="iSubmit" name="submit" type="submit" value="<?= $this->getHtml('Create', '0', '0'); ?>">
+                    <input id="iUnitCreate" name="submit" type="submit" value="<?= $this->getHtml('Create', '0', '0'); ?>">
                 </div>
             </form>
         </div>
