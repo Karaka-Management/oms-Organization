@@ -299,8 +299,9 @@ final class BackendController extends Controller
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
-        $view->setTemplate('/Modules/Organization/Theme/Backend/department-create');
+        $view->setTemplate('/Modules/Organization/Theme/Backend/department-view');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1004704001, $request, $response);
+        $view->data['unit'] = $this->app->unitId;
 
         $selectorView                      = new \Modules\Organization\Theme\Backend\Components\DepartmentTagSelector\DepartmentTagSelectorView($this->app->l11nManager, $request, $response);
         $view->data['department-selector'] = $selectorView;
@@ -396,7 +397,7 @@ final class BackendController extends Controller
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
-        $view->setTemplate('/Modules/Organization/Theme/Backend/position-create');
+        $view->setTemplate('/Modules/Organization/Theme/Backend/position-view');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1004705001, $request, $response);
 
         $selectorView                    = new \Modules\Organization\Theme\Backend\Components\PositionTagSelector\PositionTagSelectorView($this->app->l11nManager, $request, $response);

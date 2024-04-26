@@ -511,7 +511,7 @@ final class ApiController extends Controller
             $newRequest->header->account = $request->header->account;
             $newRequest->setData('name', 'pos:' . \strtr(\strtolower($position->name), ' ', '_'));
             $newRequest->setData('status', GroupStatus::ACTIVE);
-            $this->app->moduleManager->get('Admin')->apiGroupCreate($newRequest, $response, $data);
+            $this->app->moduleManager->get('Admin')->apiGroupCreate($newRequest, clone $response, $data);
         }
 
         $this->createStandardCreateResponse($request, $response, $position);
@@ -686,7 +686,7 @@ final class ApiController extends Controller
             $newRequest->header->account = $request->header->account;
             $newRequest->setData('name', 'dep:' . \strtolower($department->name));
             $newRequest->setData('status', GroupStatus::ACTIVE);
-            $this->app->moduleManager->get('Admin')->apiGroupCreate($newRequest, $response, $data);
+            $this->app->moduleManager->get('Admin')->apiGroupCreate($newRequest, clone $response, $data);
         }
 
         $this->createStandardCreateResponse($request, $response, $department);

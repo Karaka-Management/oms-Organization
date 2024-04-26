@@ -23,7 +23,10 @@ $countries    = ISO3166NameEnum::getConstants();
 /** @var \phpOMS\Views\View $this */
 echo $this->data['nav']->render(); ?>
 
-<form id="fUnitCreate" method="put" action="<?= UriFactory::build('{/api}organization/unit?csrf={$CSRF}'); ?>">
+<form id="fUnitCreate"
+    method="put"
+    action="<?= UriFactory::build('{/api}organization/unit?csrf={$CSRF}'); ?>"
+    data-redirect="<?= UriFactory::build('{/base}/organization/unit/view'); ?>?id={/0/response/id}">
 <div class="row">
     <div class="col-xs-12 col-md-6">
         <div class="portlet">

@@ -12,20 +12,26 @@
  */
 declare(strict_types=1);
 
+use Modules\Organization\Models\Status;
+use Modules\Organization\Models\NullPosition;
 use phpOMS\Uri\UriFactory;
 
 /**
  * @var \phpOMS\Views\View $this
  * @var \Modules\Organization\Models\Position;
  */
-$position = $this->data['position'];
+$position = $this->data['position'] ?? new NullPosition();
+
+$isNew = $position->id === 0;
 
 echo $this->data['nav']->render(); ?>
-
 <div class="row">
     <div class="col-xs-12 col-md-6">
         <div class="portlet">
-            <form id="iPosition" action="<?= UriFactory::build('{/api}organization/position?{?}&csrf={$CSRF}'); ?>" method="POST">
+            <form id="iPosition"
+                method="<?= $isNew ? 'PUT' : 'POST'; ?>"
+                action="<?= UriFactory::build('{/api}organization/position?{?}&csrf={$CSRF}'); ?>"
+                <?= $isNew ? 'data-redirect="' . UriFactory::build('{/base}/organization/position/view') . '?id={/0/response/id}"' : ''; ?>>
                 <div class="portlet-head"><?= $this->getHtml('Position'); ?></div>
                 <div class="portlet-body">
                     <div class="form-group">
@@ -46,8 +52,8 @@ echo $this->data['nav']->render(); ?>
                     <div class="form-group">
                         <label for="iStatus"><?= $this->getHtml('Status'); ?></label>
                         <select name="status" id="iStatus">
-                            <option><?= $this->getHtml('Active'); ?>
-                            <option><?= $this->getHtml('Inactive'); ?>
+                            <option value="<?= Status::ACTIVE; ?>"<?= $position->status === Status::ACTIVE ? ' selected' : ''; ?>><?= $this->getHtml('Active'); ?>
+                            <option value="<?= Status::INACTIVE; ?>"<?= $position->status === Status::INACTIVE ? ' selected' : ''; ?>><?= $this->getHtml('Inactive'); ?>
                         </select>
                     </div>
 
@@ -64,7 +70,11 @@ echo $this->data['nav']->render(); ?>
                     ); ?>
                 </div>
                 <div class="portlet-foot">
-                    <input id="iSubmit" name="submit" type="submit" value="<?= $this->getHtml('Save', '0', '0'); ?>">
+                    <?php if ($isNew) : ?>
+                        <input id="iCreateSubmit" type="Submit" value="<?= $this->getHtml('Create', '0', '0'); ?>">
+                    <?php else : ?>
+                        <input id="iSaveSubmit" type="Submit" value="<?= $this->getHtml('Save', '0', '0'); ?>">
+                    <?php endif; ?>
                 </div>
             </form>
         </div>

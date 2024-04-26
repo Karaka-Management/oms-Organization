@@ -12,20 +12,24 @@
  */
 declare(strict_types=1);
 
+use Modules\Organization\Models\NullDepartment;
 use phpOMS\Uri\UriFactory;
 
 /**
  * @var \phpOMS\Views\View           $this
  * @var \Mouldes\Organization\Models $department;
  */
-$department = $this->data['department'];
+$department = $this->data['department'] ?? new NullDepartment();
+$isNew = $department->id === 0;
 
 echo $this->data['nav']->render(); ?>
-
 <div class="row">
     <div class="col-xs-12 col-md-6">
         <div class="portlet">
-            <form id="iDepartment" action="<?= UriFactory::build('{/api}organization/department?{?}&csrf={$CSRF}'); ?>" method="POST">
+            <form id="iDepartment"
+                method="<?= $isNew ? 'PUT' : 'POST'; ?>"
+                action="<?= UriFactory::build('{/api}organization/department?{?}&csrf={$CSRF}'); ?>"
+                <?= $isNew ? 'data-redirect="' . UriFactory::build('{/base}/organization/department/view') . '?id={/0/response/id}"' : ''; ?>>
                 <div class="portlet-head"><?= $this->getHtml('Department'); ?></div>
                 <div class="portlet-body">
                     <div class="form-group">
@@ -64,7 +68,12 @@ echo $this->data['nav']->render(); ?>
                     ); ?>
                 </div>
                 <div class="portlet-foot">
-                    <input id="iSubmit" name="submit" type="submit" value="<?= $this->getHtml('Save', '0', '0'); ?>">
+                    <input type="hidden" name="unit" value="<?= $this->data['unit'] ?? 1; ?>">
+                    <?php if ($isNew) : ?>
+                        <input id="iCreateSubmit" type="Submit" value="<?= $this->getHtml('Create', '0', '0'); ?>">
+                    <?php else : ?>
+                        <input id="iSaveSubmit" type="Submit" value="<?= $this->getHtml('Save', '0', '0'); ?>">
+                    <?php endif; ?>
                 </div>
             </form>
         </div>
