@@ -118,6 +118,20 @@ final class BackendController extends Controller
      *
      * @return RenderableInterface
      *
+     * @todo Make the organigram printable
+     *      https://github.com/Karaka-Management/Organization-Guide/issues/4
+     *
+     * @feature Make the organigram versioned/approved (e.g. for ISO)
+     *      Maybe this is not really necessary due to the audit log?!
+     *      https://github.com/Karaka-Management/Organization-Guide/issues/5
+     *
+     * @feature Create better organigram (better grouping, maybe as SVG)
+     *      https://github.com/Karaka-Management/oms-Organization/issues/2
+     *
+     * @feature Allow to define the organigram automatic or manual
+     *      automatic = automatically generates organigram, manual = uses file as organigram
+     *      https://github.com/Karaka-Management/oms-Organization/issues/4
+     *
      * @since 1.0.0
      * @codeCoverageIgnore
      */

@@ -34,6 +34,16 @@ use phpOMS\Message\ResponseAbstract;
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
+ *
+ * @question Change localization from setting to unit attribute
+ *      but keep server localization in settings as default setting when creating a new unit?
+ *      https://github.com/Karaka-Management/Organization-Guide/issues/6
+ *
+ * @todo Allow multiple tax office registrations
+ *      Currently only one is allowed through the attributes.
+ *      This is bad because a company can be registered in multiple countries.
+ *      One idea could be to use the address_attr for this purpose.
+ *      https://github.com/Karaka-Management/oms-Organization/issues/6
  */
 final class ApiAttributeController extends Controller
 {
