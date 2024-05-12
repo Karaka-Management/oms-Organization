@@ -29,7 +29,7 @@ echo $this->data['nav']->render(); ?>
     data-redirect="<?= UriFactory::build('{/base}/organization/unit/view'); ?>?id={/0/response/id}">
 <div class="row">
     <div class="col-xs-12 col-md-6">
-        <div class="portlet">
+        <section class="portlet">
                 <div class="portlet-head"><?= $this->getHtml('Unit'); ?></div>
                 <div class="portlet-body">
                     <div class="form-group">
@@ -60,11 +60,11 @@ echo $this->data['nav']->render(); ?>
                     <input id="iUnitCreate" name="submit" type="submit" value="<?= $this->getHtml('Create', '0', '0'); ?>">
                 </div>
             </form>
-        </div>
+        </section>
     </div>
 
     <div class="col-xs-12 col-md-6">
-        <div class="portlet">
+        <section class="portlet">
             <div class="portlet-head"><?= $this->getHtml('MainAddress'); ?></div>
                 <div class="portlet-body">
                     <div class="form-group">
@@ -102,7 +102,7 @@ echo $this->data['nav']->render(); ?>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
 </form>
 

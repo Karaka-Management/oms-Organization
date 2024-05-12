@@ -27,7 +27,7 @@ $isNew = $position->id === 0;
 echo $this->data['nav']->render(); ?>
 <div class="row">
     <div class="col-xs-12 col-md-6">
-        <div class="portlet">
+        <section class="portlet">
             <form id="iPosition"
                 method="<?= $isNew ? 'PUT' : 'POST'; ?>"
                 action="<?= UriFactory::build('{/api}organization/position?{?}&csrf={$CSRF}'); ?>"
@@ -77,7 +77,7 @@ echo $this->data['nav']->render(); ?>
                     <?php endif; ?>
                 </div>
             </form>
-        </div>
+        </section>
     </div>
 </div>
 

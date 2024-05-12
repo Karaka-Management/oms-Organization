@@ -66,7 +66,7 @@ final class ApiAddressAttributeController extends Controller
             ->where('id', (int) $request->getData('type'))
             ->execute();
 
-        if (!$type->repeatable) {
+        if (!$type->isRepeatable) {
             $attr = AddressAttributeMapper::count()
                 ->with('type')
                 ->where('type/id', $type->id)

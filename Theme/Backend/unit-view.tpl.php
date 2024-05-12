@@ -45,7 +45,7 @@ echo $this->data['nav']->render(); ?>
             <form id="iUnitUploadForm" action="<?= UriFactory::build('{/api}organization/unit/image?id={?id}&csrf={$CSRF}'); ?>" method="post"><input class="preview" data-action='[{"listener": "change", "key": 1, "action": [{"key": 1, "type": "form.submit", "selector": "#iUnitUploadForm"}]}]' id="iUnitUpload" name="unitImage" type="file" accept="image/png,image/gif,image/jpeg" style="display: none;"></form>
             <div class="row">
                 <div class="col-xs-12 col-md-6">
-                    <div class="portlet">
+                    <section class="portlet">
                         <form id="iUnit" action="<?= UriFactory::build('{/api}organization/unit?csrf={$CSRF}'); ?>" method="post">
                             <div class="portlet-head row middle-xs">
                                 <div class="col-xs-0">
@@ -98,11 +98,11 @@ echo $this->data['nav']->render(); ?>
                                 <input id="iSubmit" name="submit" type="submit" value="<?= $this->getHtml('Save', '0', '0'); ?>">
                             </div>
                         </form>
-                    </div>
+                    </section>
                 </div>
 
                 <div class="col-xs-12 col-md-6">
-                    <div class="portlet">
+                    <section class="portlet">
                         <div class="portlet-head"><?= $this->getHtml('MainAddress'); ?></div>
                         <form id="iUnitMainAdress" action="<?= UriFactory::build('{/api}organization/unit/address/main?csrf={$CSRF}'); ?>" method="post">
                             <div class="portlet-body">
@@ -148,7 +148,7 @@ echo $this->data['nav']->render(); ?>
                                 <input id="iSubmit" name="submit" type="submit" value="<?= $this->getHtml('Save', '0', '0'); ?>">
                             </div>
                         </form>
-                    </div>
+                    </section>
                 </div>
             </div>
             <?= $this->getData('unit-selector')->getData('unit-selector-popup')->render(); ?>

@@ -42,7 +42,7 @@ final class UnitAttributeTypeMapper extends DataMapperFactory
         'unit_attr_type_datatype'   => ['name' => 'unit_attr_type_datatype',   'type' => 'int',    'internal' => 'datatype'],
         'unit_attr_type_fields'     => ['name' => 'unit_attr_type_fields',   'type' => 'int',    'internal' => 'fields'],
         'unit_attr_type_custom'     => ['name' => 'unit_attr_type_custom',   'type' => 'bool',   'internal' => 'custom'],
-        'unit_attr_type_repeatable' => ['name' => 'unit_attr_type_repeatable',   'type' => 'bool',   'internal' => 'repeatable'],
+        'unit_attr_type_repeatable' => ['name' => 'unit_attr_type_repeatable',   'type' => 'bool',   'internal' => 'isRepeatable'],
         'unit_attr_type_internal'   => ['name' => 'unit_attr_type_internal',   'type' => 'bool',   'internal' => 'isInternal'],
         'unit_attr_type_pattern'    => ['name' => 'unit_attr_type_pattern',  'type' => 'string', 'internal' => 'validationPattern'],
         'unit_attr_type_required'   => ['name' => 'unit_attr_type_required', 'type' => 'bool',   'internal' => 'isRequired'],
