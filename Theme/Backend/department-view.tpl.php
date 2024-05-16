@@ -20,7 +20,7 @@ use phpOMS\Uri\UriFactory;
  * @var \Mouldes\Organization\Models $department;
  */
 $department = $this->data['department'] ?? new NullDepartment();
-$isNew = $department->id === 0;
+$isNew      = $department->id === 0;
 
 echo $this->data['nav']->render(); ?>
 <div class="row">

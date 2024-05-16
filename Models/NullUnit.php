@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace Modules\Organization\Models;
 
-use Modules\Media\Models\NullMedia;
-
 /**
  * Organization null class.
  *

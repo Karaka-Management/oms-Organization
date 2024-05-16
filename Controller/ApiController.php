@@ -204,7 +204,13 @@ final class ApiController extends Controller
             $this->app->moduleManager->get('Admin')->apiGroupCreate($newRequest, $internalResponse, $data);
 
             /** @var \Modules\Admin\Models\Group $group */
-            $group = $internalResponse->getDataArray($newRequest->uri->__toString())['response'];
+            $group = $internalResponse->getDataArray($newRequest->uri->__toString())['response'] ?? null;
+            if ($group === null) {
+                $response->header->status = RequestStatusCode::R_400;
+                $this->createInvalidCreateResponse($request, $response, $group);
+
+                return;
+            }
 
             $content = \json_encode([$group->id]);
             if ($content === false) {

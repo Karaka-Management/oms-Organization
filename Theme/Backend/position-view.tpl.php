@@ -12,8 +12,8 @@
  */
 declare(strict_types=1);
 
-use Modules\Organization\Models\Status;
 use Modules\Organization\Models\NullPosition;
+use Modules\Organization\Models\Status;
 use phpOMS\Uri\UriFactory;
 
 /**

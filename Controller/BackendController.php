@@ -314,7 +314,7 @@ final class BackendController extends Controller
         $view = new View($this->app->l11nManager, $request, $response);
 
         $view->setTemplate('/Modules/Organization/Theme/Backend/department-view');
-        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1004704001, $request, $response);
+        $view->data['nav']  = $this->app->moduleManager->get('Navigation')->createNavigationMid(1004704001, $request, $response);
         $view->data['unit'] = $this->app->unitId;
 
         $selectorView                      = new \Modules\Organization\Theme\Backend\Components\DepartmentTagSelector\DepartmentTagSelectorView($this->app->l11nManager, $request, $response);
