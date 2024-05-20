@@ -6,7 +6,7 @@
  *
  * @package   Modules\Organization
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -48,7 +48,7 @@ use phpOMS\Utils\Parser\Markdown\Markdown;
  * Organization Controller class.
  *
  * @package Modules\Organization
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @since   1.0.0
  */
