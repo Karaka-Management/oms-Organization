@@ -797,7 +797,7 @@ final class ApiController extends Controller
     {
         /** @var \Modules\Organization\Models\Unit[] $units */
         $units = UnitMapper::getAll()
-            ->where('name', '%' . ($request->getDataString('unit') ?? '') . '%', 'LIKE')
+            ->where('name', '%' . ($request->getDataString('unit') ?? $request->getDataString('parent') ?? '') . '%', 'LIKE')
             ->executeGetArray();
 
         $response->header->set('Content-Type', MimeType::M_JSON, true);
@@ -823,8 +823,11 @@ final class ApiController extends Controller
     public function apiDepartmentFind(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         /** @var \Modules\Organization\Models\Department[] $departments */
+        // @todo This below is bad, we should only search for department and not for parent.
+        //      If we do this we of course have to change the apiCreate() functions (also for similar Find())
+        //      We also must change the setup scripts
         $departments = DepartmentMapper::getAll()
-            ->where('name', '%' . ($request->getDataString('department') ?? '') . '%', 'LIKE')
+            ->where('name', '%' . ($request->getDataString('department') ?? $request->getDataString('parent') ?? '') . '%', 'LIKE')
             ->executeGetArray();
 
         $response->header->set('Content-Type', MimeType::M_JSON, true);
@@ -851,7 +854,7 @@ final class ApiController extends Controller
     {
         /** @var \Modules\Organization\Models\Position[] $positions */
         $positions = PositionMapper::getAll()
-            ->where('name', '%' . ($request->getDataString('position') ?? '') . '%', 'LIKE')
+            ->where('name', '%' . ($request->getDataString('position') ?? $request->getDataString('parent') ?? '') . '%', 'LIKE')
             ->executeGetArray();
 
         $response->header->set('Content-Type', MimeType::M_JSON, true);
