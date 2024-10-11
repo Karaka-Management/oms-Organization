@@ -73,7 +73,7 @@ echo $this->data['nav']->render(); ?>
                                     <div id="iParentSelector" class="smart-input-wrapper" data-src="<?= UriFactory::build('{/api}organization/unit/find?csrf={$CSRF}'); ?>">
                                         <div
                                             data-value=""
-                                            data-name="unit"
+                                            data-name="parent"
                                             data-limit="10"
                                             data-container=""
                                             class="input-div"

@@ -311,7 +311,7 @@ final class ApiController extends Controller
         $unit->descriptionRaw = $request->getDataString('description') ?? '';
         $unit->description    = Markdown::parse($request->getDataString('description') ?? '');
 
-        $unit->parent = new NullUnit((int) $request->getData('unit'));
+        $unit->parent = new NullUnit((int) $request->getData('parent'));
         $unit->status = Status::tryFromValue($request->getDataInt('status')) ?? Status::ACTIVE;
 
         if ($request->hasData('address') || $request->hasData('legal')) {
@@ -598,7 +598,7 @@ final class ApiController extends Controller
         $position->status         = Status::tryFromValue($request->getDataInt('status')) ?? Status::ACTIVE;
         $position->descriptionRaw = $request->getDataString('description') ?? '';
         $position->description    = Markdown::parse($request->getDataString('description') ?? '');
-        $position->parent         = new NullPosition((int) $request->getData('position'));
+        $position->parent         = new NullPosition((int) $request->getData('parent'));
         $position->department     = new NullDepartment((int) $request->getData('department'));
 
         return $position;
@@ -772,7 +772,7 @@ final class ApiController extends Controller
         $department->name   = (string) $request->getData('name');
         $department->status = Status::tryFromValue($request->getDataInt('status')) ?? Status::ACTIVE;
 
-        $department->parent         = new NullDepartment((int) $request->getData('department'));
+        $department->parent         = new NullDepartment((int) $request->getData('parent'));
         $department->unit           = new NullUnit($request->getDataInt('unit') ?? 1);
         $department->descriptionRaw = $request->getDataString('description') ?? '';
         $department->description    = Markdown::parse($request->getDataString('description') ?? '');
