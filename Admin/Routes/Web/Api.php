@@ -185,7 +185,79 @@ return [
         ],
     ],
 
-    '^.*/organization/find/unit(\?.*$|$)' => [
+    '^.*/organization/unit/contact(\?.*|$)' => [
+        [
+            'dest'       => '\Modules\Organization\Controller\ApiController:apiUnitContactCreate',
+            'verb'       => RouteVerb::PUT,
+            'csrf'       => true,
+            'active'     => true,
+            'permission' => [
+                'module' => ApiController::NAME,
+                'type'   => PermissionType::MODIFY,
+                'state'  => PermissionCategory::UNIT,
+            ],
+        ],
+        [
+            'dest'       => '\Modules\Organization\Controller\ApiController:apiUnitContactUpdate',
+            'verb'       => RouteVerb::SET,
+            'csrf'       => true,
+            'active'     => true,
+            'permission' => [
+                'module' => ApiController::NAME,
+                'type'   => PermissionType::MODIFY,
+                'state'  => PermissionCategory::UNIT,
+            ],
+        ],
+        [
+            'dest'       => '\Modules\Organization\Controller\ApiController:apiUnitContactDelete',
+            'verb'       => RouteVerb::DELETE,
+            'csrf'       => true,
+            'active'     => true,
+            'permission' => [
+                'module' => ApiController::NAME,
+                'type'   => PermissionType::MODIFY,
+                'state'  => PermissionCategory::UNIT,
+            ],
+        ],
+    ],
+
+    '^.*/organization/unit/address(\?.*|$)' => [
+        [
+            'dest'       => '\Modules\Organization\Controller\ApiController:apiUnitAddressCreate',
+            'verb'       => RouteVerb::PUT,
+            'csrf'       => true,
+            'active'     => true,
+            'permission' => [
+                'module' => ApiController::NAME,
+                'type'   => PermissionType::MODIFY,
+                'state'  => PermissionCategory::UNIT,
+            ],
+        ],
+        [
+            'dest'       => '\Modules\Organization\Controller\ApiController:apiUnitAddressUpdate',
+            'verb'       => RouteVerb::SET,
+            'csrf'       => true,
+            'active'     => true,
+            'permission' => [
+                'module' => ApiController::NAME,
+                'type'   => PermissionType::MODIFY,
+                'state'  => PermissionCategory::UNIT,
+            ],
+        ],
+        [
+            'dest'       => '\Modules\Organization\Controller\ApiController:apiUnitAddressDelete',
+            'verb'       => RouteVerb::DELETE,
+            'csrf'       => true,
+            'active'     => true,
+            'permission' => [
+                'module' => ApiController::NAME,
+                'type'   => PermissionType::MODIFY,
+                'state'  => PermissionCategory::UNIT,
+            ],
+        ],
+    ],
+
+    '^.*/organization/unit/find(\?.*$|$)' => [
         [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiUnitFind',
             'verb'       => RouteVerb::GET,
@@ -198,7 +270,7 @@ return [
             ],
         ],
     ],
-    '^.*/organization/find/department(\?.*$|$)' => [
+    '^.*/organization/department/find(\?.*$|$)' => [
         [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiDepartmentFind',
             'verb'       => RouteVerb::GET,
@@ -211,7 +283,7 @@ return [
             ],
         ],
     ],
-    '^.*/organization/find/position(\?.*$|$)' => [
+    '^.*/organization/position/find(\?.*$|$)' => [
         [
             'dest'       => '\Modules\Organization\Controller\ApiController:apiPositionFind',
             'verb'       => RouteVerb::GET,

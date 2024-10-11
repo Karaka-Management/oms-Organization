@@ -17,9 +17,7 @@ namespace Modules\Organization\Controller;
 use Model\Setting;
 use Model\SettingMapper;
 use Modules\Admin\Models\AddressMapper;
-use Modules\Admin\Models\Contact;
 use Modules\Admin\Models\ContactMapper;
-use Modules\Admin\Models\ContactType;
 use Modules\Admin\Models\SettingsEnum as ModelsSettingsEnum;
 use Modules\Media\Models\PathSettings;
 use Modules\Organization\Models\Department;
@@ -39,7 +37,6 @@ use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
-use phpOMS\Stdlib\Base\Address;
 use phpOMS\Stdlib\Base\NullAddress;
 use phpOMS\System\MimeType;
 use phpOMS\Utils\Parser\Markdown\Markdown;
@@ -67,9 +64,9 @@ final class ApiController extends Controller
     {
         $val = [];
         if (($val['name'] = !$request->hasData('name'))
-            || ($val['parent'] = (
-                $request->hasData('parent')
-                && !\is_numeric($request->getData('parent'))
+            || ($val['unit'] = (
+                $request->hasData('unit')
+                && !\is_numeric($request->getData('unit'))
             ))
             || ($val['status'] = (
                 !$request->hasData('status')
@@ -139,7 +136,7 @@ final class ApiController extends Controller
         $unit->descriptionRaw = $request->getDataString('description') ?? $unit->descriptionRaw;
         $unit->description    = Markdown::parse($request->getDataString('description') ?? $unit->descriptionRaw);
 
-        $parent       = $request->getDataInt('parent') ?? 0;
+        $parent       = $request->getDataInt('unit') ?? 0;
         $unit->parent = $parent === 0 ? $unit->parent : new NullUnit($parent);
         $unit->status = Status::tryFromValue($request->getDataInt('status')) ?? $unit->status;
 
@@ -314,15 +311,77 @@ final class ApiController extends Controller
         $unit->descriptionRaw = $request->getDataString('description') ?? '';
         $unit->description    = Markdown::parse($request->getDataString('description') ?? '');
 
-        $unit->parent = new NullUnit((int) $request->getData('parent'));
+        $unit->parent = new NullUnit((int) $request->getData('unit'));
         $unit->status = Status::tryFromValue($request->getDataInt('status')) ?? Status::ACTIVE;
 
-        if ($request->hasData('address')) {
+        if ($request->hasData('address') || $request->hasData('legal')) {
             $request->setData('name', $request->getDataString('legal') ?? $request->getDataString('name'), true);
             $unit->mainAddress = $this->app->moduleManager->get('Admin', 'Api')->createAddressFromRequest($request);
         }
 
         return $unit;
+    }
+
+    /**
+     * Routing end-point for application behavior.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param array            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiUnitAddressCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
+    {
+        $address = $this->app->moduleManager->get('Admin', 'Api')->createAddressFromRequest($request);
+        $this->createModel($request->header->account, $address, AddressMapper::class, 'unit_address', $request->getOrigin());
+
+        $this->createModelRelation(
+            $request->header->account,
+            (int) $request->getData('unit'),
+            $address->id,
+            UnitMapper::class, 'address', '', $request->getOrigin()
+        );
+    }
+
+    /**
+     * Routing end-point for application behavior.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param array            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiUnitAddressUpdate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
+    {
+        $this->app->moduleManager->get('Admin', 'Api')->apiAddressUpdate($request);
+    }
+
+    /**
+     * Routing end-point for application behavior.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param array            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiUnitAddressDelete(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
+    {
+        $this->app->moduleManager->get('Admin', 'Api')->apiAddressDelete($request);
     }
 
     /**
@@ -382,9 +441,9 @@ final class ApiController extends Controller
     {
         $val = [];
         if (($val['name'] = !$request->hasData('name'))
-            || ($val['parent'] = (
-                $request->hasData('parent')
-                && !\is_numeric($request->getData('parent'))
+            || ($val['position'] = (
+                $request->hasData('position')
+                && !\is_numeric($request->getData('position'))
             ))
             || ($val['status'] = (
                 !$request->hasData('status')
@@ -475,7 +534,7 @@ final class ApiController extends Controller
         $position->descriptionRaw = $request->getDataString('description') ?? $position->descriptionRaw;
         $position->description    = Markdown::parse($request->getDataString('description') ?? $position->descriptionRaw);
 
-        $parent           = (int) $request->getData('parent');
+        $parent           = (int) $request->getData('position');
         $position->parent = empty($parent) ? $position->parent : new NullPosition($parent);
 
         $department           = (int) $request->getData('department');
@@ -539,7 +598,7 @@ final class ApiController extends Controller
         $position->status         = Status::tryFromValue($request->getDataInt('status')) ?? Status::ACTIVE;
         $position->descriptionRaw = $request->getDataString('description') ?? '';
         $position->description    = Markdown::parse($request->getDataString('description') ?? '');
-        $position->parent         = new NullPosition((int) $request->getData('parent'));
+        $position->parent         = new NullPosition((int) $request->getData('position'));
         $position->department     = new NullDepartment((int) $request->getData('department'));
 
         return $position;
@@ -558,9 +617,9 @@ final class ApiController extends Controller
     {
         $val = [];
         if (($val['name'] = !$request->hasData('name'))
-            || ($val['parent'] = (
-                $request->hasData('parent')
-                && !\is_numeric($request->getData('parent'))
+            || ($val['department'] = (
+                $request->hasData('department')
+                && !\is_numeric($request->getData('department'))
             ))
             || ($val['unit'] = (
                 !\is_numeric($request->getData('unit'))
@@ -629,7 +688,7 @@ final class ApiController extends Controller
         $department->descriptionRaw = $request->getDataString('description') ?? $department->descriptionRaw;
         $department->description    = Markdown::parse($request->getDataString('description') ?? $department->descriptionRaw);
 
-        $parent             = (int) $request->getData('parent');
+        $parent             = (int) $request->getData('department');
         $department->parent = empty($parent) ? $department->parent : new NullDepartment($parent);
         $department->status = Status::tryFromValue($request->getDataInt('status')) ?? $department->status;
 
@@ -713,7 +772,7 @@ final class ApiController extends Controller
         $department->name   = (string) $request->getData('name');
         $department->status = Status::tryFromValue($request->getDataInt('status')) ?? Status::ACTIVE;
 
-        $department->parent         = new NullDepartment((int) $request->getData('parent'));
+        $department->parent         = new NullDepartment((int) $request->getData('department'));
         $department->unit           = new NullUnit($request->getDataInt('unit') ?? 1);
         $department->descriptionRaw = $request->getDataString('description') ?? '';
         $department->description    = Markdown::parse($request->getDataString('description') ?? '');
@@ -738,7 +797,7 @@ final class ApiController extends Controller
     {
         /** @var \Modules\Organization\Models\Unit[] $units */
         $units = UnitMapper::getAll()
-            ->where('name', '%' . ($request->getDataString('search') ?? '') . '%', 'LIKE')
+            ->where('name', '%' . ($request->getDataString('unit') ?? '') . '%', 'LIKE')
             ->executeGetArray();
 
         $response->header->set('Content-Type', MimeType::M_JSON, true);
@@ -765,7 +824,7 @@ final class ApiController extends Controller
     {
         /** @var \Modules\Organization\Models\Department[] $departments */
         $departments = DepartmentMapper::getAll()
-            ->where('name', '%' . ($request->getDataString('search') ?? '') . '%', 'LIKE')
+            ->where('name', '%' . ($request->getDataString('department') ?? '') . '%', 'LIKE')
             ->executeGetArray();
 
         $response->header->set('Content-Type', MimeType::M_JSON, true);
@@ -792,7 +851,7 @@ final class ApiController extends Controller
     {
         /** @var \Modules\Organization\Models\Position[] $positions */
         $positions = PositionMapper::getAll()
-            ->where('name', '%' . ($request->getDataString('search') ?? '') . '%', 'LIKE')
+            ->where('name', '%' . ($request->getDataString('position') ?? '') . '%', 'LIKE')
             ->executeGetArray();
 
         $response->header->set('Content-Type', MimeType::M_JSON, true);
@@ -824,7 +883,7 @@ final class ApiController extends Controller
             return;
         }
 
-        $contact = $this->createUnitContactFromRequest($request);
+        $contact = $this->app->moduleManager->get('Admin', 'Api')->createContactFromRequest($request);
         $this->createModel($request->header->account, $contact, ContactMapper::class, 'unit_contact', $request->getOrigin());
 
         $this->createModelRelation(
@@ -835,6 +894,42 @@ final class ApiController extends Controller
         );
 
         $this->createStandardCreateResponse($request, $response, $contact);
+    }
+
+    /**
+     * Routing end-point for application behavior.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param array            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiUnitContactUpdate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
+    {
+        $this->app->moduleManager->get('Admin', 'Api')->apiContactUpdate($request);
+    }
+
+    /**
+     * Routing end-point for application behavior.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param array            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiUnitContactDelete(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
+    {
+        $this->app->moduleManager->get('Admin', 'Api')->apiContactDelete($request);
     }
 
     /**
@@ -857,25 +952,5 @@ final class ApiController extends Controller
         }
 
         return [];
-    }
-
-    /**
-     * Method to create a account element from request.
-     *
-     * @param RequestAbstract $request Request
-     *
-     * @return Contact
-     *
-     * @since 1.0.0
-     */
-    public function createUnitContactFromRequest(RequestAbstract $request) : Contact
-    {
-        /** @var Contact $element */
-        $element          = new Contact();
-        $element->type    = ContactType::tryFromValue($request->getDataInt('type')) ?? ContactType::EMAIL;
-        $element->subtype = $request->getDataInt('subtype') ?? 0;
-        $element->content = $request->getDataString('content') ?? '';
-
-        return $element;
     }
 }

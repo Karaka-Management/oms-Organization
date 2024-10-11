@@ -104,7 +104,7 @@ final class Installer extends InstallerAbstract
 
             $request->header->account = 1;
             $request->setData('name', $attribute['name'] ?? '');
-            $request->setData('title', \reset($attribute['l11n']));
+            $request->setData('content', \reset($attribute['l11n']));
             $request->setData('language', \array_keys($attribute['l11n'])[0] ?? 'en');
             $request->setData('repeatable', $attribute['repeatable'] ?? false);
             $request->setData('internal', $attribute['internal'] ?? false);
@@ -136,9 +136,9 @@ final class Installer extends InstallerAbstract
                 $request  = new HttpRequest();
 
                 $request->header->account = 1;
-                $request->setData('title', $l11n);
+                $request->setData('content', $l11n);
                 $request->setData('language', $language);
-                $request->setData('type', $unitAttrType[$attribute['name']]['id']);
+                $request->setData('ref', $unitAttrType[$attribute['name']]['id']);
 
                 $module->apiUnitAttributeTypeL11nCreate($request, $response);
             }
@@ -181,7 +181,7 @@ final class Installer extends InstallerAbstract
                 $request->setData('type', $unitAttrType[$attribute['name']]['id']);
 
                 if (isset($value['l11n']) && !empty($value['l11n'])) {
-                    $request->setData('title', \reset($value['l11n']));
+                    $request->setData('content', \reset($value['l11n']));
                     $request->setData('language', \array_keys($value['l11n'])[0] ?? 'en');
                 }
 
@@ -209,9 +209,9 @@ final class Installer extends InstallerAbstract
                     $request  = new HttpRequest();
 
                     $request->header->account = 1;
-                    $request->setData('title', $l11n);
+                    $request->setData('content', $l11n);
                     $request->setData('language', $language);
-                    $request->setData('value', $attrValue['id']);
+                    $request->setData('ref', $attrValue['id']);
 
                     $module->apiUnitAttributeValueL11nCreate($request, $response);
                 }
@@ -246,7 +246,7 @@ final class Installer extends InstallerAbstract
 
             $request->header->account = 1;
             $request->setData('name', $attribute['name'] ?? '');
-            $request->setData('title', \reset($attribute['l11n']));
+            $request->setData('content', \reset($attribute['l11n']));
             $request->setData('language', \array_keys($attribute['l11n'])[0] ?? 'en');
             $request->setData('repeatable', $attribute['repeatable'] ?? false);
             $request->setData('internal', $attribute['internal'] ?? false);
@@ -278,9 +278,9 @@ final class Installer extends InstallerAbstract
                 $request  = new HttpRequest();
 
                 $request->header->account = 1;
-                $request->setData('title', $l11n);
+                $request->setData('content', $l11n);
                 $request->setData('language', $language);
-                $request->setData('type', $addressAttrType[$attribute['name']]['id']);
+                $request->setData('ref', $addressAttrType[$attribute['name']]['id']);
 
                 $module->apiAddressAttributeTypeL11nCreate($request, $response);
             }
@@ -323,7 +323,7 @@ final class Installer extends InstallerAbstract
                 $request->setData('type', $addressAttrType[$attribute['name']]['id']);
 
                 if (isset($value['l11n']) && !empty($value['l11n'])) {
-                    $request->setData('title', \reset($value['l11n']));
+                    $request->setData('content', \reset($value['l11n']));
                     $request->setData('language', \array_keys($value['l11n'])[0] ?? 'en');
                 }
 
@@ -351,9 +351,9 @@ final class Installer extends InstallerAbstract
                     $request  = new HttpRequest();
 
                     $request->header->account = 1;
-                    $request->setData('title', $l11n);
+                    $request->setData('content', $l11n);
                     $request->setData('language', $language);
-                    $request->setData('value', $attrValue['id']);
+                    $request->setData('ref', $attrValue['id']);
 
                     $module->apiAddressAttributeValueL11nCreate($request, $response);
                 }

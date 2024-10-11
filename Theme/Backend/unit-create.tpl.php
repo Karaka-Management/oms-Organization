@@ -39,7 +39,20 @@ echo $this->data['nav']->render(); ?>
 
                     <div class="form-group">
                         <label for="iParent"><?= $this->getHtml('Parent'); ?></label>
-                        <?= $this->getData('unit-selector')->render('iParent', 'parent', false); ?>
+                        <div id="iParentSelector" class="smart-input-wrapper" data-src="<?= UriFactory::build('{/api}organization/unit/find?csrf={$CSRF}'); ?>">
+                            <div
+                                data-value=""
+                                data-name="unit"
+                                data-limit="10"
+                                data-container=""
+                                class="input-div"
+                                contenteditable="true"></div>
+                            <template class="input-data-tpl">
+                                <div data-value="" data-tpl-value="/id" data-tpl-text="/name"></div>
+                            </template>
+                            <div class="input-datalist input-datalist-body vh" data-active="true">
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">

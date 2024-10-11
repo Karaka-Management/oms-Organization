@@ -70,7 +70,20 @@ echo $this->data['nav']->render(); ?>
 
                                 <div class="form-group">
                                     <label for="iParent"><?= $this->getHtml('Parent'); ?></label>
-                                    <?= $this->getData('unit-selector')->render('iParent', 'parent', false); ?>
+                                    <div id="iParentSelector" class="smart-input-wrapper" data-src="<?= UriFactory::build('{/api}organization/unit/find?csrf={$CSRF}'); ?>">
+                                        <div
+                                            data-value=""
+                                            data-name="unit"
+                                            data-limit="10"
+                                            data-container=""
+                                            class="input-div"
+                                            contenteditable="true"></div>
+                                        <template class="input-data-tpl">
+                                            <div data-value="" data-tpl-value="/id" data-tpl-text="/name"></div>
+                                        </template>
+                                        <div class="input-datalist input-datalist-body vh" data-active="true">
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
@@ -157,8 +170,14 @@ echo $this->data['nav']->render(); ?>
         <?php if (!$isNew) : ?>
         <input type="radio" id="c-tab-2" name="tabular-2"<?= $this->request->uri->fragment === 'c-tab-2' ? ' checked' : ''; ?>>
         <div class="tab">
-            <?= $this->data['contact-component']->render('unit-contact', 'contacts', $unit->contacts); ?>
-            <?= $this->data['address-component']->render('unit-address', 'addresses', $unit->address); ?>
+            <?= $this->data['contact-component']->render(
+                'unit-contact', 'contacts', $unit->contacts,
+                'unit', $unit->id, '{/api}organization/unit/contact?csrf={$CSRF}'
+            ); ?>
+            <?= $this->data['address-component']->render(
+                'unit-address', 'address', $unit->address,
+                'unit', $unit->id, '{/api}organization/unit/address?csrf={$CSRF}'
+            ); ?>
         </div>
         <?php endif; ?>
     </div>
