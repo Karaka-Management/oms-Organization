@@ -97,7 +97,7 @@ final class BackendController extends Controller
             ->with('address')
             ->with('contacts')
             ->with('image')
-            ->where('id', (int) $request->getData('id'))
+            ->where('id', $request->getDataInt('id') ?? 0)
             ->execute();
 
         $editor               = new \Modules\Editor\Theme\Backend\Components\Editor\BaseView($this->app->l11nManager, $request, $response);
@@ -289,7 +289,7 @@ final class BackendController extends Controller
         $unitSelectorView            = new \Modules\Organization\Theme\Backend\Components\UnitTagSelector\UnitTagSelectorView($this->app->l11nManager, $request, $response);
         $view->data['unit-selector'] = $unitSelectorView;
 
-        $view->data['department'] = DepartmentMapper::get()->with('parent')->with('unit')->where('id', (int) $request->getData('id'))->execute();
+        $view->data['department'] = DepartmentMapper::get()->with('parent')->with('unit')->where('id', $request->getDataInt('id') ?? 0)->execute();
 
         $editor               = new \Modules\Editor\Theme\Backend\Components\Editor\BaseView($this->app->l11nManager, $request, $response);
         $view->data['editor'] = $editor;
@@ -387,7 +387,7 @@ final class BackendController extends Controller
         $departmentSelectorView            = new \Modules\Organization\Theme\Backend\Components\DepartmentTagSelector\DepartmentTagSelectorView($this->app->l11nManager, $request, $response);
         $view->data['department-selector'] = $departmentSelectorView;
 
-        $view->data['position'] = PositionMapper::get()->with('parent')->with('department')->where('id', (int) $request->getData('id'))->execute();
+        $view->data['position'] = PositionMapper::get()->with('parent')->with('department')->where('id', $request->getDataInt('id') ?? 0)->execute();
 
         $editor               = new \Modules\Editor\Theme\Backend\Components\Editor\BaseView($this->app->l11nManager, $request, $response);
         $view->data['editor'] = $editor;

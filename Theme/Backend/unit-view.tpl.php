@@ -95,10 +95,10 @@ echo $this->data['nav']->render(); ?>
                                 </div>
 
                                 <div class="form-group">
-                                    <?= $this->getData('editor')->render('unit-editor'); ?>
+                                    <?= $this->data['editor']->render('unit-editor'); ?>
                                 </div>
 
-                                <?= $this->getData('editor')->getData('text')->render(
+                                <?= $this->data['editor']->data['text']->render(
                                     'unit-editor',
                                     'description',
                                     'iUnit',
@@ -164,7 +164,7 @@ echo $this->data['nav']->render(); ?>
                     </section>
                 </div>
             </div>
-            <?= $this->getData('unit-selector')->getData('unit-selector-popup')->render(); ?>
+            <?= $this->data['unit-selector']->data['unit-selector-popup']->render(); ?>
         </div>
 
         <?php if (!$isNew) : ?>

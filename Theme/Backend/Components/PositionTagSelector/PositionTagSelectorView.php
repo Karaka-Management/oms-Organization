@@ -88,7 +88,7 @@ class PositionTagSelectorView extends View
         $this->name       = $data[1];
         $this->isRequired = $data[2] ?? false;
 
-        $this->getData('position-selector-popup')->id = $this->id;
+        $this->data['position-selector-popup']->id = $this->id;
 
         return parent::render();
     }

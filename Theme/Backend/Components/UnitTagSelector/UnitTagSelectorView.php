@@ -87,7 +87,7 @@ class UnitTagSelectorView extends View
         $this->id                                 = $data[0];
         $this->name                               = $data[1];
         $this->isRequired                         = $data[2] ?? false;
-        $this->getData('unit-selector-popup')->id = $this->id;
+        $this->data['unit-selector-popup']->id = $this->id;
 
         return parent::render();
     }

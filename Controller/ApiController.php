@@ -95,7 +95,7 @@ final class ApiController extends Controller
     public function apiUnitGet(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         /** @var Unit $unit */
-        $unit = UnitMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $unit = UnitMapper::get()->where('id', $request->getDataInt('id') ?? 0)->execute();
         $this->createStandardReturnResponse($request, $response, $unit);
     }
 
@@ -115,7 +115,7 @@ final class ApiController extends Controller
     public function apiUnitSet(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         /** @var Unit $old */
-        $old = UnitMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $old = UnitMapper::get()->where('id', $request->getDataInt('id') ?? 0)->execute();
         $new = $this->updateUnitFromRequest($request, clone $old);
         $this->updateModel($request->header->account, $old, $new, UnitMapper::class, 'unit', $request->getOrigin());
         $this->createStandardUpdateResponse($request, $response, $new);
@@ -159,7 +159,7 @@ final class ApiController extends Controller
     public function apiUnitDelete(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         /** @var Unit $unit */
-        $unit = UnitMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $unit = UnitMapper::get()->where('id', $request->getDataInt('id') ?? 0)->execute();
         $this->deleteModel($request->header->account, $unit, UnitMapper::class, 'unit', $request->getOrigin());
         $this->createStandardDeleteResponse($request, $response, $unit);
     }
@@ -472,7 +472,7 @@ final class ApiController extends Controller
     public function apiPositionGet(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         /** @var Position $position */
-        $position = PositionMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $position = PositionMapper::get()->where('id', $request->getDataInt('id') ?? 0)->execute();
         $this->createStandardReturnResponse($request, $response, $position);
     }
 
@@ -492,7 +492,7 @@ final class ApiController extends Controller
     public function apiPositionDelete(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         /** @var Position $position */
-        $position = PositionMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $position = PositionMapper::get()->where('id', $request->getDataInt('id') ?? 0)->execute();
         $this->deleteModel($request->header->account, $position, PositionMapper::class, 'position', $request->getOrigin());
         $this->createStandardDeleteResponse($request, $response, $position);
     }
@@ -513,7 +513,7 @@ final class ApiController extends Controller
     public function apiPositionSet(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         /** @var Position $old */
-        $old = PositionMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $old = PositionMapper::get()->where('id', $request->getDataInt('id') ?? 0)->execute();
         $new = $this->updatePositionFromRequest($request, clone $old);
         $this->updateModel($request->header->account, $old, $new, PositionMapper::class, 'position', $request->getOrigin());
         $this->createStandardUpdateResponse($request, $response, $new);
@@ -647,7 +647,7 @@ final class ApiController extends Controller
     public function apiDepartmentGet(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         /** @var Department $department */
-        $department = DepartmentMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $department = DepartmentMapper::get()->where('id', $request->getDataInt('id') ?? 0)->execute();
         $this->createStandardReturnResponse($request, $response, $department);
     }
 
@@ -667,7 +667,7 @@ final class ApiController extends Controller
     public function apiDepartmentSet(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         /** @var Department $old */
-        $old = DepartmentMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $old = DepartmentMapper::get()->where('id', $request->getDataInt('id') ?? 0)->execute();
         $new = $this->updateDepartmentFromRequest($request, clone $old);
         $this->updateModel($request->header->account, $old, $new, DepartmentMapper::class, 'department', $request->getOrigin());
         $this->createStandardUpdateResponse($request, $response, $new);
@@ -714,7 +714,7 @@ final class ApiController extends Controller
     public function apiDepartmentDelete(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         /** @var Department $department */
-        $department = DepartmentMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $department = DepartmentMapper::get()->where('id', $request->getDataInt('id') ?? 0)->execute();
         $this->deleteModel($request->header->account, $department, DepartmentMapper::class, 'department', $request->getOrigin());
         $this->createStandardDeleteResponse($request, $response, $department);
     }

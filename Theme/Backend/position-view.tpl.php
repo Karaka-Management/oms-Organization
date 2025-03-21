@@ -84,10 +84,10 @@ echo $this->data['nav']->render(); ?>
                     </div>
 
                     <div class="form-group">
-                        <?= $this->getData('editor')->render('position-editor'); ?>
+                        <?= $this->data['editor']->render('position-editor'); ?>
                     </div>
 
-                    <?= $this->getData('editor')->getData('text')->render(
+                    <?= $this->data['editor']->data['text']->render(
                         'position-editor',
                         'description',
                         'iPosition',
@@ -107,4 +107,4 @@ echo $this->data['nav']->render(); ?>
     </div>
 </div>
 
-<?= $this->getData('position-selector')->getData('position-selector-popup')->render(); ?>
+<?= $this->data['position-selector']->data['position-selector-popup']->render(); ?>

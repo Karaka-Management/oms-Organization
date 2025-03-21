@@ -83,10 +83,10 @@ echo $this->data['nav']->render(); ?>
                     </div>
 
                     <div class="form-group">
-                        <?= $this->getData('editor')->render('department-editor'); ?>
+                        <?= $this->data['editor']->render('department-editor'); ?>
                     </div>
 
-                    <?= $this->getData('editor')->getData('text')->render(
+                    <?= $this->data['editor']->data['text']->render(
                         'department-editor',
                         'description',
                         'iDepartment',
@@ -107,4 +107,4 @@ echo $this->data['nav']->render(); ?>
     </div>
 </div>
 
-<?= $this->getData('department-selector')->getData('department-selector-popup')->render(); ?>
+<?= $this->data['department-selector']->data['department-selector-popup']->render(); ?>

@@ -26,7 +26,7 @@ $previous = empty($departments)
 $next = empty($departments)
     ? 'organization/department/list'
     : 'organization/department/list?{?}&id='
-        . ($this->getData('hasMore') ? \end($departments)->id : $this->request->getData('id'))
+        . ($this->data['hasMore'] ? \end($departments)->id : $this->request->getData('id'))
         . '&ptype=n';
 
 echo $this->data['nav']->render(); ?>

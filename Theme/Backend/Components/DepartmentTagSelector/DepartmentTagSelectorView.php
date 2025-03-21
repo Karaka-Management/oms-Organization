@@ -88,7 +88,7 @@ class DepartmentTagSelectorView extends View
         $this->name       = $data[1];
         $this->isRequired = $data[2] ?? false;
 
-        $this->getData('department-selector-popup')->id = $this->id;
+        $this->data['department-selector-popup']->id = $this->id;
 
         return parent::render();
     }

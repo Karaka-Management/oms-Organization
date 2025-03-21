@@ -64,10 +64,10 @@ echo $this->data['nav']->render(); ?>
                     </div>
 
                     <div class="form-group">
-                        <?= $this->getData('editor')->render('unit-editor'); ?>
+                        <?= $this->data['editor']->render('unit-editor'); ?>
                     </div>
 
-                    <?= $this->getData('editor')->getData('text')->render('unit-editor', 'description', 'fUnitCreate'); ?>
+                    <?= $this->data['editor']->data['text']->render('unit-editor', 'description', 'fUnitCreate'); ?>
                 </div>
                 <div class="portlet-foot">
                     <input id="iUnitCreate" name="submit" type="submit" value="<?= $this->getHtml('Create', '0', '0'); ?>">
@@ -119,4 +119,4 @@ echo $this->data['nav']->render(); ?>
     </div>
 </form>
 
-<?= $this->getData('unit-selector')->getData('unit-selector-popup')->render(); ?>
+<?= $this->data['unit-selector']->data['unit-selector-popup']->render(); ?>
